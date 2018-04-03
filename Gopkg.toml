@@ -1,0 +1,83 @@
+required = ["github.com/lightningnetwork/lnd"]
+
+[[constraint]]
+  name = "github.com/awalterschulze/gographviz"
+
+[[constraint]]
+  name = "github.com/btcsuite/btclog"
+
+[[constraint]]
+  name = "github.com/coreos/bbolt"
+
+[[constraint]]
+  name = "github.com/davecgh/go-spew"
+
+[[constraint]]
+  name = "github.com/go-errors/errors"
+
+[[constraint]]
+  name = "github.com/golang/protobuf"
+
+[[constraint]]
+  name = "github.com/grpc-ecosystem/grpc-gateway"
+
+[[constraint]]
+  name = "github.com/jessevdk/go-flags"
+
+[[constraint]]
+  name = "github.com/jrick/logrotate"
+
+[[constraint]]
+  name = "github.com/kkdai/bstream"
+
+[[constraint]]
+  name = "github.com/lightninglabs/neutrino"
+
+[[constraint]]
+  name = "github.com/lightningnetwork/lightning-onion"
+
+[[constraint]]
+  name = "github.com/ltcsuite/ltcd"
+
+[[constraint]]
+  name = "github.com/miekg/dns"
+
+[[constraint]]
+  name = "github.com/roasbeef/btcutil"
+
+[[constraint]]
+  name = "github.com/roasbeef/btcd"
+
+[[constraint]]
+  name = "github.com/roasbeef/btcwallet"
+
+[[constraint]]
+  name = "github.com/tv42/zbase32"
+
+[[constraint]]
+  name = "github.com/urfave/cli"
+
+[[constraint]]
+  name = "github.com/Yawning/aez"
+
+[[constraint]]
+  name = "golang.org/x/crypto"
+
+[[constraint]]
+  name = "golang.org/x/net"
+
+[[constraint]]
+  name = "google.golang.org/genproto"
+
+[[constraint]]
+  name = "google.golang.org/grpc"
+
+[[constraint]]
+  name = "gopkg.in/macaroon-bakery.v2"
+
+[[constraint]]
+  name = "gopkg.in/macaroon.v2"
+
+[prune]
+  go-tests = true
+  unused-packages = true
