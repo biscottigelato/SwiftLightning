@@ -1,0 +1,5 @@
+required = ["github.com/lightningnetwork/lnd"]
+
+[[constraint]]
+  name = "github.com/lightningnetwork/lnd"
+  version = "v0.4.1-beta"
