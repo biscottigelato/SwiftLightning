@@ -33,7 +33,7 @@ xcuserdata
 # you should judge for yourself, the pros and cons are mentioned at:
 # http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
 #
-# Pods/
+  Pods/
 
 # Carthage
 #
@@ -46,9 +46,7 @@ Carthage/Build
 # Always run packagelnd.sh to generate the necassarily lnd files
 ios/Lightningd.framework
 vendor/
-
 lnd/
 !lnd/start.go
-
 Gopkg.lock
 Gopkg.toml
