@@ -2,10 +2,13 @@ if [ "$1" = "--clean" ]
 then
   rm -f Gopkg.toml
   rm -f Gopkg.lock
-  rm -Rdf lnd
   rm -Rdf vendor
   rm -Rdf ios/Lightningd.framework
   
+  mv lnd/start.go lnd/start.bak
+  rm -f lnd/*.go
+  mv lnd/start.bak lnd/start.go
+
 elif [ "$1" = "--init" ]
 then
   # This just gets lnd into /vendor
@@ -13,7 +16,6 @@ then
   dep ensure
 
   # This makes a copy of lnd main package files along with it's Gopkg.toml
-  mkdir lnd
   cp -v vendor/github.com/lightningnetwork/lnd/*.go ./lnd
   cp -v -f vendor/github.com/lightningnetwork/lnd/Gopkg.toml Gopkg.toml
   dep ensure

@@ -15,11 +15,13 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     
-    guard let appDataDir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.absoluteString, let appDataString = appDataDir.removingPercentEncoding else {
+    guard let appDataPath = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.path else {
       fatalError("Cannot get Application Support Folder URL")
     }
     
-    LightningdStartDaemon(appDataString)
+    let lndArgs = "--bitcoin.active --bitcoin.testnet --debuglevel=debug --bitcoin.node=neutrino --neutrino.connect=faucet.lightning.community"
+    
+    LightningdStartLND(appDataPath, lndArgs)
   }
 
   override func didReceiveMemoryWarning() {

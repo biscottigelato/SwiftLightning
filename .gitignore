@@ -45,4 +45,3 @@ Carthage/Build
 # Project specific
 # Always run packagelnd.sh to generate the necassarily lnd files
 vendor/
-lnd/
