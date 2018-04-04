@@ -44,4 +44,11 @@ Carthage/Build
 
 # Project specific
 # Always run packagelnd.sh to generate the necassarily lnd files
+ios/Lightningd.framework
 vendor/
+
+lnd/
+!lnd/start.go
+
+Gopkg.lock
+Gopkg.toml
