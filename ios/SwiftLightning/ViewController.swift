@@ -15,8 +15,11 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     
-    LightningdHelloWorld()
-    LightningdStartDaemon()
+    guard let appDataDir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.absoluteString, let appDataString = appDataDir.removingPercentEncoding else {
+      fatalError("Cannot get Application Support Folder URL")
+    }
+    
+    LightningdStartDaemon(appDataString)
   }
 
   override func didReceiveMemoryWarning() {
