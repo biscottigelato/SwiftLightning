@@ -1,4 +1,12 @@
-SwiftLightning
+# SwiftLightning
+
+**A Lightning Network light wallet implementation on native iOS using Swift**
+
+SwiftLightning is a work-in-progress codename for a Lightning Network light wallet implementation. This project is meant to focus on a native Swift implemenation focused on iOS, but potentially also for native Mac OSX in the future.
+
+# Getting Started
+
+## Tools & Libraries
 
 Install Go Lang from https://golang.org/
 
@@ -18,6 +26,8 @@ Install Swift Protobuf
 $ brew install swift-protobuf
 ```
 
+## Build & Install
+
 Get Swift Lightning
 ```
 $ go get github.com/biscottigelato/SwiftLightning
@@ -33,4 +43,13 @@ Convert rpc.proto to Swift
 $ ./gen_protos.sh
 ```
 
-Run SwiftLightning.xcworkspace
+Install all Cocoapod dependencies
+```
+$ cd ios
+$ pod install
+```
+
+Finall, Start Xcode!
+```
+$ xcode ios/SwiftLightning.xcworkspace
+```
