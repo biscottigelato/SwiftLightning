@@ -8,6 +8,9 @@ target 'SwiftLightning' do
   use_frameworks!
 
   # Pods for SwiftLightning
+  pod 'Fabric', '~> 1.7.6'
+  pod 'Crashlytics', '~> 3.10'
+  pod 'CocoaLumberjack/Swift', '~> 3.4.1', :inhibit_warnings => true
   pod 'SwiftProtobuf', '~> 1.0'
-  
+
 end

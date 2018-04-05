@@ -16,7 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    
     // Override point for customization after application launch.
+    SCLog.initializeLogging()
+    SCLog.initializeReporting()
     
     // Obtain the path to Application Support
     guard let appDataPath = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.path else {
@@ -25,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // Arguments for LND Start
     let lndArgs = "--bitcoin.active --bitcoin.testnet --debuglevel=debug --bitcoin.node=neutrino --neutrino.connect=faucet.lightning.community"
+    SCLog.verbose("LND Arguments: \(lndArgs)")
     
     // Start LND
     LightningdStartLND(appDataPath, lndArgs)

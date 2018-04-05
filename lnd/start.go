@@ -1,7 +1,6 @@
 package lnd
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -37,11 +36,10 @@ func StartMain(appDataDir string, argv string) error {
 	argStringArray := strings.Split(argv, " ")
 	lndStringArray := []string{"lnd"}
 	lndStringArray = append(lndStringArray, argStringArray...)
+
+	// Override OS Arguments
 	os.Args = lndStringArray
 
-	for index, argument := range os.Args {
-		fmt.Printf("OS Arg %d: %v\n", index, argument)
-	}
-
+	// Head to 'main'.lndMain()
 	return lndMain()
 }

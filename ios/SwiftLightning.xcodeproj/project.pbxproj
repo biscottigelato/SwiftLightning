@@ -14,6 +14,7 @@
 		8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70E2073513800966D31 /* Assets.xcassets */; };
 		8C2FC7122073513800966D31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC7102073513800966D31 /* LaunchScreen.storyboard */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
+		8C7D310820755CE00068F2BD /* SCLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SCLog.swift */; };
 		B6B514D5D47CE23C7C8010FE /* Pods_SwiftLightning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		8C2FC7112073513800966D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C2FC7132073513900966D31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
+		8C7D310720755CE00068F2BD /* SCLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCLog.swift; sourceTree = "<group>"; };
 		A3538100590C9418BE927FF7 /* Pods-SwiftLightning.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLightning.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,12 +78,11 @@
 		8C2FC7062073513700966D31 /* SwiftLightning */ = {
 			isa = PBXGroup;
 			children = (
-				8C2FC7072073513700966D31 /* AppDelegate.swift */,
-				8C2FC7092073513700966D31 /* ViewController.swift */,
-				8C2FC70B2073513700966D31 /* Main.storyboard */,
-				8C2FC70E2073513800966D31 /* Assets.xcassets */,
-				8C2FC7102073513800966D31 /* LaunchScreen.storyboard */,
-				8C2FC7132073513900966D31 /* Info.plist */,
+				8C7D310620755AF00068F2BD /* Assets */,
+				8C7D310220755A050068F2BD /* Support Files */,
+				8C7D310320755ADE0068F2BD /* Model */,
+				8C7D310420755AE30068F2BD /* View */,
+				8C7D310520755AE80068F2BD /* Controller */,
 			);
 			path = SwiftLightning;
 			sourceTree = "<group>";
@@ -92,6 +93,48 @@
 				8C7D3100207542CA0068F2BD /* rpc.pb.swift */,
 			);
 			path = Protobuf;
+			sourceTree = "<group>";
+		};
+		8C7D310220755A050068F2BD /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				8C2FC7132073513900966D31 /* Info.plist */,
+				8C2FC7072073513700966D31 /* AppDelegate.swift */,
+				8C7D310720755CE00068F2BD /* SCLog.swift */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		8C7D310320755ADE0068F2BD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8C7D310420755AE30068F2BD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8C2FC7102073513800966D31 /* LaunchScreen.storyboard */,
+				8C2FC70B2073513700966D31 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8C7D310520755AE80068F2BD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8C2FC7092073513700966D31 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8C7D310620755AF00068F2BD /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				8C2FC70E2073513800966D31 /* Assets.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		AE3AC051CBE548BC89273011 /* Pods */ = {
@@ -116,6 +159,7 @@
 				8C2FC7022073513600966D31 /* Resources */,
 				7DC2F53F6532F2C474D27B21 /* [CP] Embed Pods Frameworks */,
 				7A3B0011FD8D2C8AA6054ED5 /* [CP] Copy Pods Resources */,
+				8C7D3109207575B00068F2BD /* Fabric Run Script */,
 			);
 			buildRules = (
 			);
@@ -195,16 +239,32 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		8C7D3109207575B00068F2BD /* Fabric Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fabric Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 1da5cda251ab04004b33cd509f646eea4502ec5f c9b33ad9bb930a99b625e2d5783a8af4cc5dd757c721dd6ff0366da4f03c847e";
 		};
 		D139D666AEE5A8757029721C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -231,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C7D310820755CE00068F2BD /* SCLog.swift in Sources */,
 				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
 				8C2FC70A2073513700966D31 /* ViewController.swift in Sources */,
 				8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */,
@@ -379,13 +440,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = G37J442U66;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = SwiftLightning/Info.plist;
+				INFOPLIST_FILE = "SwiftLightning/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -409,7 +471,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = SwiftLightning/Info.plist;
+				INFOPLIST_FILE = "SwiftLightning/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

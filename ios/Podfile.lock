@@ -1,12 +1,24 @@
 PODS:
+  - CocoaLumberjack/Default (3.4.1)
+  - CocoaLumberjack/Swift (3.4.1):
+    - CocoaLumberjack/Default
+  - Crashlytics (3.10.1):
+    - Fabric (~> 1.7.5)
+  - Fabric (1.7.6)
   - SwiftProtobuf (1.0.3)
 
 DEPENDENCIES:
+  - CocoaLumberjack/Swift (~> 3.4.1)
+  - Crashlytics (~> 3.10)
+  - Fabric (~> 1.7.6)
   - SwiftProtobuf (~> 1.0)
 
 SPEC CHECKSUMS:
+  CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
+  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
+  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   SwiftProtobuf: 5ccc0e4054e37c75800e5744acb2aa80bb72b39c
 
-PODFILE CHECKSUM: a81e3d6e17d5c99afc27b6a019c44fcff848508a
+PODFILE CHECKSUM: dc4d98a60e9c130239760f6f812e7a11ba44bb51
 
 COCOAPODS: 1.4.0
