@@ -13,8 +13,11 @@
 		8C2FC70D2073513700966D31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70B2073513700966D31 /* Main.storyboard */; };
 		8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70E2073513800966D31 /* Assets.xcassets */; };
 		8C2FC7122073513800966D31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC7102073513800966D31 /* LaunchScreen.storyboard */; };
+		8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */; };
+		8C4710FB2077E79C005D7ABC /* LND.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710FA2077E79C005D7ABC /* LND.swift */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SCLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SCLog.swift */; };
+		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
 		B6B514D5D47CE23C7C8010FE /* Pods_SwiftLightning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,8 +32,11 @@
 		8C2FC70E2073513800966D31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C2FC7112073513800966D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C2FC7132073513900966D31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.grpc.swift; sourceTree = "<group>"; };
+		8C4710FA2077E79C005D7ABC /* LND.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LND.swift; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SCLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCLog.swift; sourceTree = "<group>"; };
+		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		A3538100590C9418BE927FF7 /* Pods-SwiftLightning.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLightning.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +86,7 @@
 			children = (
 				8C7D310620755AF00068F2BD /* Assets */,
 				8C7D310220755A050068F2BD /* Support Files */,
+				8C4710FC20783DEB005D7ABC /* Extensions */,
 				8C7D310320755ADE0068F2BD /* Model */,
 				8C7D310420755AE30068F2BD /* View */,
 				8C7D310520755AE80068F2BD /* Controller */,
@@ -87,9 +94,18 @@
 			path = SwiftLightning;
 			sourceTree = "<group>";
 		};
+		8C4710FC20783DEB005D7ABC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		8C7D30FE207542090068F2BD /* Protobuf */ = {
 			isa = PBXGroup;
 			children = (
+				8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */,
 				8C7D3100207542CA0068F2BD /* rpc.pb.swift */,
 			);
 			path = Protobuf;
@@ -108,6 +124,7 @@
 		8C7D310320755ADE0068F2BD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8C4710FA2077E79C005D7ABC /* LND.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -239,13 +256,21 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftGRPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -292,8 +317,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C7D310820755CE00068F2BD /* SCLog.swift in Sources */,
+				8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */,
 				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
 				8C2FC70A2073513700966D31 /* ViewController.swift in Sources */,
+				8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */,
+				8C4710FB2077E79C005D7ABC /* LND.swift in Sources */,
 				8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

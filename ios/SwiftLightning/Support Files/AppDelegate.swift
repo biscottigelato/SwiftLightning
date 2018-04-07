@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Lightningd
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,17 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     SCLog.initializeLogging()
     SCLog.initializeReporting()
     
-    // Obtain the path to Application Support
-    guard let appDataPath = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.path else {
-      fatalError("Cannot get Application Support Folder URL")
-    }
-    
-    // Arguments for LND Start
-    let lndArgs = "--bitcoin.active --bitcoin.testnet --debuglevel=debug --bitcoin.node=neutrino --neutrino.connect=faucet.lightning.community"
-    SCLog.verbose("LND Arguments: \(lndArgs)")
-    
-    // Start LND
-    LightningdStartLND(appDataPath, lndArgs)
+    LND.initialize()
     
     return true
   }

@@ -26,6 +26,12 @@ Install Swift Protobuf
 $ brew install swift-protobuf
 ```
 
+Install Swift GRPC
+```
+$ git clone https://www.github.com/grpc/grpc-swift
+make install
+```
+
 ## Build & Install
 
 Get Swift Lightning

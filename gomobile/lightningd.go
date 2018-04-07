@@ -7,8 +7,8 @@ import (
 )
 
 // StartLND is the function to start the LN Daemon
-func StartLND(appDataDir string, argv string) {
-	err := lnd.StartMain(appDataDir, argv)
+func StartLND(appDataDir string, arguments string) {
+	err := lnd.StartMain(appDataDir, arguments)
 
 	if err != nil {
 		fmt.Printf("lndMain error - %v", err)

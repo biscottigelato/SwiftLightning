@@ -8,10 +8,10 @@ import (
 
 // StartMain is the hook for updating the default configuration for
 // non-terminal, library applications
-func StartMain(appDataDir string, argv string) error {
+func StartMain(appSupportDir string, arguments string) error {
 
 	// Update all Default Directory locations
-	defaultLndDir = filepath.Join(appDataDir, "lnd")
+	defaultLndDir = filepath.Join(appSupportDir, "lnd")
 	defaultConfigFile = filepath.Join(defaultLndDir, defaultConfigFilename)
 	defaultDataDir = filepath.Join(defaultLndDir, defaultDataDirname)
 	defaultLogDir = filepath.Join(defaultLndDir, defaultLogDirname)
@@ -23,17 +23,17 @@ func StartMain(appDataDir string, argv string) error {
 	defaultReadMacPath = filepath.Join(defaultLndDir, defaultReadMacFilename)
 	defaultInvoiceMacPath = filepath.Join(defaultLndDir, defaultInvoiceMacFilename)
 
-	defaultBtcdDir = filepath.Join(appDataDir, "btcd")
+	defaultBtcdDir = filepath.Join(appSupportDir, "btcd")
 	defaultBtcdRPCCertFile = filepath.Join(defaultBtcdDir, "rpc.cert")
 
-	defaultLtcdDir = filepath.Join(appDataDir, "ltcd")
+	defaultLtcdDir = filepath.Join(appSupportDir, "ltcd")
 	defaultLtcdRPCCertFile = filepath.Join(defaultLtcdDir, "rpc.cert")
 
-	defaultBitcoindDir = filepath.Join(appDataDir, "bitcoin")
-	defaultLitecoindDir = filepath.Join(appDataDir, "litecoin")
+	defaultBitcoindDir = filepath.Join(appSupportDir, "bitcoin")
+	defaultLitecoindDir = filepath.Join(appSupportDir, "litecoin")
 
 	// Split programmatic arguments into an argument array
-	argStringArray := strings.Split(argv, " ")
+	argStringArray := strings.Split(arguments, " ")
 	lndStringArray := []string{"lnd"}
 	lndStringArray = append(lndStringArray, argStringArray...)
 
