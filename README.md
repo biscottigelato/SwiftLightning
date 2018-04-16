@@ -21,12 +21,17 @@ $ go get golang.org/x/mobile/cmd/gomobile
 $ gomobile init # it might take a few minutes
 ```
 
+Get GSED
+```
+$ brew install gnu-sed
+```
+
 Install Swift Protobuf
 ```
 $ brew install swift-protobuf
 ```
 
-Install Swift GRPC
+Install Swift GRPC. The following sometimes doesn't work. So follow the instructions on the Swift GRPC Github for the most accurate instructions
 ```
 $ git clone https://www.github.com/grpc/grpc-swift
 make install

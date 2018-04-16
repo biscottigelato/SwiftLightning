@@ -13,7 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
     // Override point for customization after application launch.
@@ -21,6 +20,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     SCLog.initializeReporting()
     
     LND.initialize()
+    
+    // Launch Root View Controller
+    let storyboard = UIStoryboard(name: "CreateRecover", bundle: nil)
+    let identifier = "CreateRecoverViewController"
+    guard let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as? CreateRecoverViewController else {
+      SCLog.fatal("ViewController initiated not of CreateRecoverViewController Class!!")
+    }
+    viewController.restorationIdentifier = identifier
+    
+    window = UIWindow(frame: UIScreen.main.bounds)
+    window?.rootViewController = viewController
+    window?.makeKeyAndVisible()
     
     return true
   }

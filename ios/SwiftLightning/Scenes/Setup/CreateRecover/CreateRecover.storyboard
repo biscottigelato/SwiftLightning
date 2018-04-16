@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="d53-xy-3IX">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Create Recover View Controller-->
+        <scene sceneID="A1r-2Q-skv">
+            <objects>
+                <viewController storyboardIdentifier="CreateRecoverViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="d53-xy-3IX" customClass="CreateRecoverViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ya9-Ar-CTT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OJM-H1-yHW" customClass="DesignableButton" customModule="SwiftLightning" customModuleProvider="target">
+                                <rect key="frame" x="9" y="572" width="356.5" height="45"/>
+                                <color key="backgroundColor" red="0.38039215686274508" green="0.85098039215686272" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="TIU-Li-KGf"/>
+                                </constraints>
+                                <state key="normal" title="Recover Wallet">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.29999999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                        <size key="value" width="0.0" height="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" red="0.062745098039215685" green="0.15294117647058825" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="thU-X2-QRs" customClass="DesignableButton" customModule="SwiftLightning" customModuleProvider="target">
+                                <rect key="frame" x="9" y="512" width="356.5" height="45"/>
+                                <color key="backgroundColor" red="0.41176470588235292" green="0.72156862745098038" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="PCE-hQ-xhL"/>
+                                </constraints>
+                                <state key="normal" title="Create New Wallet">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.29999999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" red="0.12549019607843137" green="0.21176470588235294" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                        <size key="value" width="0.0" height="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="thU-X2-QRs" firstAttribute="width" secondItem="ya9-Ar-CTT" secondAttribute="width" multiplier="0.95" id="98g-Ol-GZh"/>
+                            <constraint firstItem="OJM-H1-yHW" firstAttribute="top" secondItem="thU-X2-QRs" secondAttribute="bottom" constant="15" id="NWJ-BA-UYJ"/>
+                            <constraint firstItem="OJM-H1-yHW" firstAttribute="width" secondItem="ya9-Ar-CTT" secondAttribute="width" multiplier="0.95" id="jQ4-w3-g9P"/>
+                            <constraint firstItem="uc8-2Y-uAX" firstAttribute="bottom" secondItem="OJM-H1-yHW" secondAttribute="bottom" constant="50" id="qb6-WK-gZT"/>
+                            <constraint firstItem="OJM-H1-yHW" firstAttribute="centerX" secondItem="uc8-2Y-uAX" secondAttribute="centerX" id="yk7-iu-haN"/>
+                            <constraint firstItem="thU-X2-QRs" firstAttribute="centerX" secondItem="uc8-2Y-uAX" secondAttribute="centerX" id="zpL-lO-nas"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="uc8-2Y-uAX"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uw0-mg-2Cv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="61.600000000000001" y="100.29985007496252"/>
+        </scene>
+    </scenes>
+</document>
