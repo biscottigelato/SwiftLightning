@@ -29,16 +29,31 @@ class SLButtonView: UIButton {
     static let defaultCornerRadius: CGFloat = 10.0
     static let defaultHeight: CGFloat = 45.0
     static let defaultFontSize: CGFloat = 16.0
+    static let defaultFontWeight = UIFont.Weight.regular
+    static let defaultShadowOffset = CGSize(width: 0.0, height: 3.0)
+    static let defaultShadowBlur: CGFloat = 4.0/2
+    static let defaultShadowOpacity: Float = 0.3
     
     static let smallSizedCornerRadius: CGFloat = 5.0
+    static let smallSizedWidth: CGFloat = 60.0
     static let smallSizedHeight: CGFloat = 28.0
     static let smallSizedFontSize: CGFloat = 12.0
+    static let smallSizedFontWeight = UIFont.Weight.regular
+    static let smallSizedShadowOffset = CGSize(width: 0.0, height: 1.0)
+    static let smallSizedShadowBlur: CGFloat = 3.0/2
+    static let smallSizedShadowOpacity: Float = 0.2
+    
+    static let defaultLayoutMargin: CGFloat = 20.0
   }
   
   
   // MARK: - Public Variables
   
+  var intrinsicSize: CGSize = CGSize.zero
   var slButtonSize: SizeType = .full
+  
+  
+  // MARK: - Private Variables
   
   
   // MARK: - IBOutlets
@@ -69,29 +84,84 @@ class SLButtonView: UIButton {
   }
   
   
+  override var intrinsicContentSize: CGSize {
+    return intrinsicSize
+  }
+  
+  
   // MARK: - Private Instance Functions
   
   private func initButton(by sizeType: SizeType) {
   
+    // Pre-calculate the Intrinsic Size of the button
+    
+    var leftMargin = Constants.defaultLayoutMargin
+    var rightMargin = Constants.defaultLayoutMargin
+    var superviewWidth = UIScreen.main.bounds.width
+    
+    if let layoutMargins = superview?.layoutMargins {
+      if layoutMargins.left != 0 { leftMargin = layoutMargins.left }
+      if layoutMargins.right != 0 { rightMargin = layoutMargins.right }
+    }
+    else if let layoutMargins = UIScreen.main.focusedView?.layoutMargins {
+      if layoutMargins.left != 0 { leftMargin = layoutMargins.left }
+      if layoutMargins.right != 0 { rightMargin = layoutMargins.right }
+    }
+    
+    if let width = superview?.bounds.width {
+      superviewWidth = width
+    }
+    else if let width = window?.bounds.width {
+      superviewWidth = width
+    }
+    
     switch sizeType {
     case .full:
+      let buttonWidth = superviewWidth - leftMargin - rightMargin
+      intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
-      self.snp.makeConstraints { (make) -> Void in
-        make.height.equalTo(Constants.defaultHeight)
-        // make.center.equalTo(UIWindow.) Default autolayout against parent? If not, at least against the UIWindow?
-      }
+      titleLabel?.font = UIFont.systemFont(ofSize: Constants.defaultFontSize, weight: Constants.defaultFontWeight)
+      layer.shadowOffset = Constants.defaultShadowOffset
+      layer.shadowRadius = Constants.defaultShadowBlur
+      layer.shadowOpacity = Constants.defaultShadowOpacity
       
     case .half:
+      let buttonWidth = (superviewWidth - 1.5*(leftMargin + rightMargin))/2
+      intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
+      titleLabel?.font = UIFont.systemFont(ofSize: Constants.defaultFontSize, weight: Constants.defaultFontWeight)
+      layer.shadowOffset = Constants.defaultShadowOffset
+      layer.shadowRadius = Constants.defaultShadowBlur
+      layer.shadowOpacity = Constants.defaultShadowOpacity
       
     case .formFull:
+      let buttonWidth = superviewWidth - leftMargin - rightMargin
+      intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
+      titleLabel?.font = UIFont.systemFont(ofSize: Constants.defaultFontSize, weight: Constants.defaultFontWeight)
+      layer.shadowOffset = Constants.defaultShadowOffset
+      layer.shadowRadius = Constants.defaultShadowBlur
+      layer.shadowOpacity = Constants.defaultShadowOpacity
       
     case .formHalf:
+      let buttonWidth = (superviewWidth - 1.5*(leftMargin + rightMargin))/2
+      intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
+      titleLabel?.font = UIFont.systemFont(ofSize: Constants.defaultFontSize, weight: Constants.defaultFontWeight)
+      layer.shadowOffset = Constants.defaultShadowOffset
+      layer.shadowRadius = Constants.defaultShadowBlur
+      layer.shadowOpacity = Constants.defaultShadowOpacity
       
     case .field:
+      intrinsicSize = CGSize(width: Constants.smallSizedWidth, height: Constants.smallSizedHeight)
       layer.cornerRadius = Constants.smallSizedCornerRadius
+      titleLabel?.font = UIFont.systemFont(ofSize: Constants.defaultFontSize, weight: Constants.defaultFontWeight)
+      layer.shadowOffset = Constants.smallSizedShadowOffset
+      layer.shadowRadius = Constants.smallSizedShadowBlur
+      layer.shadowOpacity = Constants.smallSizedShadowOpacity
     }
+    
+    SCLog.verbose("SLButton View Intrinsic Content Size: \(intrinsicContentSize)")
+    invalidateIntrinsicContentSize()
   }
 }

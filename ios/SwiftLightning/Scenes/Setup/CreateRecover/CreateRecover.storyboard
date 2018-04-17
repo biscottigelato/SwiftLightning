@@ -5,23 +5,37 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Create Recover View Controller-->
         <scene sceneID="8NH-0X-7bs">
             <objects>
-                <viewController id="Me3-dU-md1" sceneMemberID="viewController">
+                <viewController id="Me3-dU-md1" customClass="CreateRecoverViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XiV-3x-Db3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-A9-PER" customClass="SLButtonView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="72" y="535" width="230" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-A9-PER" customClass="SLButtonView" customModule="SwiftLightning" customModuleProvider="target">
+                                <rect key="frame" x="21" y="507" width="335" height="45"/>
                                 <color key="backgroundColor" red="0.3803921569" green="0.85098039219999999" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQF-OK-Hbl" customClass="SLButtonView" customModule="SwiftLightning" customModuleProvider="target">
+                                <rect key="frame" x="20" y="572" width="335" height="45"/>
+                                <color key="backgroundColor" name="LightAzureBlue"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
                                         <integer key="value" value="0"/>
@@ -30,6 +44,12 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6VG-A9-PER" firstAttribute="centerX" secondItem="NYs-8G-VAs" secondAttribute="centerX" id="RDx-22-KPG"/>
+                            <constraint firstItem="DQF-OK-Hbl" firstAttribute="top" secondItem="6VG-A9-PER" secondAttribute="bottom" constant="20" id="SgL-nU-xQZ"/>
+                            <constraint firstItem="NYs-8G-VAs" firstAttribute="bottom" secondItem="DQF-OK-Hbl" secondAttribute="bottom" constant="50" id="gKw-4r-Ouz"/>
+                            <constraint firstItem="DQF-OK-Hbl" firstAttribute="centerX" secondItem="NYs-8G-VAs" secondAttribute="centerX" id="vKd-6Y-k76"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="NYs-8G-VAs"/>
                     </view>
                 </viewController>
@@ -38,4 +58,9 @@
             <point key="canvasLocation" x="444" y="4.9475262368815596"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="LightAzureBlue">
+            <color red="0.41176470588235292" green="0.72156862745098038" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>
