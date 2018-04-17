@@ -24,11 +24,11 @@
 		8CFA16A42082EF3A00813EA6 /* CreateRecoverModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA169E2082EF3A00813EA6 /* CreateRecoverModels.swift */; };
 		8CFA16A52082EF3A00813EA6 /* CreateRecoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA169F2082EF3A00813EA6 /* CreateRecoverViewController.swift */; };
 		8CFA16A62082EF3A00813EA6 /* CreateRecoverInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA16A02082EF3A00813EA6 /* CreateRecoverInteractor.swift */; };
-		8CFA16A82082F1E600813EA6 /* CreateRecover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CFA16A72082F1E600813EA6 /* CreateRecover.storyboard */; };
 		8CFA16AC2082FF4F00813EA6 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA16AB2082FF4F00813EA6 /* UIView+Extension.swift */; };
 		8CFA16AE2083001F00813EA6 /* DesignableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA16AD2083001F00813EA6 /* DesignableViews.swift */; };
-		8CFA16B52085305500813EA6 /* SLButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA16B32085305500813EA6 /* SLButtonView.swift */; };
 		8CFA16E32085510600813EA6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CFA16E22085510600813EA6 /* Colors.xcassets */; };
+		8CFA16E420856E6800813EA6 /* SLButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA16B32085305500813EA6 /* SLButtonView.swift */; };
+		8CFA16E620856E9800813EA6 /* CreateRecover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CFA16E520856E9800813EA6 /* CreateRecover.storyboard */; };
 		B6B514D5D47CE23C7C8010FE /* Pods_SwiftLightning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,11 +54,11 @@
 		8CFA169E2082EF3A00813EA6 /* CreateRecoverModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecoverModels.swift; sourceTree = "<group>"; };
 		8CFA169F2082EF3A00813EA6 /* CreateRecoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecoverViewController.swift; sourceTree = "<group>"; };
 		8CFA16A02082EF3A00813EA6 /* CreateRecoverInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecoverInteractor.swift; sourceTree = "<group>"; };
-		8CFA16A72082F1E600813EA6 /* CreateRecover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateRecover.storyboard; sourceTree = "<group>"; };
 		8CFA16AB2082FF4F00813EA6 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		8CFA16AD2083001F00813EA6 /* DesignableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableViews.swift; sourceTree = "<group>"; };
 		8CFA16B32085305500813EA6 /* SLButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLButtonView.swift; sourceTree = "<group>"; };
 		8CFA16E22085510600813EA6 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		8CFA16E520856E9800813EA6 /* CreateRecover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateRecover.storyboard; sourceTree = "<group>"; };
 		A3538100590C9418BE927FF7 /* Pods-SwiftLightning.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLightning.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -228,7 +228,7 @@
 		8CFA16962082EE7400813EA6 /* CreateRecover */ = {
 			isa = PBXGroup;
 			children = (
-				8CFA16A72082F1E600813EA6 /* CreateRecover.storyboard */,
+				8CFA16E520856E9800813EA6 /* CreateRecover.storyboard */,
 				8CFA169B2082EF3A00813EA6 /* CreateRecoverPresenter.swift */,
 				8CFA169C2082EF3A00813EA6 /* CreateRecoverWorker.swift */,
 				8CFA169D2082EF3A00813EA6 /* CreateRecoverRouter.swift */,
@@ -356,7 +356,7 @@
 			files = (
 				8CFA16E32085510600813EA6 /* Colors.xcassets in Resources */,
 				8C2FC7122073513800966D31 /* LaunchScreen.storyboard in Resources */,
-				8CFA16A82082F1E600813EA6 /* CreateRecover.storyboard in Resources */,
+				8CFA16E620856E9800813EA6 /* CreateRecover.storyboard in Resources */,
 				8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */,
 				8C2FC70D2073513700966D31 /* Main.storyboard in Resources */,
 			);
@@ -389,6 +389,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
@@ -398,6 +399,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftGRPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
@@ -450,7 +452,7 @@
 				8C7D310820755CE00068F2BD /* SCLog.swift in Sources */,
 				8CFA16A12082EF3A00813EA6 /* CreateRecoverPresenter.swift in Sources */,
 				8CFA16A22082EF3A00813EA6 /* CreateRecoverWorker.swift in Sources */,
-				8CFA16B52085305500813EA6 /* SLButtonView.swift in Sources */,
+				8CFA16E420856E6800813EA6 /* SLButtonView.swift in Sources */,
 				8CFA16A32082EF3A00813EA6 /* CreateRecoverRouter.swift in Sources */,
 				8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */,
 				8CFA16AE2083001F00813EA6 /* DesignableViews.swift in Sources */,
@@ -539,7 +541,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -593,7 +595,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -616,10 +618,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "SwiftLightning/Support Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -640,10 +639,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "SwiftLightning/Support Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

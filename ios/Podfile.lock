@@ -24,6 +24,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - SnapKit (4.0.0)
   - SwiftGRPC (0.3.3):
     - BoringSSL (~> 9.1)
     - gRPC-Core (~> 1.9.1)
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - Crashlytics (~> 3.10)
   - Fabric (~> 1.7.6)
   - gRPC-Core (from `https://github.com/mrmage/grpc`, branch `fix-cocoapods-swift`)
+  - SnapKit (~> 4.0.0)
   - SwiftGRPC (from `https://github.com/grpc/grpc-swift`)
   - SwiftProtobuf (~> 1.0)
 
@@ -60,9 +62,10 @@ SPEC CHECKSUMS:
   Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   gRPC-Core: 66413bf1f2d038a6221bc7bfcbeeaa5a117cee29
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftGRPC: 4bf6815db518c7921023274a7b4bbad462786f48
   SwiftProtobuf: 5ccc0e4054e37c75800e5744acb2aa80bb72b39c
 
-PODFILE CHECKSUM: e013986a940e170d60ce78daee929fcc80ba8c40
+PODFILE CHECKSUM: 79668c66ca4511adfaf547acb1bb0873cd4d5078
 
 COCOAPODS: 1.4.0
