@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol PasswordCreateRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+  func routeToCreateRecover()
 }
 
 protocol PasswordCreateDataPassing
@@ -29,32 +29,26 @@ class PasswordCreateRouter: NSObject, PasswordCreateRoutingLogic, PasswordCreate
   
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToCreateRecover()
+  {
+    let storyboard = UIStoryboard(name: "CreateRecover", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "CreateRecoverViewController") as! CreateRecoverViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToCreateRecover(source: dataStore!, destination: &destinationDS)
+    navigateToCreateRecover(source: viewController!, destination: destinationVC)
+  }
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: PasswordCreateViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func navigateToCreateRecover(source: PasswordCreateViewController, destination: CreateRecoverViewController)
+  {
+    source.dismiss(animated: true)
+  }
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: PasswordCreateDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func passDataToCreateRecover(source: PasswordCreateDataStore, destination: inout CreateRecoverDataStore)
+  {
+    // destination.name = source.name
+  }
 }

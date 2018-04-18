@@ -13,18 +13,14 @@ import UIKit
   @IBOutlet weak var title: UILabel!
   @IBOutlet weak var logoHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var logoAspectRatioConstraint: NSLayoutConstraint!
-  @IBOutlet weak var spacerHeightConstraint: NSLayoutConstraint!
   
   
   override var intrinsicContentSize: CGSize {
     let logoHeight = logoHeightConstraint.constant
     let logoWidth = logoHeight / logoAspectRatioConstraint.multiplier
-    let spacerHeight = spacerHeightConstraint.constant
     
     let width = logoWidth + title.intrinsicContentSize.width + 15.0
-    let height = max(logoHeight, title.intrinsicContentSize.height) + spacerHeight
-    
-    SCLog.verbose("Intrinsic Content Width \(width), Height \(height)")
+    let height = max(logoHeight, title.intrinsicContentSize.height)
     
     return CGSize(width: width, height: height)
   }

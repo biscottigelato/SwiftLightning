@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C090DEB2086F92A009B8B8D /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090DEA2086F92A009B8B8D /* UITextField+Extension.swift */; };
+		8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090DED2086FF5C009B8B8D /* SLViewController.swift */; };
 		8C188271208679BD002E2835 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C188270208679BD002E2835 /* GradientView.swift */; };
 		8C18828420868545002E2835 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827220868538002E2835 /* Montserrat-Light.ttf */; };
 		8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */; };
@@ -68,6 +70,8 @@
 /* Begin PBXFileReference section */
 		099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftLightning.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8292E2C0A97224CAF9B4332E /* Pods-SwiftLightning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLightning.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning.release.xcconfig"; sourceTree = "<group>"; };
+		8C090DEA2086F92A009B8B8D /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		8C090DED2086FF5C009B8B8D /* SLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLViewController.swift; sourceTree = "<group>"; };
 		8C188270208679BD002E2835 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		8C18827220868538002E2835 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -150,6 +154,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8C090DEC2086FF3D009B8B8D /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				8C090DED2086FF5C009B8B8D /* SLViewController.swift */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
 		8C18829620868559002E2835 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +242,7 @@
 				8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */,
 				8CFA16AB2082FF4F00813EA6 /* UIView+Extension.swift */,
 				8CE3AE642086DA9E007D1065 /* UIColor+Extension.swift */,
+				8C090DEA2086F92A009B8B8D /* UITextField+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -309,6 +322,7 @@
 		8CFA16912082EB7E00813EA6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8C090DEC2086FF3D009B8B8D /* Templates */,
 				8C2FC7102073513800966D31 /* LaunchScreen.storyboard */,
 			);
 			path = Common;
@@ -612,6 +626,7 @@
 				8CFA16A32082EF3A00813EA6 /* CreateRecoverRouter.swift in Sources */,
 				8C188271208679BD002E2835 /* GradientView.swift in Sources */,
 				8C1882A220868EBE002E2835 /* PasswordCreateInteractor.swift in Sources */,
+				8C090DEB2086F92A009B8B8D /* UITextField+Extension.swift in Sources */,
 				8C1882A120868EBE002E2835 /* PasswordCreateViewController.swift in Sources */,
 				8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */,
 				8CFA16AE2083001F00813EA6 /* DesignableViews.swift in Sources */,
@@ -627,6 +642,7 @@
 				8C18829D20868EBE002E2835 /* PasswordCreatePresenter.swift in Sources */,
 				8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */,
 				8CFA16A62082EF3A00813EA6 /* CreateRecoverInteractor.swift in Sources */,
+				8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */,
 				8C4710FB2077E79C005D7ABC /* LND.swift in Sources */,
 				8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */,
 			);

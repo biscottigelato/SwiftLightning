@@ -19,15 +19,17 @@ import UIKit
   @IBOutlet weak var underlineHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var lineLabelContraint: NSLayoutConstraint!
   
+  @IBAction func unhideAction(_ sender: UIButton) {
+    textField.togglePasswordVisibility()
+  }
+  
   override var intrinsicContentSize: CGSize {
     let height = textField.intrinsicContentSize.height +
                  fieldLineConstraint.constant +
                  underlineHeightConstraint.constant +
                  lineLabelContraint.constant +
                  infoLabel.intrinsicContentSize.height
-    
-    SCLog.verbose("Intrinsic Content Width \(288.0), Height \(height)")
-    
+
     return CGSize(width: 288.0, height: height)
   }
 }

@@ -17,7 +17,7 @@ protocol CreateRecoverDisplayLogic: class
   func displaySomething(viewModel: CreateRecover.Something.ViewModel)
 }
 
-class CreateRecoverViewController: UIViewController, CreateRecoverDisplayLogic
+class CreateRecoverViewController: SLViewController, CreateRecoverDisplayLogic
 {
   var interactor: CreateRecoverBusinessLogic?
   var router: (NSObjectProtocol & CreateRecoverRoutingLogic & CreateRecoverDataPassing)?

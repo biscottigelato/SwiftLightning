@@ -17,7 +17,7 @@ protocol PasswordCreateDisplayLogic: class
   func updateSceneView(viewModel: PasswordCreate.ValidatePasswords.ViewModel)
 }
 
-class PasswordCreateViewController: UIViewController, PasswordCreateDisplayLogic, UITextFieldDelegate
+class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic, UITextFieldDelegate
 {
   var interactor: PasswordCreateBusinessLogic?
   var router: (NSObjectProtocol & PasswordCreateRoutingLogic & PasswordCreateDataPassing)?
@@ -25,6 +25,7 @@ class PasswordCreateViewController: UIViewController, PasswordCreateDisplayLogic
   
   // MARK: Common IBOutlets
   
+  @IBOutlet weak var scrollView: UIScrollView!
   @IBOutlet weak var passwordField: SLPasswordField!
   @IBOutlet weak var confirmField: SLPasswordField!
   @IBOutlet weak var proceedButton: SLBarButton!
@@ -73,7 +74,16 @@ class PasswordCreateViewController: UIViewController, PasswordCreateDisplayLogic
     passwordField.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     confirmField.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     
+    keyboardScrollView = scrollView
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
     validatePasswords()
+    passwordField.textField.becomeFirstResponder()
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    view.endEditing(true)
   }
   
   
@@ -113,7 +123,7 @@ class PasswordCreateViewController: UIViewController, PasswordCreateDisplayLogic
     confirmField.infoLabel.textColor = viewModel.confirmFieldLabelColor
     
     if viewModel.proceedButtonEnabled {
-      proceedButton.setTitleColor(UIColor.disabledText, for: .normal)
+      proceedButton.setTitleColor(UIColor.normalText, for: .normal)
       proceedButton.backgroundColor = UIColor.medAquamarine
       proceedButton.shadowColor = UIColor.medAquamarineShadow
       proceedButton.isEnabled = true
@@ -131,4 +141,12 @@ class PasswordCreateViewController: UIViewController, PasswordCreateDisplayLogic
   @IBAction func proceedTapped(_ sender: SLBarButton) {
     
   }
+  
+  
+  // MARK: Back Button
+  
+  @IBAction func backTapped(_ sender: SLIcon30Button) {
+    router?.routeToCreateRecover()
+  }
+  
 }
