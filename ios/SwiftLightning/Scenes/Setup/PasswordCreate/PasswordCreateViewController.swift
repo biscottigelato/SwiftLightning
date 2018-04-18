@@ -12,13 +12,15 @@
 
 import UIKit
 
-protocol PasswordCreateDisplayLogic: class
-{
+protocol PasswordCreateDisplayLogic: class {
+  
   func updateSceneView(viewModel: PasswordCreate.ValidatePasswords.ViewModel)
+  func seedWalletSuccess(viewModel: PasswordCreate.SeedWallet.ViewModel)
+  func seedWalletFailure(viewModel: PasswordCreate.SeedWallet.ViewModel)
 }
 
-class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic, UITextFieldDelegate
-{
+class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic, UITextFieldDelegate {
+  
   var interactor: PasswordCreateBusinessLogic?
   var router: (NSObjectProtocol & PasswordCreateRoutingLogic & PasswordCreateDataPassing)?
 
@@ -33,14 +35,14 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
   
   // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     setup()
   }
   
-  required init?(coder aDecoder: NSCoder)
-  {
+  required init?(coder aDecoder: NSCoder) {
+    
     super.init(coder: aDecoder)
     setup()
   }
@@ -48,8 +50,8 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
   
   // MARK: Setup
   
-  private func setup()
-  {
+  private func setup() {
+    
     let viewController = self
     let interactor = PasswordCreateInteractor()
     let presenter = PasswordCreatePresenter()
@@ -65,8 +67,8 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
   
   // MARK: View lifecycle
   
-  override func viewDidLoad()
-  {
+  override func viewDidLoad() {
+    
     super.viewDidLoad()
     
     passwordField.textField.delegate = self
@@ -89,8 +91,8 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
   
   // MARK: Text fields
   
-  func textFieldShouldReturn(_ textField: UITextField) -> Bool
-  {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    
     textField.resignFirstResponder()
     
     if textField == passwordField.textField {
@@ -106,8 +108,7 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
     validatePasswords()
   }
   
-  func validatePasswords()
-  {
+  func validatePasswords() {
     let passwordText = passwordField.textField.text ?? ""
     let confirmText = confirmField.textField.text ?? ""
     let request = PasswordCreate.ValidatePasswords.Request(passwordText: passwordText,
@@ -115,8 +116,8 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
     interactor?.validatePasswords(request: request)
   }
   
-  func updateSceneView(viewModel: PasswordCreate.ValidatePasswords.ViewModel)
-  {
+  func updateSceneView(viewModel: PasswordCreate.ValidatePasswords.ViewModel) {
+    
     passwordField.infoLabel.text = viewModel.passwordFieldLabelText
     passwordField.infoLabel.textColor = viewModel.passwordFieldLabelColor
     confirmField.infoLabel.text = viewModel.confirmFieldLabelText
@@ -127,6 +128,7 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
       proceedButton.backgroundColor = UIColor.medAquamarine
       proceedButton.shadowColor = UIColor.medAquamarineShadow
       proceedButton.isEnabled = true
+      
     } else {
       proceedButton.setTitleColor(UIColor.disabledText, for: .normal)
       proceedButton.backgroundColor = UIColor.disabledGray
@@ -135,11 +137,27 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
     }
   }
   
+  func seedWalletSuccess(viewModel: PasswordCreate.SeedWallet.ViewModel) {
+    SCLog.verbose("Seed Wallet Success!")
+    
+    for seedWord in viewModel.seedMnemonic! {
+      SCLog.verbose(seedWord)
+    }
+  }
+  
+  func seedWalletFailure(viewModel: PasswordCreate.SeedWallet.ViewModel) {
+    SCLog.verbose("Seed Wallet Failed")
+  }
+  
   
   // MARK: Proceed
   
   @IBAction func proceedTapped(_ sender: SLBarButton) {
-    
+    let passwordText = passwordField.textField.text ?? ""
+    let confirmText = confirmField.textField.text ?? ""
+    let request = PasswordCreate.SeedWallet.Request(passwordText: passwordText,
+                                                    confirmText: confirmText)
+    interactor?.seedWallet(request: request)
   }
   
   

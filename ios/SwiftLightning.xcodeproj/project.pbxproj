@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C090DEB2086F92A009B8B8D /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090DEA2086F92A009B8B8D /* UITextField+Extension.swift */; };
 		8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090DED2086FF5C009B8B8D /* SLViewController.swift */; };
+		8C090DF420870DB9009B8B8D /* LNDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090DF320870DB9009B8B8D /* LNDefinitions.swift */; };
 		8C188271208679BD002E2835 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C188270208679BD002E2835 /* GradientView.swift */; };
 		8C18828420868545002E2835 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827220868538002E2835 /* Montserrat-Light.ttf */; };
 		8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */; };
@@ -46,7 +47,7 @@
 		8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70E2073513800966D31 /* Assets.xcassets */; };
 		8C2FC7122073513800966D31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC7102073513800966D31 /* LaunchScreen.storyboard */; };
 		8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */; };
-		8C4710FB2077E79C005D7ABC /* LND.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710FA2077E79C005D7ABC /* LND.swift */; };
+		8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710FA2077E79C005D7ABC /* LNServices.swift */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SCLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SCLog.swift */; };
 		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
@@ -72,6 +73,7 @@
 		8292E2C0A97224CAF9B4332E /* Pods-SwiftLightning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLightning.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning.release.xcconfig"; sourceTree = "<group>"; };
 		8C090DEA2086F92A009B8B8D /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		8C090DED2086FF5C009B8B8D /* SLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLViewController.swift; sourceTree = "<group>"; };
+		8C090DF320870DB9009B8B8D /* LNDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNDefinitions.swift; sourceTree = "<group>"; };
 		8C188270208679BD002E2835 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		8C18827220868538002E2835 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -111,7 +113,7 @@
 		8C2FC7112073513800966D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C2FC7132073513900966D31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.grpc.swift; sourceTree = "<group>"; };
-		8C4710FA2077E79C005D7ABC /* LND.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LND.swift; sourceTree = "<group>"; };
+		8C4710FA2077E79C005D7ABC /* LNServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNServices.swift; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SCLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCLog.swift; sourceTree = "<group>"; };
 		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
@@ -160,6 +162,23 @@
 				8C090DED2086FF5C009B8B8D /* SLViewController.swift */,
 			);
 			path = Templates;
+			sourceTree = "<group>";
+		};
+		8C090DEF20870AD3009B8B8D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8C090DF020870AE7009B8B8D /* Lightning Shim */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8C090DF020870AE7009B8B8D /* Lightning Shim */ = {
+			isa = PBXGroup;
+			children = (
+				8C090DF320870DB9009B8B8D /* LNDefinitions.swift */,
+				8C4710FA2077E79C005D7ABC /* LNServices.swift */,
+			);
+			path = "Lightning Shim";
 			sourceTree = "<group>";
 		};
 		8C18829620868559002E2835 /* Fonts */ = {
@@ -229,7 +248,8 @@
 				8C7D310620755AF00068F2BD /* Assets */,
 				8C4710FC20783DEB005D7ABC /* Extensions */,
 				8C7D310220755A050068F2BD /* Support Files */,
-				8C7D310420755AE30068F2BD /* UI Elements */,
+				8C7D310420755AE30068F2BD /* View Elements */,
+				8C090DEF20870AD3009B8B8D /* Model */,
 				8CFA16902082EB7300813EA6 /* Scenes */,
 				8C7D310520755AE80068F2BD /* Examples */,
 			);
@@ -266,7 +286,7 @@
 			path = "Support Files";
 			sourceTree = "<group>";
 		};
-		8C7D310420755AE30068F2BD /* UI Elements */ = {
+		8C7D310420755AE30068F2BD /* View Elements */ = {
 			isa = PBXGroup;
 			children = (
 				8CE3AE5F2086AED6007D1065 /* SLUnboxedHeading */,
@@ -275,14 +295,13 @@
 				8C1882B52086A193002E2835 /* SLIcon30Button */,
 				8C1882AB20869313002E2835 /* SLPasswordField */,
 			);
-			path = "UI Elements";
+			path = "View Elements";
 			sourceTree = "<group>";
 		};
 		8C7D310520755AE80068F2BD /* Examples */ = {
 			isa = PBXGroup;
 			children = (
 				8C2FC70B2073513700966D31 /* Main.storyboard */,
-				8C4710FA2077E79C005D7ABC /* LND.swift */,
 				8C2FC7092073513700966D31 /* ViewController.swift */,
 			);
 			path = Examples;
@@ -616,6 +635,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C7D310820755CE00068F2BD /* SCLog.swift in Sources */,
+				8C090DF420870DB9009B8B8D /* LNDefinitions.swift in Sources */,
 				8C1882A020868EBE002E2835 /* PasswordCreateModels.swift in Sources */,
 				8CE3AE612086AF3F007D1065 /* SLUnboxedHeading.swift in Sources */,
 				8CFA16A12082EF3A00813EA6 /* CreateRecoverPresenter.swift in Sources */,
@@ -643,7 +663,7 @@
 				8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */,
 				8CFA16A62082EF3A00813EA6 /* CreateRecoverInteractor.swift in Sources */,
 				8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */,
-				8C4710FB2077E79C005D7ABC /* LND.swift in Sources */,
+				8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */,
 				8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

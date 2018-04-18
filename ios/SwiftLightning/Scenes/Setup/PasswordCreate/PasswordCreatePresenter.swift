@@ -15,13 +15,12 @@ import UIKit
 protocol PasswordCreatePresentationLogic
 {
   func presentSceneUpdate(response: PasswordCreate.ValidatePasswords.Response)
+  func presentSeedWalletResult(response: PasswordCreate.SeedWallet.Response)
 }
 
 class PasswordCreatePresenter: PasswordCreatePresentationLogic
 {
   weak var viewController: PasswordCreateDisplayLogic?
-  
-  // MARK: Do something
   
   func presentSceneUpdate(response: PasswordCreate.ValidatePasswords.Response)
   {
@@ -53,5 +52,20 @@ class PasswordCreatePresenter: PasswordCreatePresentationLogic
                                                                confirmFieldLabelColor: confirmLabelColor,
                                                                proceedButtonEnabled: enableProceedButton)
     viewController?.updateSceneView(viewModel: viewModel)
+  }
+  
+  func presentSeedWalletResult(response: PasswordCreate.SeedWallet.Response) {
+    
+    if let error = response.error {
+      let viewModel = PasswordCreate.SeedWallet.ViewModel(seedMnemonic: nil, errorTitle: "Wallet Creation Failed", errorMsg: error.localizedDescription)
+      viewController?.seedWalletFailure(viewModel: viewModel)
+    }
+    
+    guard let seedMnemonic = response.seedMnemonic else {
+      SCLog.fatal("Seed Wallet Interactor completed with no errors, but seedmMnemonic = nil")
+    }
+    
+    let viewModel = PasswordCreate.SeedWallet.ViewModel(seedMnemonic: seedMnemonic, errorTitle: nil, errorMsg: nil)
+    viewController?.seedWalletSuccess(viewModel: viewModel)
   }
 }

@@ -14,10 +14,7 @@ import UIKit
 
 enum PasswordCreate
 {
-  // MARK: Use cases
-  
-  enum ValidatePasswords
-  {
+  enum ValidatePasswords {
     struct Constants {
       static let minNumChar = 8
       static let maxNumChar = 64
@@ -35,25 +32,51 @@ enum PasswordCreate
       case confirmationOk = " "  // HACK: This is to prevent the textfield from collapsing
     }
     
-    struct Request
-    {
+    struct Request  {
       var passwordText: String
       var confirmText: String
     }
     
-    struct Response
-    {
+    struct Response {
       var passwordFieldStatus: ValidatePasswordStatusEnum
       var confirmFieldStatus: ValidateConfirmStatusEnum
     }
     
-    struct ViewModel
-    {
+    struct ViewModel {
       var passwordFieldLabelText: String
       var passwordFieldLabelColor: UIColor
       var confirmFieldLabelText: String
       var confirmFieldLabelColor: UIColor
       var proceedButtonEnabled: Bool
+    }
+  }
+  
+  
+  enum SeedWalletError: Error {
+    case PasswordConfirmFailed
+    case GenerateSeedErrorSync(String)
+    case GenerateSeedFailedAsync(String)
+    case CreateWalletErrorSync(String)
+    case CreateWalletFailedAsync(String)
+  }
+  
+  
+  enum SeedWallet {
+    
+    struct Request  {
+      var passwordText: String
+      var confirmText: String
+    }
+    
+    struct Response {
+      var seedMnemonic: [String]?
+      var error: Error?
+    }
+    
+    struct ViewModel {
+      var seedMnemonic: [String]?
+      var errorTitle: String?
+      var errorMsg: String?
     }
   }
 }

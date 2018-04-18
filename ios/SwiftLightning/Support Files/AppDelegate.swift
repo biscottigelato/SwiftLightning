@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     SCLog.initializeLogging()
     SCLog.initializeReporting()
     
-    LND.initialize()
+    LNServices.initialize()
     
     // Use Light style status bar across the entire app
     UIApplication.shared.statusBarStyle = .lightContent
