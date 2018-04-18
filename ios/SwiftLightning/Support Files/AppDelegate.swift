@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     LND.initialize()
     
+    // Use Light style status bar across the entire app
+    UIApplication.shared.statusBarStyle = .lightContent
+
     // Launch Root View Controller
     let storyboard = UIStoryboard(name: "CreateRecover", bundle: nil)
     let identifier = "CreateRecoverViewController"

@@ -1,5 +1,5 @@
 //
-//  SLButtonView.swift
+//  SLBarButton.swift
 //  SwiftLightning
 //
 //  Created by Howard Lee on 2018-04-16.
@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import SnapKit
 
-@IBDesignable
-class SLButtonView: UIButton {
+
+@IBDesignable class SLBarButton: UIButton {
   
   // MARK: - Types & Enumerations
   
@@ -27,7 +26,7 @@ class SLButtonView: UIButton {
   
   struct Constants {
     static let defaultCornerRadius: CGFloat = 10.0
-    static let defaultHeight: CGFloat = 45.0
+    static let defaultHeight: CGFloat = 42.0
     static let defaultFontSize: CGFloat = 16.0
     static let defaultFontWeight = UIFont.Weight.regular
     static let defaultShadowOffset = CGSize(width: 0.0, height: 3.0)
@@ -43,7 +42,7 @@ class SLButtonView: UIButton {
     static let smallSizedShadowBlur: CGFloat = 3.0/2
     static let smallSizedShadowOpacity: Float = 0.2
     
-    static let defaultLayoutMargin: CGFloat = 20.0
+    static let defaultLayoutMargin: CGFloat = 16.0
   }
   
   
@@ -95,18 +94,18 @@ class SLButtonView: UIButton {
   
     // Pre-calculate the Intrinsic Size of the button
     
-    var leftMargin = Constants.defaultLayoutMargin
-    var rightMargin = Constants.defaultLayoutMargin
+    let leftMargin = Constants.defaultLayoutMargin
+    let rightMargin = Constants.defaultLayoutMargin
     var superviewWidth = UIScreen.main.bounds.width
     
-    if let layoutMargins = superview?.layoutMargins {
-      if layoutMargins.left != 0 { leftMargin = layoutMargins.left }
-      if layoutMargins.right != 0 { rightMargin = layoutMargins.right }
-    }
-    else if let layoutMargins = UIScreen.main.focusedView?.layoutMargins {
-      if layoutMargins.left != 0 { leftMargin = layoutMargins.left }
-      if layoutMargins.right != 0 { rightMargin = layoutMargins.right }
-    }
+//    if let layoutMargins = superview?.layoutMargins {
+//      if layoutMargins.left != 0 { leftMargin = layoutMargins.left }
+//      if layoutMargins.right != 0 { rightMargin = layoutMargins.right }
+//    }
+//    else if let layoutMargins = UIScreen.main.focusedView?.layoutMargins {
+//      if layoutMargins.left != 0 { leftMargin = layoutMargins.left }
+//      if layoutMargins.right != 0 { rightMargin = layoutMargins.right }
+//    }
     
     if let width = superview?.bounds.width {
       superviewWidth = width
@@ -160,8 +159,7 @@ class SLButtonView: UIButton {
       layer.shadowRadius = Constants.smallSizedShadowBlur
       layer.shadowOpacity = Constants.smallSizedShadowOpacity
     }
-    
-    SCLog.verbose("SLButton View Intrinsic Content Size: \(intrinsicContentSize)")
+
     invalidateIntrinsicContentSize()
   }
 }

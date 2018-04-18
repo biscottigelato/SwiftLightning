@@ -22,6 +22,17 @@ class CreateRecoverViewController: UIViewController, CreateRecoverDisplayLogic
   var interactor: CreateRecoverBusinessLogic?
   var router: (NSObjectProtocol & CreateRecoverRoutingLogic & CreateRecoverDataPassing)?
 
+  
+  // MARK: IBActions
+  
+  @IBAction func createNewWalletTapped(_ sender: SLBarButton) {
+    router?.routeToPasswordCreate()
+  }
+  
+  @IBAction func recoverWalletTapped(_ sender: SLBarButton) {
+  }
+  
+  
   // MARK: Object lifecycle
   
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -35,6 +46,7 @@ class CreateRecoverViewController: UIViewController, CreateRecoverDisplayLogic
     super.init(coder: aDecoder)
     setup()
   }
+  
   
   // MARK: Setup
   
@@ -52,6 +64,7 @@ class CreateRecoverViewController: UIViewController, CreateRecoverDisplayLogic
     router.dataStore = interactor
   }
   
+  
   // MARK: Routing
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?)
@@ -64,6 +77,7 @@ class CreateRecoverViewController: UIViewController, CreateRecoverDisplayLogic
     }
   }
   
+  
   // MARK: View lifecycle
   
   override func viewDidLoad()
@@ -71,6 +85,7 @@ class CreateRecoverViewController: UIViewController, CreateRecoverDisplayLogic
     super.viewDidLoad()
     doSomething()
   }
+  
   
   // MARK: Do something
   

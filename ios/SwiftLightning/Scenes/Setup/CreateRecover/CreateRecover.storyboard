@@ -1,53 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Light.ttf">
+            <string>Montserrat-Light</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Create Recover View Controller-->
         <scene sceneID="8NH-0X-7bs">
             <objects>
-                <viewController id="Me3-dU-md1" customClass="CreateRecoverViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateRecoverViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Me3-dU-md1" customClass="CreateRecoverViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XiV-3x-Db3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-A9-PER" customClass="SLButtonView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="21" y="507" width="335" height="45"/>
-                                <color key="backgroundColor" red="0.3803921569" green="0.85098039219999999" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OnboardBackgroundTemp" translatesAutoresizingMaskIntoConstraints="NO" id="9FZ-7v-kjG">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pxr-H6-pN1" customClass="GradientView" customModule="SwiftLightning" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="fpC-Ib-WbT">
+                                        <rect key="frame" x="67.666666666666686" y="141.66666666666663" width="240" height="379"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningLogo" translatesAutoresizingMaskIntoConstraints="NO" id="a7X-bd-peU">
+                                                <rect key="frame" x="62.333333333333321" y="0.0" width="115.66666666666669" height="204"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="a7X-bd-peU" secondAttribute="height" multiplier="303:537" id="46m-a3-WdK"/>
+                                                </constraints>
+                                            </imageView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oSj-Vb-HHF">
+                                                <rect key="frame" x="0.0" y="219.00000000000003" width="240" height="20"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="Ik6-wJ-CaK"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swiftning" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHP-Up-XNp">
+                                                <rect key="frame" x="6.3333333333333286" y="254.00000000000003" width="227.66666666666669" height="58.666666666666657"/>
+                                                <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="48"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Security at Lightning Speed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0g-MA-KGd">
+                                                <rect key="frame" x="21" y="327.66666666666663" width="198" height="19.333333333333314"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by LND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oa1-mu-PEo">
+                                                <rect key="frame" x="65.333333333333343" y="362" width="109.33333333333334" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
-                                        <integer key="value" value="0"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="topGradientColor">
+                                        <color key="value" red="0.12549019610000001" green="0.21960784310000001" blue="0.34509803919999998" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="bottomGradientColor">
+                                        <color key="value" red="0.12549019607843137" green="0.2196078431372549" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="middleGradientColor">
+                                        <color key="value" red="0.12549019607843137" green="0.2196078431372549" blue="0.34509803921568627" alpha="0.94999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="middlePoint">
+                                        <real key="value" value="0.69999999999999996"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQF-OK-Hbl" customClass="SLButtonView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="20" y="572" width="335" height="45"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-A9-PER" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                <rect key="frame" x="124" y="663" width="127" height="30"/>
                                 <color key="backgroundColor" name="LightAzureBlue"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Create New Wallet">
+                                    <color key="titleColor" name="NormalText"/>
+                                    <color key="titleShadowColor" name="LightAzureBlueShadow"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
                                         <integer key="value" value="0"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="createNewWalletTapped:" destination="Me3-dU-md1" eventType="touchUpInside" id="5MX-Zm-y5d"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQF-OK-Hbl" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                <rect key="frame" x="136.66666666666666" y="708" width="102" height="30"/>
+                                <color key="backgroundColor" name="MedAquamarine"/>
+                                <state key="normal" title="Recover Wallet">
+                                    <color key="titleColor" name="NormalText"/>
+                                    <color key="titleShadowColor" name="MedAquamarineShadow"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="recoverWalletTapped:" destination="Me3-dU-md1" eventType="touchUpInside" id="ySU-K2-8xu"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="9FZ-7v-kjG" secondAttribute="bottom" id="LNm-8Z-hl5"/>
+                            <constraint firstAttribute="trailing" secondItem="Pxr-H6-pN1" secondAttribute="trailing" id="NDc-3t-f8K"/>
+                            <constraint firstItem="Pxr-H6-pN1" firstAttribute="leading" secondItem="XiV-3x-Db3" secondAttribute="leading" id="NPH-vz-QNj"/>
+                            <constraint firstItem="fpC-Ib-WbT" firstAttribute="centerY" secondItem="NYs-8G-VAs" secondAttribute="centerY" constant="-80" id="O7E-QR-yNz"/>
                             <constraint firstItem="6VG-A9-PER" firstAttribute="centerX" secondItem="NYs-8G-VAs" secondAttribute="centerX" id="RDx-22-KPG"/>
-                            <constraint firstItem="DQF-OK-Hbl" firstAttribute="top" secondItem="6VG-A9-PER" secondAttribute="bottom" constant="20" id="SgL-nU-xQZ"/>
-                            <constraint firstItem="NYs-8G-VAs" firstAttribute="bottom" secondItem="DQF-OK-Hbl" secondAttribute="bottom" constant="50" id="gKw-4r-Ouz"/>
+                            <constraint firstItem="DQF-OK-Hbl" firstAttribute="top" secondItem="6VG-A9-PER" secondAttribute="bottom" constant="15" id="SgL-nU-xQZ"/>
+                            <constraint firstItem="9FZ-7v-kjG" firstAttribute="leading" secondItem="XiV-3x-Db3" secondAttribute="leading" id="TnZ-fd-zPd"/>
+                            <constraint firstItem="9FZ-7v-kjG" firstAttribute="top" secondItem="XiV-3x-Db3" secondAttribute="top" id="UGZ-yh-g0M"/>
+                            <constraint firstItem="NYs-8G-VAs" firstAttribute="bottom" secondItem="DQF-OK-Hbl" secondAttribute="bottom" constant="40" id="gKw-4r-Ouz"/>
+                            <constraint firstItem="Pxr-H6-pN1" firstAttribute="bottom" secondItem="XiV-3x-Db3" secondAttribute="bottom" id="nYN-7a-Rxt"/>
+                            <constraint firstAttribute="trailing" secondItem="9FZ-7v-kjG" secondAttribute="trailing" id="oQd-2y-nQJ"/>
+                            <constraint firstItem="a7X-bd-peU" firstAttribute="height" secondItem="XiV-3x-Db3" secondAttribute="height" multiplier="0.25" constant="1" id="pH7-Rp-QzM"/>
+                            <constraint firstAttribute="top" secondItem="Pxr-H6-pN1" secondAttribute="top" id="pY7-q7-sAH"/>
+                            <constraint firstItem="fpC-Ib-WbT" firstAttribute="centerX" secondItem="NYs-8G-VAs" secondAttribute="centerX" id="sGx-vo-Qhf"/>
                             <constraint firstItem="DQF-OK-Hbl" firstAttribute="centerX" secondItem="NYs-8G-VAs" secondAttribute="centerX" id="vKd-6Y-k76"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NYs-8G-VAs"/>
@@ -59,8 +144,22 @@
         </scene>
     </scenes>
     <resources>
+        <image name="LightningLogo" width="303" height="537"/>
+        <image name="OnboardBackgroundTemp" width="1333" height="2000"/>
         <namedColor name="LightAzureBlue">
             <color red="0.41176470588235292" green="0.72156862745098038" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LightAzureBlueShadow">
+            <color red="0.22352941176470589" green="0.39215686274509803" blue="0.51764705882352946" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MedAquamarine">
+            <color red="0.38039215686274508" green="0.85098039215686272" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MedAquamarineShadow">
+            <color red="0.23137254901960785" green="0.51372549019607838" blue="0.44705882352941179" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="NormalText">
+            <color red="1" green="0.99607843137254903" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

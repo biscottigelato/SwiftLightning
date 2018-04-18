@@ -8,14 +8,11 @@
 
 import UIKit
 
-@IBDesignable
-class DesignableView: UIView {
+@IBDesignable class DesignableView: UIView {
 }
 
-@IBDesignable
-class DesignableButton: UIButton {
+@IBDesignable class DesignableButton: UIButton {
 }
 
-@IBDesignable
-class DesignableLabel: UILabel {
+@IBDesignable class DesignableLabel: UILabel {
 }

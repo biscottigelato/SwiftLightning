@@ -7,6 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C188271208679BD002E2835 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C188270208679BD002E2835 /* GradientView.swift */; };
+		8C18828420868545002E2835 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827220868538002E2835 /* Montserrat-Light.ttf */; };
+		8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */; };
+		8C18828620868545002E2835 /* Montserrat-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C1882742086853A002E2835 /* Montserrat-LightItalic.ttf */; };
+		8C18828720868545002E2835 /* Montserrat-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C1882752086853A002E2835 /* Montserrat-ExtraBold.ttf */; };
+		8C18828820868545002E2835 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C1882762086853A002E2835 /* Montserrat-Medium.ttf */; };
+		8C18828920868545002E2835 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C1882772086853B002E2835 /* Montserrat-Bold.ttf */; };
+		8C18828A20868545002E2835 /* Montserrat-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C1882782086853C002E2835 /* Montserrat-SemiBoldItalic.ttf */; };
+		8C18828B20868545002E2835 /* Montserrat-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C1882792086853C002E2835 /* Montserrat-ExtraLightItalic.ttf */; };
+		8C18828C20868545002E2835 /* Montserrat-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827A2086853D002E2835 /* Montserrat-ExtraBoldItalic.ttf */; };
+		8C18828D20868545002E2835 /* Montserrat-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827B2086853F002E2835 /* Montserrat-BlackItalic.ttf */; };
+		8C18828E20868545002E2835 /* Montserrat-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827C20868540002E2835 /* Montserrat-MediumItalic.ttf */; };
+		8C18828F20868545002E2835 /* Montserrat-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827D20868541002E2835 /* Montserrat-Italic.ttf */; };
+		8C18829020868545002E2835 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827E20868541002E2835 /* Montserrat-ExtraLight.ttf */; };
+		8C18829120868545002E2835 /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827F20868542002E2835 /* Montserrat-Thin.ttf */; };
+		8C18829220868545002E2835 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18828020868542002E2835 /* Montserrat-SemiBold.ttf */; };
+		8C18829320868545002E2835 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18828120868543002E2835 /* Montserrat-Regular.ttf */; };
+		8C18829420868545002E2835 /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18828220868544002E2835 /* Montserrat-ThinItalic.ttf */; };
+		8C18829520868545002E2835 /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18828320868544002E2835 /* Montserrat-Black.ttf */; };
+		8C18829D20868EBE002E2835 /* PasswordCreatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C18829720868EBE002E2835 /* PasswordCreatePresenter.swift */; };
+		8C18829E20868EBE002E2835 /* PasswordCreateWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C18829820868EBE002E2835 /* PasswordCreateWorker.swift */; };
+		8C18829F20868EBE002E2835 /* PasswordCreateRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C18829920868EBE002E2835 /* PasswordCreateRouter.swift */; };
+		8C1882A020868EBE002E2835 /* PasswordCreateModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C18829A20868EBE002E2835 /* PasswordCreateModels.swift */; };
+		8C1882A120868EBE002E2835 /* PasswordCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C18829B20868EBE002E2835 /* PasswordCreateViewController.swift */; };
+		8C1882A220868EBE002E2835 /* PasswordCreateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C18829C20868EBE002E2835 /* PasswordCreateInteractor.swift */; };
+		8C1882A420868ECD002E2835 /* PasswordCreate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C1882A320868ECD002E2835 /* PasswordCreate.storyboard */; };
+		8C1882AD2086941D002E2835 /* NibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1882AC2086941D002E2835 /* NibView.swift */; };
+		8C1882B220869699002E2835 /* SLPasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1882B120869699002E2835 /* SLPasswordField.swift */; };
+		8C1882B4208696A8002E2835 /* SLPasswordField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C1882B3208696A8002E2835 /* SLPasswordField.xib */; };
+		8C1882B72086A582002E2835 /* SLIcon30Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1882B62086A222002E2835 /* SLIcon30Button.swift */; };
 		8C2ACFB7207359DD004E6A84 /* Lightningd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2ACFB6207359DD004E6A84 /* Lightningd.framework */; };
 		8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FC7072073513700966D31 /* AppDelegate.swift */; };
 		8C2FC70A2073513700966D31 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FC7092073513700966D31 /* ViewController.swift */; };
@@ -18,6 +48,9 @@
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SCLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SCLog.swift */; };
 		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
+		8CE3AE612086AF3F007D1065 /* SLUnboxedHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE3AE602086AF3F007D1065 /* SLUnboxedHeading.swift */; };
+		8CE3AE632086AF4D007D1065 /* SLUnboxedHeading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CE3AE622086AF4D007D1065 /* SLUnboxedHeading.xib */; };
+		8CE3AE652086DA9E007D1065 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE3AE642086DA9E007D1065 /* UIColor+Extension.swift */; };
 		8CFA16A12082EF3A00813EA6 /* CreateRecoverPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA169B2082EF3A00813EA6 /* CreateRecoverPresenter.swift */; };
 		8CFA16A22082EF3A00813EA6 /* CreateRecoverWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA169C2082EF3A00813EA6 /* CreateRecoverWorker.swift */; };
 		8CFA16A32082EF3A00813EA6 /* CreateRecoverRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA169D2082EF3A00813EA6 /* CreateRecoverRouter.swift */; };
@@ -27,7 +60,7 @@
 		8CFA16AC2082FF4F00813EA6 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA16AB2082FF4F00813EA6 /* UIView+Extension.swift */; };
 		8CFA16AE2083001F00813EA6 /* DesignableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA16AD2083001F00813EA6 /* DesignableViews.swift */; };
 		8CFA16E32085510600813EA6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CFA16E22085510600813EA6 /* Colors.xcassets */; };
-		8CFA16E420856E6800813EA6 /* SLButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA16B32085305500813EA6 /* SLButtonView.swift */; };
+		8CFA16E420856E6800813EA6 /* SLBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA16B32085305500813EA6 /* SLBarButton.swift */; };
 		8CFA16E620856E9800813EA6 /* CreateRecover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CFA16E520856E9800813EA6 /* CreateRecover.storyboard */; };
 		B6B514D5D47CE23C7C8010FE /* Pods_SwiftLightning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */; };
 /* End PBXBuildFile section */
@@ -35,6 +68,36 @@
 /* Begin PBXFileReference section */
 		099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftLightning.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8292E2C0A97224CAF9B4332E /* Pods-SwiftLightning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLightning.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning.release.xcconfig"; sourceTree = "<group>"; };
+		8C188270208679BD002E2835 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		8C18827220868538002E2835 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
+		8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
+		8C1882742086853A002E2835 /* Montserrat-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-LightItalic.ttf"; sourceTree = "<group>"; };
+		8C1882752086853A002E2835 /* Montserrat-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBold.ttf"; sourceTree = "<group>"; };
+		8C1882762086853A002E2835 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		8C1882772086853B002E2835 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		8C1882782086853C002E2835 /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		8C1882792086853C002E2835 /* Montserrat-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		8C18827A2086853D002E2835 /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		8C18827B2086853F002E2835 /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
+		8C18827C20868540002E2835 /* Montserrat-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-MediumItalic.ttf"; sourceTree = "<group>"; };
+		8C18827D20868541002E2835 /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Italic.ttf"; sourceTree = "<group>"; };
+		8C18827E20868541002E2835 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
+		8C18827F20868542002E2835 /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.ttf"; sourceTree = "<group>"; };
+		8C18828020868542002E2835 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		8C18828120868543002E2835 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		8C18828220868544002E2835 /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; };
+		8C18828320868544002E2835 /* Montserrat-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Black.ttf"; sourceTree = "<group>"; };
+		8C18829720868EBE002E2835 /* PasswordCreatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCreatePresenter.swift; sourceTree = "<group>"; };
+		8C18829820868EBE002E2835 /* PasswordCreateWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCreateWorker.swift; sourceTree = "<group>"; };
+		8C18829920868EBE002E2835 /* PasswordCreateRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCreateRouter.swift; sourceTree = "<group>"; };
+		8C18829A20868EBE002E2835 /* PasswordCreateModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCreateModels.swift; sourceTree = "<group>"; };
+		8C18829B20868EBE002E2835 /* PasswordCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCreateViewController.swift; sourceTree = "<group>"; };
+		8C18829C20868EBE002E2835 /* PasswordCreateInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCreateInteractor.swift; sourceTree = "<group>"; };
+		8C1882A320868ECD002E2835 /* PasswordCreate.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PasswordCreate.storyboard; sourceTree = "<group>"; };
+		8C1882AC2086941D002E2835 /* NibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibView.swift; sourceTree = "<group>"; };
+		8C1882B120869699002E2835 /* SLPasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLPasswordField.swift; sourceTree = "<group>"; };
+		8C1882B3208696A8002E2835 /* SLPasswordField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLPasswordField.xib; sourceTree = "<group>"; };
+		8C1882B62086A222002E2835 /* SLIcon30Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLIcon30Button.swift; sourceTree = "<group>"; };
 		8C2ACFB6207359DD004E6A84 /* Lightningd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Lightningd.framework; sourceTree = "<group>"; };
 		8C2FC7042073513700966D31 /* SwiftLightning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftLightning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C2FC7072073513700966D31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -48,6 +111,9 @@
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SCLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCLog.swift; sourceTree = "<group>"; };
 		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
+		8CE3AE602086AF3F007D1065 /* SLUnboxedHeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLUnboxedHeading.swift; sourceTree = "<group>"; };
+		8CE3AE622086AF4D007D1065 /* SLUnboxedHeading.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLUnboxedHeading.xib; sourceTree = "<group>"; };
+		8CE3AE642086DA9E007D1065 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		8CFA169B2082EF3A00813EA6 /* CreateRecoverPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecoverPresenter.swift; sourceTree = "<group>"; };
 		8CFA169C2082EF3A00813EA6 /* CreateRecoverWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecoverWorker.swift; sourceTree = "<group>"; };
 		8CFA169D2082EF3A00813EA6 /* CreateRecoverRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecoverRouter.swift; sourceTree = "<group>"; };
@@ -56,7 +122,7 @@
 		8CFA16A02082EF3A00813EA6 /* CreateRecoverInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecoverInteractor.swift; sourceTree = "<group>"; };
 		8CFA16AB2082FF4F00813EA6 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		8CFA16AD2083001F00813EA6 /* DesignableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableViews.swift; sourceTree = "<group>"; };
-		8CFA16B32085305500813EA6 /* SLButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLButtonView.swift; sourceTree = "<group>"; };
+		8CFA16B32085305500813EA6 /* SLBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLBarButton.swift; sourceTree = "<group>"; };
 		8CFA16E22085510600813EA6 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8CFA16E520856E9800813EA6 /* CreateRecover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateRecover.storyboard; sourceTree = "<group>"; };
 		A3538100590C9418BE927FF7 /* Pods-SwiftLightning.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLightning.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning.debug.xcconfig"; sourceTree = "<group>"; };
@@ -82,6 +148,48 @@
 				099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8C18829620868559002E2835 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				8C18828320868544002E2835 /* Montserrat-Black.ttf */,
+				8C18827B2086853F002E2835 /* Montserrat-BlackItalic.ttf */,
+				8C1882772086853B002E2835 /* Montserrat-Bold.ttf */,
+				8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */,
+				8C1882752086853A002E2835 /* Montserrat-ExtraBold.ttf */,
+				8C18827A2086853D002E2835 /* Montserrat-ExtraBoldItalic.ttf */,
+				8C18827E20868541002E2835 /* Montserrat-ExtraLight.ttf */,
+				8C1882792086853C002E2835 /* Montserrat-ExtraLightItalic.ttf */,
+				8C18827D20868541002E2835 /* Montserrat-Italic.ttf */,
+				8C18827220868538002E2835 /* Montserrat-Light.ttf */,
+				8C1882742086853A002E2835 /* Montserrat-LightItalic.ttf */,
+				8C1882762086853A002E2835 /* Montserrat-Medium.ttf */,
+				8C18827C20868540002E2835 /* Montserrat-MediumItalic.ttf */,
+				8C18828120868543002E2835 /* Montserrat-Regular.ttf */,
+				8C18828020868542002E2835 /* Montserrat-SemiBold.ttf */,
+				8C1882782086853C002E2835 /* Montserrat-SemiBoldItalic.ttf */,
+				8C18827F20868542002E2835 /* Montserrat-Thin.ttf */,
+				8C18828220868544002E2835 /* Montserrat-ThinItalic.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		8C1882AB20869313002E2835 /* SLPasswordField */ = {
+			isa = PBXGroup;
+			children = (
+				8C1882B3208696A8002E2835 /* SLPasswordField.xib */,
+				8C1882B120869699002E2835 /* SLPasswordField.swift */,
+			);
+			path = SLPasswordField;
+			sourceTree = "<group>";
+		};
+		8C1882B52086A193002E2835 /* SLIcon30Button */ = {
+			isa = PBXGroup;
+			children = (
+				8C1882B62086A222002E2835 /* SLIcon30Button.swift */,
+			);
+			path = SLIcon30Button;
 			sourceTree = "<group>";
 		};
 		8C2FC6FB2073513600966D31 = {
@@ -121,6 +229,7 @@
 			children = (
 				8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */,
 				8CFA16AB2082FF4F00813EA6 /* UIView+Extension.swift */,
+				8CE3AE642086DA9E007D1065 /* UIColor+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -147,8 +256,11 @@
 		8C7D310420755AE30068F2BD /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
+				8CE3AE5F2086AED6007D1065 /* SLUnboxedHeading */,
 				8CFA16E020854C2F00813EA6 /* Generics */,
-				8CFA16E120854C3C00813EA6 /* SLButton */,
+				8CFA16E120854C3C00813EA6 /* SLBarButton */,
+				8C1882B52086A193002E2835 /* SLIcon30Button */,
+				8C1882AB20869313002E2835 /* SLPasswordField */,
 			);
 			path = "UI Elements";
 			sourceTree = "<group>";
@@ -168,8 +280,18 @@
 			children = (
 				8C2FC70E2073513800966D31 /* Assets.xcassets */,
 				8CFA16E22085510600813EA6 /* Colors.xcassets */,
+				8C18829620868559002E2835 /* Fonts */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		8CE3AE5F2086AED6007D1065 /* SLUnboxedHeading */ = {
+			isa = PBXGroup;
+			children = (
+				8CE3AE622086AF4D007D1065 /* SLUnboxedHeading.xib */,
+				8CE3AE602086AF3F007D1065 /* SLUnboxedHeading.swift */,
+			);
+			path = SLUnboxedHeading;
 			sourceTree = "<group>";
 		};
 		8CFA16902082EB7300813EA6 /* Scenes */ = {
@@ -242,6 +364,13 @@
 		8CFA16972082EE8900813EA6 /* PasswordCreate */ = {
 			isa = PBXGroup;
 			children = (
+				8C1882A320868ECD002E2835 /* PasswordCreate.storyboard */,
+				8C18829720868EBE002E2835 /* PasswordCreatePresenter.swift */,
+				8C18829820868EBE002E2835 /* PasswordCreateWorker.swift */,
+				8C18829920868EBE002E2835 /* PasswordCreateRouter.swift */,
+				8C18829A20868EBE002E2835 /* PasswordCreateModels.swift */,
+				8C18829B20868EBE002E2835 /* PasswordCreateViewController.swift */,
+				8C18829C20868EBE002E2835 /* PasswordCreateInteractor.swift */,
 			);
 			path = PasswordCreate;
 			sourceTree = "<group>";
@@ -271,16 +400,18 @@
 			isa = PBXGroup;
 			children = (
 				8CFA16AD2083001F00813EA6 /* DesignableViews.swift */,
+				8C188270208679BD002E2835 /* GradientView.swift */,
+				8C1882AC2086941D002E2835 /* NibView.swift */,
 			);
 			path = Generics;
 			sourceTree = "<group>";
 		};
-		8CFA16E120854C3C00813EA6 /* SLButton */ = {
+		8CFA16E120854C3C00813EA6 /* SLBarButton */ = {
 			isa = PBXGroup;
 			children = (
-				8CFA16B32085305500813EA6 /* SLButtonView.swift */,
+				8CFA16B32085305500813EA6 /* SLBarButton.swift */,
 			);
-			path = SLButton;
+			path = SLBarButton;
 			sourceTree = "<group>";
 		};
 		AE3AC051CBE548BC89273011 /* Pods */ = {
@@ -354,10 +485,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C18828620868545002E2835 /* Montserrat-LightItalic.ttf in Resources */,
+				8C18828420868545002E2835 /* Montserrat-Light.ttf in Resources */,
+				8C18828B20868545002E2835 /* Montserrat-ExtraLightItalic.ttf in Resources */,
+				8C18828D20868545002E2835 /* Montserrat-BlackItalic.ttf in Resources */,
+				8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */,
+				8CE3AE632086AF4D007D1065 /* SLUnboxedHeading.xib in Resources */,
+				8C18829120868545002E2835 /* Montserrat-Thin.ttf in Resources */,
+				8C18828F20868545002E2835 /* Montserrat-Italic.ttf in Resources */,
+				8C1882A420868ECD002E2835 /* PasswordCreate.storyboard in Resources */,
 				8CFA16E32085510600813EA6 /* Colors.xcassets in Resources */,
 				8C2FC7122073513800966D31 /* LaunchScreen.storyboard in Resources */,
+				8C18829320868545002E2835 /* Montserrat-Regular.ttf in Resources */,
+				8C18829520868545002E2835 /* Montserrat-Black.ttf in Resources */,
 				8CFA16E620856E9800813EA6 /* CreateRecover.storyboard in Resources */,
+				8C18828A20868545002E2835 /* Montserrat-SemiBoldItalic.ttf in Resources */,
+				8C1882B4208696A8002E2835 /* SLPasswordField.xib in Resources */,
+				8C18828820868545002E2835 /* Montserrat-Medium.ttf in Resources */,
+				8C18828E20868545002E2835 /* Montserrat-MediumItalic.ttf in Resources */,
 				8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */,
+				8C18829220868545002E2835 /* Montserrat-SemiBold.ttf in Resources */,
+				8C18829420868545002E2835 /* Montserrat-ThinItalic.ttf in Resources */,
+				8C18829020868545002E2835 /* Montserrat-ExtraLight.ttf in Resources */,
+				8C18828720868545002E2835 /* Montserrat-ExtraBold.ttf in Resources */,
+				8C18828C20868545002E2835 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
+				8C18828920868545002E2835 /* Montserrat-Bold.ttf in Resources */,
 				8C2FC70D2073513700966D31 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,17 +602,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C7D310820755CE00068F2BD /* SCLog.swift in Sources */,
+				8C1882A020868EBE002E2835 /* PasswordCreateModels.swift in Sources */,
+				8CE3AE612086AF3F007D1065 /* SLUnboxedHeading.swift in Sources */,
 				8CFA16A12082EF3A00813EA6 /* CreateRecoverPresenter.swift in Sources */,
 				8CFA16A22082EF3A00813EA6 /* CreateRecoverWorker.swift in Sources */,
-				8CFA16E420856E6800813EA6 /* SLButtonView.swift in Sources */,
+				8C1882AD2086941D002E2835 /* NibView.swift in Sources */,
+				8CFA16E420856E6800813EA6 /* SLBarButton.swift in Sources */,
+				8CE3AE652086DA9E007D1065 /* UIColor+Extension.swift in Sources */,
 				8CFA16A32082EF3A00813EA6 /* CreateRecoverRouter.swift in Sources */,
+				8C188271208679BD002E2835 /* GradientView.swift in Sources */,
+				8C1882A220868EBE002E2835 /* PasswordCreateInteractor.swift in Sources */,
+				8C1882A120868EBE002E2835 /* PasswordCreateViewController.swift in Sources */,
 				8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */,
 				8CFA16AE2083001F00813EA6 /* DesignableViews.swift in Sources */,
 				8CFA16A42082EF3A00813EA6 /* CreateRecoverModels.swift in Sources */,
+				8C18829F20868EBE002E2835 /* PasswordCreateRouter.swift in Sources */,
 				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
 				8CFA16A52082EF3A00813EA6 /* CreateRecoverViewController.swift in Sources */,
+				8C1882B220869699002E2835 /* SLPasswordField.swift in Sources */,
 				8CFA16AC2082FF4F00813EA6 /* UIView+Extension.swift in Sources */,
+				8C1882B72086A582002E2835 /* SLIcon30Button.swift in Sources */,
+				8C18829E20868EBE002E2835 /* PasswordCreateWorker.swift in Sources */,
 				8C2FC70A2073513700966D31 /* ViewController.swift in Sources */,
+				8C18829D20868EBE002E2835 /* PasswordCreatePresenter.swift in Sources */,
 				8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */,
 				8CFA16A62082EF3A00813EA6 /* CreateRecoverInteractor.swift in Sources */,
 				8C4710FB2077E79C005D7ABC /* LND.swift in Sources */,
@@ -618,7 +782,10 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "SwiftLightning/Support Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -639,7 +806,10 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "SwiftLightning/Support Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
