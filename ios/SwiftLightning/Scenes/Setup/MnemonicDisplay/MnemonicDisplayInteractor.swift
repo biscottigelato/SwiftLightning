@@ -14,7 +14,8 @@ import UIKit
 
 protocol MnemonicDisplayBusinessLogic
 {
-  func doSomething(request: MnemonicDisplay.Something.Request)
+  func showMnemonic(request: MnemonicDisplay.ShowMnemonic.Request)
+  func startButtonTimer(request: MnemonicDisplay.ButtonTimer.Request)
 }
 
 protocol MnemonicDisplayDataStore
@@ -26,16 +27,40 @@ class MnemonicDisplayInteractor: MnemonicDisplayBusinessLogic, MnemonicDisplayDa
 {
   var presenter: MnemonicDisplayPresentationLogic?
   var worker: MnemonicDisplayWorker?
-  //var name: String = ""
+
+  var timeRemaining: UInt = 20
   
-  // MARK: Do something
   
-  func doSomething(request: MnemonicDisplay.Something.Request)
+  // MARK: Mnemonic Display
+  
+  func showMnemonic(request: MnemonicDisplay.ShowMnemonic.Request)
   {
-    worker = MnemonicDisplayWorker()
-    worker?.doSomeWork()
+    guard let mnemonic = LNManager.cipherSeedMnemonic, mnemonic.count == LNConstants.cipherSeedMnemonicWordCount else {
+      let response = MnemonicDisplay.ShowMnemonic.Response(mnemonicWords: nil)
+      presenter?.presentMnemonic(response: response)
+      return
+    }
     
-    let response = MnemonicDisplay.Something.Response()
-    presenter?.presentSomething(response: response)
+    let response = MnemonicDisplay.ShowMnemonic.Response(mnemonicWords: mnemonic)
+    presenter?.presentMnemonic(response: response)
+  }
+  
+  
+  // MARK: - Button Timer
+  
+  func startButtonTimer(request: MnemonicDisplay.ButtonTimer.Request) {
+    _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
+      
+      self.timeRemaining -= 1
+      let response = MnemonicDisplay.ButtonTimer.Response(remainingTime: self.timeRemaining)
+      self.presenter?.presentTimedButton(response: response)
+      
+      if self.timeRemaining == 0 {
+        timer.invalidate()
+      }
+    }
+    
+    let response = MnemonicDisplay.ButtonTimer.Response(remainingTime: self.timeRemaining)
+    presenter?.presentTimedButton(response: response)
   }
 }

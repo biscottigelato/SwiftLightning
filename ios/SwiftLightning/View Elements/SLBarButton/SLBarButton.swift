@@ -117,7 +117,7 @@ import UIKit
       let buttonWidth = superviewWidth - leftMargin - rightMargin
       intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
-      titleLabel?.font = UIFont.OpenSansRegular(Constants.defaultFontSize)
+      titleLabel?.font = UIFont.regularFont(Constants.defaultFontSize)
       layer.shadowOffset = Constants.defaultShadowOffset
       layer.shadowRadius = Constants.defaultShadowBlur
       layer.shadowOpacity = Constants.defaultShadowOpacity
@@ -126,7 +126,7 @@ import UIKit
       let buttonWidth = (superviewWidth - 1.5*(leftMargin + rightMargin))/2
       intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
-      titleLabel?.font = UIFont.OpenSansRegular(Constants.defaultFontSize)
+      titleLabel?.font = UIFont.regularFont(Constants.defaultFontSize)
       layer.shadowOffset = Constants.defaultShadowOffset
       layer.shadowRadius = Constants.defaultShadowBlur
       layer.shadowOpacity = Constants.defaultShadowOpacity
@@ -135,7 +135,7 @@ import UIKit
       let buttonWidth = superviewWidth - leftMargin - rightMargin
       intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
-      titleLabel?.font = UIFont.OpenSansRegular(Constants.defaultFontSize)
+      titleLabel?.font = UIFont.regularFont(Constants.defaultFontSize)
       layer.shadowOffset = Constants.defaultShadowOffset
       layer.shadowRadius = Constants.defaultShadowBlur
       layer.shadowOpacity = Constants.defaultShadowOpacity
@@ -144,7 +144,7 @@ import UIKit
       let buttonWidth = (superviewWidth - 1.5*(leftMargin + rightMargin))/2
       intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
-      titleLabel?.font = UIFont.OpenSansRegular(Constants.defaultFontSize)
+      titleLabel?.font = UIFont.regularFont(Constants.defaultFontSize)
       layer.shadowOffset = Constants.defaultShadowOffset
       layer.shadowRadius = Constants.defaultShadowBlur
       layer.shadowOpacity = Constants.defaultShadowOpacity
@@ -152,7 +152,7 @@ import UIKit
     case .field:
       intrinsicSize = CGSize(width: Constants.smallSizedWidth, height: Constants.smallSizedHeight)
       layer.cornerRadius = Constants.smallSizedCornerRadius
-      titleLabel?.font = UIFont.OpenSansRegular(Constants.smallSizedFontSize)
+      titleLabel?.font = UIFont.regularFont(Constants.smallSizedFontSize)
       layer.shadowOffset = Constants.smallSizedShadowOffset
       layer.shadowRadius = Constants.smallSizedShadowBlur
       layer.shadowOpacity = Constants.smallSizedShadowOpacity

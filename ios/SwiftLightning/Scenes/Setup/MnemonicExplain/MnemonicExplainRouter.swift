@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol MnemonicExplainRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+  func routeToMnemonicDisplay()
 }
 
 protocol MnemonicExplainDataPassing
@@ -29,32 +29,26 @@ class MnemonicExplainRouter: NSObject, MnemonicExplainRoutingLogic, MnemonicExpl
   
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToMnemonicDisplay()
+  {
+    let storyboard = UIStoryboard(name: "MnemonicDisplay", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "MnemonicDisplayViewController") as! MnemonicDisplayViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToMnemonicDisplay(source: dataStore!, destination: &destinationDS)
+    navigateToMnemonicDisplay(source: viewController!, destination: destinationVC)
+  }
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: MnemonicExplainViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func navigateToMnemonicDisplay(source: MnemonicExplainViewController, destination: MnemonicDisplayViewController)
+  {
+    source.present(destination, animated: true, completion: nil)
+  }
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: MnemonicExplainDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func passDataToMnemonicDisplay(source: MnemonicExplainDataStore, destination: inout MnemonicDisplayDataStore)
+  {
+    // destination.name = source.name
+  }
 }

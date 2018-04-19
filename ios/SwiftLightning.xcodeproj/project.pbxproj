@@ -374,8 +374,8 @@
 		8C7D310420755AE30068F2BD /* View Elements */ = {
 			isa = PBXGroup;
 			children = (
-				8CE3AE5F2086AED6007D1065 /* SLUnboxedHeading */,
 				8CFA16E020854C2F00813EA6 /* Generics */,
+				8CE3AE5F2086AED6007D1065 /* SLUnboxedHeading */,
 				8CFA16E120854C3C00813EA6 /* SLBarButton */,
 				8C1882B52086A193002E2835 /* SLIcon30Button */,
 				8C1882AB20869313002E2835 /* SLPasswordField */,

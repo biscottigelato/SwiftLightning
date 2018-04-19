@@ -11,17 +11,23 @@
 //
 
 import UIKit
+import SnapKit
+
 
 protocol MnemonicDisplayDisplayLogic: class
 {
-  func displaySomething(viewModel: MnemonicDisplay.Something.ViewModel)
+  func displayMnemonic(viewModel: MnemonicDisplay.ShowMnemonic.ViewModelSuccess)
+  func displayMnemonicFailure(viewModel: MnemonicDisplay.ShowMnemonic.ViewModelFailure)
+  func displayTimedButtonUpdate(viewModel: MnemonicDisplay.ButtonTimer.ViewModel)
 }
+
 
 class MnemonicDisplayViewController: UIViewController, MnemonicDisplayDisplayLogic
 {
   var interactor: MnemonicDisplayBusinessLogic?
   var router: (NSObjectProtocol & MnemonicDisplayRoutingLogic & MnemonicDisplayDataPassing)?
 
+  
   // MARK: Object lifecycle
   
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -35,6 +41,7 @@ class MnemonicDisplayViewController: UIViewController, MnemonicDisplayDisplayLog
     super.init(coder: aDecoder)
     setup()
   }
+  
   
   // MARK: Setup
   
@@ -52,6 +59,7 @@ class MnemonicDisplayViewController: UIViewController, MnemonicDisplayDisplayLog
     router.dataStore = interactor
   }
   
+  
   // MARK: Routing
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?)
@@ -64,31 +72,93 @@ class MnemonicDisplayViewController: UIViewController, MnemonicDisplayDisplayLog
     }
   }
   
+  
   // MARK: View lifecycle
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
+
+    let mnemonicRequest = MnemonicDisplay.ShowMnemonic.Request()
+    interactor?.showMnemonic(request: mnemonicRequest)
     
-    // TODO: Display Mnemonics
-    
-    // TODO: Initiate Minminum Wait Countdown
-    
-    doSomething()
+    let timerRequest = MnemonicDisplay.ButtonTimer.Request()
+    interactor?.startButtonTimer(request: timerRequest)
   }
   
-  // MARK: Do something
   
-  //@IBOutlet weak var nameTextField: UITextField!
+  // MARK: Display Mnemonic
   
-  func doSomething()
-  {
-    let request = MnemonicDisplay.Something.Request()
-    interactor?.doSomething(request: request)
+  @IBOutlet weak var mnemonicLeftStack: UIStackView!
+  @IBOutlet weak var mnemonicRightStack: UIStackView!
+  
+  func displayMnemonic(viewModel: MnemonicDisplay.ShowMnemonic.ViewModelSuccess) {
+    
+    for (index, mnemonicWord) in viewModel.mnemonicWords.enumerated() {
+      let numberedLabel = UILabel()
+      numberedLabel.text = String("\(index+1).")
+      numberedLabel.font = UIFont.semiBoldFont(18.0)
+      numberedLabel.textColor = UIColor.normalText
+      numberedLabel.textAlignment = .center
+      numberedLabel.snp.makeConstraints { (make) -> Void in make.width.equalTo(40.0) }
+      
+      let wordLabel = UILabel()
+      wordLabel.text = String(mnemonicWord)
+      wordLabel.font = UIFont.semiBoldFont(18.0)
+      wordLabel.textColor = UIColor.normalText
+      wordLabel.textAlignment = .left
+      // TODO: Autolayout?
+      
+      let numberedWordStack = UIStackView(arrangedSubviews: [numberedLabel, wordLabel])
+      numberedWordStack.alignment = .fill
+      numberedWordStack.distribution = .fill
+      
+      if index < viewModel.mnemonicWords.count/2 {
+        mnemonicLeftStack.addArrangedSubview(numberedWordStack)
+      } else {
+        mnemonicRightStack.addArrangedSubview(numberedWordStack)
+      }
+    }
   }
   
-  func displaySomething(viewModel: MnemonicDisplay.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
+  func displayMnemonicFailure(viewModel: MnemonicDisplay.ShowMnemonic.ViewModelFailure) {
+    SLLog.warning(viewModel.errorMsg)
+    let alertDialog = UIAlertController(title: viewModel.errorTitle,
+                                        message: viewModel.errorMsg,
+                                        preferredStyle: .alert).addAction(title: "OK", style: .default)
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true, completion: nil)
+    }
+  }
+  
+  
+  // MARK: Button Timer
+  
+  @IBOutlet weak var doneWritingButton: SLBarButton!
+
+  func displayTimedButtonUpdate(viewModel: MnemonicDisplay.ButtonTimer.ViewModel) {
+    DispatchQueue.main.async {
+      self.doneWritingButton.setTitle(viewModel.buttonText, for: .normal)
+      self.doneWritingButton.setTitleColor(viewModel.buttonTextColor, for: .normal)
+      self.doneWritingButton.backgroundColor = viewModel.buttonColor
+      self.doneWritingButton.shadowColor = viewModel.buttonShadowColor
+      self.doneWritingButton.isEnabled = viewModel.buttonEnabled
+      
+//      if self.doneWritingButton.titleColor(for: .normal) != viewModel.buttonTextColor {
+//        self.doneWritingButton.setTitleColor(viewModel.buttonTextColor, for: .normal)
+//      }
+//      
+//      if self.doneWritingButton.backgroundColor != viewModel.buttonColor {
+//        self.doneWritingButton.backgroundColor = viewModel.buttonColor
+//      }
+//      
+//      if self.doneWritingButton.shadowColor != viewModel.buttonShadowColor {
+//        self.doneWritingButton.shadowColor = viewModel.buttonShadowColor
+//      }
+//      
+//      if self.doneWritingButton.isEnabled != viewModel.buttonEnabled {
+//        self.doneWritingButton.isEnabled = viewModel.buttonEnabled
+//      }
+    }
   }
 }

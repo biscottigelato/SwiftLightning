@@ -19,7 +19,7 @@
         <!--Mnemonic Display View Controller-->
         <scene sceneID="2UK-wc-JlI">
             <objects>
-                <viewController id="FWk-eO-xul" customClass="MnemonicDisplayViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MnemonicDisplayViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FWk-eO-xul" customClass="MnemonicDisplayViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U0x-tz-flO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -28,37 +28,42 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2h4-gw-XB4" userLabel="Top Spacer">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="x8R-8h-KOL"/>
+                                            <constraint firstAttribute="height" constant="20" id="x8R-8h-KOL"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please write your mnemonic seed down and keep it at a safe place. We will do confirmation on the next screen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mbp-Sv-stj">
-                                        <rect key="frame" x="37.5" y="50" width="300" height="65.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="500" text="Please write your mnemonic seed down and keep it at a safe place. We will do confirmation on the next screen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="mbp-Sv-stj" userLabel="Instruction Label">
+                                        <rect key="frame" x="36" y="20" width="303" height="55.5"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                         <color key="textColor" name="NormalText"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SBp-KH-PoD" userLabel="Above Mnemonics Spacer">
-                                        <rect key="frame" x="0.0" y="115.5" width="375" height="50"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SBp-KH-PoD" userLabel="Above Mnemonic Spacer">
+                                        <rect key="frame" x="0.0" y="75.5" width="375" height="20"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="Woe-os-hPH"/>
-                                        </constraints>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ysn-Ao-1tD" userLabel="MnemonicStack">
-                                        <rect key="frame" x="37.5" y="165.5" width="300" height="339.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0RO-oS-3Yd" userLabel="MnemonicStack">
+                                        <rect key="frame" x="28" y="95.5" width="319" height="445.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="aeL-0H-frl" userLabel="MnemonicLeftStack">
+                                                <rect key="frame" x="0.0" y="0.0" width="159.5" height="445.5"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ysn-Ao-1tD" userLabel="MnemonicRightStack">
+                                                <rect key="frame" x="159.5" y="0.0" width="159.5" height="445.5"/>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="aeL-0H-frl" firstAttribute="width" secondItem="ysn-Ao-1tD" secondAttribute="width" id="vM5-HM-siR"/>
+                                        </constraints>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fwv-cs-P1I" userLabel="Below Mnemonics Spacer">
-                                        <rect key="frame" x="0.0" y="505" width="375" height="50"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fwv-cs-P1I" userLabel="Below Mnemonic Spacer">
+                                        <rect key="frame" x="0.0" y="541" width="375" height="28"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="YRT-H2-yYi"/>
-                                        </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Sh-wd-9h1" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="555" width="343" height="42"/>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="900" verticalHuggingPriority="900" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Sh-wd-9h1" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="569" width="343" height="42"/>
                                         <color key="backgroundColor" name="DisabledGray"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                         <state key="normal" title="Minimum wait - 20s left">
@@ -72,17 +77,16 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ipe-AZ-Gb4" userLabel="Bottom Spacer">
-                                        <rect key="frame" x="0.0" y="597" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="611" width="375" height="36"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="js5-5n-8YM"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="mbp-Sv-stj" firstAttribute="trailing" secondItem="ysn-Ao-1tD" secondAttribute="trailing" id="4ul-QW-SiW"/>
+                                    <constraint firstItem="Ipe-AZ-Gb4" firstAttribute="height" secondItem="2h4-gw-XB4" secondAttribute="height" multiplier="1.8" id="R0K-EC-6th"/>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="700" id="cuY-mI-jyA"/>
-                                    <constraint firstItem="mbp-Sv-stj" firstAttribute="leading" secondItem="ysn-Ao-1tD" secondAttribute="leading" id="jli-m2-4xr"/>
+                                    <constraint firstItem="mbp-Sv-stj" firstAttribute="width" secondItem="0RO-oS-3Yd" secondAttribute="width" multiplier="0.95" id="hLt-Td-Vqx"/>
+                                    <constraint firstItem="Fwv-cs-P1I" firstAttribute="height" secondItem="2h4-gw-XB4" secondAttribute="height" multiplier="1.4" id="jPj-vB-1Wc"/>
+                                    <constraint firstItem="SBp-KH-PoD" firstAttribute="height" secondItem="2h4-gw-XB4" secondAttribute="height" id="rMU-dE-q1q"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -90,13 +94,18 @@
                         <constraints>
                             <constraint firstItem="500-s5-hvh" firstAttribute="bottom" secondItem="VKS-Zc-shC" secondAttribute="bottom" priority="900" id="BSO-nC-QNr"/>
                             <constraint firstItem="500-s5-hvh" firstAttribute="centerY" secondItem="VKS-Zc-shC" secondAttribute="centerY" id="FDK-zf-KX7"/>
+                            <constraint firstItem="0RO-oS-3Yd" firstAttribute="width" secondItem="U0x-tz-flO" secondAttribute="width" multiplier="0.85" id="Ogo-dv-PfO"/>
                             <constraint firstItem="VKS-Zc-shC" firstAttribute="leading" secondItem="500-s5-hvh" secondAttribute="leading" id="TqZ-4K-odT"/>
                             <constraint firstItem="VKS-Zc-shC" firstAttribute="top" secondItem="500-s5-hvh" secondAttribute="top" priority="900" id="mu9-pP-gtp"/>
-                            <constraint firstItem="ysn-Ao-1tD" firstAttribute="width" secondItem="U0x-tz-flO" secondAttribute="width" multiplier="0.8" id="pKd-vP-pxG"/>
                             <constraint firstItem="500-s5-hvh" firstAttribute="trailing" secondItem="VKS-Zc-shC" secondAttribute="trailing" id="sh5-zs-3Hm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VKS-Zc-shC"/>
                     </view>
+                    <connections>
+                        <outlet property="doneWritingButton" destination="6Sh-wd-9h1" id="fHx-Vx-gzg"/>
+                        <outlet property="mnemonicLeftStack" destination="aeL-0H-frl" id="epu-tQ-p4j"/>
+                        <outlet property="mnemonicRightStack" destination="ysn-Ao-1tD" id="de1-Rc-10F"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jXg-KL-W3C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

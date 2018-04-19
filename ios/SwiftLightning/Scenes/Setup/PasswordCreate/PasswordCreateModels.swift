@@ -54,7 +54,7 @@ enum PasswordCreate
   
   enum SeedWalletError: Error {
     case PasswordConfirmFailed(String)
-    case GenerateSeedInvalidMnemonics(String)
+    case GenerateSeedInvalidMnemonic(String)
   }
   
   

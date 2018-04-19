@@ -14,7 +14,8 @@ import UIKit
 
 protocol MnemonicDisplayPresentationLogic
 {
-  func presentSomething(response: MnemonicDisplay.Something.Response)
+  func presentMnemonic(response: MnemonicDisplay.ShowMnemonic.Response)
+  func presentTimedButton(response: MnemonicDisplay.ButtonTimer.Response)
 }
 
 class MnemonicDisplayPresenter: MnemonicDisplayPresentationLogic
@@ -23,9 +24,35 @@ class MnemonicDisplayPresenter: MnemonicDisplayPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: MnemonicDisplay.Something.Response)
+  func presentMnemonic(response: MnemonicDisplay.ShowMnemonic.Response)
   {
-    let viewModel = MnemonicDisplay.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    if let mnemonic = response.mnemonicWords {
+      let viewModel = MnemonicDisplay.ShowMnemonic.ViewModelSuccess(mnemonicWords: mnemonic)
+      viewController?.displayMnemonic(viewModel: viewModel)
+    } else {
+      let viewModel = MnemonicDisplay.ShowMnemonic.ViewModelFailure(errorTitle: "Cannot Get Mnemonic", errorMsg: "Cannot get Cipher Seed Mnemonic. Please restart the app and try again.")
+      viewController?.displayMnemonicFailure(viewModel: viewModel)
+    }
+  }
+  
+  func presentTimedButton(response: MnemonicDisplay.ButtonTimer.Response) {
+    
+    var viewModel: MnemonicDisplay.ButtonTimer.ViewModel
+    
+    if response.remainingTime == 0 {
+      viewModel = MnemonicDisplay.ButtonTimer.ViewModel(buttonText: "Done Writing",
+                                                        buttonTextColor: UIColor.normalText,
+                                                        buttonEnabled: true,
+                                                        buttonColor: UIColor.medAquamarine,
+                                                        buttonShadowColor: UIColor.medAquamarineShadow)
+    } else {
+      viewModel = MnemonicDisplay.ButtonTimer.ViewModel(buttonText: "Minimum wait - \(response.remainingTime)s left",
+                                                        buttonTextColor: UIColor.disabledText,
+                                                        buttonEnabled: false,
+                                                        buttonColor: UIColor.disabledGray,
+                                                        buttonShadowColor: UIColor.disabledGrayShadow)
+    }
+    
+    viewController?.displayTimedButtonUpdate(viewModel: viewModel)
   }
 }

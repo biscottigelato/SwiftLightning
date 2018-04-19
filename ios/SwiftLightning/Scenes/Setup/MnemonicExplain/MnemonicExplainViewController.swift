@@ -95,7 +95,7 @@ class MnemonicExplainViewController: UIViewController, MnemonicExplainDisplayLog
   // MARK: I understand
 
   @IBAction func understandTapped(_ sender: SLBarButton) {
-    // Route to MnemonicDispayViewController
+    router?.routeToMnemonicDisplay()
   }
   
   

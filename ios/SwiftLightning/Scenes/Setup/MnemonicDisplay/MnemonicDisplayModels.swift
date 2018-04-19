@@ -14,18 +14,40 @@ import UIKit
 
 enum MnemonicDisplay
 {
-  // MARK: Use cases
-  
-  enum Something
+  enum ShowMnemonic
   {
-    struct Request
-    {
+    struct Request {
     }
-    struct Response
-    {
+    
+    struct Response {
+      var mnemonicWords: [String]?
     }
-    struct ViewModel
-    {
+    
+    struct ViewModelSuccess {
+      var mnemonicWords: [String]
+    }
+    
+    struct ViewModelFailure {
+      var errorTitle: String
+      var errorMsg: String
+    }
+  }
+  
+  enum ButtonTimer
+  {
+    struct Request {
+    }
+    
+    struct Response {
+      var remainingTime: UInt
+    }
+    
+    struct ViewModel {
+      var buttonText: String
+      var buttonTextColor: UIColor
+      var buttonEnabled: Bool
+      var buttonColor: UIColor
+      var buttonShadowColor: UIColor
     }
   }
 }

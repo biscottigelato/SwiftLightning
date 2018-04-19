@@ -11,20 +11,20 @@ import Foundation
 class LNManager {
   
   // Temporary storage. Shall be cleared when done setting up wallet
-  static private(set) var cipherSeedMnemonics: [String]?
+  static private(set) var cipherSeedMnemonic: [String]?
  
-  static func set(cipherSeedMnemonics: [String]) {
-    guard cipherSeedMnemonics.count == LNConstants.cipherSeedMnemonicWordCount else {
-      SLLog.fatal("CipherSeedMnemonics must be 24 words long!")
+  static func set(cipherSeedMnemonic: [String]) {
+    guard cipherSeedMnemonic.count == LNConstants.cipherSeedMnemonicWordCount else {
+      SLLog.fatal("CipherSeedMnemonic must be 24 words long!")
     }
-    LNManager.cipherSeedMnemonics = cipherSeedMnemonics
+    LNManager.cipherSeedMnemonic = cipherSeedMnemonic
   }
   
   static func getCipherSeedWord(index: Int) -> String? {
-    return LNManager.cipherSeedMnemonics?[index]
+    return LNManager.cipherSeedMnemonic?[index]
   }
   
-  static func clearCipherSeedMnemonics() {
-    LNManager.cipherSeedMnemonics = nil
+  static func clearCipherSeedMnemonic() {
+    LNManager.cipherSeedMnemonic = nil
   }
 }

@@ -40,4 +40,12 @@ extension UIFont {
   static func OpenSansSemibold(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-Semibold", size: size)! }
   static func OpenSansSemiboldItalic(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-SemiboldItalic", size: size)! }
   
+  // App specific font selection
+  static func extraLightFont(_ size: CGFloat) -> UIFont { return UIFont.MontserratExtraLight(size) }
+  static func lightFont(_ size: CGFloat) -> UIFont { return UIFont.OpenSansLight(size) }
+  static func regularFont(_ size: CGFloat) -> UIFont { return UIFont.OpenSansRegular(size) }
+  static func mediumFont(_ size: CGFloat) -> UIFont { return UIFont.OpenSansRegular(size + 1) }
+  static func semiBoldFont(_ size: CGFloat) -> UIFont { return UIFont.OpenSansSemibold(size) }
+  static func boldFont(_ size: CGFloat) -> UIFont { return UIFont.OpenSansBold(size) }
+  static func extraBoldFont(_ size: CGFloat) -> UIFont { return UIFont.OpenSansExtraBold(size) }
 }

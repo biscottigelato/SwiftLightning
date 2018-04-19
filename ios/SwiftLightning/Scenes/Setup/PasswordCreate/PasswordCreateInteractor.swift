@@ -84,6 +84,17 @@ class PasswordCreateInteractor: PasswordCreateBusinessLogic, PasswordCreateDataS
     presenter?.presentSeedWalletResult(response: response)
   }
   
+  
+  // Problem 1: Problem here is that if someone background/quits the app mid way, there's no way to see the Seed again
+  // Option 1: User can see the seed whenever they want from Settings. This means the app needs to keep a copy of the seed outside of LND permanently
+  // Option 2: App keeps the seed until the user confirms the seed. App will keep promtping user to confirm seed until that's done
+  
+  // Problem 2: We need a way to make the user confirm passwords again, for transactions and any system changes.
+  // Question: Can LND unlock be a way to check the password, even after the wallet is unlocked?
+  // Option 1: LND unlock works
+  // Option 2: We need to hash the password and store it on encrypted on disk.
+  // Option 3: We require the user to unlock the wallet everytime the app is booted out of memory. We use that opportunity to store the hashed password in memory. If the hashed password is booted out of memory, we assume the app will be booted out of memory also. Which means when the user use the app again, he/she will type in the password. We will store the hash of the correct password again for the lifetime the app is in memory again and use it to verify subsequent operations.
+  
   func seedWallet(request: PasswordCreate.SeedWallet.Request) {
     let checkResult = checkPasswordAndConfirmation(password: request.passwordText, confirmation: request.confirmText)
     
@@ -111,15 +122,17 @@ class PasswordCreateInteractor: PasswordCreateBusinessLogic, PasswordCreateDataS
         SLLog.fatal("Generate seed completed but no plaintext password")
       }
       
-      let cipherSeedMnemonics = try result()
+      let cipherSeedMnemonic = try result()
       
-      guard cipherSeedMnemonics.count == LNConstants.cipherSeedMnemonicWordCount else {
-        seedWalletResponse(error: PasswordCreate.SeedWalletError.GenerateSeedInvalidMnemonics("Generate Seed returend invalid mnemonics"))
+      guard cipherSeedMnemonic.count == LNConstants.cipherSeedMnemonicWordCount else {
+        seedWalletResponse(error: PasswordCreate.SeedWalletError.GenerateSeedInvalidMnemonic("Generate Seed returend invalid mnemonic"))
         return
       }
       
+      LNManager.set(cipherSeedMnemonic: cipherSeedMnemonic) // Setting here, must clear on setup completion
+      
       try LNServices.createWallet(walletPassword: password,
-                                  cipherSeedMnemonic: cipherSeedMnemonics,
+                                  cipherSeedMnemonic: cipherSeedMnemonic,
                                   completion: createWalletCompletion)
     } catch {
       seedWalletResponse(error: error)
