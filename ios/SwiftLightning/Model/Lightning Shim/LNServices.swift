@@ -107,8 +107,9 @@ class LNServices {
         completion({ return response.cipherSeedMnemonic })
         
       } else {
-        SLLog.warning("LN Generate Seed Failed - \(result.description)")
-        completion({ throw GRPCResultError(code: result.statusCode.rawValue, description: result.description) })
+        let message = result.statusMessage ?? result.description
+        SLLog.warning("LN Generate Seed Failed - \(message)")
+        completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
       }
     }
   }
@@ -141,8 +142,9 @@ class LNServices {
         SLLog.info("LN Create Wallet Success!")
         completion({ return })
       } else {
-        SLLog.warning("LN Create Wallet Failed - \(result)")
-        completion({ throw GRPCResultError(code: result.statusCode.rawValue, description: result.description) })
+        let message = result.statusMessage ?? result.description
+        SLLog.warning("LN Create Wallet Failed - \(message)")
+        completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
       }
     }
   }
@@ -168,8 +170,9 @@ class LNServices {
         SLLog.info("LN Unlock Wallet Success!")
         completion({ return })
       } else {
-        SLLog.warning("LN Unlock Wallet Failed - \(result)")
-        completion({ throw GRPCResultError(code: result.statusCode.rawValue, description: result.description) })
+        let message = result.statusMessage ?? result.description
+        SLLog.warning("LN Unlock Wallet Failed - \(message)")
+        completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
       }
     }
   }
@@ -217,8 +220,9 @@ class LNServices {
         
         completion({ return })
       } else {
-        SLLog.warning("LN Get Info Failed - \(result)")
-        completion({ throw GRPCResultError(code: result.statusCode.rawValue, description: result.description) })
+        let message = result.statusMessage ?? result.description
+        SLLog.warning("LN Get Info Failed - \(message)")
+        completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
       }
     }
   }

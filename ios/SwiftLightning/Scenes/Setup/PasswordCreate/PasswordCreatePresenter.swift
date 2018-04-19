@@ -62,7 +62,7 @@ class PasswordCreatePresenter: PasswordCreatePresentationLogic
       
     case .failure(let error):
       let viewModel = PasswordCreate.SeedWallet.ViewModel(errorTitle: "Wallet Creation Failed", errorMsg: error.localizedDescription)
-      viewController?.seedWalletSuccess(viewModel: viewModel)
+      viewController?.seedWalletFailure(viewModel: viewModel)
     }
   }
 }

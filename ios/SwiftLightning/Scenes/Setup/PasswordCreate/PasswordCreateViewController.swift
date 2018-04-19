@@ -142,7 +142,11 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
   }
   
   func seedWalletFailure(viewModel: PasswordCreate.SeedWallet.ViewModel) {
-    SLLog.verbose("Seed Wallet Failed")
+    SLLog.warning("Seed Wallet Failed")
+    let alertDialog = UIAlertController(title: viewModel.errorTitle,
+                                        message: viewModel.errorMsg,
+                                        preferredStyle: .alert).addAction(title: "OK", style: .default)
+    present(alertDialog, animated: true, completion: nil)
   }
   
   

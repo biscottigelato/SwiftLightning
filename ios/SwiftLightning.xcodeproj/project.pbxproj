@@ -18,6 +18,7 @@
 		8C090E022087DEAA009B8B8D /* MnemonicExplainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090DFC2087DEAA009B8B8D /* MnemonicExplainInteractor.swift */; };
 		8C090E042087F28D009B8B8D /* LNManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E032087F28D009B8B8D /* LNManager.swift */; };
 		8C090E0620880154009B8B8D /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E0520880154009B8B8D /* Result.swift */; };
+		8C090E1020881DAB009B8B8D /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E0F20881DAB009B8B8D /* UIAlertController+Extension.swift */; };
 		8C188271208679BD002E2835 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C188270208679BD002E2835 /* GradientView.swift */; };
 		8C18828420868545002E2835 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827220868538002E2835 /* Montserrat-Light.ttf */; };
 		8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */; };
@@ -89,6 +90,7 @@
 		8C090DFC2087DEAA009B8B8D /* MnemonicExplainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicExplainInteractor.swift; sourceTree = "<group>"; };
 		8C090E032087F28D009B8B8D /* LNManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNManager.swift; sourceTree = "<group>"; };
 		8C090E0520880154009B8B8D /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		8C090E0F20881DAB009B8B8D /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		8C188270208679BD002E2835 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		8C18827220868538002E2835 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -196,6 +198,22 @@
 			path = "Lightning Shim";
 			sourceTree = "<group>";
 		};
+		8C090E072088185B009B8B8D /* Unlock */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Unlock;
+			sourceTree = "<group>";
+		};
+		8C090E082088197D009B8B8D /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				8C090E0520880154009B8B8D /* Result.swift */,
+				8C7D310720755CE00068F2BD /* SLLog.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		8C18829620868559002E2835 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,8 +279,9 @@
 			isa = PBXGroup;
 			children = (
 				8C7D310620755AF00068F2BD /* Assets */,
-				8C4710FC20783DEB005D7ABC /* Extensions */,
 				8C7D310220755A050068F2BD /* Support Files */,
+				8C4710FC20783DEB005D7ABC /* Extensions */,
+				8C090E082088197D009B8B8D /* Shared */,
 				8C7D310420755AE30068F2BD /* View Elements */,
 				8C090DEF20870AD3009B8B8D /* Model */,
 				8CFA16902082EB7300813EA6 /* Scenes */,
@@ -277,6 +296,7 @@
 				8CFA16AB2082FF4F00813EA6 /* UIView+Extension.swift */,
 				8CE3AE642086DA9E007D1065 /* UIColor+Extension.swift */,
 				8C090DEA2086F92A009B8B8D /* UITextField+Extension.swift */,
+				8C090E0F20881DAB009B8B8D /* UIAlertController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -295,8 +315,6 @@
 			children = (
 				8C2FC7132073513900966D31 /* Info.plist */,
 				8C2FC7072073513700966D31 /* AppDelegate.swift */,
-				8C7D310720755CE00068F2BD /* SLLog.swift */,
-				8C090E0520880154009B8B8D /* Result.swift */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -337,6 +355,7 @@
 			children = (
 				8CFA16912082EB7E00813EA6 /* Common */,
 				8CFA16922082EB9D00813EA6 /* Setup */,
+				8C090E072088185B009B8B8D /* Unlock */,
 				8CFA16942082ECD200813EA6 /* Receive */,
 				8CFA16932082ECC900813EA6 /* Pay */,
 				8CFA16952082ECE800813EA6 /* Settings */,
@@ -652,6 +671,7 @@
 				8C090DF420870DB9009B8B8D /* LNDefinitions.swift in Sources */,
 				8C1882A020868EBE002E2835 /* PasswordCreateModels.swift in Sources */,
 				8CE3AE612086AF3F007D1065 /* SLUnboxedHeading.swift in Sources */,
+				8C090E1020881DAB009B8B8D /* UIAlertController+Extension.swift in Sources */,
 				8C090E002087DEAA009B8B8D /* MnemonicExplainModels.swift in Sources */,
 				8CFA16A12082EF3A00813EA6 /* CreateRecoverPresenter.swift in Sources */,
 				8CFA16A22082EF3A00813EA6 /* CreateRecoverWorker.swift in Sources */,

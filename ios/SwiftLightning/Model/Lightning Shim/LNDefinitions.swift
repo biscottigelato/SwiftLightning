@@ -18,11 +18,11 @@ class GRPCResultError: NSError {
   static let domain = "GRPCResultDomain"
   
   override var localizedDescription: String {
-    return userInfo["Description"] as! String
+    return userInfo["Message"] as! String
   }
   
-  convenience init(code: Int, description: String) {
-    self.init(domain: GRPCResultError.domain, code: code, userInfo: ["Description" : description])
+  convenience init(code: Int, message: String) {
+    self.init(domain: GRPCResultError.domain, code: code, userInfo: ["Message" : message])
   }
 }
 
