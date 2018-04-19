@@ -15,6 +15,7 @@ import UIKit
 @objc protocol PasswordCreateRoutingLogic
 {
   func routeToCreateRecover()
+  func routeToMnemonicExplain()
 }
 
 protocol PasswordCreateDataPassing
@@ -38,6 +39,15 @@ class PasswordCreateRouter: NSObject, PasswordCreateRoutingLogic, PasswordCreate
     navigateToCreateRecover(source: viewController!, destination: destinationVC)
   }
 
+  func routeToMnemonicExplain()
+  {
+    let storyboard = UIStoryboard(name: "MnemonicExplain", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "MnemonicExplainViewController") as! MnemonicExplainViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToMnemonicExplain(source: dataStore!, destination: &destinationDS)
+    navigateToMnemonicExplain(source: viewController!, destination: destinationVC)
+  }
+  
   // MARK: Navigation
   
   func navigateToCreateRecover(source: PasswordCreateViewController, destination: CreateRecoverViewController)
@@ -45,9 +55,19 @@ class PasswordCreateRouter: NSObject, PasswordCreateRoutingLogic, PasswordCreate
     source.dismiss(animated: true)
   }
   
+  func navigateToMnemonicExplain(source: PasswordCreateViewController, destination: MnemonicExplainViewController)
+  {
+    source.present(destination, animated: true, completion: nil)
+  }
+  
   // MARK: Passing data
   
   func passDataToCreateRecover(source: PasswordCreateDataStore, destination: inout CreateRecoverDataStore)
+  {
+    // destination.name = source.name
+  }
+  
+  func passDataToMnemonicExplain(source: PasswordCreateDataStore, destination: inout MnemonicExplainDataStore)
   {
     // destination.name = source.name
   }

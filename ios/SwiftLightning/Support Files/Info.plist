@@ -68,6 +68,30 @@
 	<string>Montserrat-Italic.ttf</string>
 	<key>Item 9</key>
 	<string>Montserrat-Light.ttf</string>
+	<key>Item 18</key>
+	<string>OpenSans-Bold.ttf</string>
+	<key>Item 19</key>
+	<string>OpenSans-BoldItalic.ttf</string>
+	<key>Item 20</key>
+	<string>OpenSans-ExtraBold.ttf</string>
+	<key>Item 21</key>
+	<string>OpenSans-ExtraBoldItalic.ttf</string>
+	<key>Item 22</key>
+	<string>OpenSans-Italic.ttf</string>
+	<key>Item 23</key>
+	<string>OpenSans-Light.ttf</string>
+	<key>Item 24</key>
+	<string>OpenSans-LightItalic.ttf</string>
+	<key>Item 25</key>
+	<string>OpenSans-Regular.ttf</string>
+	<key>Item 26</key>
+	<string>OpenSans-Semibold.ttf</string>
+	<key>Item 27</key>
+	<string>OpenSans-SemiboldItalic.ttf</string>
+	<key>CFBundleSignature</key>
+	<string></string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>

@@ -139,6 +139,7 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
   
   func seedWalletSuccess(viewModel: PasswordCreate.SeedWallet.ViewModel) {
     SLLog.verbose("Seed Wallet Success!")
+    router?.routeToMnemonicExplain()
   }
   
   func seedWalletFailure(viewModel: PasswordCreate.SeedWallet.ViewModel) {
