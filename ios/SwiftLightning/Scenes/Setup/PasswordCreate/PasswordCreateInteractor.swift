@@ -29,7 +29,8 @@ class PasswordCreateInteractor: PasswordCreateBusinessLogic, PasswordCreateDataS
   var worker: PasswordCreateWorker?
 
   
-  // MARK: Password Validation Logic. Worker not required?
+  // MARK: Password Validation Logic
+  // TODO: Measure Password Strength for user
   
   func validatePasswords(request: PasswordCreate.ValidatePasswords.Request) {
     let checkResult = checkPasswordAndConfirmation(password: request.passwordText, confirmation: request.confirmText)

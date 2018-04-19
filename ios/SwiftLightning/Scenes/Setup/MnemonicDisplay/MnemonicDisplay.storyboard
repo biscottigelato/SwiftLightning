@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Mnemonic Display View Controller-->
+        <scene sceneID="2UK-wc-JlI">
+            <objects>
+                <viewController id="FWk-eO-xul" customClass="MnemonicDisplayViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="U0x-tz-flO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="500-s5-hvh">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2h4-gw-XB4" userLabel="Top Spacer">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="x8R-8h-KOL"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please write your mnemonic seed down and keep it at a safe place. We will do confirmation on the next screen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mbp-Sv-stj">
+                                        <rect key="frame" x="37.5" y="50" width="300" height="65.5"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                                        <color key="textColor" name="NormalText"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SBp-KH-PoD" userLabel="Above Mnemonics Spacer">
+                                        <rect key="frame" x="0.0" y="115.5" width="375" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Woe-os-hPH"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ysn-Ao-1tD" userLabel="MnemonicStack">
+                                        <rect key="frame" x="37.5" y="165.5" width="300" height="339.5"/>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fwv-cs-P1I" userLabel="Below Mnemonics Spacer">
+                                        <rect key="frame" x="0.0" y="505" width="375" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="YRT-H2-yYi"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Sh-wd-9h1" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="555" width="343" height="42"/>
+                                        <color key="backgroundColor" name="DisabledGray"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                        <state key="normal" title="Minimum wait - 20s left">
+                                            <color key="titleColor" name="DisabledText"/>
+                                            <color key="titleShadowColor" name="DisabledGrayShadow"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ipe-AZ-Gb4" userLabel="Bottom Spacer">
+                                        <rect key="frame" x="0.0" y="597" width="375" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="js5-5n-8YM"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="mbp-Sv-stj" firstAttribute="trailing" secondItem="ysn-Ao-1tD" secondAttribute="trailing" id="4ul-QW-SiW"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="700" id="cuY-mI-jyA"/>
+                                    <constraint firstItem="mbp-Sv-stj" firstAttribute="leading" secondItem="ysn-Ao-1tD" secondAttribute="leading" id="jli-m2-4xr"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="SpaceCadetBlue"/>
+                        <constraints>
+                            <constraint firstItem="500-s5-hvh" firstAttribute="bottom" secondItem="VKS-Zc-shC" secondAttribute="bottom" priority="900" id="BSO-nC-QNr"/>
+                            <constraint firstItem="500-s5-hvh" firstAttribute="centerY" secondItem="VKS-Zc-shC" secondAttribute="centerY" id="FDK-zf-KX7"/>
+                            <constraint firstItem="VKS-Zc-shC" firstAttribute="leading" secondItem="500-s5-hvh" secondAttribute="leading" id="TqZ-4K-odT"/>
+                            <constraint firstItem="VKS-Zc-shC" firstAttribute="top" secondItem="500-s5-hvh" secondAttribute="top" priority="900" id="mu9-pP-gtp"/>
+                            <constraint firstItem="ysn-Ao-1tD" firstAttribute="width" secondItem="U0x-tz-flO" secondAttribute="width" multiplier="0.8" id="pKd-vP-pxG"/>
+                            <constraint firstItem="500-s5-hvh" firstAttribute="trailing" secondItem="VKS-Zc-shC" secondAttribute="trailing" id="sh5-zs-3Hm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="VKS-Zc-shC"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jXg-KL-W3C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="44" y="95"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="DisabledGray">
+            <color red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="DisabledGrayShadow">
+            <color red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="DisabledText">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="NormalText">
+            <color red="1" green="0.99607843137254903" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="SpaceCadetBlue">
+            <color red="0.14509803921568629" green="0.21568627450980393" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

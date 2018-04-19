@@ -31,12 +31,12 @@ extension UIFont {
   // Open Sans Family
   static func OpenSansBold(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-Bold", size: size)! }
   static func OpenSansBoldItalic(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-BoldItalic", size: size)! }
-  static func OpenSansExtraBold(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-ExtraBold", size: size)! }
-  static func OpenSansExtraBoldItalic(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-ExtraBoldItalic", size: size)! }
+  static func OpenSansExtraBold(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-Extrabold", size: size)! }
+  static func OpenSansExtraBoldItalic(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-ExtraboldItalic", size: size)! }
   static func OpenSansItalic(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-Italic", size: size)! }
   static func OpenSansLight(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-Light", size: size)! }
-  static func OpenSansLightItalic(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-LightItalic", size: size)! }
-  static func OpenSansRegular(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-Regular", size: size)! }
+  static func OpenSansLightItalic(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSansLight-Italic", size: size)! }
+  static func OpenSansRegular(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans", size: size)! }
   static func OpenSansSemibold(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-Semibold", size: size)! }
   static func OpenSansSemiboldItalic(_ size: CGFloat) -> UIFont { return UIFont(name: "OpenSans-SemiboldItalic", size: size)! }
   

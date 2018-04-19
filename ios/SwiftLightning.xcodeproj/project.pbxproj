@@ -21,6 +21,24 @@
 		8C090E1020881DAB009B8B8D /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E0F20881DAB009B8B8D /* UIAlertController+Extension.swift */; };
 		8C090E1220882552009B8B8D /* MnemonicExplain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E1120882552009B8B8D /* MnemonicExplain.storyboard */; };
 		8C090E1E20885295009B8B8D /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E1D20885295009B8B8D /* UIFont+Extension.swift */; };
+		8C090E2020885772009B8B8D /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E1F20885772009B8B8D /* URL+Extension.swift */; };
+		8C090E2120885C84009B8B8D /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E1520884D25009B8B8D /* OpenSans-Bold.ttf */; };
+		8C090E2220885C84009B8B8D /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E1720884D26009B8B8D /* OpenSans-BoldItalic.ttf */; };
+		8C090E2320885C84009B8B8D /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E1620884D25009B8B8D /* OpenSans-ExtraBold.ttf */; };
+		8C090E2420885C84009B8B8D /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E1C20884D28009B8B8D /* OpenSans-ExtraBoldItalic.ttf */; };
+		8C090E2520885C84009B8B8D /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E1420884D24009B8B8D /* OpenSans-Italic.ttf */; };
+		8C090E2620885C84009B8B8D /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E1920884D27009B8B8D /* OpenSans-Light.ttf */; };
+		8C090E2720885C84009B8B8D /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E1820884D26009B8B8D /* OpenSans-LightItalic.ttf */; };
+		8C090E2820885C84009B8B8D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E1B20884D28009B8B8D /* OpenSans-Regular.ttf */; };
+		8C090E2920885C84009B8B8D /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E1A20884D27009B8B8D /* OpenSans-Semibold.ttf */; };
+		8C090E2A20885C84009B8B8D /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E1320884D24009B8B8D /* OpenSans-SemiboldItalic.ttf */; };
+		8C090E322088612B009B8B8D /* MnemonicDisplayPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E2C2088612B009B8B8D /* MnemonicDisplayPresenter.swift */; };
+		8C090E332088612B009B8B8D /* MnemonicDisplayWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E2D2088612B009B8B8D /* MnemonicDisplayWorker.swift */; };
+		8C090E342088612B009B8B8D /* MnemonicDisplayRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E2E2088612B009B8B8D /* MnemonicDisplayRouter.swift */; };
+		8C090E352088612B009B8B8D /* MnemonicDisplayModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E2F2088612B009B8B8D /* MnemonicDisplayModels.swift */; };
+		8C090E362088612B009B8B8D /* MnemonicDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E302088612B009B8B8D /* MnemonicDisplayViewController.swift */; };
+		8C090E372088612B009B8B8D /* MnemonicDisplayInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E312088612B009B8B8D /* MnemonicDisplayInteractor.swift */; };
+		8C090E3920886143009B8B8D /* MnemonicDisplay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E3820886143009B8B8D /* MnemonicDisplay.storyboard */; };
 		8C188271208679BD002E2835 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C188270208679BD002E2835 /* GradientView.swift */; };
 		8C18828420868545002E2835 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827220868538002E2835 /* Montserrat-Light.ttf */; };
 		8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */; };
@@ -105,6 +123,14 @@
 		8C090E1B20884D28009B8B8D /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		8C090E1C20884D28009B8B8D /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		8C090E1D20885295009B8B8D /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		8C090E1F20885772009B8B8D /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
+		8C090E2C2088612B009B8B8D /* MnemonicDisplayPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicDisplayPresenter.swift; sourceTree = "<group>"; };
+		8C090E2D2088612B009B8B8D /* MnemonicDisplayWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicDisplayWorker.swift; sourceTree = "<group>"; };
+		8C090E2E2088612B009B8B8D /* MnemonicDisplayRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicDisplayRouter.swift; sourceTree = "<group>"; };
+		8C090E2F2088612B009B8B8D /* MnemonicDisplayModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicDisplayModels.swift; sourceTree = "<group>"; };
+		8C090E302088612B009B8B8D /* MnemonicDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicDisplayViewController.swift; sourceTree = "<group>"; };
+		8C090E312088612B009B8B8D /* MnemonicDisplayInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicDisplayInteractor.swift; sourceTree = "<group>"; };
+		8C090E3820886143009B8B8D /* MnemonicDisplay.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MnemonicDisplay.storyboard; sourceTree = "<group>"; };
 		8C188270208679BD002E2835 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		8C18827220868538002E2835 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -317,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */,
+				8C090E1F20885772009B8B8D /* URL+Extension.swift */,
 				8CFA16AB2082FF4F00813EA6 /* UIView+Extension.swift */,
 				8C090E1D20885295009B8B8D /* UIFont+Extension.swift */,
 				8CE3AE642086DA9E007D1065 /* UIColor+Extension.swift */,
@@ -476,6 +503,13 @@
 		8CFA16992082EEAE00813EA6 /* MnemonicDisplay */ = {
 			isa = PBXGroup;
 			children = (
+				8C090E3820886143009B8B8D /* MnemonicDisplay.storyboard */,
+				8C090E2C2088612B009B8B8D /* MnemonicDisplayPresenter.swift */,
+				8C090E2D2088612B009B8B8D /* MnemonicDisplayWorker.swift */,
+				8C090E2E2088612B009B8B8D /* MnemonicDisplayRouter.swift */,
+				8C090E2F2088612B009B8B8D /* MnemonicDisplayModels.swift */,
+				8C090E302088612B009B8B8D /* MnemonicDisplayViewController.swift */,
+				8C090E312088612B009B8B8D /* MnemonicDisplayInteractor.swift */,
 			);
 			path = MnemonicDisplay;
 			sourceTree = "<group>";
@@ -581,10 +615,15 @@
 				8C18828B20868545002E2835 /* Montserrat-ExtraLightItalic.ttf in Resources */,
 				8C18828D20868545002E2835 /* Montserrat-BlackItalic.ttf in Resources */,
 				8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */,
+				8C090E2A20885C84009B8B8D /* OpenSans-SemiboldItalic.ttf in Resources */,
 				8CE3AE632086AF4D007D1065 /* SLUnboxedHeading.xib in Resources */,
 				8C18829120868545002E2835 /* Montserrat-Thin.ttf in Resources */,
 				8C18828F20868545002E2835 /* Montserrat-Italic.ttf in Resources */,
+				8C090E2720885C84009B8B8D /* OpenSans-LightItalic.ttf in Resources */,
 				8C090E1220882552009B8B8D /* MnemonicExplain.storyboard in Resources */,
+				8C090E2820885C84009B8B8D /* OpenSans-Regular.ttf in Resources */,
+				8C090E2620885C84009B8B8D /* OpenSans-Light.ttf in Resources */,
+				8C090E2920885C84009B8B8D /* OpenSans-Semibold.ttf in Resources */,
 				8C1882A420868ECD002E2835 /* PasswordCreate.storyboard in Resources */,
 				8CFA16E32085510600813EA6 /* Colors.xcassets in Resources */,
 				8C2FC7122073513800966D31 /* LaunchScreen.storyboard in Resources */,
@@ -598,11 +637,17 @@
 				8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */,
 				8C18829220868545002E2835 /* Montserrat-SemiBold.ttf in Resources */,
 				8C18829420868545002E2835 /* Montserrat-ThinItalic.ttf in Resources */,
+				8C090E2120885C84009B8B8D /* OpenSans-Bold.ttf in Resources */,
 				8C18829020868545002E2835 /* Montserrat-ExtraLight.ttf in Resources */,
 				8C18828720868545002E2835 /* Montserrat-ExtraBold.ttf in Resources */,
+				8C090E2520885C84009B8B8D /* OpenSans-Italic.ttf in Resources */,
 				8C18828C20868545002E2835 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
 				8C18828920868545002E2835 /* Montserrat-Bold.ttf in Resources */,
+				8C090E2220885C84009B8B8D /* OpenSans-BoldItalic.ttf in Resources */,
 				8C2FC70D2073513700966D31 /* Main.storyboard in Resources */,
+				8C090E3920886143009B8B8D /* MnemonicDisplay.storyboard in Resources */,
+				8C090E2420885C84009B8B8D /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				8C090E2320885C84009B8B8D /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,7 +739,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C090E012087DEAA009B8B8D /* MnemonicExplainViewController.swift in Sources */,
+				8C090E322088612B009B8B8D /* MnemonicDisplayPresenter.swift in Sources */,
 				8C7D310820755CE00068F2BD /* SLLog.swift in Sources */,
+				8C090E342088612B009B8B8D /* MnemonicDisplayRouter.swift in Sources */,
 				8C090DF420870DB9009B8B8D /* LNDefinitions.swift in Sources */,
 				8C1882A020868EBE002E2835 /* PasswordCreateModels.swift in Sources */,
 				8CE3AE612086AF3F007D1065 /* SLUnboxedHeading.swift in Sources */,
@@ -718,18 +765,23 @@
 				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
 				8CFA16A52082EF3A00813EA6 /* CreateRecoverViewController.swift in Sources */,
 				8C090E042087F28D009B8B8D /* LNManager.swift in Sources */,
+				8C090E2020885772009B8B8D /* URL+Extension.swift in Sources */,
 				8C1882B220869699002E2835 /* SLPasswordField.swift in Sources */,
+				8C090E332088612B009B8B8D /* MnemonicDisplayWorker.swift in Sources */,
 				8CFA16AC2082FF4F00813EA6 /* UIView+Extension.swift in Sources */,
+				8C090E362088612B009B8B8D /* MnemonicDisplayViewController.swift in Sources */,
 				8C1882B72086A582002E2835 /* SLIcon30Button.swift in Sources */,
 				8C090E0620880154009B8B8D /* Result.swift in Sources */,
 				8C18829E20868EBE002E2835 /* PasswordCreateWorker.swift in Sources */,
 				8C090DFD2087DEAA009B8B8D /* MnemonicExplainPresenter.swift in Sources */,
 				8C18829D20868EBE002E2835 /* PasswordCreatePresenter.swift in Sources */,
 				8C090DFF2087DEAA009B8B8D /* MnemonicExplainRouter.swift in Sources */,
+				8C090E372088612B009B8B8D /* MnemonicDisplayInteractor.swift in Sources */,
 				8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */,
 				8C090E022087DEAA009B8B8D /* MnemonicExplainInteractor.swift in Sources */,
 				8CFA16A62082EF3A00813EA6 /* CreateRecoverInteractor.swift in Sources */,
 				8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */,
+				8C090E352088612B009B8B8D /* MnemonicDisplayModels.swift in Sources */,
 				8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */,
 				8C090E1E20885295009B8B8D /* UIFont+Extension.swift in Sources */,
 				8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */,

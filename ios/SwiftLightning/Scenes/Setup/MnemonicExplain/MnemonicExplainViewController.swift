@@ -11,35 +11,34 @@
 //
 
 import UIKit
+import SafariServices
 
-protocol MnemonicExplainDisplayLogic: class
-{
-  func displaySomething(viewModel: MnemonicExplain.Something.ViewModel)
+protocol MnemonicExplainDisplayLogic: class {
+  // func displaySomething(viewModel: MnemonicExplain.Something.ViewModel)
 }
 
-class MnemonicExplainViewController: UIViewController, MnemonicExplainDisplayLogic
-{
+
+class MnemonicExplainViewController: UIViewController, MnemonicExplainDisplayLogic {
   var interactor: MnemonicExplainBusinessLogic?
   var router: (NSObjectProtocol & MnemonicExplainRoutingLogic & MnemonicExplainDataPassing)?
 
+  
   // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     setup()
   }
   
-  required init?(coder aDecoder: NSCoder)
-  {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
   
+  
   // MARK: Setup
   
-  private func setup()
-  {
+  private func setup() {
     let viewController = self
     let interactor = MnemonicExplainInteractor()
     let presenter = MnemonicExplainPresenter()
@@ -52,10 +51,10 @@ class MnemonicExplainViewController: UIViewController, MnemonicExplainDisplayLog
     router.dataStore = interactor
   }
   
+  
   // MARK: Routing
   
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let scene = segue.identifier {
       let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
       if let router = router, router.responds(to: selector) {
@@ -64,26 +63,44 @@ class MnemonicExplainViewController: UIViewController, MnemonicExplainDisplayLog
     }
   }
   
+  
   // MARK: View lifecycle
   
-  override func viewDidLoad()
-  {
+  override func viewDidLoad() {
     super.viewDidLoad()
-    doSomething()
   }
   
-  // MARK: Do something
   
-  //@IBOutlet weak var nameTextField: UITextField!
+  // MARK: How to keep my backup safe?
   
-  func doSomething()
-  {
-    let request = MnemonicExplain.Something.Request()
-    interactor?.doSomething(request: request)
+  @IBAction func howToTapped(_ sender: SLBarButton) {
+    displaySafariView()
   }
   
-  func displaySomething(viewModel: MnemonicExplain.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
+  func displaySafariView() {
+    
+    // This shall be directly called by IBAction, or might crash from not being Main thread
+    let url = URL(string: "https://en.bitcoin.it/wiki/Mnemonic_phrase")!
+    SLLog.info("Opening Safari View for \(url)")
+      
+    let safariViewController = SFSafariViewController(url: url)
+    safariViewController.dismissButtonStyle = .done
+    safariViewController.preferredBarTintColor = UIColor.spaceCadetBlue
+    safariViewController.preferredControlTintColor = UIColor.normalText
+    // safariViewController.modalPresentationStyle = .overCurrentContext
+    present(safariViewController, animated: true, completion: nil)
   }
+  
+  
+  // MARK: I understand
+
+  @IBAction func understandTapped(_ sender: SLBarButton) {
+    // Route to MnemonicDispayViewController
+  }
+  
+  
+  
+  
+  
+
 }

@@ -32,72 +32,43 @@
 			</dict>
 		</array>
 	</dict>
-	<key>Item 0</key>
-	<string>Montserrat-Black.ttf</string>
-	<key>Item 1</key>
-	<string>Montserrat-BlackItalic.ttf</string>
-	<key>Item 10</key>
-	<string>Montserrat-LightItalic.ttf</string>
-	<key>Item 11</key>
-	<string>Montserrat-Medium.ttf</string>
-	<key>Item 12</key>
-	<string>Montserrat-MediumItalic.ttf</string>
-	<key>Item 13</key>
-	<string>Montserrat-Regular.ttf</string>
-	<key>Item 14</key>
-	<string>Montserrat-SemiBold.ttf</string>
-	<key>Item 15</key>
-	<string>Montserrat-SemiBoldItalic.ttf</string>
-	<key>Item 16</key>
-	<string>Montserrat-Thin.ttf</string>
-	<key>Item 17</key>
-	<string>Montserrat-ThinItalic.ttf</string>
-	<key>Item 2</key>
-	<string>Montserrat-Bold.ttf</string>
-	<key>Item 3</key>
-	<string>Montserrat-BoldItalic.ttf</string>
-	<key>Item 4</key>
-	<string>Montserrat-ExtraBold.ttf</string>
-	<key>Item 5</key>
-	<string>Montserrat-ExtraBoldItalic.ttf</string>
-	<key>Item 6</key>
-	<string>Montserrat-ExtraLight.ttf</string>
-	<key>Item 7</key>
-	<string>Montserrat-ExtraLightItalic.ttf</string>
-	<key>Item 8</key>
-	<string>Montserrat-Italic.ttf</string>
-	<key>Item 9</key>
-	<string>Montserrat-Light.ttf</string>
-	<key>Item 18</key>
-	<string>OpenSans-Bold.ttf</string>
-	<key>Item 19</key>
-	<string>OpenSans-BoldItalic.ttf</string>
-	<key>Item 20</key>
-	<string>OpenSans-ExtraBold.ttf</string>
-	<key>Item 21</key>
-	<string>OpenSans-ExtraBoldItalic.ttf</string>
-	<key>Item 22</key>
-	<string>OpenSans-Italic.ttf</string>
-	<key>Item 23</key>
-	<string>OpenSans-Light.ttf</string>
-	<key>Item 24</key>
-	<string>OpenSans-LightItalic.ttf</string>
-	<key>Item 25</key>
-	<string>OpenSans-Regular.ttf</string>
-	<key>Item 26</key>
-	<string>OpenSans-Semibold.ttf</string>
-	<key>Item 27</key>
-	<string>OpenSans-SemiboldItalic.ttf</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>OpenSans-ExtraBold.ttf</string>
+		<string>OpenSans-BoldItalic.ttf</string>
+		<string>OpenSans-Bold.ttf</string>
+		<string>Montserrat-ThinItalic.ttf</string>
+		<string>Montserrat-Thin.ttf</string>
+		<string>Montserrat-SemiBoldItalic.ttf</string>
+		<string>Montserrat-SemiBold.ttf</string>
+		<string>Montserrat-Regular.ttf</string>
+		<string>Montserrat-MediumItalic.ttf</string>
+		<string>Montserrat-Medium.ttf</string>
+		<string>Montserrat-LightItalic.ttf</string>
+		<string>Montserrat-Light.ttf</string>
+		<string>Montserrat-Italic.ttf</string>
+		<string>Montserrat-ExtraLightItalic.ttf</string>
+		<string>Montserrat-ExtraLight.ttf</string>
+		<string>Montserrat-ExtraBoldItalic.ttf</string>
+		<string>Montserrat-ExtraBold.ttf</string>
+		<string>Montserrat-BoldItalic.ttf</string>
+		<string>Montserrat-Bold.ttf</string>
+		<string>Montserrat-BlackItalic.ttf</string>
+		<string>Montserrat-Black.ttf</string>
+		<string>OpenSans-ExtraBoldItalic.ttf</string>
+		<string>OpenSans-Italic.ttf</string>
+		<string>OpenSans-Light.ttf</string>
+		<string>OpenSans-LightItalic.ttf</string>
+		<string>OpenSans-Regular.ttf</string>
+		<string>OpenSans-Semibold.ttf</string>
+		<string>OpenSans-SemiboldItalic.ttf</string>
+	</array>
 	<key>CFBundleSignature</key>
 	<string></string>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>UIAppFonts</key>
-	<array>
-		<string></string>
-	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

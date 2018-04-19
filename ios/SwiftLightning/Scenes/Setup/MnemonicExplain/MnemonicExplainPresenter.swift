@@ -25,7 +25,7 @@ class MnemonicExplainPresenter: MnemonicExplainPresentationLogic
   
   func presentSomething(response: MnemonicExplain.Something.Response)
   {
-    let viewModel = MnemonicExplain.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    // let viewModel = MnemonicExplain.Something.ViewModel()
+    // viewController?.displaySomething(viewModel: viewModel)
   }
 }

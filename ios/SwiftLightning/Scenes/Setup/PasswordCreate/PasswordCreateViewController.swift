@@ -117,29 +117,32 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
   }
   
   func updateSceneView(viewModel: PasswordCreate.ValidatePasswords.ViewModel) {
-    
-    passwordField.infoLabel.text = viewModel.passwordFieldLabelText
-    passwordField.infoLabel.textColor = viewModel.passwordFieldLabelColor
-    confirmField.infoLabel.text = viewModel.confirmFieldLabelText
-    confirmField.infoLabel.textColor = viewModel.confirmFieldLabelColor
-    
-    if viewModel.proceedButtonEnabled {
-      proceedButton.setTitleColor(UIColor.normalText, for: .normal)
-      proceedButton.backgroundColor = UIColor.medAquamarine
-      proceedButton.shadowColor = UIColor.medAquamarineShadow
-      proceedButton.isEnabled = true
+    DispatchQueue.main.async {
+      self.passwordField.infoLabel.text = viewModel.passwordFieldLabelText
+      self.passwordField.infoLabel.textColor = viewModel.passwordFieldLabelColor
+      self.confirmField.infoLabel.text = viewModel.confirmFieldLabelText
+      self.confirmField.infoLabel.textColor = viewModel.confirmFieldLabelColor
       
-    } else {
-      proceedButton.setTitleColor(UIColor.disabledText, for: .normal)
-      proceedButton.backgroundColor = UIColor.disabledGray
-      proceedButton.shadowColor = UIColor.disabledGrayShadow
-      proceedButton.isEnabled = false
+      if viewModel.proceedButtonEnabled {
+        self.proceedButton.setTitleColor(UIColor.normalText, for: .normal)
+        self.proceedButton.backgroundColor = UIColor.medAquamarine
+        self.proceedButton.shadowColor = UIColor.medAquamarineShadow
+        self.proceedButton.isEnabled = true
+        
+      } else {
+        self.proceedButton.setTitleColor(UIColor.disabledText, for: .normal)
+        self.proceedButton.backgroundColor = UIColor.disabledGray
+        self.proceedButton.shadowColor = UIColor.disabledGrayShadow
+        self.proceedButton.isEnabled = false
+      }
     }
   }
   
   func seedWalletSuccess(viewModel: PasswordCreate.SeedWallet.ViewModel) {
     SLLog.verbose("Seed Wallet Success!")
-    router?.routeToMnemonicExplain()
+    DispatchQueue.main.async {
+      self.router?.routeToMnemonicExplain()
+    }
   }
   
   func seedWalletFailure(viewModel: PasswordCreate.SeedWallet.ViewModel) {
@@ -147,7 +150,9 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
     let alertDialog = UIAlertController(title: viewModel.errorTitle,
                                         message: viewModel.errorMsg,
                                         preferredStyle: .alert).addAction(title: "OK", style: .default)
-    present(alertDialog, animated: true, completion: nil)
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true, completion: nil)
+    }
   }
   
   
