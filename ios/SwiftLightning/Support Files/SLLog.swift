@@ -1,5 +1,5 @@
 //
-//  SCLog.swift
+//  SLLog.swift
 //  SwiftLightning
 //
 //  Created by Howard Lee on 2018-04-04.
@@ -10,7 +10,7 @@ import Fabric
 import Crashlytics
 import CocoaLumberjack
 
-class SCLog {
+class SLLog {
   
   // MARK: - Constants
   struct Constants {

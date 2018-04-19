@@ -65,67 +65,73 @@ class PasswordCreateInteractor: PasswordCreateBusinessLogic, PasswordCreateDataS
     return (passwordStatus, confirmStatus)
   }
   
+  
   // MARK: Seed Generation and Wallet Creation Logic
   
   private var passwordPlaintext: String?  // WARNING: Explicit clear just in case
-  private var seedMnemonics: [String]?
+
+  private func seedWalletResponse(error: Error?) {
+    var result: Result<Void>
+    
+    if let error = error {
+      result = .failure(error)
+    } else {
+      result = .success(())
+    }
+    
+    let response = PasswordCreate.SeedWallet.Response(result: result)
+    presenter?.presentSeedWalletResult(response: response)
+  }
   
   func seedWallet(request: PasswordCreate.SeedWallet.Request) {
     let checkResult = checkPasswordAndConfirmation(password: request.passwordText, confirmation: request.confirmText)
     
-    guard checkResult.passwordStatus == .passwordOk, checkResult.confirmStatus == .confirmationOk else {
-      let response = PasswordCreate.SeedWallet.Response(seedMnemonic: nil, error: PasswordCreate.SeedWalletError.PasswordConfirmFailed)
-      presenter?.presentSeedWalletResult(response: response)
-      return
-    }
-    
-    // Store the password locally for now. Otherwise it's really hard to manage.
-    passwordPlaintext = request.passwordText
-    
-    if let error = LNServices.generateSeed(completion: generateSeedCompletion) {
-      let response = PasswordCreate.SeedWallet.Response(seedMnemonic: nil, error: PasswordCreate.SeedWalletError.GenerateSeedErrorSync(error.localizedDescription))
-      presenter?.presentSeedWalletResult(response: response)
-      return
+    do {
+      guard checkResult.passwordStatus == .passwordOk, checkResult.confirmStatus == .confirmationOk else {
+        seedWalletResponse(error: PasswordCreate.SeedWalletError.PasswordConfirmFailed("Seed Wallet Passowrd Confirm Failed"))
+        return
+      }
+      
+      // Store the password locally for now. Otherwise it's really hard to manage.
+      passwordPlaintext = request.passwordText
+      
+      try LNServices.generateSeed(completion: generateSeedCompletion)
+
+    } catch {
+      seedWalletResponse(error: error)
     }
   }
   
-  private func generateSeedCompletion(seedMnemonics: [String]?, error: Error?) {
+  private func generateSeedCompletion(result: () throws -> [String]) {
     defer { passwordPlaintext = nil }
     
-    if let seedMnemonics = seedMnemonics, seedMnemonics.count == LNConstants.cipherSeedMnemonicWordCount {
+    do {
       guard let password = passwordPlaintext else {
-        SCLog.fatal("Generate seed completed but no plaintext password")
+        SLLog.fatal("Generate seed completed but no plaintext password")
       }
       
-      if let error = LNServices.createWallet(walletPassword: password, cipherSeedMnemonic: seedMnemonics, completion: createWalletCompletion) {  // Should change to throw model
-        let response = PasswordCreate.SeedWallet.Response(seedMnemonic: nil, error: PasswordCreate.SeedWalletError.CreateWalletErrorSync(error.localizedDescription))
-        presenter?.presentSeedWalletResult(response: response)
+      let cipherSeedMnemonics = try result()
+      
+      guard cipherSeedMnemonics.count == LNConstants.cipherSeedMnemonicWordCount else {
+        seedWalletResponse(error: PasswordCreate.SeedWalletError.GenerateSeedInvalidMnemonics("Generate Seed returend invalid mnemonics"))
+        return
       }
       
-    } else if let error = error {
-      let response = PasswordCreate.SeedWallet.Response(seedMnemonic: nil, error: PasswordCreate.SeedWalletError.GenerateSeedFailedAsync(error.localizedDescription))
-      presenter?.presentSeedWalletResult(response: response)
-      
-    } else {
-      SCLog.fatal("Generate seed async failed with no error")
+      try LNServices.createWallet(walletPassword: password,
+                                  cipherSeedMnemonic: cipherSeedMnemonics,
+                                  completion: createWalletCompletion)
+    } catch {
+      seedWalletResponse(error: error)
     }
   }
   
-  private func createWalletCompletion(error: Error?) {
-    defer { seedMnemonics = nil }
+  private func createWalletCompletion(result: () throws -> ()) {
     
-    if let error = error {
-      let response = PasswordCreate.SeedWallet.Response(seedMnemonic: nil, error: PasswordCreate.SeedWalletError.CreateWalletFailedAsync(error.localizedDescription))
-      presenter?.presentSeedWalletResult(response: response)
-      return
+    do {
+      try result()
+      seedWalletResponse(error: nil)
+    } catch {
+      seedWalletResponse(error: error)
     }
-    
-    guard let seedMnemonics = seedMnemonics else {
-      SCLog.fatal("Created wallet but no seed mnemonics")
-    }
-    
-    let response = PasswordCreate.SeedWallet.Response(seedMnemonic: seedMnemonics, error: nil)
-    presenter?.presentSeedWalletResult(response: response)
-    return
   }
 }

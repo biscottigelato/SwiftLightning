@@ -85,7 +85,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-A9-PER" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="124" y="663" width="127" height="30"/>
+                                <rect key="frame" x="16" y="639" width="343" height="42"/>
                                 <color key="backgroundColor" name="LightAzureBlue"/>
                                 <state key="normal" title="Create New Wallet">
                                     <color key="titleColor" name="NormalText"/>
@@ -101,7 +101,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQF-OK-Hbl" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="136.66666666666666" y="708" width="102" height="30"/>
+                                <rect key="frame" x="16" y="696" width="343" height="42"/>
                                 <color key="backgroundColor" name="MedAquamarine"/>
                                 <state key="normal" title="Recover Wallet">
                                     <color key="titleColor" name="NormalText"/>
@@ -147,16 +147,16 @@
         <image name="LightningLogo" width="303" height="537"/>
         <image name="OnboardBackgroundTemp" width="1333" height="2000"/>
         <namedColor name="LightAzureBlue">
-            <color red="0.41176470588235292" green="0.72156862745098038" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.4823529411764706" green="0.71372549019607845" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="LightAzureBlueShadow">
-            <color red="0.22352941176470589" green="0.39215686274509803" blue="0.51764705882352946" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.2627450980392157" green="0.3843137254901961" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="MedAquamarine">
-            <color red="0.38039215686274508" green="0.85098039215686272" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.50588235294117645" green="0.83921568627450982" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="MedAquamarineShadow">
-            <color red="0.23137254901960785" green="0.51372549019607838" blue="0.44705882352941179" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.30588235294117649" green="0.50588235294117645" blue="0.44705882352941179" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="NormalText">
             <color red="1" green="0.99607843137254903" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

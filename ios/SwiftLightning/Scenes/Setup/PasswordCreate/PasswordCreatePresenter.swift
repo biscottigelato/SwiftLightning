@@ -55,17 +55,14 @@ class PasswordCreatePresenter: PasswordCreatePresentationLogic
   }
   
   func presentSeedWalletResult(response: PasswordCreate.SeedWallet.Response) {
-    
-    if let error = response.error {
-      let viewModel = PasswordCreate.SeedWallet.ViewModel(seedMnemonic: nil, errorTitle: "Wallet Creation Failed", errorMsg: error.localizedDescription)
-      viewController?.seedWalletFailure(viewModel: viewModel)
+    switch response.result {
+    case .success(()):
+      let viewModel = PasswordCreate.SeedWallet.ViewModel(errorTitle: nil, errorMsg: nil)
+      viewController?.seedWalletSuccess(viewModel: viewModel)
+      
+    case .failure(let error):
+      let viewModel = PasswordCreate.SeedWallet.ViewModel(errorTitle: "Wallet Creation Failed", errorMsg: error.localizedDescription)
+      viewController?.seedWalletSuccess(viewModel: viewModel)
     }
-    
-    guard let seedMnemonic = response.seedMnemonic else {
-      SCLog.fatal("Seed Wallet Interactor completed with no errors, but seedmMnemonic = nil")
-    }
-    
-    let viewModel = PasswordCreate.SeedWallet.ViewModel(seedMnemonic: seedMnemonic, errorTitle: nil, errorMsg: nil)
-    viewController?.seedWalletSuccess(viewModel: viewModel)
   }
 }

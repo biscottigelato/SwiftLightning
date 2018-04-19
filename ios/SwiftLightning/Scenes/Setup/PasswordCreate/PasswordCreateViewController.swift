@@ -138,15 +138,11 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
   }
   
   func seedWalletSuccess(viewModel: PasswordCreate.SeedWallet.ViewModel) {
-    SCLog.verbose("Seed Wallet Success!")
-    
-    for seedWord in viewModel.seedMnemonic! {
-      SCLog.verbose(seedWord)
-    }
+    SLLog.verbose("Seed Wallet Success!")
   }
   
   func seedWalletFailure(viewModel: PasswordCreate.SeedWallet.ViewModel) {
-    SCLog.verbose("Seed Wallet Failed")
+    SLLog.verbose("Seed Wallet Failed")
   }
   
   

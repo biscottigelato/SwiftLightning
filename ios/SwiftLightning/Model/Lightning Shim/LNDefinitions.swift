@@ -14,24 +14,40 @@ struct LNConstants {
 }
 
 
-enum LNError: Error {
+class GRPCResultError: NSError {
+  static let domain = "GRPCResultDomain"
   
-  // Generate Seed
-  case GenerateSeedErrorSync(String)
-  case GenerateSeedFailedAsync(String)
+  override var localizedDescription: String {
+    return userInfo["Description"] as! String
+  }
   
-  // Create Wallet
-  case CreateWalletInvalidCipherSeedSync
-  case CreateWalletInvalidPasswordSync
-  case CreateWalletErrorSync(String)
-  case CreateWalletFailedAsync(String)
+  convenience init(code: Int, description: String) {
+    self.init(domain: GRPCResultError.domain, code: code, userInfo: ["Description" : description])
+  }
+}
+
+
+enum LNError: Int, Error {
   
-  // Unlock Wallet
-  case UnlockWalletInvalidPasswordSync
-  case UnlockWalletErrorSync(String)
-  case UnlockWalletFailedSAsync(String)
+  case createWalletInvalidCipherSeed
+  case createWalletInvalidPassword
   
-  // Get Info
-  case GetInfoErrorSync(String)
-  case GetInfoFailedAsync(String)
+  case unlockWalletInvalidPassword
+  
+  
+  // Computed Properties
+  var code: Int { return self.rawValue }
+  
+  var localizedDescription: String {
+    switch self {
+      
+    case .createWalletInvalidCipherSeed:
+      return NSLocalizedString("Cipher seed invalid when creating wallet", comment: "LNError Type")
+    case .createWalletInvalidPassword:
+      return NSLocalizedString("Password invalid when creating wallet", comment: "LNError Type")
+      
+    case .unlockWalletInvalidPassword:
+      return NSLocalizedString("Password invalid when unlocking wallet", comment: "LNError Type")
+    }
+  }
 }

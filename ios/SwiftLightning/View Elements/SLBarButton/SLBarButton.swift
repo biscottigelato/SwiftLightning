@@ -77,13 +77,14 @@ import UIKit
   
   // MARK: - Public Instance Functions
   
-  override func awakeFromNib() {
-    super.awakeFromNib()
+  override func layoutSubviews() {
+    super.layoutSubviews()
     initButton(by: slButtonSize)
   }
   
   
   override var intrinsicContentSize: CGSize {
+    SLLog.verbose("Intrinsic Size: \(intrinsicSize)")
     return intrinsicSize
   }
   
@@ -97,6 +98,7 @@ import UIKit
     let leftMargin = Constants.defaultLayoutMargin
     let rightMargin = Constants.defaultLayoutMargin
     var superviewWidth = UIScreen.main.bounds.width
+    SLLog.verbose("Screen width \(superviewWidth)")
     
 //    if let layoutMargins = superview?.layoutMargins {
 //      if layoutMargins.left != 0 { leftMargin = layoutMargins.left }
@@ -109,9 +111,11 @@ import UIKit
     
     if let width = superview?.bounds.width {
       superviewWidth = width
+      SLLog.verbose("Superview width \(superviewWidth)")
     }
     else if let width = window?.bounds.width {
       superviewWidth = width
+      SLLog.verbose("Window width \(superviewWidth)")
     }
     
     switch sizeType {

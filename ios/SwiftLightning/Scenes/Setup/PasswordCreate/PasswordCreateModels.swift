@@ -53,11 +53,8 @@ enum PasswordCreate
   
   
   enum SeedWalletError: Error {
-    case PasswordConfirmFailed
-    case GenerateSeedErrorSync(String)
-    case GenerateSeedFailedAsync(String)
-    case CreateWalletErrorSync(String)
-    case CreateWalletFailedAsync(String)
+    case PasswordConfirmFailed(String)
+    case GenerateSeedInvalidMnemonics(String)
   }
   
   
@@ -69,12 +66,10 @@ enum PasswordCreate
     }
     
     struct Response {
-      var seedMnemonic: [String]?
-      var error: Error?
+      var result: Result<Void>
     }
     
     struct ViewModel {
-      var seedMnemonic: [String]?
       var errorTitle: String?
       var errorMsg: String?
     }

@@ -14,7 +14,6 @@ import UIKit
   @IBOutlet weak var logoHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var logoAspectRatioConstraint: NSLayoutConstraint!
   
-  
   override var intrinsicContentSize: CGSize {
     let logoHeight = logoHeightConstraint.constant
     let logoWidth = logoHeight / logoAspectRatioConstraint.multiplier

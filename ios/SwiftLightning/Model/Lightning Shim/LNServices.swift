@@ -57,7 +57,7 @@ class LNServices {
     lndArgs += "--debuglevel=info"
     #endif
 
-    SCLog.verbose("LND Arguments: \(lndArgs)")
+    SLLog.verbose("LND Arguments: \(lndArgs)")
     
     // Start LND on it's own thread
     lndQueue = DispatchQueue(label: "LNDQueue", qos: .background, attributes: .concurrent)
@@ -88,52 +88,46 @@ class LNServices {
   
   // MARK: Generate Seed
   
-  static func generateSeed(completion: @escaping ([String]?, LNError?) -> ()) -> LNError? {
+  static func generateSeed(completion: @escaping (() throws -> ([String])) -> Void) throws {
     prepareWalletUnlockerService()
     
-    do {
-      _ = try walletUnlockerService!.genSeed(Lnrpc_GenSeedRequest()) { (response, result) in
-        if let response = response {
-          SCLog.info("LN Generate Seed Success!")
-          
-          #if DEBUG  // CAUTION: Make double sure this only gets logged on Debug
-          var ciperSeedMnemonicDisplayString = "Generated Mnemonic: "
-          for mnemonicWord in response.cipherSeedMnemonic {
-            ciperSeedMnemonicDisplayString += mnemonicWord
-            ciperSeedMnemonicDisplayString += " "
-          }
-          SCLog.verbose(ciperSeedMnemonicDisplayString)
-          #endif
-          
-          completion(response.cipherSeedMnemonic, nil)
-          
-        } else {
-          SCLog.warning("LN Generate Seed Failed - \(result)")
-          completion(nil, LNError.GenerateSeedFailedAsync(result.description))
+    _ = try walletUnlockerService!.genSeed(Lnrpc_GenSeedRequest()) { (response, result) in
+      if let response = response {
+        SLLog.info("LN Generate Seed Success!")
+        
+        #if DEBUG  // CAUTION: Make double sure this only gets logged on Debug
+        var ciperSeedMnemonicDisplayString = "Generated Mnemonic: "
+        for mnemonicWord in response.cipherSeedMnemonic {
+          ciperSeedMnemonicDisplayString += mnemonicWord
+          ciperSeedMnemonicDisplayString += " "
         }
+        SLLog.verbose(ciperSeedMnemonicDisplayString)
+        #endif
+        
+        completion({ return response.cipherSeedMnemonic })
+        
+      } else {
+        SLLog.warning("LN Generate Seed Failed - \(result.description)")
+        completion({ throw GRPCResultError(code: result.statusCode.rawValue, description: result.description) })
       }
-    } catch {
-      return LNError.GenerateSeedErrorSync(error.localizedDescription)
     }
-    
-    return nil
   }
   
   
   // MARK: Create Wallet
   
   static func createWallet(walletPassword: String,
-                    cipherSeedMnemonic: [String],
-                    completion: @escaping (LNError?) -> ()) -> LNError? {
+                           cipherSeedMnemonic: [String],
+                           completion: @escaping (() throws -> ()) -> Void) throws {
     
     guard cipherSeedMnemonic.count == LNConstants.cipherSeedMnemonicWordCount else {
-      SCLog.warning("Cipher Seed Mnemonic is not 24 words long!")
-      return LNError.CreateWalletInvalidCipherSeedSync
+      SLLog.warning("Cipher Seed Mnemonic is not 24 words long!")
+      throw LNError.createWalletInvalidCipherSeed
     }
     
-    guard walletPassword.count < LNConstants.walletPasswordMinLength, let passwordData = walletPassword.data(using: .utf8) else {
-      SCLog.warning("Invalid Wallet Password")
-      return LNError.CreateWalletInvalidPasswordSync
+    guard walletPassword.count > LNConstants.walletPasswordMinLength, let passwordData = walletPassword.data(using: .utf8) else {
+      SLLog.warning("Invalid Wallet Password")
+      throw LNError.createWalletInvalidPassword
     }
     
     prepareWalletUnlockerService()
@@ -142,31 +136,26 @@ class LNServices {
     initWalletRequest.cipherSeedMnemonic = cipherSeedMnemonic
     initWalletRequest.walletPassword = passwordData
     
-    do {
-      _ = try walletUnlockerService!.initWallet(initWalletRequest) { (response, result) in
-        if response != nil {
-          SCLog.info("LN Create Wallet Success!")
-          completion(nil)
-        } else {
-          SCLog.warning("LN Create Wallet Failed - \(result)")
-          completion(LNError.CreateWalletFailedAsync(result.description))
-        }
+    _ = try walletUnlockerService!.initWallet(initWalletRequest) { (response, result) in
+      if response != nil {
+        SLLog.info("LN Create Wallet Success!")
+        completion({ return })
+      } else {
+        SLLog.warning("LN Create Wallet Failed - \(result)")
+        completion({ throw GRPCResultError(code: result.statusCode.rawValue, description: result.description) })
       }
-    } catch {
-      return LNError.CreateWalletErrorSync(error.localizedDescription)
     }
-    
-    return nil
   }
   
   
   // MARK: Unlock Wallet
   
-  static func unlockWallet(walletPassword: String, completion: @escaping (LNError?) -> ()) -> LNError? {
+  static func unlockWallet(walletPassword: String,
+                           completion: @escaping (() throws -> ()) -> Void) throws {
     
     guard let passwordData = walletPassword.data(using: .utf8) else {
-      SCLog.warning("Invalid Wallet Password")
-      return LNError.UnlockWalletInvalidPasswordSync
+      SLLog.warning("Invalid Wallet Password")
+      throw LNError.unlockWalletInvalidPassword
     }
     
     prepareWalletUnlockerService()
@@ -174,21 +163,15 @@ class LNServices {
     var unlockWalletRequest = Lnrpc_UnlockWalletRequest()
     unlockWalletRequest.walletPassword = passwordData
     
-    do {
-      _ = try walletUnlockerService!.unlockWallet(unlockWalletRequest) { (response, result) in
-        if response != nil {
-          SCLog.info("LN Unlock Wallet Success!")
-          completion(nil)
-        } else {
-          SCLog.warning("LN Unlock Wallet Failed - \(result)")
-          completion(LNError.UnlockWalletFailedSAsync(result.description))
-        }
+    _ = try walletUnlockerService!.unlockWallet(unlockWalletRequest) { (response, result) in
+      if response != nil {
+        SLLog.info("LN Unlock Wallet Success!")
+        completion({ return })
+      } else {
+        SLLog.warning("LN Unlock Wallet Failed - \(result)")
+        completion({ throw GRPCResultError(code: result.statusCode.rawValue, description: result.description) })
       }
-    } catch {
-      return LNError.UnlockWalletErrorSync(error.localizedDescription)
     }
-    
-    return nil
   }
   
   
@@ -213,36 +196,30 @@ class LNServices {
   
   // MARK: Get Info
   
-  static func getInfo(completion: @escaping (LNError?) -> ()) -> LNError? {  //TODO: Should return an info struct of sort
+  static func getInfo(completion: @escaping (() throws -> ()) -> Void) throws {  //TODO: Should return an info struct of sort
     prepareLightningService()
     
-    do {
-      _ = try lightningService!.getInfo(Lnrpc_GetInfoRequest()) { (response, result) in
-        if let response = response {
-          SCLog.verbose("LN Get Info Success!")
-          SCLog.verbose("Identity Pubkey:       \(response.identityPubkey)")
-          SCLog.verbose("Alias:                 \(response.alias)")
-          SCLog.verbose("Num Pending Channels:  \(response.numPendingChannels)")
-          SCLog.verbose("Num Active Channels :  \(response.numActiveChannels)")
-          SCLog.verbose("Number of Peers:       \(response.numPeers)")
-          SCLog.verbose("Block Height:          \(response.blockHeight)")
-          SCLog.verbose("Block Hash:            \(response.blockHash)")
-          SCLog.verbose("Synced to Chain:       \(response.syncedToChain)")
-          SCLog.verbose("Testnet:               \(response.testnet)")
-          SCLog.verbose("Chains:                \(response.chains.joined(separator: ", "))")
-          SCLog.verbose("URIs:                  \(response.uris.joined(separator: ", "))")
-          SCLog.verbose("Best Header Timestamp: \(response.bestHeaderTimestamp)")
-          
-          completion(nil)
-        } else {
-          SCLog.warning("LN Get Info Failed - \(result)")
-          completion(LNError.GetInfoFailedAsync(result.description))
-        }
+    _ = try lightningService!.getInfo(Lnrpc_GetInfoRequest()) { (response, result) in
+      if let response = response {
+        SLLog.verbose("LN Get Info Success!")
+        SLLog.verbose("Identity Pubkey:       \(response.identityPubkey)")
+        SLLog.verbose("Alias:                 \(response.alias)")
+        SLLog.verbose("Num Pending Channels:  \(response.numPendingChannels)")
+        SLLog.verbose("Num Active Channels :  \(response.numActiveChannels)")
+        SLLog.verbose("Number of Peers:       \(response.numPeers)")
+        SLLog.verbose("Block Height:          \(response.blockHeight)")
+        SLLog.verbose("Block Hash:            \(response.blockHash)")
+        SLLog.verbose("Synced to Chain:       \(response.syncedToChain)")
+        SLLog.verbose("Testnet:               \(response.testnet)")
+        SLLog.verbose("Chains:                \(response.chains.joined(separator: ", "))")
+        SLLog.verbose("URIs:                  \(response.uris.joined(separator: ", "))")
+        SLLog.verbose("Best Header Timestamp: \(response.bestHeaderTimestamp)")
+        
+        completion({ return })
+      } else {
+        SLLog.warning("LN Get Info Failed - \(result)")
+        completion({ throw GRPCResultError(code: result.statusCode.rawValue, description: result.description) })
       }
-    } catch {
-      return LNError.GetInfoErrorSync(error.localizedDescription)
     }
-    
-    return nil
   }
 }
