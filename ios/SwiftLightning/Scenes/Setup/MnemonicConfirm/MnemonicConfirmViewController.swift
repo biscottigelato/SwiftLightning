@@ -21,13 +21,14 @@ protocol MnemonicConfirmDisplayLogic: class {
 }
 
 
-class MnemonicConfirmViewController: UIViewController, MnemonicConfirmDisplayLogic, UITextFieldDelegate {
+class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLogic, UITextFieldDelegate {
   
   var interactor: MnemonicConfirmBusinessLogic?
   var router: (NSObjectProtocol & MnemonicConfirmRoutingLogic & MnemonicConfirmDataPassing)?
 
   // MARK: Common IBOutlets
   
+  @IBOutlet weak var scrollView: UIScrollView!
   @IBOutlet weak var confirmField1: SLSeedField!
   @IBOutlet weak var confirmField2: SLSeedField!
   @IBOutlet weak var confirmField3: SLSeedField!
@@ -83,6 +84,7 @@ class MnemonicConfirmViewController: UIViewController, MnemonicConfirmDisplayLog
   override func viewDidLoad()
   {
     super.viewDidLoad()
+    keyboardScrollView = scrollView  // Hook the keyboard scroll adjust to the SLVC superclass
     
     confirmField1.textField.addTarget(self, action: #selector(checkSeedWords), for: UIControlEvents.editingChanged)
     confirmField2.textField.addTarget(self, action: #selector(checkSeedWords), for: UIControlEvents.editingChanged)
@@ -93,13 +95,20 @@ class MnemonicConfirmViewController: UIViewController, MnemonicConfirmDisplayLog
     confirmField3.textField.delegate = self
     
     confirmField3.textField.returnKeyType = .done
-    
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
     let genIndicesRequest = MnemonicConfirm.GenRandomIndices.Request(numToGen: 3)
     interactor?.genRandomIndices(request: genIndicesRequest)
     
     checkSeedWords()
+    
+    confirmField1.textField.becomeFirstResponder()
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    view.endEditing(true)
+  }
   
   // MARK: Text Fields
   

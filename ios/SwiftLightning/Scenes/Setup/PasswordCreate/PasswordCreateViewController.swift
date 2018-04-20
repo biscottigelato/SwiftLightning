@@ -70,6 +70,7 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
   override func viewDidLoad() {
     
     super.viewDidLoad()
+    keyboardScrollView = scrollView  // Hook the keyboard scroll adjust to the SLVC superclass
     
     passwordField.textField.delegate = self
     confirmField.textField.delegate = self
@@ -78,8 +79,6 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
     confirmField.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     
     confirmField.textField.returnKeyType = .done
-    
-    keyboardScrollView = scrollView
   }
   
   override func viewWillAppear(_ animated: Bool) {
