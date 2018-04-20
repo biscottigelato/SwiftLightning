@@ -86,6 +86,7 @@ class PasswordCreateInteractor: PasswordCreateBusinessLogic, PasswordCreateDataS
   
   
   // Problem 1: Problem here is that if someone background/quits the app mid way, there's no way to see the Seed again
+  // Either way, the app will have to store the Seed on disk somehow. For Option 1 temporarily, for Option 2 for the lifetime of the wallet
   // Option 1: User can see the seed whenever they want from Settings. This means the app needs to keep a copy of the seed outside of LND permanently
   // Option 2: App keeps the seed until the user confirms the seed. App will keep promtping user to confirm seed until that's done
   
@@ -140,7 +141,6 @@ class PasswordCreateInteractor: PasswordCreateBusinessLogic, PasswordCreateDataS
   }
   
   private func createWalletCompletion(result: () throws -> ()) {
-    
     do {
       try result()
       seedWalletResponse(error: nil)

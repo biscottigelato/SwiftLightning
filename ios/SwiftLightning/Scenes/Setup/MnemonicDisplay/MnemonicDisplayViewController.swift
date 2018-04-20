@@ -143,22 +143,13 @@ class MnemonicDisplayViewController: UIViewController, MnemonicDisplayDisplayLog
       self.doneWritingButton.backgroundColor = viewModel.buttonColor
       self.doneWritingButton.shadowColor = viewModel.buttonShadowColor
       self.doneWritingButton.isEnabled = viewModel.buttonEnabled
-      
-//      if self.doneWritingButton.titleColor(for: .normal) != viewModel.buttonTextColor {
-//        self.doneWritingButton.setTitleColor(viewModel.buttonTextColor, for: .normal)
-//      }
-//      
-//      if self.doneWritingButton.backgroundColor != viewModel.buttonColor {
-//        self.doneWritingButton.backgroundColor = viewModel.buttonColor
-//      }
-//      
-//      if self.doneWritingButton.shadowColor != viewModel.buttonShadowColor {
-//        self.doneWritingButton.shadowColor = viewModel.buttonShadowColor
-//      }
-//      
-//      if self.doneWritingButton.isEnabled != viewModel.buttonEnabled {
-//        self.doneWritingButton.isEnabled = viewModel.buttonEnabled
-//      }
     }
+  }
+  
+  
+  // MARK: Done Writing Tapped
+  
+  @IBAction func doneWritingTapped(_ sender: SLBarButton) {
+    router?.routeToMnemonicConfirm()
   }
 }

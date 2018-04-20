@@ -39,6 +39,23 @@
 		8C090E362088612B009B8B8D /* MnemonicDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E302088612B009B8B8D /* MnemonicDisplayViewController.swift */; };
 		8C090E372088612B009B8B8D /* MnemonicDisplayInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E312088612B009B8B8D /* MnemonicDisplayInteractor.swift */; };
 		8C090E3920886143009B8B8D /* MnemonicDisplay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E3820886143009B8B8D /* MnemonicDisplay.storyboard */; };
+		8C090E4220894801009B8B8D /* MnemonicConfirmPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E3C20894801009B8B8D /* MnemonicConfirmPresenter.swift */; };
+		8C090E4320894801009B8B8D /* MnemonicConfirmWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E3D20894801009B8B8D /* MnemonicConfirmWorker.swift */; };
+		8C090E4420894801009B8B8D /* MnemonicConfirmRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E3E20894801009B8B8D /* MnemonicConfirmRouter.swift */; };
+		8C090E4520894801009B8B8D /* MnemonicConfirmModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E3F20894801009B8B8D /* MnemonicConfirmModels.swift */; };
+		8C090E4620894801009B8B8D /* MnemonicConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E4020894801009B8B8D /* MnemonicConfirmViewController.swift */; };
+		8C090E4720894801009B8B8D /* MnemonicConfirmInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E4120894801009B8B8D /* MnemonicConfirmInteractor.swift */; };
+		8C090E4920894817009B8B8D /* MnemonicConfirm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E4820894817009B8B8D /* MnemonicConfirm.storyboard */; };
+		8C090E4C20894A85009B8B8D /* SLSeedField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E4B20894A85009B8B8D /* SLSeedField.xib */; };
+		8C090E4E20894A94009B8B8D /* SLSeedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E4D20894A94009B8B8D /* SLSeedField.swift */; };
+		8C090E5020895CA9009B8B8D /* SLRandValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E4F20895CA9009B8B8D /* SLRandValues.swift */; };
+		8C090E6320896172009B8B8D /* SLRandValuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6220896172009B8B8D /* SLRandValuesTests.swift */; };
+		8C090E6B20896C3E009B8B8D /* WalletPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6520896C3E009B8B8D /* WalletPresenter.swift */; };
+		8C090E6C20896C3E009B8B8D /* WalletWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6620896C3E009B8B8D /* WalletWorker.swift */; };
+		8C090E6D20896C3E009B8B8D /* WalletRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6720896C3E009B8B8D /* WalletRouter.swift */; };
+		8C090E6E20896C3E009B8B8D /* WalletModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6820896C3E009B8B8D /* WalletModels.swift */; };
+		8C090E6F20896C3E009B8B8D /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6920896C3E009B8B8D /* WalletViewController.swift */; };
+		8C090E7020896C3E009B8B8D /* WalletInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6A20896C3E009B8B8D /* WalletInteractor.swift */; };
 		8C188271208679BD002E2835 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C188270208679BD002E2835 /* GradientView.swift */; };
 		8C18828420868545002E2835 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827220868538002E2835 /* Montserrat-Light.ttf */; };
 		8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */; };
@@ -96,6 +113,16 @@
 		B6B514D5D47CE23C7C8010FE /* Pods_SwiftLightning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8C090E5D208960E6009B8B8D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8C2FC6FC2073513600966D31 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8C2FC7032073513600966D31;
+			remoteInfo = SwiftLightning;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftLightning.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8292E2C0A97224CAF9B4332E /* Pods-SwiftLightning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLightning.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning.release.xcconfig"; sourceTree = "<group>"; };
@@ -131,6 +158,24 @@
 		8C090E302088612B009B8B8D /* MnemonicDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicDisplayViewController.swift; sourceTree = "<group>"; };
 		8C090E312088612B009B8B8D /* MnemonicDisplayInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicDisplayInteractor.swift; sourceTree = "<group>"; };
 		8C090E3820886143009B8B8D /* MnemonicDisplay.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MnemonicDisplay.storyboard; sourceTree = "<group>"; };
+		8C090E3C20894801009B8B8D /* MnemonicConfirmPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicConfirmPresenter.swift; sourceTree = "<group>"; };
+		8C090E3D20894801009B8B8D /* MnemonicConfirmWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicConfirmWorker.swift; sourceTree = "<group>"; };
+		8C090E3E20894801009B8B8D /* MnemonicConfirmRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicConfirmRouter.swift; sourceTree = "<group>"; };
+		8C090E3F20894801009B8B8D /* MnemonicConfirmModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicConfirmModels.swift; sourceTree = "<group>"; };
+		8C090E4020894801009B8B8D /* MnemonicConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicConfirmViewController.swift; sourceTree = "<group>"; };
+		8C090E4120894801009B8B8D /* MnemonicConfirmInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicConfirmInteractor.swift; sourceTree = "<group>"; };
+		8C090E4820894817009B8B8D /* MnemonicConfirm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MnemonicConfirm.storyboard; sourceTree = "<group>"; };
+		8C090E4B20894A85009B8B8D /* SLSeedField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLSeedField.xib; sourceTree = "<group>"; };
+		8C090E4D20894A94009B8B8D /* SLSeedField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSeedField.swift; sourceTree = "<group>"; };
+		8C090E4F20895CA9009B8B8D /* SLRandValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLRandValues.swift; sourceTree = "<group>"; };
+		8C090E58208960E6009B8B8D /* SwiftLightningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftLightningTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C090E6220896172009B8B8D /* SLRandValuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLRandValuesTests.swift; sourceTree = "<group>"; };
+		8C090E6520896C3E009B8B8D /* WalletPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPresenter.swift; sourceTree = "<group>"; };
+		8C090E6620896C3E009B8B8D /* WalletWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletWorker.swift; sourceTree = "<group>"; };
+		8C090E6720896C3E009B8B8D /* WalletRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletRouter.swift; sourceTree = "<group>"; };
+		8C090E6820896C3E009B8B8D /* WalletModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModels.swift; sourceTree = "<group>"; };
+		8C090E6920896C3E009B8B8D /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
+		8C090E6A20896C3E009B8B8D /* WalletInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInteractor.swift; sourceTree = "<group>"; };
 		8C188270208679BD002E2835 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		8C18827220868538002E2835 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -191,6 +236,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8C090E55208960E6009B8B8D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8C2FC7012073513600966D31 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -248,10 +300,42 @@
 		8C090E082088197D009B8B8D /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				8C090E5120896050009B8B8D /* Test */,
 				8C090E0520880154009B8B8D /* Result.swift */,
 				8C7D310720755CE00068F2BD /* SLLog.swift */,
+				8C090E4F20895CA9009B8B8D /* SLRandValues.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		8C090E4A20894A65009B8B8D /* SLSeedField */ = {
+			isa = PBXGroup;
+			children = (
+				8C090E4B20894A85009B8B8D /* SLSeedField.xib */,
+				8C090E4D20894A94009B8B8D /* SLSeedField.swift */,
+			);
+			path = SLSeedField;
+			sourceTree = "<group>";
+		};
+		8C090E5120896050009B8B8D /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				8C090E6220896172009B8B8D /* SLRandValuesTests.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		8C090E6420896BB5009B8B8D /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				8C090E6520896C3E009B8B8D /* WalletPresenter.swift */,
+				8C090E6620896C3E009B8B8D /* WalletWorker.swift */,
+				8C090E6720896C3E009B8B8D /* WalletRouter.swift */,
+				8C090E6820896C3E009B8B8D /* WalletModels.swift */,
+				8C090E6920896C3E009B8B8D /* WalletViewController.swift */,
+				8C090E6A20896C3E009B8B8D /* WalletInteractor.swift */,
+			);
+			path = Wallet;
 			sourceTree = "<group>";
 		};
 		8C18829620868559002E2835 /* Fonts */ = {
@@ -321,6 +405,7 @@
 			isa = PBXGroup;
 			children = (
 				8C2FC7042073513700966D31 /* SwiftLightning.app */,
+				8C090E58208960E6009B8B8D /* SwiftLightningTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -379,6 +464,7 @@
 				8CFA16E120854C3C00813EA6 /* SLBarButton */,
 				8C1882B52086A193002E2835 /* SLIcon30Button */,
 				8C1882AB20869313002E2835 /* SLPasswordField */,
+				8C090E4A20894A65009B8B8D /* SLSeedField */,
 			);
 			path = "View Elements";
 			sourceTree = "<group>";
@@ -408,6 +494,7 @@
 				8CFA16912082EB7E00813EA6 /* Common */,
 				8CFA16922082EB9D00813EA6 /* Setup */,
 				8C090E072088185B009B8B8D /* Unlock */,
+				8C090E6420896BB5009B8B8D /* Wallet */,
 				8CFA16942082ECD200813EA6 /* Receive */,
 				8CFA16932082ECC900813EA6 /* Pay */,
 				8CFA16952082ECE800813EA6 /* Settings */,
@@ -517,6 +604,13 @@
 		8CFA169A2082EED200813EA6 /* MnemonicConfirm */ = {
 			isa = PBXGroup;
 			children = (
+				8C090E4820894817009B8B8D /* MnemonicConfirm.storyboard */,
+				8C090E3C20894801009B8B8D /* MnemonicConfirmPresenter.swift */,
+				8C090E3D20894801009B8B8D /* MnemonicConfirmWorker.swift */,
+				8C090E3E20894801009B8B8D /* MnemonicConfirmRouter.swift */,
+				8C090E3F20894801009B8B8D /* MnemonicConfirmModels.swift */,
+				8C090E4020894801009B8B8D /* MnemonicConfirmViewController.swift */,
+				8C090E4120894801009B8B8D /* MnemonicConfirmInteractor.swift */,
 			);
 			path = MnemonicConfirm;
 			sourceTree = "<group>";
@@ -551,6 +645,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8C090E57208960E6009B8B8D /* SwiftLightningTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C090E5F208960E6009B8B8D /* Build configuration list for PBXNativeTarget "SwiftLightningTests" */;
+			buildPhases = (
+				8C090E54208960E6009B8B8D /* Sources */,
+				8C090E55208960E6009B8B8D /* Frameworks */,
+				8C090E56208960E6009B8B8D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8C090E5E208960E6009B8B8D /* PBXTargetDependency */,
+			);
+			name = SwiftLightningTests;
+			productName = SwiftLightningTests;
+			productReference = 8C090E58208960E6009B8B8D /* SwiftLightningTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8C2FC7032073513600966D31 /* SwiftLightning */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8C2FC7162073513900966D31 /* Build configuration list for PBXNativeTarget "SwiftLightning" */;
@@ -582,6 +694,10 @@
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = BiscottiGelato;
 				TargetAttributes = {
+					8C090E57208960E6009B8B8D = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = 8C2FC7032073513600966D31;
+					};
 					8C2FC7032073513600966D31 = {
 						CreatedOnToolsVersion = 9.3;
 					};
@@ -601,11 +717,19 @@
 			projectRoot = "";
 			targets = (
 				8C2FC7032073513600966D31 /* SwiftLightning */,
+				8C090E57208960E6009B8B8D /* SwiftLightningTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8C090E56208960E6009B8B8D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8C2FC7022073513600966D31 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -628,6 +752,7 @@
 				8CFA16E32085510600813EA6 /* Colors.xcassets in Resources */,
 				8C2FC7122073513800966D31 /* LaunchScreen.storyboard in Resources */,
 				8C18829320868545002E2835 /* Montserrat-Regular.ttf in Resources */,
+				8C090E4920894817009B8B8D /* MnemonicConfirm.storyboard in Resources */,
 				8C18829520868545002E2835 /* Montserrat-Black.ttf in Resources */,
 				8CFA16E620856E9800813EA6 /* CreateRecover.storyboard in Resources */,
 				8C18828A20868545002E2835 /* Montserrat-SemiBoldItalic.ttf in Resources */,
@@ -645,6 +770,7 @@
 				8C18828920868545002E2835 /* Montserrat-Bold.ttf in Resources */,
 				8C090E2220885C84009B8B8D /* OpenSans-BoldItalic.ttf in Resources */,
 				8C2FC70D2073513700966D31 /* Main.storyboard in Resources */,
+				8C090E4C20894A85009B8B8D /* SLSeedField.xib in Resources */,
 				8C090E3920886143009B8B8D /* MnemonicDisplay.storyboard in Resources */,
 				8C090E2420885C84009B8B8D /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				8C090E2320885C84009B8B8D /* OpenSans-ExtraBold.ttf in Resources */,
@@ -734,15 +860,27 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8C090E54208960E6009B8B8D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C090E6320896172009B8B8D /* SLRandValuesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8C2FC7002073513600966D31 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8C090E012087DEAA009B8B8D /* MnemonicExplainViewController.swift in Sources */,
+				8C090E4620894801009B8B8D /* MnemonicConfirmViewController.swift in Sources */,
 				8C090E322088612B009B8B8D /* MnemonicDisplayPresenter.swift in Sources */,
+				8C090E4520894801009B8B8D /* MnemonicConfirmModels.swift in Sources */,
 				8C7D310820755CE00068F2BD /* SLLog.swift in Sources */,
 				8C090E342088612B009B8B8D /* MnemonicDisplayRouter.swift in Sources */,
 				8C090DF420870DB9009B8B8D /* LNDefinitions.swift in Sources */,
+				8C090E4220894801009B8B8D /* MnemonicConfirmPresenter.swift in Sources */,
+				8C090E4720894801009B8B8D /* MnemonicConfirmInteractor.swift in Sources */,
 				8C1882A020868EBE002E2835 /* PasswordCreateModels.swift in Sources */,
 				8CE3AE612086AF3F007D1065 /* SLUnboxedHeading.swift in Sources */,
 				8C090E1020881DAB009B8B8D /* UIAlertController+Extension.swift in Sources */,
@@ -755,32 +893,42 @@
 				8CE3AE652086DA9E007D1065 /* UIColor+Extension.swift in Sources */,
 				8CFA16A32082EF3A00813EA6 /* CreateRecoverRouter.swift in Sources */,
 				8C188271208679BD002E2835 /* GradientView.swift in Sources */,
+				8C090E6D20896C3E009B8B8D /* WalletRouter.swift in Sources */,
 				8C1882A220868EBE002E2835 /* PasswordCreateInteractor.swift in Sources */,
 				8C090DEB2086F92A009B8B8D /* UITextField+Extension.swift in Sources */,
 				8C1882A120868EBE002E2835 /* PasswordCreateViewController.swift in Sources */,
 				8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */,
+				8C090E6B20896C3E009B8B8D /* WalletPresenter.swift in Sources */,
 				8CFA16AE2083001F00813EA6 /* DesignableViews.swift in Sources */,
+				8C090E4E20894A94009B8B8D /* SLSeedField.swift in Sources */,
+				8C090E6F20896C3E009B8B8D /* WalletViewController.swift in Sources */,
 				8CFA16A42082EF3A00813EA6 /* CreateRecoverModels.swift in Sources */,
 				8C18829F20868EBE002E2835 /* PasswordCreateRouter.swift in Sources */,
 				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
 				8CFA16A52082EF3A00813EA6 /* CreateRecoverViewController.swift in Sources */,
 				8C090E042087F28D009B8B8D /* LNManager.swift in Sources */,
 				8C090E2020885772009B8B8D /* URL+Extension.swift in Sources */,
+				8C090E5020895CA9009B8B8D /* SLRandValues.swift in Sources */,
 				8C1882B220869699002E2835 /* SLPasswordField.swift in Sources */,
+				8C090E6C20896C3E009B8B8D /* WalletWorker.swift in Sources */,
 				8C090E332088612B009B8B8D /* MnemonicDisplayWorker.swift in Sources */,
 				8CFA16AC2082FF4F00813EA6 /* UIView+Extension.swift in Sources */,
 				8C090E362088612B009B8B8D /* MnemonicDisplayViewController.swift in Sources */,
+				8C090E6E20896C3E009B8B8D /* WalletModels.swift in Sources */,
 				8C1882B72086A582002E2835 /* SLIcon30Button.swift in Sources */,
 				8C090E0620880154009B8B8D /* Result.swift in Sources */,
 				8C18829E20868EBE002E2835 /* PasswordCreateWorker.swift in Sources */,
 				8C090DFD2087DEAA009B8B8D /* MnemonicExplainPresenter.swift in Sources */,
+				8C090E4420894801009B8B8D /* MnemonicConfirmRouter.swift in Sources */,
 				8C18829D20868EBE002E2835 /* PasswordCreatePresenter.swift in Sources */,
 				8C090DFF2087DEAA009B8B8D /* MnemonicExplainRouter.swift in Sources */,
 				8C090E372088612B009B8B8D /* MnemonicDisplayInteractor.swift in Sources */,
 				8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */,
+				8C090E4320894801009B8B8D /* MnemonicConfirmWorker.swift in Sources */,
 				8C090E022087DEAA009B8B8D /* MnemonicExplainInteractor.swift in Sources */,
 				8CFA16A62082EF3A00813EA6 /* CreateRecoverInteractor.swift in Sources */,
 				8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */,
+				8C090E7020896C3E009B8B8D /* WalletInteractor.swift in Sources */,
 				8C090E352088612B009B8B8D /* MnemonicDisplayModels.swift in Sources */,
 				8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */,
 				8C090E1E20885295009B8B8D /* UIFont+Extension.swift in Sources */,
@@ -789,6 +937,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8C090E5E208960E6009B8B8D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8C2FC7032073513600966D31 /* SwiftLightning */;
+			targetProxy = 8C090E5D208960E6009B8B8D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8C2FC70B2073513700966D31 /* Main.storyboard */ = {
@@ -810,6 +966,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8C090E60208960E6009B8B8D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G37J442U66;
+				INFOPLIST_FILE = SwiftLightningTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightningTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftLightning.app/SwiftLightning";
+			};
+			name = Debug;
+		};
+		8C090E61208960E6009B8B8D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G37J442U66;
+				INFOPLIST_FILE = SwiftLightningTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightningTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftLightning.app/SwiftLightning";
+			};
+			name = Release;
+		};
 		8C2FC7142073513900966D31 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -976,6 +1174,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8C090E5F208960E6009B8B8D /* Build configuration list for PBXNativeTarget "SwiftLightningTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C090E60208960E6009B8B8D /* Debug */,
+				8C090E61208960E6009B8B8D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8C2FC6FF2073513600966D31 /* Build configuration list for PBXProject "SwiftLightning" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

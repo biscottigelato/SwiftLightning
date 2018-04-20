@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Mnemonic Confirm View Controller-->
+        <scene sceneID="PTN-sF-k6B">
+            <objects>
+                <viewController storyboardIdentifier="MnemonicConfirmViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UnY-Tw-lWe" customClass="MnemonicConfirmViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RV3-wN-WgD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3vs-mB-K9F">
+                                <rect key="frame" x="0.0" y="20" width="320" height="339.5"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wkD-MK-2qw" userLabel="Top Spacer">
+                                        <rect key="frame" x="40" y="0.0" width="240" height="48.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To ensure correctness, please confirm the following words from your written seed." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="xIu-bK-eI7" userLabel="Instructions Label">
+                                        <rect key="frame" x="32" y="48.5" width="256" height="65.5"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                                        <color key="textColor" name="NormalText"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nGU-UK-0FD" userLabel="Main Spacer">
+                                        <rect key="frame" x="40" y="114" width="240" height="22"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="MAl-0s-deE"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SXU-uy-jiL" userLabel="Confirm Field 1" customClass="SLSeedField" customModule="SwiftLightning" customModuleProvider="target">
+                                        <rect key="frame" x="40" y="136" width="240" height="29"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZoI-TQ-dlZ" userLabel="Spacer 1">
+                                        <rect key="frame" x="40" y="165" width="240" height="17.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KXw-yS-23n" userLabel="Confirm Field 2" customClass="SLSeedField" customModule="SwiftLightning" customModuleProvider="target">
+                                        <rect key="frame" x="40" y="182.5" width="240" height="29"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vgh-tU-1aU" userLabel="Spacer 2">
+                                        <rect key="frame" x="40" y="211.5" width="240" height="17.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EJz-hE-kex" customClass="SLSeedField" customModule="SwiftLightning" customModuleProvider="target">
+                                        <rect key="frame" x="40" y="229" width="240" height="29"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pvl-D0-rhA" userLabel="Spacer 3">
+                                        <rect key="frame" x="40" y="258" width="240" height="39.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KjJ-1t-C7Y" userLabel="Confirm Button" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="297.5" width="288" height="42"/>
+                                        <color key="backgroundColor" name="DisabledGray"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" name="DisabledText"/>
+                                            <color key="titleShadowColor" name="DisabledGrayShadow"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="confirmTapped:" destination="UnY-Tw-lWe" eventType="touchUpInside" id="y4K-jD-sc9"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="xIu-bK-eI7" firstAttribute="width" secondItem="3vs-mB-K9F" secondAttribute="width" multiplier="0.8" id="6Zl-TA-52P"/>
+                                    <constraint firstItem="ZoI-TQ-dlZ" firstAttribute="height" secondItem="nGU-UK-0FD" secondAttribute="height" multiplier="0.8" id="OHs-I9-5jh"/>
+                                    <constraint firstItem="pvl-D0-rhA" firstAttribute="height" secondItem="nGU-UK-0FD" secondAttribute="height" multiplier="1.8" id="Xex-Fk-ngt"/>
+                                    <constraint firstItem="wkD-MK-2qw" firstAttribute="height" secondItem="nGU-UK-0FD" secondAttribute="height" multiplier="2.2" id="dJ1-sR-wcV"/>
+                                    <constraint firstItem="Vgh-tU-1aU" firstAttribute="height" secondItem="nGU-UK-0FD" secondAttribute="height" multiplier="0.8" id="drp-S0-JEr"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nj7-QY-QCP" customClass="SLIcon30Button" customModule="SwiftLightning" customModuleProvider="target">
+                                <rect key="frame" x="8" y="24" width="40" height="40"/>
+                                <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" image="BackArrowLight"/>
+                                <connections>
+                                    <action selector="backTapped:" destination="UnY-Tw-lWe" eventType="touchUpInside" id="FRa-K5-E05"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="SpaceCadetBlue"/>
+                        <constraints>
+                            <constraint firstItem="nj7-QY-QCP" firstAttribute="top" secondItem="ucu-yT-Qo2" secondAttribute="top" constant="4" id="64h-ib-6B4"/>
+                            <constraint firstItem="3vs-mB-K9F" firstAttribute="trailing" secondItem="ucu-yT-Qo2" secondAttribute="trailing" id="8bf-IF-yEp"/>
+                            <constraint firstItem="3vs-mB-K9F" firstAttribute="top" secondItem="ucu-yT-Qo2" secondAttribute="top" id="Hnj-Wo-ze1"/>
+                            <constraint firstItem="nj7-QY-QCP" firstAttribute="leading" secondItem="ucu-yT-Qo2" secondAttribute="leading" constant="8" id="bXn-BS-6K3"/>
+                            <constraint firstItem="3vs-mB-K9F" firstAttribute="leading" secondItem="ucu-yT-Qo2" secondAttribute="leading" id="pDs-8m-s4e"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ucu-yT-Qo2"/>
+                    </view>
+                    <connections>
+                        <outlet property="confirmButton" destination="KjJ-1t-C7Y" id="Com-MA-tra"/>
+                        <outlet property="confirmField1" destination="SXU-uy-jiL" id="P7w-cw-9IN"/>
+                        <outlet property="confirmField2" destination="KXw-yS-23n" id="JWw-wK-c3f"/>
+                        <outlet property="confirmField3" destination="EJz-hE-kex" id="Rta-0S-wE8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zs3-S7-AWm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="36" y="105"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="BackArrowLight" width="30" height="30"/>
+        <namedColor name="DisabledGray">
+            <color red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="DisabledGrayShadow">
+            <color red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="DisabledText">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="NormalText">
+            <color red="1" green="0.99607843137254903" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="SpaceCadetBlue">
+            <color red="0.14509803921568629" green="0.21568627450980393" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

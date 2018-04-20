@@ -14,6 +14,14 @@ import UIKit
 
 enum MnemonicDisplay
 {
+  struct Constants {
+    #if DEBUG
+      static let minWaitTime = 3
+    #else
+      static let minWaitTime = 20
+    #endif
+  }
+  
   enum ShowMnemonic
   {
     struct Request {

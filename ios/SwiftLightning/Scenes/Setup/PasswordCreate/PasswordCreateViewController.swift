@@ -73,8 +73,11 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
     
     passwordField.textField.delegate = self
     confirmField.textField.delegate = self
+    
     passwordField.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     confirmField.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    
+    confirmField.textField.returnKeyType = .done
     
     keyboardScrollView = scrollView
   }
@@ -95,9 +98,17 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
     
     textField.resignFirstResponder()
     
-    if textField == passwordField.textField {
+    switch textField {
+    case passwordField.textField:
       confirmField.textField.becomeFirstResponder()
+    case confirmField.textField:
+      if proceedButton.isEnabled {
+        proceedTapped(proceedButton)
+      }
+    default:
+      break
     }
+    
     return true
   }
   

@@ -28,7 +28,7 @@ class MnemonicDisplayInteractor: MnemonicDisplayBusinessLogic, MnemonicDisplayDa
   var presenter: MnemonicDisplayPresentationLogic?
   var worker: MnemonicDisplayWorker?
 
-  var timeRemaining: UInt = 20
+  var timeRemaining: UInt = UInt(MnemonicDisplay.Constants.minWaitTime)
   
   
   // MARK: Mnemonic Display

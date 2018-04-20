@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol MnemonicDisplayRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+  func routeToMnemonicConfirm()
 }
 
 protocol MnemonicDisplayDataPassing
@@ -29,32 +29,26 @@ class MnemonicDisplayRouter: NSObject, MnemonicDisplayRoutingLogic, MnemonicDisp
   
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToMnemonicConfirm()
+  {
+    let storyboard = UIStoryboard(name: "MnemonicConfirm", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "MnemonicConfirmViewController") as! MnemonicConfirmViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToMnemonicConfirm(source: dataStore!, destination: &destinationDS)
+    navigateToMnemonicConfirm(source: viewController!, destination: destinationVC)
+  }
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: MnemonicDisplayViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func navigateToMnemonicConfirm(source: MnemonicDisplayViewController, destination: MnemonicConfirmViewController)
+  {
+    source.present(destination, animated: true, completion: nil)
+  }
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: MnemonicDisplayDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func passDataToMnemonicConfirm(source: MnemonicDisplayDataStore, destination: inout MnemonicConfirmDataStore)
+  {
+    // destination.name = source.name
+  }
 }
