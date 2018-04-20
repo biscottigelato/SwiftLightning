@@ -1,5 +1,5 @@
 //
-//  LND.swift
+//  LNServices.swift
 //  SwiftLightning
 //
 //  Created by Howard Lee on 2018-04-06.
@@ -51,11 +51,11 @@ class LNServices {
 //    lndArgs += "--no-macaroons"
 //    lndArgs += " "
     
-    #if DEBUG
-    lndArgs += "--debuglevel=debug"
-    #else
+//    #if DEBUG
+//    lndArgs += "--debuglevel=debug"
+//    #else
     lndArgs += "--debuglevel=info"
-    #endif
+//    #endif
 
     SLLog.verbose("LND Arguments: \(lndArgs)")
     
@@ -84,7 +84,7 @@ class LNServices {
       walletUnlockerService = Lnrpc_WalletUnlockerServiceClient(address: "localhost:\(LNServices.rpcListenPort)", certificates: tlsCert, host: nil)
     }
   }
-  
+
   
   // MARK: Generate Seed
   
@@ -226,4 +226,23 @@ class LNServices {
       }
     }
   }
+  
+  
+  // MARK: Stop Daemon
+  
+  static func stopDaemon(completion: @escaping (() throws -> ()) -> Void) throws {
+    prepareLightningService()
+    
+    _ = try lightningService!.stopDaemon(Lnrpc_StopRequest()) { (response, result) in
+      if response != nil {
+        SLLog.info("Stop Daemon Success!")
+        completion({ return })
+      } else {
+        let message = result.statusMessage ?? result.description
+        SLLog.warning("Stop Daemon Failed - \(message)")
+        completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
+      }
+    }
+  }
+  
 }

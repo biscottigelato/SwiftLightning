@@ -6,8 +6,7 @@ import (
 	"strings"
 )
 
-// StartMain is the hook for updating the default configuration for
-// non-terminal, library applications
+// StartMain is the hook for updating the default configuration for non-terminal, library applications
 func StartMain(appSupportDir string, arguments string) error {
 
 	// Update all Default Directory locations

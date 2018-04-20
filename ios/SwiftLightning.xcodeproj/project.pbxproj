@@ -56,6 +56,8 @@
 		8C090E6E20896C3E009B8B8D /* WalletModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6820896C3E009B8B8D /* WalletModels.swift */; };
 		8C090E6F20896C3E009B8B8D /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6920896C3E009B8B8D /* WalletViewController.swift */; };
 		8C090E7020896C3E009B8B8D /* WalletInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6A20896C3E009B8B8D /* WalletInteractor.swift */; };
+		8C090E7420899DA6009B8B8D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E7220899DA5009B8B8D /* ViewController.swift */; };
+		8C090E7920899DB9009B8B8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E7720899DB9009B8B8D /* Main.storyboard */; };
 		8C188271208679BD002E2835 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C188270208679BD002E2835 /* GradientView.swift */; };
 		8C18828420868545002E2835 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827220868538002E2835 /* Montserrat-Light.ttf */; };
 		8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */; };
@@ -176,6 +178,8 @@
 		8C090E6820896C3E009B8B8D /* WalletModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModels.swift; sourceTree = "<group>"; };
 		8C090E6920896C3E009B8B8D /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
 		8C090E6A20896C3E009B8B8D /* WalletInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInteractor.swift; sourceTree = "<group>"; };
+		8C090E7220899DA5009B8B8D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8C090E7820899DB9009B8B8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
 		8C188270208679BD002E2835 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		8C18827220868538002E2835 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -338,6 +342,15 @@
 			path = Wallet;
 			sourceTree = "<group>";
 		};
+		8C090E7120899D71009B8B8D /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				8C090E7720899DB9009B8B8D /* Main.storyboard */,
+				8C090E7220899DA5009B8B8D /* ViewController.swift */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
 		8C18829620868559002E2835 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +433,7 @@
 				8C7D310420755AE30068F2BD /* View Elements */,
 				8C090DEF20870AD3009B8B8D /* Model */,
 				8CFA16902082EB7300813EA6 /* Scenes */,
+				8C090E7120899D71009B8B8D /* Example */,
 			);
 			path = SwiftLightning;
 			sourceTree = "<group>";
@@ -736,6 +750,7 @@
 			files = (
 				8C18828620868545002E2835 /* Montserrat-LightItalic.ttf in Resources */,
 				8C18828420868545002E2835 /* Montserrat-Light.ttf in Resources */,
+				8C090E7920899DB9009B8B8D /* Main.storyboard in Resources */,
 				8C18828B20868545002E2835 /* Montserrat-ExtraLightItalic.ttf in Resources */,
 				8C18828D20868545002E2835 /* Montserrat-BlackItalic.ttf in Resources */,
 				8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */,
@@ -912,6 +927,7 @@
 				8C1882B220869699002E2835 /* SLPasswordField.swift in Sources */,
 				8C090E6C20896C3E009B8B8D /* WalletWorker.swift in Sources */,
 				8C090E332088612B009B8B8D /* MnemonicDisplayWorker.swift in Sources */,
+				8C090E7420899DA6009B8B8D /* ViewController.swift in Sources */,
 				8CFA16AC2082FF4F00813EA6 /* UIView+Extension.swift in Sources */,
 				8C090E362088612B009B8B8D /* MnemonicDisplayViewController.swift in Sources */,
 				8C090E6E20896C3E009B8B8D /* WalletModels.swift in Sources */,
@@ -947,6 +963,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		8C090E7720899DB9009B8B8D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C090E7820899DB9009B8B8D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		8C2FC70B2073513700966D31 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
