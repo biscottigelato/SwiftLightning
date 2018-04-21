@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,14 +17,50 @@
             <objects>
                 <viewController storyboardIdentifier="RootViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="RootViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OnboardBackgroundTemp" translatesAutoresizingMaskIntoConstraints="NO" id="yRz-Tn-3NW">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <view alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wr0-ki-0Go" userLabel="Overlay Blue">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <color key="backgroundColor" name="SpaceCadetBlue"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningLogo" translatesAutoresizingMaskIntoConstraints="NO" id="XRX-ij-kXc">
+                                <rect key="frame" x="130.33333333333334" y="274.66666666666669" width="114.33333333333334" height="203"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="XRX-ij-kXc" secondAttribute="height" multiplier="303:537" id="xXb-kk-Jf7"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Wr0-ki-0Go" secondAttribute="bottom" id="4Mn-4l-MfK"/>
+                            <constraint firstItem="Wr0-ki-0Go" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DVX-g7-p4K"/>
+                            <constraint firstAttribute="bottom" secondItem="yRz-Tn-3NW" secondAttribute="bottom" id="FrA-3a-tAU"/>
+                            <constraint firstItem="Wr0-ki-0Go" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="OqU-NZ-NEZ"/>
+                            <constraint firstItem="XRX-ij-kXc" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.25" id="R6Q-hC-PhM"/>
+                            <constraint firstItem="XRX-ij-kXc" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Tj3-K9-cIs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wr0-ki-0Go" secondAttribute="trailing" id="WIC-Di-E5u"/>
+                            <constraint firstItem="yRz-Tn-3NW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Yis-7R-hKx"/>
+                            <constraint firstItem="XRX-ij-kXc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-30" id="ZPv-DB-1sD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yRz-Tn-3NW" secondAttribute="trailing" id="pw4-vz-kNf"/>
+                            <constraint firstItem="yRz-Tn-3NW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="y9k-rk-NYZ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="21.600000000000001" y="31.773399014778327"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="LightningLogo" width="115" height="203"/>
+        <image name="OnboardBackgroundTemp" width="1333" height="2000"/>
+        <namedColor name="SpaceCadetBlue">
+            <color red="0.14509803921568629" green="0.21568627450980393" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
 </document>

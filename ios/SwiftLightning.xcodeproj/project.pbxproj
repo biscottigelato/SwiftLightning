@@ -86,7 +86,6 @@
 		8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FC7072073513700966D31 /* AppDelegate.swift */; };
 		8C2FC70D2073513700966D31 /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70B2073513700966D31 /* Root.storyboard */; };
 		8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70E2073513800966D31 /* Assets.xcassets */; };
-		8C2FC7122073513800966D31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC7102073513800966D31 /* LaunchScreen.storyboard */; };
 		8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */; };
 		8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710FA2077E79C005D7ABC /* LNServices.swift */; };
 		8C6B7541208AF33200B751A2 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B753B208AF33200B751A2 /* RootPresenter.swift */; };
@@ -101,7 +100,6 @@
 		8C6B7551208AFEC800B751A2 /* UnlockAppModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B754B208AFEC800B751A2 /* UnlockAppModels.swift */; };
 		8C6B7552208AFEC800B751A2 /* UnlockAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B754C208AFEC800B751A2 /* UnlockAppViewController.swift */; };
 		8C6B7553208AFEC800B751A2 /* UnlockAppInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B754D208AFEC800B751A2 /* UnlockAppInteractor.swift */; };
-		8C6B7555208AFF4900B751A2 /* UnlockApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6B7554208AFF4900B751A2 /* UnlockApp.storyboard */; };
 		8C6B755D208B17BD00B751A2 /* WalletMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B7557208B17BD00B751A2 /* WalletMainPresenter.swift */; };
 		8C6B755E208B17BD00B751A2 /* WalletMainWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B7558208B17BD00B751A2 /* WalletMainWorker.swift */; };
 		8C6B755F208B17BD00B751A2 /* WalletMainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B7559208B17BD00B751A2 /* WalletMainRouter.swift */; };
@@ -109,6 +107,8 @@
 		8C6B7561208B17BD00B751A2 /* WalletMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B755B208B17BD00B751A2 /* WalletMainViewController.swift */; };
 		8C6B7562208B17BD00B751A2 /* WalletMainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B755C208B17BD00B751A2 /* WalletMainInteractor.swift */; };
 		8C6B7564208B17CB00B751A2 /* WalletMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6B7563208B17CB00B751A2 /* WalletMain.storyboard */; };
+		8C6B7566208BB9D000B751A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6B7565208BB9CF00B751A2 /* LaunchScreen.storyboard */; };
+		8C6B7568208BBBBF00B751A2 /* UnlockApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6B7567208BBA6E00B751A2 /* UnlockApp.storyboard */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SLLog.swift */; };
 		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
@@ -223,7 +223,6 @@
 		8C2FC7072073513700966D31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C2FC70C2073513700966D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Root.storyboard; sourceTree = "<group>"; };
 		8C2FC70E2073513800966D31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8C2FC7112073513800966D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C2FC7132073513900966D31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.grpc.swift; sourceTree = "<group>"; };
 		8C4710FA2077E79C005D7ABC /* LNServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNServices.swift; sourceTree = "<group>"; };
@@ -239,7 +238,6 @@
 		8C6B754B208AFEC800B751A2 /* UnlockAppModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockAppModels.swift; sourceTree = "<group>"; };
 		8C6B754C208AFEC800B751A2 /* UnlockAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockAppViewController.swift; sourceTree = "<group>"; };
 		8C6B754D208AFEC800B751A2 /* UnlockAppInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockAppInteractor.swift; sourceTree = "<group>"; };
-		8C6B7554208AFF4900B751A2 /* UnlockApp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UnlockApp.storyboard; sourceTree = "<group>"; };
 		8C6B7557208B17BD00B751A2 /* WalletMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMainPresenter.swift; sourceTree = "<group>"; };
 		8C6B7558208B17BD00B751A2 /* WalletMainWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMainWorker.swift; sourceTree = "<group>"; };
 		8C6B7559208B17BD00B751A2 /* WalletMainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMainRouter.swift; sourceTree = "<group>"; };
@@ -247,6 +245,8 @@
 		8C6B755B208B17BD00B751A2 /* WalletMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMainViewController.swift; sourceTree = "<group>"; };
 		8C6B755C208B17BD00B751A2 /* WalletMainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMainInteractor.swift; sourceTree = "<group>"; };
 		8C6B7563208B17CB00B751A2 /* WalletMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WalletMain.storyboard; sourceTree = "<group>"; };
+		8C6B7565208BB9CF00B751A2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8C6B7567208BBA6E00B751A2 /* UnlockApp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UnlockApp.storyboard; path = /Users/biscottigelato/gocode/src/github.com/biscottigelato/SwiftLightning/ios/SwiftLightning/Scenes/Unlock/UnlockApp/UnlockApp.storyboard; sourceTree = "<absolute>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLog.swift; sourceTree = "<group>"; };
 		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
@@ -493,7 +493,7 @@
 		8C6B7547208AFEB800B751A2 /* UnlockApp */ = {
 			isa = PBXGroup;
 			children = (
-				8C6B7554208AFF4900B751A2 /* UnlockApp.storyboard */,
+				8C6B7567208BBA6E00B751A2 /* UnlockApp.storyboard */,
 				8C6B7548208AFEC800B751A2 /* UnlockAppPresenter.swift */,
 				8C6B7549208AFEC800B751A2 /* UnlockAppWorker.swift */,
 				8C6B754A208AFEC800B751A2 /* UnlockAppRouter.swift */,
@@ -585,7 +585,7 @@
 		8CFA16912082EB7E00813EA6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				8C2FC7102073513800966D31 /* LaunchScreen.storyboard */,
+				8C6B7565208BB9CF00B751A2 /* LaunchScreen.storyboard */,
 				8C090DEC2086FF3D009B8B8D /* Templates */,
 				8C6B753A208AF30800B751A2 /* Root */,
 			);
@@ -821,6 +821,7 @@
 				8C18828D20868545002E2835 /* Montserrat-BlackItalic.ttf in Resources */,
 				8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */,
 				8C090E2A20885C84009B8B8D /* OpenSans-SemiboldItalic.ttf in Resources */,
+				8C6B7566208BB9D000B751A2 /* LaunchScreen.storyboard in Resources */,
 				8CE3AE632086AF4D007D1065 /* SLUnboxedHeading.xib in Resources */,
 				8C18829120868545002E2835 /* Montserrat-Thin.ttf in Resources */,
 				8C18828F20868545002E2835 /* Montserrat-Italic.ttf in Resources */,
@@ -831,9 +832,9 @@
 				8C090E2920885C84009B8B8D /* OpenSans-Semibold.ttf in Resources */,
 				8C1882A420868ECD002E2835 /* PasswordCreate.storyboard in Resources */,
 				8CFA16E32085510600813EA6 /* Colors.xcassets in Resources */,
-				8C2FC7122073513800966D31 /* LaunchScreen.storyboard in Resources */,
 				8C18829320868545002E2835 /* Montserrat-Regular.ttf in Resources */,
 				8C090E4920894817009B8B8D /* MnemonicConfirm.storyboard in Resources */,
+				8C6B7568208BBBBF00B751A2 /* UnlockApp.storyboard in Resources */,
 				8C18829520868545002E2835 /* Montserrat-Black.ttf in Resources */,
 				8CFA16E620856E9800813EA6 /* CreateRecover.storyboard in Resources */,
 				8C18828A20868545002E2835 /* Montserrat-SemiBoldItalic.ttf in Resources */,
@@ -842,7 +843,6 @@
 				8C18828E20868545002E2835 /* Montserrat-MediumItalic.ttf in Resources */,
 				8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */,
 				8C18829220868545002E2835 /* Montserrat-SemiBold.ttf in Resources */,
-				8C6B7555208AFF4900B751A2 /* UnlockApp.storyboard in Resources */,
 				8C18829420868545002E2835 /* Montserrat-ThinItalic.ttf in Resources */,
 				8C090E2120885C84009B8B8D /* OpenSans-Bold.ttf in Resources */,
 				8C18829020868545002E2835 /* Montserrat-ExtraLight.ttf in Resources */,
@@ -1057,14 +1057,6 @@
 				8C2FC70C2073513700966D31 /* Base */,
 			);
 			name = Root.storyboard;
-			sourceTree = "<group>";
-		};
-		8C2FC7102073513800966D31 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8C2FC7112073513800966D31 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

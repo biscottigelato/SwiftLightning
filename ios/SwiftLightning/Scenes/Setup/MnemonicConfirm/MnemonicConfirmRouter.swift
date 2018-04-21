@@ -29,7 +29,7 @@ class MnemonicConfirmRouter: NSObject, MnemonicConfirmRoutingLogic, MnemonicConf
   
   func routeToWallet() {
     let storyboard = UIStoryboard(name: "Wallet", bundle: nil)
-    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletViewController") as! WalletViewController
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletMainViewController") as! WalletMainViewController
     var destinationDS = destinationVC.router!.dataStore!
     passDataToWallet(source: dataStore!, destination: &destinationDS)
     navigateToWallet(source: viewController!, destination: destinationVC)
@@ -45,7 +45,7 @@ class MnemonicConfirmRouter: NSObject, MnemonicConfirmRoutingLogic, MnemonicConf
 
   // MARK: Navigation
   
-  func navigateToWallet(source: MnemonicConfirmViewController, destination: WalletViewController) {
+  func navigateToWallet(source: MnemonicConfirmViewController, destination: WalletMainViewController) {
     source.present(destination, animated: true, completion: nil)
   }
   
@@ -57,7 +57,7 @@ class MnemonicConfirmRouter: NSObject, MnemonicConfirmRoutingLogic, MnemonicConf
   
   // MARK: Passing data
   
-  func passDataToWallet(source: MnemonicConfirmDataStore, destination: inout WalletDataStore) {
+  func passDataToWallet(source: MnemonicConfirmDataStore, destination: inout WalletMainDataStore) {
     // destination.name = source.name
   }
   
