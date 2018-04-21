@@ -25,12 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UIApplication.shared.statusBarStyle = .lightContent
 
     // Launch Root View Controller
-    let storyboard = UIStoryboard(name: "CreateRecover", bundle: nil)
-    let identifier = "CreateRecoverViewController"
-    guard let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as? CreateRecoverViewController else {
-      SLLog.fatal("ViewController initiated not of CreateRecoverViewController Class!!")
+    let storyboard = UIStoryboard(name: "Root", bundle: nil)
+    guard let viewController = storyboard.instantiateViewController(withIdentifier: "RootViewController") as? RootViewController else {
+      SLLog.fatal("ViewController initiated not of RootViewController Class!!")
     }
-    viewController.restorationIdentifier = identifier
     
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.rootViewController = viewController

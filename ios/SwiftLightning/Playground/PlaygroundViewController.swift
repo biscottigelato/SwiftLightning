@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PlaygroundViewController.swift
 //  SwiftLightning
 //
 //  Created by Howard Lee on 2018-04-02.
@@ -10,7 +10,7 @@ import UIKit
 import SwiftGRPC
 import SwiftProtobuf
 
-class ViewController: UIViewController {
+class PlaygroundViewController: UIViewController {
   
   var walletUnlockerService: Lnrpc_WalletUnlockerServiceClient?
   var lightningService: Lnrpc_LightningServiceClient?

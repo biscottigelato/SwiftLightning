@@ -79,10 +79,10 @@ class LNServices {
   
   static var walletUnlockerService: Lnrpc_WalletUnlockerServiceClient?
   
-  private static func prepareWalletUnlockerService() {
+  private static func prepareWalletUnlockerService() throws {
     if walletUnlockerService == nil {
       let tlsCertURL = URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("tls.cert")
-      let tlsCert = try! String(contentsOf: tlsCertURL)
+      let tlsCert = try String(contentsOf: tlsCertURL)
       
       walletUnlockerService = Lnrpc_WalletUnlockerServiceClient(address: "localhost:\(LNServices.rpcListenPort)", certificates: tlsCert, host: nil)
     }
@@ -92,7 +92,7 @@ class LNServices {
   // MARK: Generate Seed
   
   static func generateSeed(completion: @escaping (() throws -> ([String])) -> Void) throws {
-    prepareWalletUnlockerService()
+    try prepareWalletUnlockerService()
     
     _ = try walletUnlockerService!.genSeed(Lnrpc_GenSeedRequest()) { (response, result) in
       if let response = response {
@@ -134,7 +134,7 @@ class LNServices {
       throw LNError.createWalletInvalidPassword
     }
     
-    prepareWalletUnlockerService()
+    try prepareWalletUnlockerService()
     
     var initWalletRequest = Lnrpc_InitWalletRequest()
     initWalletRequest.cipherSeedMnemonic = cipherSeedMnemonic
@@ -163,7 +163,7 @@ class LNServices {
       throw LNError.unlockWalletInvalidPassword
     }
     
-    prepareWalletUnlockerService()
+    try prepareWalletUnlockerService()
     
     var unlockWalletRequest = Lnrpc_UnlockWalletRequest()
     unlockWalletRequest.walletPassword = passwordData
@@ -185,13 +185,13 @@ class LNServices {
   
   static var lightningService: Lnrpc_LightningServiceClient?
   
-  static private func prepareLightningService() {
+  static private func prepareLightningService() throws {
     if lightningService == nil {
       let tlsCertURL = URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("tls.cert")
-      let tlsCert = try! String(contentsOf: tlsCertURL)  // TODO: Error Handling
+      let tlsCert = try String(contentsOf: tlsCertURL)  // TODO: Error Handling
       
       let macaroonURL = URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("admin.macaroon")
-      let macaroonBinary = try! Data(contentsOf: macaroonURL)  // TODO: Error Handling
+      let macaroonBinary = try Data(contentsOf: macaroonURL)  // TODO: Error Handling
       let macaroonHexString = macaroonBinary.hexEncodedString()
       
       lightningService = Lnrpc_LightningServiceClient(address: "localhost:\(LNServices.rpcListenPort)", certificates: tlsCert, host: nil)
@@ -203,7 +203,7 @@ class LNServices {
   // MARK: Get Info
   
   static func getInfo(completion: @escaping (() throws -> ()) -> Void) throws {  //TODO: Should return an info struct of sort
-    prepareLightningService()
+    try prepareLightningService()
     
     _ = try lightningService!.getInfo(Lnrpc_GetInfoRequest()) { (response, result) in
       if let response = response {
@@ -234,7 +234,7 @@ class LNServices {
   // MARK: Stop Daemon
   
   static func stopDaemon(completion: @escaping (() throws -> ()) -> Void) throws {
-    prepareLightningService()
+    try prepareLightningService()
     
     _ = try lightningService!.stopDaemon(Lnrpc_StopRequest()) { (response, result) in
       if response != nil {

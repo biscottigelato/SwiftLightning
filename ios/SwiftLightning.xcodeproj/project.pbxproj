@@ -50,14 +50,8 @@
 		8C090E4E20894A94009B8B8D /* SLSeedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E4D20894A94009B8B8D /* SLSeedField.swift */; };
 		8C090E5020895CA9009B8B8D /* SLRandValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E4F20895CA9009B8B8D /* SLRandValues.swift */; };
 		8C090E6320896172009B8B8D /* SLRandValuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6220896172009B8B8D /* SLRandValuesTests.swift */; };
-		8C090E6B20896C3E009B8B8D /* WalletPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6520896C3E009B8B8D /* WalletPresenter.swift */; };
-		8C090E6C20896C3E009B8B8D /* WalletWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6620896C3E009B8B8D /* WalletWorker.swift */; };
-		8C090E6D20896C3E009B8B8D /* WalletRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6720896C3E009B8B8D /* WalletRouter.swift */; };
-		8C090E6E20896C3E009B8B8D /* WalletModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6820896C3E009B8B8D /* WalletModels.swift */; };
-		8C090E6F20896C3E009B8B8D /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6920896C3E009B8B8D /* WalletViewController.swift */; };
-		8C090E7020896C3E009B8B8D /* WalletInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6A20896C3E009B8B8D /* WalletInteractor.swift */; };
-		8C090E7420899DA6009B8B8D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E7220899DA5009B8B8D /* ViewController.swift */; };
-		8C090E7920899DB9009B8B8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E7720899DB9009B8B8D /* Main.storyboard */; };
+		8C090E7420899DA6009B8B8D /* PlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E7220899DA5009B8B8D /* PlaygroundViewController.swift */; };
+		8C090E7920899DB9009B8B8D /* Playground.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E7720899DB9009B8B8D /* Playground.storyboard */; };
 		8C188271208679BD002E2835 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C188270208679BD002E2835 /* GradientView.swift */; };
 		8C18828420868545002E2835 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827220868538002E2835 /* Montserrat-Light.ttf */; };
 		8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */; };
@@ -90,11 +84,31 @@
 		8C1882B72086A582002E2835 /* SLIcon30Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1882B62086A222002E2835 /* SLIcon30Button.swift */; };
 		8C2ACFB7207359DD004E6A84 /* Lightningd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2ACFB6207359DD004E6A84 /* Lightningd.framework */; };
 		8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FC7072073513700966D31 /* AppDelegate.swift */; };
-		8C2FC70D2073513700966D31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70B2073513700966D31 /* Main.storyboard */; };
+		8C2FC70D2073513700966D31 /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70B2073513700966D31 /* Root.storyboard */; };
 		8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70E2073513800966D31 /* Assets.xcassets */; };
 		8C2FC7122073513800966D31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC7102073513800966D31 /* LaunchScreen.storyboard */; };
 		8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */; };
 		8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710FA2077E79C005D7ABC /* LNServices.swift */; };
+		8C6B7541208AF33200B751A2 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B753B208AF33200B751A2 /* RootPresenter.swift */; };
+		8C6B7542208AF33200B751A2 /* RootWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B753C208AF33200B751A2 /* RootWorker.swift */; };
+		8C6B7543208AF33200B751A2 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B753D208AF33200B751A2 /* RootRouter.swift */; };
+		8C6B7544208AF33200B751A2 /* RootModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B753E208AF33200B751A2 /* RootModels.swift */; };
+		8C6B7545208AF33200B751A2 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B753F208AF33200B751A2 /* RootViewController.swift */; };
+		8C6B7546208AF33200B751A2 /* RootInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B7540208AF33200B751A2 /* RootInteractor.swift */; };
+		8C6B754E208AFEC800B751A2 /* UnlockAppPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B7548208AFEC800B751A2 /* UnlockAppPresenter.swift */; };
+		8C6B754F208AFEC800B751A2 /* UnlockAppWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B7549208AFEC800B751A2 /* UnlockAppWorker.swift */; };
+		8C6B7550208AFEC800B751A2 /* UnlockAppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B754A208AFEC800B751A2 /* UnlockAppRouter.swift */; };
+		8C6B7551208AFEC800B751A2 /* UnlockAppModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B754B208AFEC800B751A2 /* UnlockAppModels.swift */; };
+		8C6B7552208AFEC800B751A2 /* UnlockAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B754C208AFEC800B751A2 /* UnlockAppViewController.swift */; };
+		8C6B7553208AFEC800B751A2 /* UnlockAppInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B754D208AFEC800B751A2 /* UnlockAppInteractor.swift */; };
+		8C6B7555208AFF4900B751A2 /* UnlockApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6B7554208AFF4900B751A2 /* UnlockApp.storyboard */; };
+		8C6B755D208B17BD00B751A2 /* WalletMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B7557208B17BD00B751A2 /* WalletMainPresenter.swift */; };
+		8C6B755E208B17BD00B751A2 /* WalletMainWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B7558208B17BD00B751A2 /* WalletMainWorker.swift */; };
+		8C6B755F208B17BD00B751A2 /* WalletMainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B7559208B17BD00B751A2 /* WalletMainRouter.swift */; };
+		8C6B7560208B17BD00B751A2 /* WalletMainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B755A208B17BD00B751A2 /* WalletMainModels.swift */; };
+		8C6B7561208B17BD00B751A2 /* WalletMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B755B208B17BD00B751A2 /* WalletMainViewController.swift */; };
+		8C6B7562208B17BD00B751A2 /* WalletMainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B755C208B17BD00B751A2 /* WalletMainInteractor.swift */; };
+		8C6B7564208B17CB00B751A2 /* WalletMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6B7563208B17CB00B751A2 /* WalletMain.storyboard */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SLLog.swift */; };
 		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
@@ -172,14 +186,8 @@
 		8C090E4F20895CA9009B8B8D /* SLRandValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLRandValues.swift; sourceTree = "<group>"; };
 		8C090E58208960E6009B8B8D /* SwiftLightningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftLightningTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C090E6220896172009B8B8D /* SLRandValuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLRandValuesTests.swift; sourceTree = "<group>"; };
-		8C090E6520896C3E009B8B8D /* WalletPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPresenter.swift; sourceTree = "<group>"; };
-		8C090E6620896C3E009B8B8D /* WalletWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletWorker.swift; sourceTree = "<group>"; };
-		8C090E6720896C3E009B8B8D /* WalletRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletRouter.swift; sourceTree = "<group>"; };
-		8C090E6820896C3E009B8B8D /* WalletModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModels.swift; sourceTree = "<group>"; };
-		8C090E6920896C3E009B8B8D /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
-		8C090E6A20896C3E009B8B8D /* WalletInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInteractor.swift; sourceTree = "<group>"; };
-		8C090E7220899DA5009B8B8D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8C090E7820899DB9009B8B8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		8C090E7220899DA5009B8B8D /* PlaygroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaygroundViewController.swift; sourceTree = "<group>"; };
+		8C090E7820899DB9009B8B8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Playground.storyboard; sourceTree = "<group>"; };
 		8C188270208679BD002E2835 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		8C18827220868538002E2835 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -213,12 +221,32 @@
 		8C2ACFB6207359DD004E6A84 /* Lightningd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Lightningd.framework; sourceTree = "<group>"; };
 		8C2FC7042073513700966D31 /* SwiftLightning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftLightning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C2FC7072073513700966D31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8C2FC70C2073513700966D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8C2FC70C2073513700966D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Root.storyboard; sourceTree = "<group>"; };
 		8C2FC70E2073513800966D31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C2FC7112073513800966D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C2FC7132073513900966D31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.grpc.swift; sourceTree = "<group>"; };
 		8C4710FA2077E79C005D7ABC /* LNServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNServices.swift; sourceTree = "<group>"; };
+		8C6B753B208AF33200B751A2 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
+		8C6B753C208AF33200B751A2 /* RootWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootWorker.swift; sourceTree = "<group>"; };
+		8C6B753D208AF33200B751A2 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
+		8C6B753E208AF33200B751A2 /* RootModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootModels.swift; sourceTree = "<group>"; };
+		8C6B753F208AF33200B751A2 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		8C6B7540208AF33200B751A2 /* RootInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootInteractor.swift; sourceTree = "<group>"; };
+		8C6B7548208AFEC800B751A2 /* UnlockAppPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockAppPresenter.swift; sourceTree = "<group>"; };
+		8C6B7549208AFEC800B751A2 /* UnlockAppWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockAppWorker.swift; sourceTree = "<group>"; };
+		8C6B754A208AFEC800B751A2 /* UnlockAppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockAppRouter.swift; sourceTree = "<group>"; };
+		8C6B754B208AFEC800B751A2 /* UnlockAppModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockAppModels.swift; sourceTree = "<group>"; };
+		8C6B754C208AFEC800B751A2 /* UnlockAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockAppViewController.swift; sourceTree = "<group>"; };
+		8C6B754D208AFEC800B751A2 /* UnlockAppInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockAppInteractor.swift; sourceTree = "<group>"; };
+		8C6B7554208AFF4900B751A2 /* UnlockApp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UnlockApp.storyboard; sourceTree = "<group>"; };
+		8C6B7557208B17BD00B751A2 /* WalletMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMainPresenter.swift; sourceTree = "<group>"; };
+		8C6B7558208B17BD00B751A2 /* WalletMainWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMainWorker.swift; sourceTree = "<group>"; };
+		8C6B7559208B17BD00B751A2 /* WalletMainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMainRouter.swift; sourceTree = "<group>"; };
+		8C6B755A208B17BD00B751A2 /* WalletMainModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMainModels.swift; sourceTree = "<group>"; };
+		8C6B755B208B17BD00B751A2 /* WalletMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMainViewController.swift; sourceTree = "<group>"; };
+		8C6B755C208B17BD00B751A2 /* WalletMainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMainInteractor.swift; sourceTree = "<group>"; };
+		8C6B7563208B17CB00B751A2 /* WalletMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WalletMain.storyboard; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLog.swift; sourceTree = "<group>"; };
 		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
@@ -297,6 +325,7 @@
 		8C090E072088185B009B8B8D /* Unlock */ = {
 			isa = PBXGroup;
 			children = (
+				8C6B7547208AFEB800B751A2 /* UnlockApp */,
 			);
 			path = Unlock;
 			sourceTree = "<group>";
@@ -332,23 +361,18 @@
 		8C090E6420896BB5009B8B8D /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
-				8C090E6520896C3E009B8B8D /* WalletPresenter.swift */,
-				8C090E6620896C3E009B8B8D /* WalletWorker.swift */,
-				8C090E6720896C3E009B8B8D /* WalletRouter.swift */,
-				8C090E6820896C3E009B8B8D /* WalletModels.swift */,
-				8C090E6920896C3E009B8B8D /* WalletViewController.swift */,
-				8C090E6A20896C3E009B8B8D /* WalletInteractor.swift */,
+				8C6B7556208B17A700B751A2 /* WalletMain */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
 		};
-		8C090E7120899D71009B8B8D /* Example */ = {
+		8C090E7120899D71009B8B8D /* Playground */ = {
 			isa = PBXGroup;
 			children = (
-				8C090E7720899DB9009B8B8D /* Main.storyboard */,
-				8C090E7220899DA5009B8B8D /* ViewController.swift */,
+				8C090E7720899DB9009B8B8D /* Playground.storyboard */,
+				8C090E7220899DA5009B8B8D /* PlaygroundViewController.swift */,
 			);
-			path = Example;
+			path = Playground;
 			sourceTree = "<group>";
 		};
 		8C18829620868559002E2835 /* Fonts */ = {
@@ -433,7 +457,7 @@
 				8C7D310420755AE30068F2BD /* View Elements */,
 				8C090DEF20870AD3009B8B8D /* Model */,
 				8CFA16902082EB7300813EA6 /* Scenes */,
-				8C090E7120899D71009B8B8D /* Example */,
+				8C090E7120899D71009B8B8D /* Playground */,
 			);
 			path = SwiftLightning;
 			sourceTree = "<group>";
@@ -450,6 +474,48 @@
 				8C090E0F20881DAB009B8B8D /* UIAlertController+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8C6B753A208AF30800B751A2 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				8C2FC70B2073513700966D31 /* Root.storyboard */,
+				8C6B753B208AF33200B751A2 /* RootPresenter.swift */,
+				8C6B753C208AF33200B751A2 /* RootWorker.swift */,
+				8C6B753D208AF33200B751A2 /* RootRouter.swift */,
+				8C6B753E208AF33200B751A2 /* RootModels.swift */,
+				8C6B753F208AF33200B751A2 /* RootViewController.swift */,
+				8C6B7540208AF33200B751A2 /* RootInteractor.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		8C6B7547208AFEB800B751A2 /* UnlockApp */ = {
+			isa = PBXGroup;
+			children = (
+				8C6B7554208AFF4900B751A2 /* UnlockApp.storyboard */,
+				8C6B7548208AFEC800B751A2 /* UnlockAppPresenter.swift */,
+				8C6B7549208AFEC800B751A2 /* UnlockAppWorker.swift */,
+				8C6B754A208AFEC800B751A2 /* UnlockAppRouter.swift */,
+				8C6B754B208AFEC800B751A2 /* UnlockAppModels.swift */,
+				8C6B754C208AFEC800B751A2 /* UnlockAppViewController.swift */,
+				8C6B754D208AFEC800B751A2 /* UnlockAppInteractor.swift */,
+			);
+			path = UnlockApp;
+			sourceTree = "<group>";
+		};
+		8C6B7556208B17A700B751A2 /* WalletMain */ = {
+			isa = PBXGroup;
+			children = (
+				8C6B7563208B17CB00B751A2 /* WalletMain.storyboard */,
+				8C6B7557208B17BD00B751A2 /* WalletMainPresenter.swift */,
+				8C6B7558208B17BD00B751A2 /* WalletMainWorker.swift */,
+				8C6B7559208B17BD00B751A2 /* WalletMainRouter.swift */,
+				8C6B755A208B17BD00B751A2 /* WalletMainModels.swift */,
+				8C6B755B208B17BD00B751A2 /* WalletMainViewController.swift */,
+				8C6B755C208B17BD00B751A2 /* WalletMainInteractor.swift */,
+			);
+			path = WalletMain;
 			sourceTree = "<group>";
 		};
 		8C7D30FE207542090068F2BD /* Protobuf */ = {
@@ -519,9 +585,9 @@
 		8CFA16912082EB7E00813EA6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				8C090DEC2086FF3D009B8B8D /* Templates */,
 				8C2FC7102073513800966D31 /* LaunchScreen.storyboard */,
-				8C2FC70B2073513700966D31 /* Main.storyboard */,
+				8C090DEC2086FF3D009B8B8D /* Templates */,
+				8C6B753A208AF30800B751A2 /* Root */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -750,7 +816,7 @@
 			files = (
 				8C18828620868545002E2835 /* Montserrat-LightItalic.ttf in Resources */,
 				8C18828420868545002E2835 /* Montserrat-Light.ttf in Resources */,
-				8C090E7920899DB9009B8B8D /* Main.storyboard in Resources */,
+				8C090E7920899DB9009B8B8D /* Playground.storyboard in Resources */,
 				8C18828B20868545002E2835 /* Montserrat-ExtraLightItalic.ttf in Resources */,
 				8C18828D20868545002E2835 /* Montserrat-BlackItalic.ttf in Resources */,
 				8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */,
@@ -776,15 +842,17 @@
 				8C18828E20868545002E2835 /* Montserrat-MediumItalic.ttf in Resources */,
 				8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */,
 				8C18829220868545002E2835 /* Montserrat-SemiBold.ttf in Resources */,
+				8C6B7555208AFF4900B751A2 /* UnlockApp.storyboard in Resources */,
 				8C18829420868545002E2835 /* Montserrat-ThinItalic.ttf in Resources */,
 				8C090E2120885C84009B8B8D /* OpenSans-Bold.ttf in Resources */,
 				8C18829020868545002E2835 /* Montserrat-ExtraLight.ttf in Resources */,
+				8C6B7564208B17CB00B751A2 /* WalletMain.storyboard in Resources */,
 				8C18828720868545002E2835 /* Montserrat-ExtraBold.ttf in Resources */,
 				8C090E2520885C84009B8B8D /* OpenSans-Italic.ttf in Resources */,
 				8C18828C20868545002E2835 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
 				8C18828920868545002E2835 /* Montserrat-Bold.ttf in Resources */,
 				8C090E2220885C84009B8B8D /* OpenSans-BoldItalic.ttf in Resources */,
-				8C2FC70D2073513700966D31 /* Main.storyboard in Resources */,
+				8C2FC70D2073513700966D31 /* Root.storyboard in Resources */,
 				8C090E4C20894A85009B8B8D /* SLSeedField.xib in Resources */,
 				8C090E3920886143009B8B8D /* MnemonicDisplay.storyboard in Resources */,
 				8C090E2420885C84009B8B8D /* OpenSans-ExtraBoldItalic.ttf in Resources */,
@@ -896,27 +964,31 @@
 				8C090DF420870DB9009B8B8D /* LNDefinitions.swift in Sources */,
 				8C090E4220894801009B8B8D /* MnemonicConfirmPresenter.swift in Sources */,
 				8C090E4720894801009B8B8D /* MnemonicConfirmInteractor.swift in Sources */,
+				8C6B7542208AF33200B751A2 /* RootWorker.swift in Sources */,
 				8C1882A020868EBE002E2835 /* PasswordCreateModels.swift in Sources */,
 				8CE3AE612086AF3F007D1065 /* SLUnboxedHeading.swift in Sources */,
 				8C090E1020881DAB009B8B8D /* UIAlertController+Extension.swift in Sources */,
 				8C090E002087DEAA009B8B8D /* MnemonicExplainModels.swift in Sources */,
+				8C6B7550208AFEC800B751A2 /* UnlockAppRouter.swift in Sources */,
 				8CFA16A12082EF3A00813EA6 /* CreateRecoverPresenter.swift in Sources */,
 				8CFA16A22082EF3A00813EA6 /* CreateRecoverWorker.swift in Sources */,
+				8C6B7543208AF33200B751A2 /* RootRouter.swift in Sources */,
 				8C1882AD2086941D002E2835 /* NibView.swift in Sources */,
+				8C6B7561208B17BD00B751A2 /* WalletMainViewController.swift in Sources */,
 				8CFA16E420856E6800813EA6 /* SLBarButton.swift in Sources */,
+				8C6B7544208AF33200B751A2 /* RootModels.swift in Sources */,
 				8C090DFE2087DEAA009B8B8D /* MnemonicExplainWorker.swift in Sources */,
 				8CE3AE652086DA9E007D1065 /* UIColor+Extension.swift in Sources */,
+				8C6B754E208AFEC800B751A2 /* UnlockAppPresenter.swift in Sources */,
 				8CFA16A32082EF3A00813EA6 /* CreateRecoverRouter.swift in Sources */,
 				8C188271208679BD002E2835 /* GradientView.swift in Sources */,
-				8C090E6D20896C3E009B8B8D /* WalletRouter.swift in Sources */,
 				8C1882A220868EBE002E2835 /* PasswordCreateInteractor.swift in Sources */,
+				8C6B7560208B17BD00B751A2 /* WalletMainModels.swift in Sources */,
 				8C090DEB2086F92A009B8B8D /* UITextField+Extension.swift in Sources */,
 				8C1882A120868EBE002E2835 /* PasswordCreateViewController.swift in Sources */,
 				8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */,
-				8C090E6B20896C3E009B8B8D /* WalletPresenter.swift in Sources */,
 				8CFA16AE2083001F00813EA6 /* DesignableViews.swift in Sources */,
 				8C090E4E20894A94009B8B8D /* SLSeedField.swift in Sources */,
-				8C090E6F20896C3E009B8B8D /* WalletViewController.swift in Sources */,
 				8CFA16A42082EF3A00813EA6 /* CreateRecoverModels.swift in Sources */,
 				8C18829F20868EBE002E2835 /* PasswordCreateRouter.swift in Sources */,
 				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
@@ -925,17 +997,24 @@
 				8C090E2020885772009B8B8D /* URL+Extension.swift in Sources */,
 				8C090E5020895CA9009B8B8D /* SLRandValues.swift in Sources */,
 				8C1882B220869699002E2835 /* SLPasswordField.swift in Sources */,
-				8C090E6C20896C3E009B8B8D /* WalletWorker.swift in Sources */,
+				8C6B7545208AF33200B751A2 /* RootViewController.swift in Sources */,
 				8C090E332088612B009B8B8D /* MnemonicDisplayWorker.swift in Sources */,
-				8C090E7420899DA6009B8B8D /* ViewController.swift in Sources */,
+				8C090E7420899DA6009B8B8D /* PlaygroundViewController.swift in Sources */,
 				8CFA16AC2082FF4F00813EA6 /* UIView+Extension.swift in Sources */,
+				8C6B7552208AFEC800B751A2 /* UnlockAppViewController.swift in Sources */,
+				8C6B755F208B17BD00B751A2 /* WalletMainRouter.swift in Sources */,
 				8C090E362088612B009B8B8D /* MnemonicDisplayViewController.swift in Sources */,
-				8C090E6E20896C3E009B8B8D /* WalletModels.swift in Sources */,
 				8C1882B72086A582002E2835 /* SLIcon30Button.swift in Sources */,
 				8C090E0620880154009B8B8D /* Result.swift in Sources */,
 				8C18829E20868EBE002E2835 /* PasswordCreateWorker.swift in Sources */,
 				8C090DFD2087DEAA009B8B8D /* MnemonicExplainPresenter.swift in Sources */,
+				8C6B755D208B17BD00B751A2 /* WalletMainPresenter.swift in Sources */,
+				8C6B755E208B17BD00B751A2 /* WalletMainWorker.swift in Sources */,
+				8C6B7541208AF33200B751A2 /* RootPresenter.swift in Sources */,
 				8C090E4420894801009B8B8D /* MnemonicConfirmRouter.swift in Sources */,
+				8C6B7546208AF33200B751A2 /* RootInteractor.swift in Sources */,
+				8C6B7553208AFEC800B751A2 /* UnlockAppInteractor.swift in Sources */,
+				8C6B7551208AFEC800B751A2 /* UnlockAppModels.swift in Sources */,
 				8C18829D20868EBE002E2835 /* PasswordCreatePresenter.swift in Sources */,
 				8C090DFF2087DEAA009B8B8D /* MnemonicExplainRouter.swift in Sources */,
 				8C090E372088612B009B8B8D /* MnemonicDisplayInteractor.swift in Sources */,
@@ -943,9 +1022,10 @@
 				8C090E4320894801009B8B8D /* MnemonicConfirmWorker.swift in Sources */,
 				8C090E022087DEAA009B8B8D /* MnemonicExplainInteractor.swift in Sources */,
 				8CFA16A62082EF3A00813EA6 /* CreateRecoverInteractor.swift in Sources */,
+				8C6B754F208AFEC800B751A2 /* UnlockAppWorker.swift in Sources */,
 				8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */,
-				8C090E7020896C3E009B8B8D /* WalletInteractor.swift in Sources */,
 				8C090E352088612B009B8B8D /* MnemonicDisplayModels.swift in Sources */,
+				8C6B7562208B17BD00B751A2 /* WalletMainInteractor.swift in Sources */,
 				8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */,
 				8C090E1E20885295009B8B8D /* UIFont+Extension.swift in Sources */,
 				8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */,
@@ -963,20 +1043,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8C090E7720899DB9009B8B8D /* Main.storyboard */ = {
+		8C090E7720899DB9009B8B8D /* Playground.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				8C090E7820899DB9009B8B8D /* Base */,
 			);
-			name = Main.storyboard;
+			name = Playground.storyboard;
 			sourceTree = "<group>";
 		};
-		8C2FC70B2073513700966D31 /* Main.storyboard */ = {
+		8C2FC70B2073513700966D31 /* Root.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				8C2FC70C2073513700966D31 /* Base */,
 			);
-			name = Main.storyboard;
+			name = Root.storyboard;
 			sourceTree = "<group>";
 		};
 		8C2FC7102073513800966D31 /* LaunchScreen.storyboard */ = {
