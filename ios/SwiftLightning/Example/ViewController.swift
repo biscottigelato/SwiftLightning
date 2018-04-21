@@ -40,13 +40,13 @@ class ViewController: UIViewController {
       return
     }
     
-    guard let passwordText = passwordField.text else {
-      SLLog.warning("No Wallet Password Entered")
-      return
-    }
+//    guard let passwordText = passwordField.text else {
+//      SLLog.warning("No Wallet Password Entered")
+//      return
+//    }
     
     do {
-      try LNServices.createWallet(walletPassword: passwordText, cipherSeedMnemonic: cipherSeedMnemonic) { (result) in
+      try LNServices.createWallet(walletPassword: "replaceme", cipherSeedMnemonic: cipherSeedMnemonic) { (result) in
         do {
           try result()
         } catch {
@@ -60,13 +60,13 @@ class ViewController: UIViewController {
   
   
   @IBAction func unlockWallet(_ sender: UIButton) {
-    guard let passwordText = passwordField.text else {
-      SLLog.warning("No Wallet Password Entered")
-      return
-    }
+//    guard let passwordText = passwordField.text else {
+//      SLLog.warning("No Wallet Password Entered")
+//      return
+//    }
     
     do {
-      try LNServices.unlockWallet(walletPassword: passwordText){ (result) in
+      try LNServices.unlockWallet(walletPassword: "replaceme") { (result) in
         do {
           try result()
         } catch {
@@ -94,7 +94,7 @@ class ViewController: UIViewController {
   }
   
   
-  @IBAction func restartLND(_ sender: UIButton) {
+  @IBAction func stopLND(_ sender: UIButton) {
     do {
       try LNServices.stopDaemon { (result) in
         do {
@@ -106,21 +106,24 @@ class ViewController: UIViewController {
     } catch {
       SLLog.warning(error.localizedDescription)
     }
-    
-//    DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: DispatchTime.now() + 10) {
-//      do {
-//        let fileManager = FileManager.default
-//        let folderpath = LNServices.directoryPath
-//        let filePaths = try fileManager.contentsOfDirectory(atPath: folderpath)
-//        for filePath in filePaths {
-//          try fileManager.removeItem(atPath: folderpath + "/" + filePath)
-//        }
-//      } catch {
-//        SLLog.warning(error.localizedDescription)
-//      }
-//
-//      LNServices.initialize()
-//    }
+  }
+  
+  @IBAction func deleteLNDFiles(_ sender: UIButton) {
+    do {
+      let fileManager = FileManager.default
+      let folderpath = LNServices.directoryPath
+      let filePaths = try fileManager.contentsOfDirectory(atPath: folderpath)
+      for filePath in filePaths {
+        try fileManager.removeItem(atPath: folderpath + "/" + filePath)
+      }
+    } catch {
+      SLLog.warning(error.localizedDescription)
+    }
+  }
+  
+  
+  @IBAction func reinitLND(_ sender: UIButton) {
+    LNServices.initialize()
   }
   
   

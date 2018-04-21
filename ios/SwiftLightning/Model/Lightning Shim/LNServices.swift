@@ -59,6 +59,9 @@ class LNServices {
 
     SLLog.verbose("LND Arguments: \(lndArgs)")
     
+    // BTCD can throw SIGPIPEs. Ignoring according to https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/NetworkingOverview/CommonPitfalls/CommonPitfalls.html for now
+    signal(SIGPIPE, SIG_IGN)
+    
     // Start LND on it's own thread
     lndQueue = DispatchQueue(label: "LNDQueue", qos: .background, attributes: .concurrent)
     
