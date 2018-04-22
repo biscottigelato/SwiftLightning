@@ -12,30 +12,35 @@
 
 import UIKit
 
-protocol UnlockAppBusinessLogic
-{
-  func doSomething(request: UnlockApp.Something.Request)
+protocol UnlockAppBusinessLogic {
+  func checkPassword(request: UnlockApp.CheckPassword.Request)
 }
 
-protocol UnlockAppDataStore
-{
-  //var name: String { get set }
-}
+protocol UnlockAppDataStore { }
+
 
 class UnlockAppInteractor: UnlockAppBusinessLogic, UnlockAppDataStore
 {
   var presenter: UnlockAppPresentationLogic?
-  var worker: UnlockAppWorker?
-  //var name: String = ""
   
-  // MARK: Do something
+  // MARK: Check Password
   
-  func doSomething(request: UnlockApp.Something.Request)
+  func checkPassword(request: UnlockApp.CheckPassword.Request)
   {
-    worker = UnlockAppWorker()
-    worker?.doSomeWork()
-    
-    let response = UnlockApp.Something.Response()
-    presenter?.presentSomething(response: response)
+    do {
+      try LNServices.unlockWallet(walletPassword: request.passwordText) { (result) in
+        do {
+          try result()  // Does not return. But if error free, that means password is correct
+          let response = UnlockApp.CheckPassword.Response(errorDescription: nil)
+          self.presenter?.presentCheckResult(response: response)
+        } catch {
+          let response = UnlockApp.CheckPassword.Response(errorDescription: error.localizedDescription)
+          self.presenter?.presentCheckResult(response: response)
+        }
+      }
+    } catch {
+      let response = UnlockApp.CheckPassword.Response(errorDescription: error.localizedDescription)
+      presenter?.presentCheckResult(response: response)
+    }
   }
 }

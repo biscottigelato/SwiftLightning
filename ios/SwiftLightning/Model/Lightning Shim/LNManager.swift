@@ -27,4 +27,22 @@ class LNManager {
   static func clearCipherSeedMnemonic() {
     LNManager.cipherSeedMnemonic = nil
   }
+  
+  
+  static var isWalletPresent: Bool {
+    guard let enumerator = FileManager.default.enumerator(atPath: LNServices.directoryPath) else {
+      SLLog.fatal("Cannot enumerate LND directory at path: \(LNServices.directoryPath)")
+    }
+    
+    let directoryURL = URL(fileURLWithPath: LNServices.directoryPath, isDirectory: true)
+    
+    for item in enumerator {
+      let itemUrl = URL(fileURLWithPath: item as! String, relativeTo: directoryURL)
+      
+      if itemUrl.lastPathComponent == "wallet.db" {
+        return true
+      }
+    }
+    return false
+  }
 }

@@ -14,7 +14,65 @@ import UIKit
 
 class RootWorker
 {
-  func doSomeWork()
-  {
+  private var checkRetryRemaining = Root.WalletPresenceRouting.Constants.checkWalletTryCount
+  
+  func checkWalletPresenceViaUnlock(completion: @escaping (Bool?) -> Void) {
+    
+    guard checkRetryRemaining > 0 else {
+      checkRetryRemaining = Root.WalletPresenceRouting.Constants.checkWalletTryCount
+      
+      SLLog.warning("Wallet presence check retry exhausted")
+      completion(nil)
+      return
+    }
+    
+    DispatchQueue.global(qos: .background).asyncAfter(deadline: DispatchTime.now() + Root.WalletPresenceRouting.Constants.timeBetweenCheckRetry) {
+      
+      if self.checkRetryRemaining != Root.WalletPresenceRouting.Constants.checkWalletTryCount {
+        SLLog.info("Retrying wallet presence check - \(self.checkRetryRemaining) retries remaining")
+      }
+      self.checkRetryRemaining -= 1
+      
+      do {
+        try LNServices.unlockWallet(walletPassword: "") { [unowned self] (result) in
+          do {
+            try result()
+          } catch let error as GRPCResultError {
+            switch Int32(error.code) {
+            case GRPCResultError.StatusCode.unavailable:
+              SLLog.verbose("Unlock Wallet Unavailable. Code \(error.code) - \(error.localizedDescription)")
+              self.checkWalletPresenceViaUnlock(completion: completion)
+              
+            case GRPCResultError.StatusCode.unknown:
+              
+              if error.localizedDescription == "wallet not found"  { // TODO: Is there a less hacky way to do this? Consider doing a feature request to LND.
+                SLLog.info("Unlock Wallet Not Found. Code \(error.code) - \(error.localizedDescription)")
+                completion(false)
+              }
+              else if error.localizedDescription == "invalid passphrase for master public key" {
+                SLLog.info("Unlock Wallet Found. Code \(error.code) - \(error.localizedDescription)")
+                completion(true)
+              }
+              
+            default:
+              SLLog.debug("Unlock Wallet Result NSError. Code \(error.code) - \(error.localizedDescription)")
+              self.checkWalletPresenceViaUnlock(completion: completion)
+            }
+            
+          } catch {
+            SLLog.debug("Unlock Wallet Result Generic Error. Code \(error.localizedDescription)")
+            self.checkWalletPresenceViaUnlock(completion: completion)
+          }
+        }
+      } catch {
+        SLLog.debug("Unlock Wallet Return Error. Code \(error.localizedDescription)")
+        self.checkWalletPresenceViaUnlock(completion: completion)
+      }
+    }
+  }
+  
+  
+  func checkWalletPresenceViaFile() -> Bool {
+    return LNManager.isWalletPresent
   }
 }

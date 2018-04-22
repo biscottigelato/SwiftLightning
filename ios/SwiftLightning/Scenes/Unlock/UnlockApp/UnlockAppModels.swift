@@ -14,18 +14,20 @@ import UIKit
 
 enum UnlockApp
 {
-  // MARK: Use cases
-  
-  enum Something
+  enum CheckPassword
   {
     struct Request
     {
+      var passwordText: String
     }
     struct Response
     {
+      var errorDescription: String?
     }
     struct ViewModel
     {
+      var errorTitle: String
+      var errorMsg: String
     }
   }
 }

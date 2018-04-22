@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SLActivityIndicator" customModule="SwiftLightning" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="236" height="434"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ze4-o8-hH1">
+                    <rect key="frame" x="0.0" y="0.0" width="236" height="434"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="s1O-xl-U2Y">
+                        <rect key="frame" x="0.0" y="0.0" width="236" height="434"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="extraLight"/>
+                </visualEffectView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="0FP-Uh-IfJ">
+                    <rect key="frame" x="100" y="199" width="37" height="37"/>
+                    <color key="color" name="DarkTextBlue"/>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="ze4-o8-hH1" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="3sC-Rv-4Ic"/>
+                <constraint firstItem="0FP-Uh-IfJ" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="9hu-8y-TGh"/>
+                <constraint firstAttribute="trailing" secondItem="ze4-o8-hH1" secondAttribute="trailing" id="HYG-t4-F9a"/>
+                <constraint firstItem="ze4-o8-hH1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Min-Kj-Dbl"/>
+                <constraint firstItem="0FP-Uh-IfJ" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="OvW-Oy-bDf"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ze4-o8-hH1" secondAttribute="bottom" id="aIy-HO-wSc"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-29" y="171"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="DarkTextBlue">
+            <color red="0.20000000000000001" green="0.24705882352941178" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

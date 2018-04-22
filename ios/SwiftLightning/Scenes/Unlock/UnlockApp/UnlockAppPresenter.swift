@@ -14,7 +14,7 @@ import UIKit
 
 protocol UnlockAppPresentationLogic
 {
-  func presentSomething(response: UnlockApp.Something.Response)
+  func presentCheckResult(response: UnlockApp.CheckPassword.Response)
 }
 
 class UnlockAppPresenter: UnlockAppPresentationLogic
@@ -23,9 +23,14 @@ class UnlockAppPresenter: UnlockAppPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: UnlockApp.Something.Response)
+  func presentCheckResult(response: UnlockApp.CheckPassword.Response)
   {
-    let viewModel = UnlockApp.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    if let errorDescription = response.errorDescription {
+      let viewModel = UnlockApp.CheckPassword.ViewModel(errorTitle: "Unlock Failed",
+                                                        errorMsg: errorDescription)
+      viewController?.displayCheckPasswordFailure(viewModel: viewModel)
+    } else {
+      viewController?.displayWalletMain()
+    }
   }
 }

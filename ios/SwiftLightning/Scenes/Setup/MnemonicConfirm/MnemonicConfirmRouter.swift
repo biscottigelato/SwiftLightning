@@ -13,7 +13,7 @@
 import UIKit
 
 @objc protocol MnemonicConfirmRoutingLogic {
-  func routeToWallet()
+  func routeToWalletMain()
   func routeToMnemonicDisplay()
 }
 
@@ -27,12 +27,12 @@ class MnemonicConfirmRouter: NSObject, MnemonicConfirmRoutingLogic, MnemonicConf
   
   // MARK: Routing
   
-  func routeToWallet() {
-    let storyboard = UIStoryboard(name: "Wallet", bundle: nil)
+  func routeToWalletMain() {
+    let storyboard = UIStoryboard(name: "WalletMain", bundle: nil)
     let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletMainViewController") as! WalletMainViewController
     var destinationDS = destinationVC.router!.dataStore!
-    passDataToWallet(source: dataStore!, destination: &destinationDS)
-    navigateToWallet(source: viewController!, destination: destinationVC)
+    passDataToWalletMain(source: dataStore!, destination: &destinationDS)
+    navigateToWalletMain(source: viewController!, destination: destinationVC)
   }
   
   func routeToMnemonicDisplay() {
@@ -43,9 +43,10 @@ class MnemonicConfirmRouter: NSObject, MnemonicConfirmRoutingLogic, MnemonicConf
     navigateToMnemonicDisplay(source: viewController!, destination: destinationVC)
   }
 
+  
   // MARK: Navigation
   
-  func navigateToWallet(source: MnemonicConfirmViewController, destination: WalletMainViewController) {
+  func navigateToWalletMain(source: MnemonicConfirmViewController, destination: WalletMainViewController) {
     source.present(destination, animated: true, completion: nil)
   }
   
@@ -54,10 +55,9 @@ class MnemonicConfirmRouter: NSObject, MnemonicConfirmRoutingLogic, MnemonicConf
   }
   
   
-  
   // MARK: Passing data
   
-  func passDataToWallet(source: MnemonicConfirmDataStore, destination: inout WalletMainDataStore) {
+  func passDataToWalletMain(source: MnemonicConfirmDataStore, destination: inout WalletMainDataStore) {
     // destination.name = source.name
   }
   

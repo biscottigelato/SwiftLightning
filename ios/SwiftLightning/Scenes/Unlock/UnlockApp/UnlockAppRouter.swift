@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol UnlockAppRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+  func routeToWalletMain()
 }
 
 protocol UnlockAppDataPassing
@@ -27,34 +27,28 @@ class UnlockAppRouter: NSObject, UnlockAppRoutingLogic, UnlockAppDataPassing
   weak var viewController: UnlockAppViewController?
   var dataStore: UnlockAppDataStore?
   
+  
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
+  func routeToWalletMain() {
+    let storyboard = UIStoryboard(name: "WalletMain", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletMainViewController") as! WalletMainViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToWalletMain(source: dataStore!, destination: &destinationDS)
+    navigateToWalletMain(source: viewController!, destination: destinationVC)
+  }
+  
+  
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: UnlockAppViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func navigateToWalletMain(source: UnlockAppViewController, destination: WalletMainViewController) {
+    source.present(destination, animated: true, completion: nil)
+  }
+  
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: UnlockAppDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func passDataToWalletMain(source: UnlockAppDataStore, destination: inout WalletMainDataStore) {
+    // destination.name = source.name
+  }
 }

@@ -11,35 +11,35 @@
 //
 
 import UIKit
+import SnapKit
 
-protocol UnlockAppDisplayLogic: class
-{
-  func displaySomething(viewModel: UnlockApp.Something.ViewModel)
+
+protocol UnlockAppDisplayLogic: class {
+  func displayWalletMain()
+  func displayCheckPasswordFailure(viewModel: UnlockApp.CheckPassword.ViewModel)
 }
 
-class UnlockAppViewController: UIViewController, UnlockAppDisplayLogic
-{
+class UnlockAppViewController: UIViewController, UnlockAppDisplayLogic, UITextFieldDelegate {
   var interactor: UnlockAppBusinessLogic?
   var router: (NSObjectProtocol & UnlockAppRoutingLogic & UnlockAppDataPassing)?
 
+  
   // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     setup()
   }
   
-  required init?(coder aDecoder: NSCoder)
-  {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
   
+  
   // MARK: Setup
   
-  private func setup()
-  {
+  private func setup() {
     let viewController = self
     let interactor = UnlockAppInteractor()
     let presenter = UnlockAppPresenter()
@@ -52,38 +52,95 @@ class UnlockAppViewController: UIViewController, UnlockAppDisplayLogic
     router.dataStore = interactor
   }
   
-  // MARK: Routing
   
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
-    }
-  }
+  // MARK: IBOutlet
+  
+  @IBOutlet weak var passwordField: SLPasswordField!
+  @IBOutlet weak var bottomDistance: NSLayoutConstraint!
+  
   
   // MARK: View lifecycle
   
-  override func viewDidLoad()
-  {
+  override func viewDidLoad() {
     super.viewDidLoad()
-    doSomething()
+    
+    // Registering observer to adjust stack for keyboard height
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+
+    // Configure SLPasswordField
+    passwordField.unhideButton.isHidden = true
+    passwordField.infoLabel.isHidden = true
+    passwordField.textField.returnKeyType = .done
+    passwordField.textField.delegate = self
   }
   
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = UnlockApp.Something.Request()
-    interactor?.doSomething(request: request)
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    passwordField.textField.becomeFirstResponder()
   }
   
-  func displaySomething(viewModel: UnlockApp.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    passwordField.textField.resignFirstResponder()
+  }
+  
+  
+  // MARK: Keyboard Management
+  
+  @objc private func keyboardWillShow(_ notification: NSNotification) {
+    if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+      
+      // Adjusting stack with height of the keyboard
+      bottomDistance.constant = keyboardSize.height
+    }
+  }
+  
+  
+  // MARK: TextField
+  
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    if let passwordText = textField.text {
+      checkPasswordBlocking(passwordText: passwordText)
+    }
+    return false
+  }
+  
+  
+  // MARK: Check Password Complete
+  let activityIndicator = SLActivityIndicator()
+  
+  func checkPasswordBlocking(passwordText: String) {
+    UIApplication.shared.beginIgnoringInteractionEvents()
+    view.addSubview(activityIndicator)
+    activityIndicator.snp.makeConstraints { (make) in
+      make.center.equalTo(self.view)
+    }
+    
+    let request = UnlockApp.CheckPassword.Request(passwordText: passwordText)
+    interactor?.checkPassword(request: request)
+  }
+  
+  func displayWalletMain() {
+    DispatchQueue.main.async {
+      UIApplication.shared.endIgnoringInteractionEvents()
+      self.activityIndicator.removeFromSuperview()
+      
+      self.router?.routeToWalletMain()
+    }
+  }
+  
+  func displayCheckPasswordFailure(viewModel: UnlockApp.CheckPassword.ViewModel) {
+    let alertDialog = UIAlertController(title: viewModel.errorTitle, message: viewModel.errorMsg, preferredStyle: .alert).addAction(title: "OK", style: .default)
+    
+    // Present from RootVC so the keyboard won't disappear
+    let rootViewController: UIViewController =
+      UIApplication.shared.windows.last!.rootViewController!
+    
+    DispatchQueue.main.async {
+      UIApplication.shared.endIgnoringInteractionEvents()
+      self.activityIndicator.removeFromSuperview()
+      
+      rootViewController.present(alertDialog, animated: true, completion: nil)
+    }
   }
 }

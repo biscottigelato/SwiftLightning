@@ -5,10 +5,17 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Unlock App View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -25,35 +32,87 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" name="SpaceCadetBlue"/>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="u34-hT-Sbc">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="u34-hT-Sbc">
+                                <rect key="frame" x="32" y="0.0" width="256" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9HQ-z2-Iru" userLabel="Safe Spacer">
+                                        <rect key="frame" x="8" y="0.0" width="240" height="20"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HbE-vR-q9Z" userLabel="Header">
+                                        <rect key="frame" x="8" y="20" width="240" height="57"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningLogo" translatesAutoresizingMaskIntoConstraints="NO" id="3n5-vI-0mh">
+                                                <rect key="frame" x="111.5" y="14" width="16" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="3n5-vI-0mh" secondAttribute="height" multiplier="303:537" id="osN-Pl-azt"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="3n5-vI-0mh" firstAttribute="centerX" secondItem="HbE-vR-q9Z" secondAttribute="centerX" id="EOs-a9-Tow"/>
+                                            <constraint firstItem="3n5-vI-0mh" firstAttribute="centerY" secondItem="HbE-vR-q9Z" secondAttribute="centerY" id="jsj-wp-AWS"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" text="Enter your password to unlock" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1h7-1X-pcP">
+                                        <rect key="frame" x="19" y="77" width="218.5" height="231.5"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                                        <color key="textColor" name="NormalText"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" horizontalCompressionResistancePriority="400" translatesAutoresizingMaskIntoConstraints="NO" id="cSB-ae-9dp" customClass="SLPasswordField" customModule="SwiftLightning" customModuleProvider="target">
+                                        <rect key="frame" x="19" y="308.5" width="218.5" height="231"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3M-Pz-9Je" userLabel="Bottom Spacer">
+                                        <rect key="frame" x="8" y="539.5" width="240" height="28.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="X3M-Pz-9Je" firstAttribute="height" secondItem="HbE-vR-q9Z" secondAttribute="height" multiplier="0.5" id="HYh-2E-5Dm"/>
+                                    <constraint firstItem="cSB-ae-9dp" firstAttribute="width" secondItem="1h7-1X-pcP" secondAttribute="width" id="cy0-Kg-1pA"/>
+                                    <constraint firstItem="1h7-1X-pcP" firstAttribute="height" secondItem="cSB-ae-9dp" secondAttribute="height" id="zI5-sa-Efl"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Wr0-ki-0Go" secondAttribute="bottom" id="4Mn-4l-MfK"/>
-                            <constraint firstItem="u34-hT-Sbc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5s7-1m-pa9"/>
+                            <constraint firstItem="u34-hT-Sbc" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="7Wh-Tp-tzi"/>
+                            <constraint firstItem="u34-hT-Sbc" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="AM2-2e-So1"/>
                             <constraint firstItem="Wr0-ki-0Go" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DVX-g7-p4K"/>
                             <constraint firstAttribute="bottom" secondItem="yRz-Tn-3NW" secondAttribute="bottom" id="FrA-3a-tAU"/>
+                            <constraint firstItem="u34-hT-Sbc" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="H3r-rs-gMj"/>
                             <constraint firstItem="Wr0-ki-0Go" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="OqU-NZ-NEZ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="u34-hT-Sbc" secondAttribute="bottom" id="Rx6-Y9-Tgh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wr0-ki-0Go" secondAttribute="trailing" id="WIC-Di-E5u"/>
                             <constraint firstItem="yRz-Tn-3NW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Yis-7R-hKx"/>
-                            <constraint firstItem="u34-hT-Sbc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="phw-K9-llG"/>
+                            <constraint firstItem="HbE-vR-q9Z" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.1" id="ZDf-uV-Xii"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="u34-hT-Sbc" secondAttribute="bottom" id="fHX-p8-FdM" userLabel="Bottom Distance"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="9HQ-z2-Iru" secondAttribute="bottom" id="mKc-wV-cvh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yRz-Tn-3NW" secondAttribute="trailing" id="pw4-vz-kNf"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="u34-hT-Sbc" secondAttribute="trailing" id="tc8-3e-wOg"/>
+                            <constraint firstItem="3n5-vI-0mh" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.05" id="rzz-uB-ucu"/>
                             <constraint firstItem="yRz-Tn-3NW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="y9k-rk-NYZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="bottomDistance" destination="fHX-p8-FdM" id="piJ-8w-mbS"/>
+                        <outlet property="passwordField" destination="cSB-ae-9dp" id="4vW-le-H4I"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="21.600000000000001" y="31.773399014778327"/>
+            <point key="canvasLocation" x="20.625" y="31.690140845070424"/>
         </scene>
     </scenes>
     <resources>
+        <image name="LightningLogo" width="115" height="203"/>
         <image name="OnboardBackgroundTemp" width="1333" height="2000"/>
+        <namedColor name="NormalText">
+            <color red="1" green="0.99607843137254903" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="SpaceCadetBlue">
             <color red="0.14509803921568629" green="0.21568627450980393" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

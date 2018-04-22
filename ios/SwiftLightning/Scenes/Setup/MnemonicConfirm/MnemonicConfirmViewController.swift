@@ -110,6 +110,7 @@ class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLog
     view.endEditing(true)
   }
   
+  
   // MARK: Text Fields
   
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -177,7 +178,7 @@ class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLog
   }
   
   func displayConfirmSeedWords() {
-    router?.routeToWallet()
+    router?.routeToWalletMain()
   }
   
   func displayConfirmSeedWordsFailure(viewModel: MnemonicConfirm.ConfirmSeedWords.ViewModel) {
