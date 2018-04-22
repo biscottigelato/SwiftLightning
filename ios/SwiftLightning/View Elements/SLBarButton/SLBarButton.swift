@@ -40,7 +40,8 @@ import UIKit
     static let smallSizedShadowBlur: CGFloat = 3.0/2
     static let smallSizedShadowOpacity: Float = 0.2
     
-    static let defaultLayoutMargin: CGFloat = 16.0
+    static let fullWidthLayoutMargin: CGFloat = 16.0
+    static let halfWidthLayoutMargin: CGFloat = 10.0
   }
   
   
@@ -92,8 +93,6 @@ import UIKit
   
     // Pre-calculate the Intrinsic Size of the button
     
-    let leftMargin = Constants.defaultLayoutMargin
-    let rightMargin = Constants.defaultLayoutMargin
     var superviewWidth = UIScreen.main.bounds.width
     
 //    if let layoutMargins = superview?.layoutMargins {
@@ -114,7 +113,7 @@ import UIKit
     
     switch sizeType {
     case .full:
-      let buttonWidth = superviewWidth - leftMargin - rightMargin
+      let buttonWidth = superviewWidth - 2*Constants.fullWidthLayoutMargin
       intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
       titleLabel?.font = UIFont.regularFont(Constants.defaultFontSize)
@@ -123,7 +122,7 @@ import UIKit
       layer.shadowOpacity = Constants.defaultShadowOpacity
       
     case .half:
-      let buttonWidth = (superviewWidth - 1.5*(leftMargin + rightMargin))/2
+      let buttonWidth = superviewWidth - 3*Constants.halfWidthLayoutMargin
       intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
       titleLabel?.font = UIFont.regularFont(Constants.defaultFontSize)
@@ -132,7 +131,7 @@ import UIKit
       layer.shadowOpacity = Constants.defaultShadowOpacity
       
     case .formFull:
-      let buttonWidth = superviewWidth - leftMargin - rightMargin
+      let buttonWidth = superviewWidth - 2*Constants.fullWidthLayoutMargin
       intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
       titleLabel?.font = UIFont.regularFont(Constants.defaultFontSize)
@@ -141,7 +140,7 @@ import UIKit
       layer.shadowOpacity = Constants.defaultShadowOpacity
       
     case .formHalf:
-      let buttonWidth = (superviewWidth - 1.5*(leftMargin + rightMargin))/2
+      let buttonWidth = superviewWidth - 3*Constants.halfWidthLayoutMargin
       intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
       titleLabel?.font = UIFont.regularFont(Constants.defaultFontSize)

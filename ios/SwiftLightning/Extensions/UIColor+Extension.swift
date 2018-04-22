@@ -14,6 +14,8 @@ extension UIColor {
   static let disabledGray = UIColor(named: "DisabledGray")!
   static let disabledGrayShadow = UIColor(named: "DisabledGrayShadow")!
   static let disabledText = UIColor(named: "DisabledText")!
+  static let formBackground = UIColor(named: "FormBackground")!
+  static let formShadow = UIColor(named: "FormShadow")!
   static let genericGray = UIColor(named: "genericGray")!
   static let jellyBeanRed = UIColor(named: "JellyBeanRed")!
   static let jellyBeanRedShadow = UIColor(named: "JellyBeanRedShadow")!
