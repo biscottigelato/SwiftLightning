@@ -47,7 +47,11 @@ class MnemonicConfirmRouter: NSObject, MnemonicConfirmRoutingLogic, MnemonicConf
   // MARK: Navigation
   
   func navigateToWalletMain(source: MnemonicConfirmViewController, destination: WalletMainViewController) {
-    source.present(destination, animated: true, completion: nil)
+    
+    // Force to present right from the root. Less views in memory
+    AppDelegate.rootViewController.dismiss(animated: false) {
+      AppDelegate.rootViewController.present(destination, animated: true, completion: nil)
+    }
   }
   
   func navigateToMnemonicDisplay(source: MnemonicConfirmViewController, destination: MnemonicDisplayViewController) {

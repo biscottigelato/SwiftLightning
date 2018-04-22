@@ -69,6 +69,13 @@ class RootViewController: UIViewController, RootDisplayLogic
   }
   
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    // Consider always clear all sensitive material from memory when one passes this
+  }
+  
+  
   // MARK: Route based on Wallet Presence
   
   func displaySetupScenes() {

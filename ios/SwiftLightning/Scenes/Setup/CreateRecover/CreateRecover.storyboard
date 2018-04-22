@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -28,45 +28,45 @@
             <objects>
                 <viewController storyboardIdentifier="CreateRecoverViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Me3-dU-md1" customClass="CreateRecoverViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XiV-3x-Db3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OnboardBackgroundTemp" translatesAutoresizingMaskIntoConstraints="NO" id="9FZ-7v-kjG">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pxr-H6-pN1" customClass="GradientView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="fpC-Ib-WbT">
-                                        <rect key="frame" x="40" y="51.5" width="240" height="325"/>
+                                        <rect key="frame" x="67.666666666666686" y="138.33333333333334" width="240" height="385.33333333333326"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningLogo" translatesAutoresizingMaskIntoConstraints="NO" id="a7X-bd-peU">
-                                                <rect key="frame" x="79.5" y="0.0" width="81" height="143"/>
+                                                <rect key="frame" x="62.333333333333321" y="0.0" width="115.66666666666669" height="204"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="a7X-bd-peU" secondAttribute="height" multiplier="303:537" id="46m-a3-WdK"/>
                                                 </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oSj-Vb-HHF">
-                                                <rect key="frame" x="0.0" y="158" width="240" height="20"/>
+                                                <rect key="frame" x="0.0" y="218.99999999999997" width="240" height="20"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="Ik6-wJ-CaK"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swiftning" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHP-Up-XNp">
-                                                <rect key="frame" x="6.5" y="193" width="227.5" height="59"/>
+                                                <rect key="frame" x="6.3333333333333286" y="253.99999999999997" width="227.66666666666669" height="58.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="48"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Security at Lightning Speed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0g-MA-KGd">
-                                                <rect key="frame" x="12.5" y="267" width="215" height="23.5"/>
+                                                <rect key="frame" x="12.666666666666657" y="327.66666666666663" width="214.66666666666666" height="23.333333333333314"/>
                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by LND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oa1-mu-PEo">
-                                                <rect key="frame" x="63" y="305.5" width="114.5" height="19.5"/>
+                                                <rect key="frame" x="62.999999999999993" y="366" width="114.33333333333331" height="19.333333333333314"/>
                                                 <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -91,7 +91,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-A9-PER" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="16" y="429" width="288" height="42"/>
+                                <rect key="frame" x="16.333333333333343" y="639" width="343" height="42"/>
                                 <color key="backgroundColor" name="LightAzureBlue"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                 <state key="normal" title="Create New Wallet">
@@ -108,7 +108,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQF-OK-Hbl" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="16" y="486" width="288" height="42"/>
+                                <rect key="frame" x="16" y="696" width="343" height="42"/>
                                 <color key="backgroundColor" name="MedAquamarine"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                 <state key="normal" title="Recover Wallet">

@@ -11,6 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+  static var rootViewController: UIViewController!
   var window: UIWindow?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -29,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     guard let viewController = storyboard.instantiateViewController(withIdentifier: "RootViewController") as? RootViewController else {
       SLLog.fatal("ViewController initiated not of RootViewController Class!!")
     }
+    
+    AppDelegate.rootViewController = viewController
     
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.rootViewController = viewController

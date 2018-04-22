@@ -42,7 +42,11 @@ class UnlockAppRouter: NSObject, UnlockAppRoutingLogic, UnlockAppDataPassing
   // MARK: Navigation
   
   func navigateToWalletMain(source: UnlockAppViewController, destination: WalletMainViewController) {
-    source.present(destination, animated: true, completion: nil)
+    
+    // Force to present right from the root. Less views in memory
+    AppDelegate.rootViewController.dismiss(animated: false) {
+      AppDelegate.rootViewController.present(destination, animated: true, completion: nil)
+    }
   }
   
   

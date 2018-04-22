@@ -60,7 +60,7 @@ import UIKit
   }
   
   
-  // MARK: - Initializers
+  // MARK: Initializers
   
   override init(frame: CGRect) {
     topPoint = 0.0
@@ -76,8 +76,14 @@ import UIKit
     super.init(coder: aDecoder)
   }
   
+  override func layoutSubviews() {
+    setGradient(topGradientColor: topGradientColor, topPoint: topPoint,
+                middleGradientColor: middleGradientColor, middlePoint: middlePoint,
+                bottomGradientColor: bottomGradientColor, bottomPoint: bottomPoint)
+  }
   
-  // MARK: - Private Instance Functions
+  
+  // MARK: Private Instance Functions
   
   private func setGradient(topGradientColor: UIColor?, topPoint: Float = 0.0,
                            middleGradientColor: UIColor? = nil, middlePoint: Float = 0.5,
