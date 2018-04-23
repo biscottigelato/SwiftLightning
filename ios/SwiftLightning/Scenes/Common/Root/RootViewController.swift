@@ -17,6 +17,9 @@ protocol RootDisplayLogic: class
   func displaySetupScenes()
   func displayUnlockScenes()
   func displayErrorStatus(viewModel: Root.WalletPresenceRouting.ViewModel)
+  
+  func displayWalletNavigation()
+  func displayConfirmWalletUnlockFailure(viewModel: Root.ConfirmWalletUnlock.ViewModel)
 }
 
 
@@ -95,6 +98,36 @@ class RootViewController: UIViewController, RootDisplayLogic
                                         message: viewModel.errorMsg,
                                         preferredStyle: .alert).addAction(title: "OK", style: .default)
     DispatchQueue.main.async {
+      self.present(alertDialog, animated: true, completion: nil)
+    }
+  }
+  
+  
+  // MARK: Confirm Wallet is Unlocked before proceeding to Wallet Navigation
+  let activityIndicator = SLSpinnerDialogView()
+  
+  func goWalletNavigation() {
+    activityIndicator.show(on: view)
+    
+    // We gotta confirm that the wallet is indeed unlocked before proceeding
+    let request = Root.ConfirmWalletUnlock.Request()
+    interactor?.confirmWalletUnlock(request: request)
+  }
+  
+  func displayWalletNavigation() {
+    DispatchQueue.main.async {
+      self.activityIndicator.remove()
+      
+      self.router?.routeToWalletNavigation()
+    }
+  }
+  
+  func displayConfirmWalletUnlockFailure(viewModel: Root.ConfirmWalletUnlock.ViewModel) {
+    let alertDialog = UIAlertController(title: viewModel.errTitle, message: viewModel.errMsg, preferredStyle: .alert).addAction(title: "OK", style: .default)
+    
+    DispatchQueue.main.async {
+      self.activityIndicator.remove()
+      
       self.present(alertDialog, animated: true, completion: nil)
     }
   }

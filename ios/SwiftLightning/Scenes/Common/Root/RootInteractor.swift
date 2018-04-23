@@ -15,6 +15,7 @@ import UIKit
 protocol RootBusinessLogic
 {
   func checkWalletPresence(request: Root.WalletPresenceRouting.Request)
+  func confirmWalletUnlock(request: Root.ConfirmWalletUnlock.Request)
 }
 
 protocol RootDataStore
@@ -35,5 +36,21 @@ class RootInteractor: RootBusinessLogic, RootDataStore
     let walletPresent = worker.checkWalletPresenceViaFile()
     let response = Root.WalletPresenceRouting.Response(walletPresent: walletPresent)
     self.presenter?.presentWalletPresenceRouting(response: response)
+  }
+  
+  func confirmWalletUnlock(request: Root.ConfirmWalletUnlock.Request) {
+    
+    // Increase retry count because unlock can take a while
+    // Decrease retry delay so unlock process is more responsive
+    LNServices.getInfo(retryCount: 20, retryDelay: 0.5) { (completion) in
+      do {
+        try completion()
+        let response = Root.ConfirmWalletUnlock.Response(isWalletUnlocked: true)
+        self.presenter?.presentConfirmWalletUnlock(response: response)
+      } catch {
+        let response = Root.ConfirmWalletUnlock.Response(isWalletUnlocked: false)
+        self.presenter?.presentConfirmWalletUnlock(response: response)
+      }
+    }
   }
 }

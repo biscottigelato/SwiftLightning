@@ -80,16 +80,12 @@ class PlaygroundViewController: UIViewController {
   
   
   @IBAction func getInfo(_ sender: UIButton) {
-    do {
-      try LNServices.getInfo { (result) in
-        do {
-          try result()
-        } catch {
-          SLLog.warning(error.localizedDescription)
-        }
+    LNServices.getInfo { (result) in
+      do {
+        try result()
+      } catch {
+        SLLog.warning(error.localizedDescription)
       }
-    } catch {
-      SLLog.warning(error.localizedDescription)
     }
   }
   

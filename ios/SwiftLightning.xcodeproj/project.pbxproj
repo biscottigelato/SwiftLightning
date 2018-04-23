@@ -123,10 +123,12 @@
 		8C70EC0B208D934200D658DC /* SLDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EC0A208D934200D658DC /* SLDesign.swift */; };
 		8C70EC0E208DBC7A00D658DC /* SLTextDialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C70EC0D208DBC7A00D658DC /* SLTextDialogView.xib */; };
 		8C70EC10208DBCDF00D658DC /* SLTextDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EC0F208DBCDF00D658DC /* SLTextDialogView.swift */; };
+		8C70EC13208E511900D658DC /* SLRetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EC12208E511900D658DC /* SLRetry.swift */; };
+		8C70EC15208E51A700D658DC /* HttpStatusCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EC14208E51A700D658DC /* HttpStatusCodes.swift */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SLLog.swift */; };
-		8C8E4E65208C0C040017BAB2 /* SLActivityIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C8E4E64208C0C040017BAB2 /* SLActivityIndicator.xib */; };
-		8C8E4E67208C0C240017BAB2 /* SLActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E4E66208C0C240017BAB2 /* SLActivityIndicator.swift */; };
+		8C8E4E65208C0C040017BAB2 /* SLSpinnerDialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */; };
+		8C8E4E67208C0C240017BAB2 /* SLSpinnerDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */; };
 		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
 		8CE3AE612086AF3F007D1065 /* SLUnboxedHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE3AE602086AF3F007D1065 /* SLUnboxedHeading.swift */; };
 		8CE3AE632086AF4D007D1065 /* SLUnboxedHeading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CE3AE622086AF4D007D1065 /* SLUnboxedHeading.xib */; };
@@ -277,10 +279,12 @@
 		8C70EC0A208D934200D658DC /* SLDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLDesign.swift; sourceTree = "<group>"; };
 		8C70EC0D208DBC7A00D658DC /* SLTextDialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLTextDialogView.xib; sourceTree = "<group>"; };
 		8C70EC0F208DBCDF00D658DC /* SLTextDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLTextDialogView.swift; sourceTree = "<group>"; };
+		8C70EC12208E511900D658DC /* SLRetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLRetry.swift; sourceTree = "<group>"; };
+		8C70EC14208E51A700D658DC /* HttpStatusCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpStatusCodes.swift; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLog.swift; sourceTree = "<group>"; };
-		8C8E4E64208C0C040017BAB2 /* SLActivityIndicator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLActivityIndicator.xib; sourceTree = "<group>"; };
-		8C8E4E66208C0C240017BAB2 /* SLActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLActivityIndicator.swift; sourceTree = "<group>"; };
+		8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLSpinnerDialogView.xib; sourceTree = "<group>"; };
+		8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSpinnerDialogView.swift; sourceTree = "<group>"; };
 		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		8CE3AE602086AF3F007D1065 /* SLUnboxedHeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLUnboxedHeading.swift; sourceTree = "<group>"; };
 		8CE3AE622086AF4D007D1065 /* SLUnboxedHeading.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLUnboxedHeading.xib; sourceTree = "<group>"; };
@@ -367,8 +371,10 @@
 			children = (
 				8C090E5120896050009B8B8D /* Test */,
 				8C090E0520880154009B8B8D /* Result.swift */,
+				8C70EC14208E51A700D658DC /* HttpStatusCodes.swift */,
 				8C7D310720755CE00068F2BD /* SLLog.swift */,
 				8C090E4F20895CA9009B8B8D /* SLRandValues.swift */,
+				8C70EC12208E511900D658DC /* SLRetry.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -614,7 +620,6 @@
 			children = (
 				8C70EC0A208D934200D658DC /* SLDesign.swift */,
 				8CFA16E020854C2F00813EA6 /* Generics */,
-				8C8E4E63208C0BE60017BAB2 /* SLActivityIndicator */,
 				8CE3AE5F2086AED6007D1065 /* SLUnboxedHeading */,
 				8CFA16E120854C3C00813EA6 /* SLBarButton */,
 				8C1882B52086A193002E2835 /* SLIcon30Button */,
@@ -623,6 +628,7 @@
 				8C70EBD5208C382400D658DC /* SLFormBackingView */,
 				8C70EC05208D89CE00D658DC /* SLFormHeaderView */,
 				8C70EC0C208DBC3B00D658DC /* SLBriefDialog */,
+				8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialogView */,
 			);
 			path = "View Elements";
 			sourceTree = "<group>";
@@ -637,13 +643,13 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		8C8E4E63208C0BE60017BAB2 /* SLActivityIndicator */ = {
+		8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialogView */ = {
 			isa = PBXGroup;
 			children = (
-				8C8E4E64208C0C040017BAB2 /* SLActivityIndicator.xib */,
-				8C8E4E66208C0C240017BAB2 /* SLActivityIndicator.swift */,
+				8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */,
+				8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */,
 			);
-			path = SLActivityIndicator;
+			path = SLSpinnerDialogView;
 			sourceTree = "<group>";
 		};
 		8CE3AE5F2086AED6007D1065 /* SLUnboxedHeading */ = {
@@ -907,7 +913,7 @@
 				8C090E7920899DB9009B8B8D /* Playground.storyboard in Resources */,
 				8C18828B20868545002E2835 /* Montserrat-ExtraLightItalic.ttf in Resources */,
 				8C18828D20868545002E2835 /* Montserrat-BlackItalic.ttf in Resources */,
-				8C8E4E65208C0C040017BAB2 /* SLActivityIndicator.xib in Resources */,
+				8C8E4E65208C0C040017BAB2 /* SLSpinnerDialogView.xib in Resources */,
 				8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */,
 				8C090E2A20885C84009B8B8D /* OpenSans-SemiboldItalic.ttf in Resources */,
 				8C6B7566208BB9D000B751A2 /* LaunchScreen.storyboard in Resources */,
@@ -1048,13 +1054,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C090E012087DEAA009B8B8D /* MnemonicExplainViewController.swift in Sources */,
+				8C70EC13208E511900D658DC /* SLRetry.swift in Sources */,
 				8C70EBCE208C345B00D658DC /* ReceiveMainWorker.swift in Sources */,
 				8C090E4620894801009B8B8D /* MnemonicConfirmViewController.swift in Sources */,
 				8C090E322088612B009B8B8D /* MnemonicDisplayPresenter.swift in Sources */,
 				8C090E4520894801009B8B8D /* MnemonicConfirmModels.swift in Sources */,
 				8C7D310820755CE00068F2BD /* SLLog.swift in Sources */,
 				8C70EBD2208C345B00D658DC /* ReceiveMainInteractor.swift in Sources */,
-				8C8E4E67208C0C240017BAB2 /* SLActivityIndicator.swift in Sources */,
+				8C8E4E67208C0C240017BAB2 /* SLSpinnerDialogView.swift in Sources */,
 				8C70EC0B208D934200D658DC /* SLDesign.swift in Sources */,
 				8C090E342088612B009B8B8D /* MnemonicDisplayRouter.swift in Sources */,
 				8C090DF420870DB9009B8B8D /* LNDefinitions.swift in Sources */,
@@ -1064,6 +1071,7 @@
 				8C1882A020868EBE002E2835 /* PasswordCreateModels.swift in Sources */,
 				8CE3AE612086AF3F007D1065 /* SLUnboxedHeading.swift in Sources */,
 				8C090E1020881DAB009B8B8D /* UIAlertController+Extension.swift in Sources */,
+				8C70EC15208E51A700D658DC /* HttpStatusCodes.swift in Sources */,
 				8C090E002087DEAA009B8B8D /* MnemonicExplainModels.swift in Sources */,
 				8C6B7550208AFEC800B751A2 /* UnlockAppRouter.swift in Sources */,
 				8CFA16A12082EF3A00813EA6 /* CreateRecoverPresenter.swift in Sources */,

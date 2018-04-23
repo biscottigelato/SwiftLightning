@@ -15,13 +15,14 @@ import UIKit
 protocol RootPresentationLogic
 {
   func presentWalletPresenceRouting(response: Root.WalletPresenceRouting.Response)
+  func presentConfirmWalletUnlock(response: Root.ConfirmWalletUnlock.Response)
 }
 
 class RootPresenter: RootPresentationLogic
 {
   weak var viewController: RootDisplayLogic?
   
-  // MARK: Do something
+  // MARK: Wallet Presence Routing
   
   func presentWalletPresenceRouting(response: Root.WalletPresenceRouting.Response)
   {
@@ -37,6 +38,18 @@ class RootPresenter: RootPresentationLogic
       viewController?.displayUnlockScenes()
       case false:
       viewController?.displaySetupScenes()
+    }
+  }
+  
+  // MARK: Confirm Wallet Unlock
+  
+  func presentConfirmWalletUnlock(response: Root.ConfirmWalletUnlock.Response) {
+    if response.isWalletUnlocked {
+      viewController?.displayWalletNavigation()
+    } else {
+      let viewModel = Root.ConfirmWalletUnlock.ViewModel(errTitle: "Wallet Error",
+                                                         errMsg: "Cannot talk to Wallet. Please restart app in attempt to retry.")
+      viewController?.displayConfirmWalletUnlockFailure(viewModel: viewModel)
     }
   }
 }

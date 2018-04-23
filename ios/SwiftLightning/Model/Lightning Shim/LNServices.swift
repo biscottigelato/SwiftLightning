@@ -210,7 +210,7 @@ class LNServices {
     
     _ = try lightningService!.newAddress(newAddressRequest) { (response, result) in
       if let response = response {
-        SLLog.info("LN New Wallet Success!")
+        SLLog.info("LN New Address Success!")
         
         completion({ return response.address })
         
@@ -225,32 +225,52 @@ class LNServices {
   
   // MARK: Get Info
   
-  static func getInfo(completion: @escaping (() throws -> ()) -> Void) throws {  //TODO: Should return an info struct of sort
-    try prepareLightningService()
+  static func getInfo(retryCount: Int = LNManager.Constants.defaultRetryCount,
+                      retryDelay: Double = LNManager.Constants.defaultRetryDelay,
+                      completion: @escaping (() throws -> ()) -> Void) {  //TODO: Should return an info struct of sort
     
-    _ = try lightningService!.getInfo(Lnrpc_GetInfoRequest()) { (response, result) in
-      if let response = response {
-        SLLog.verbose("LN Get Info Success!")
-        SLLog.verbose("Identity Pubkey:       \(response.identityPubkey)")
-        SLLog.verbose("Alias:                 \(response.alias)")
-        SLLog.verbose("Num Pending Channels:  \(response.numPendingChannels)")
-        SLLog.verbose("Num Active Channels :  \(response.numActiveChannels)")
-        SLLog.verbose("Number of Peers:       \(response.numPeers)")
-        SLLog.verbose("Block Height:          \(response.blockHeight)")
-        SLLog.verbose("Block Hash:            \(response.blockHash)")
-        SLLog.verbose("Synced to Chain:       \(response.syncedToChain)")
-        SLLog.verbose("Testnet:               \(response.testnet)")
-        SLLog.verbose("Chains:                \(response.chains.joined(separator: ", "))")
-        SLLog.verbose("URIs:                  \(response.uris.joined(separator: ", "))")
-        SLLog.verbose("Best Header Timestamp: \(response.bestHeaderTimestamp)")
-        
-        completion({ return })
-      } else {
-        let message = result.statusMessage ?? result.description
-        SLLog.warning("LN Get Info Failed - \(message)")
-        completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
+    let retry = SLRetry()
+    let task = { () -> () in
+      do {
+        try prepareLightningService()
+        _ = try lightningService!.getInfo(Lnrpc_GetInfoRequest()) { (response, result) in
+          if let response = response {
+            SLLog.verbose("LN Get Info Success!")
+            SLLog.verbose("Identity Pubkey:       \(response.identityPubkey)")
+            SLLog.verbose("Alias:                 \(response.alias)")
+            SLLog.verbose("Num Pending Channels:  \(response.numPendingChannels)")
+            SLLog.verbose("Num Active Channels :  \(response.numActiveChannels)")
+            SLLog.verbose("Number of Peers:       \(response.numPeers)")
+            SLLog.verbose("Block Height:          \(response.blockHeight)")
+            SLLog.verbose("Block Hash:            \(response.blockHash)")
+            SLLog.verbose("Synced to Chain:       \(response.syncedToChain)")
+            SLLog.verbose("Testnet:               \(response.testnet)")
+            SLLog.verbose("Chains:                \(response.chains.joined(separator: ", "))")
+            SLLog.verbose("URIs:                  \(response.uris.joined(separator: ", "))")
+            SLLog.verbose("Best Header Timestamp: \(response.bestHeaderTimestamp)")
+            
+            // Success! - dereference retry
+            retry.success()
+            completion({ return })
+            
+          } else {
+            let message = result.statusMessage ?? result.description
+            
+            // Error - attempt to retry
+            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
+          }
+        }
+      } catch {
+        // Error - attempt to retry
+        retry.attempt(error: error)
       }
     }
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Get Info Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    retry.start("LN Get Info", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   

@@ -107,14 +107,10 @@ class UnlockAppViewController: UIViewController, UnlockAppDisplayLogic, UITextFi
   
   
   // MARK: Check Password Complete
-  let activityIndicator = SLActivityIndicator()
+  let activityIndicator = SLSpinnerDialogView()
   
   func checkPasswordBlocking(passwordText: String) {
-    UIApplication.shared.beginIgnoringInteractionEvents()
-    view.addSubview(activityIndicator)
-    activityIndicator.snp.makeConstraints { (make) in
-      make.center.equalTo(self.view)
-    }
+    activityIndicator.show(on: view)
     
     let request = UnlockApp.CheckPassword.Request(passwordText: passwordText)
     interactor?.checkPassword(request: request)
@@ -122,10 +118,8 @@ class UnlockAppViewController: UIViewController, UnlockAppDisplayLogic, UITextFi
   
   func displayWalletMain() {
     DispatchQueue.main.async {
-      UIApplication.shared.endIgnoringInteractionEvents()
-      self.activityIndicator.removeFromSuperview()
-      
-      self.router?.routeToWalletNavigation()
+      self.activityIndicator.remove()
+      self.router?.routeToWalletThruRoot()
     }
   }
   
@@ -137,9 +131,7 @@ class UnlockAppViewController: UIViewController, UnlockAppDisplayLogic, UITextFi
       UIApplication.shared.windows.last!.rootViewController!
     
     DispatchQueue.main.async {
-      UIApplication.shared.endIgnoringInteractionEvents()
-      self.activityIndicator.removeFromSuperview()
-      
+      self.activityIndicator.remove()
       rootViewController.present(alertDialog, animated: true, completion: nil)
     }
   }

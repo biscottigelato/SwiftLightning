@@ -13,7 +13,7 @@
 import UIKit
 
 @objc protocol MnemonicConfirmRoutingLogic {
-  func routeToWalletNavigation()
+  func routeToWalletThruRoot()
   func routeToMnemonicDisplay()
 }
 
@@ -27,10 +27,11 @@ class MnemonicConfirmRouter: NSObject, MnemonicConfirmRoutingLogic, MnemonicConf
   
   // MARK: Routing
   
-  func routeToWalletNavigation() {
-    let storyboard = UIStoryboard(name: "WalletNavigation", bundle: nil)
-    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletNavigationController") as! WalletNavigationController
-    navigateToWalletNavigation(source: viewController!, destination: destinationVC)
+  func routeToWalletThruRoot() {
+    // Take a detour. Ask the RootViewController to do the work
+    AppDelegate.rootViewController.dismiss(animated: false) {
+      AppDelegate.rootViewController.goWalletNavigation()
+    }
   }
   
   func routeToMnemonicDisplay() {
@@ -44,25 +45,13 @@ class MnemonicConfirmRouter: NSObject, MnemonicConfirmRoutingLogic, MnemonicConf
   
   // MARK: Navigation
   
-  func navigateToWalletNavigation(source: MnemonicConfirmViewController, destination: WalletNavigationController) {
-    
-    // Force to present right from the root. Less views in memory
-    AppDelegate.rootViewController.dismiss(animated: false) {
-      AppDelegate.rootViewController.present(destination, animated: true, completion: nil)
-    }
-  }
-  
   func navigateToMnemonicDisplay(source: MnemonicConfirmViewController, destination: MnemonicDisplayViewController) {
     source.dismiss(animated: true, completion: nil)
   }
   
   
   // MARK: Passing data
-  
-  func passDataToWalletMain(source: MnemonicConfirmDataStore, destination: inout WalletMainDataStore) {
-    // destination.name = source.name
-  }
-  
+
   func passDataToMnemonicDisplay(source: MnemonicConfirmDataStore, destination: inout MnemonicDisplayDataStore) {
     
   }

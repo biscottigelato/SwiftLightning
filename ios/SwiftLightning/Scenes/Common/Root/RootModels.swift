@@ -33,4 +33,17 @@ enum Root
       var errorMsg: String
     }
   }
+  
+  enum ConfirmWalletUnlock {
+    struct Request {
+    }
+    struct Response {
+      var isWalletUnlocked: Bool
+    }
+    struct ViewModel {
+      var errTitle: String
+      var errMsg: String
+    }
+  }
+  
 }

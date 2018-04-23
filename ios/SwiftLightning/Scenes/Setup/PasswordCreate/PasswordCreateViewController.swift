@@ -82,11 +82,17 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
   }
   
   override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     validatePasswords()
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
     passwordField.textField.becomeFirstResponder()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
     view.endEditing(true)
   }
   
@@ -148,9 +154,24 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
     }
   }
   
+  
+  // MARK: Proceed
+  let activityIndicator = SLSpinnerDialogView()
+  
+  @IBAction func proceedTapped(_ sender: SLBarButton) {
+    let passwordText = passwordField.textField.text ?? ""
+    let confirmText = confirmField.textField.text ?? ""
+    
+    activityIndicator.show(on: view)
+    let request = PasswordCreate.SeedWallet.Request(passwordText: passwordText,
+                                                    confirmText: confirmText)
+    interactor?.seedWallet(request: request)
+  }
+  
   func seedWalletSuccess(viewModel: PasswordCreate.SeedWallet.ViewModel) {
     SLLog.verbose("Seed Wallet Success!")
     DispatchQueue.main.async {
+      self.activityIndicator.remove()
       self.router?.routeToMnemonicExplain()
     }
   }
@@ -161,19 +182,9 @@ class PasswordCreateViewController: SLViewController, PasswordCreateDisplayLogic
                                         message: viewModel.errorMsg,
                                         preferredStyle: .alert).addAction(title: "OK", style: .default)
     DispatchQueue.main.async {
+      self.activityIndicator.remove()
       self.present(alertDialog, animated: true, completion: nil)
     }
-  }
-  
-  
-  // MARK: Proceed
-  
-  @IBAction func proceedTapped(_ sender: SLBarButton) {
-    let passwordText = passwordField.textField.text ?? ""
-    let confirmText = confirmField.textField.text ?? ""
-    let request = PasswordCreate.SeedWallet.Request(passwordText: passwordText,
-                                                    confirmText: confirmText)
-    interactor?.seedWallet(request: request)
   }
   
   

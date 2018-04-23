@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -22,44 +22,51 @@
             <objects>
                 <viewController storyboardIdentifier="ReceiveMainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PWR-rK-2gB" customClass="ReceiveMainViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v3b-3g-YNG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jun-wl-aKq" userLabel="Form Backing" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="10" y="84" width="355" height="377"/>
+                                <rect key="frame" x="10" y="84" width="300" height="383.5"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QTa-Re-YS8">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="377"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="383.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fn-cy-L7H" userLabel="ContentView">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="377"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="383.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2H3-P7-LMG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="377"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="383.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OSg-Ii-VEt" userLabel="HeaderSpacer">
-                                                                <rect key="frame" x="57.5" y="0.0" width="240" height="40"/>
+                                                                <rect key="frame" x="30" y="0.0" width="240" height="40"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="odK-Ef-w98" userLabel="FormTopSpacer">
+                                                                <rect key="frame" x="30" y="40" width="240" height="20"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="20" id="hIH-K1-VjN"/>
+                                                                </constraints>
+                                                            </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33h-wa-t3S" userLabel="QRGroupView">
-                                                                <rect key="frame" x="0.0" y="40" width="355" height="309"/>
+                                                                <rect key="frame" x="0.0" y="60" width="300" height="293.5"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2qh-np-uh2" userLabel="Top Spacer">
-                                                                        <rect key="frame" x="155" y="0.0" width="46" height="46.5"/>
+                                                                        <rect key="frame" x="138" y="0.0" width="25.5" height="25.5"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="2qh-np-uh2" secondAttribute="height" multiplier="1:1" id="nXZ-Fq-OIl"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ln3-qa-2jA" userLabel="Left Spacer">
-                                                                        <rect key="frame" x="0.0" y="108" width="77.5" height="77.5"/>
+                                                                        <rect key="frame" x="0.0" y="100.5" width="50" height="50"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="ln3-qa-2jA" secondAttribute="height" multiplier="1:1" id="hMv-rs-lDY"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G9b-62-c11">
-                                                                        <rect key="frame" x="77.5" y="46.5" width="200" height="200.5"/>
+                                                                        <rect key="frame" x="50" y="25.5" width="200" height="200"/>
                                                                         <gestureRecognizers/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="200" id="bmU-QL-yCN"/>
@@ -70,18 +77,18 @@
                                                                         </connections>
                                                                     </imageView>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t7w-Kr-9Lu" userLabel="Right Spacer">
-                                                                        <rect key="frame" x="277.5" y="108" width="77.5" height="77.5"/>
+                                                                        <rect key="frame" x="250" y="100.5" width="50" height="50"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="t7w-Kr-9Lu" secondAttribute="height" multiplier="1:1" id="nx1-CY-PKW"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRI-X7-qFr" userLabel="Bottom Spacer Top">
-                                                                        <rect key="frame" x="0.0" y="247" width="355" height="24"/>
+                                                                        <rect key="frame" x="0.0" y="225.5" width="300" height="25.5"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </view>
                                                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="800" text="receiveAddress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MQ-MI-kXV">
-                                                                        <rect key="frame" x="137" y="271" width="82.5" height="14"/>
+                                                                        <rect key="frame" x="107.5" y="251" width="85" height="16.5"/>
                                                                         <gestureRecognizers/>
                                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                                                                         <color key="textColor" name="MediumTextGray"/>
@@ -91,7 +98,7 @@
                                                                         </connections>
                                                                     </label>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fCs-TR-hSd" userLabel="Bottom Spacer Bottom">
-                                                                        <rect key="frame" x="0.0" y="285" width="355" height="24"/>
+                                                                        <rect key="frame" x="0.0" y="267.5" width="300" height="26"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </view>
                                                                 </subviews>
@@ -108,8 +115,8 @@
                                                                     <constraint firstItem="2qh-np-uh2" firstAttribute="bottom" secondItem="G9b-62-c11" secondAttribute="top" id="Ljs-af-bPr"/>
                                                                     <constraint firstItem="fCs-TR-hSd" firstAttribute="centerX" secondItem="G9b-62-c11" secondAttribute="centerX" id="Tny-Gl-aIO"/>
                                                                     <constraint firstItem="4MQ-MI-kXV" firstAttribute="top" secondItem="CRI-X7-qFr" secondAttribute="bottom" id="VTG-MD-mrV"/>
-                                                                    <constraint firstItem="CRI-X7-qFr" firstAttribute="height" secondItem="2qh-np-uh2" secondAttribute="height" multiplier="0.5" id="Y79-pE-beo"/>
-                                                                    <constraint firstItem="2qh-np-uh2" firstAttribute="height" secondItem="ln3-qa-2jA" secondAttribute="height" multiplier="0.6" id="g1w-tK-CTK"/>
+                                                                    <constraint firstItem="CRI-X7-qFr" firstAttribute="height" secondItem="2qh-np-uh2" secondAttribute="height" id="Y79-pE-beo"/>
+                                                                    <constraint firstItem="2qh-np-uh2" firstAttribute="height" secondItem="ln3-qa-2jA" secondAttribute="height" multiplier="0.5" id="g1w-tK-CTK"/>
                                                                     <constraint firstItem="t7w-Kr-9Lu" firstAttribute="centerY" secondItem="G9b-62-c11" secondAttribute="centerY" id="goL-bR-ThX"/>
                                                                     <constraint firstItem="CRI-X7-qFr" firstAttribute="width" secondItem="33h-wa-t3S" secondAttribute="width" id="idW-fB-DGb"/>
                                                                     <constraint firstItem="fCs-TR-hSd" firstAttribute="height" secondItem="CRI-X7-qFr" secondAttribute="height" id="pU0-yW-rez"/>
@@ -121,14 +128,14 @@
                                                                     <constraint firstAttribute="trailing" secondItem="t7w-Kr-9Lu" secondAttribute="trailing" id="zs2-2M-AHM"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BSx-vt-9Mr" userLabel="FooterSpacer">
-                                                                <rect key="frame" x="57.5" y="349" width="240" height="28"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BSx-vt-9Mr" userLabel="FormBottomSpacer">
+                                                                <rect key="frame" x="30" y="353.5" width="240" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="30" id="mRJ-gr-Sdc"/>
+                                                                </constraints>
                                                             </view>
                                                         </subviews>
-                                                        <constraints>
-                                                            <constraint firstItem="BSx-vt-9Mr" firstAttribute="height" secondItem="2qh-np-uh2" secondAttribute="height" multiplier="0.6" id="sTx-da-mK9"/>
-                                                        </constraints>
                                                     </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" name="FormBackground"/>
@@ -150,7 +157,7 @@
                                         </constraints>
                                     </scrollView>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="900" verticalHuggingPriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="j1F-JD-tuW" userLabel="Form Header" customClass="SLFormHeaderView" customModule="SwiftLightning" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="iconIndex">
@@ -204,7 +211,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <size key="freeformSize" width="375" height="700"/>
                     <connections>
                         <outlet property="addressLabel" destination="4MQ-MI-kXV" id="KHI-BH-bKs"/>
                         <outlet property="qrImageView" destination="G9b-62-c11" id="HuH-QG-blw"/>

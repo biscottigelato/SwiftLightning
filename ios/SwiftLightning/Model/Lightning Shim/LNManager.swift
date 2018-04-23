@@ -10,6 +10,11 @@ import Foundation
 
 class LNManager {
   
+  struct Constants {
+    static let defaultRetryCount: Int = 5
+    static let defaultRetryDelay: Double = 1
+  }
+  
   // Temporary storage. Shall be cleared when done setting up wallet
   static private(set) var cipherSeedMnemonic: [String]?
  
@@ -27,7 +32,6 @@ class LNManager {
   static func clearCipherSeedMnemonic() {
     LNManager.cipherSeedMnemonic = nil
   }
-  
   
   static var isWalletPresent: Bool {
     guard let enumerator = FileManager.default.enumerator(atPath: LNServices.directoryPath) else {

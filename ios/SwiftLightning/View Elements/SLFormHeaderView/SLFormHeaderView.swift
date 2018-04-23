@@ -50,12 +50,12 @@ import UIKit
     set {
       iconType = IconType(rawValue: newValue) ?? .bolt
 
-//      switch iconType {
-//      case .bolt:
-//        iconImageView.image = UIImage(named: "BoltColored")
-//      case .chain:
-//        iconImageView.image = UIImage(named: "ChainColored")
-//      }
+      switch iconType {
+      case .bolt:
+        iconImageView.image = UIImage(named: "BoltColored")
+      case .chain:
+        iconImageView.image = UIImage(named: "ChainColored")
+      }
     }
   }
 }

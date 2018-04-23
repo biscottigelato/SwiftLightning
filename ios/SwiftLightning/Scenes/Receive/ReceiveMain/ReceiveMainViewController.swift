@@ -156,24 +156,11 @@ class ReceiveMainViewController: UIViewController, ReceiveMainDisplayLogic
     // Don't do anything if there's no address displayed
     if let addressText = addressLabel.text {
       
-      let copiedDialog = SLTextDialogView()
-      copiedDialog.textLabel.text = "Copied"
-      
-      // This is waht actually puts the text onto the clipboard
+      // This is what actually puts the text onto the clipboard
       UIPasteboard.general.string = addressText
       
-      UIView.animate(withDuration: SLDesignConstants.defaultAnimationDuration) {  // TODO: Consider factoring these out
-        self.view.addSubview(copiedDialog)
-        copiedDialog.snp.makeConstraints { make in
-          make.center.equalTo(self.view)
-        }
-      }
-      
-      DispatchQueue.main.asyncAfter(deadline: .now() + SLDesignConstants.defaultBriefDialogDismissTime) {  // TODO: Consider factoring these out
-        UIView.animate(withDuration: SLDesignConstants.defaultAnimationDuration) {
-          copiedDialog.removeFromSuperview()
-        }
-      }
+      // This just shows a brief dialog to let the user know
+      SLTextDialogView.show("Copied", on: self.view)
     }
   }
 }

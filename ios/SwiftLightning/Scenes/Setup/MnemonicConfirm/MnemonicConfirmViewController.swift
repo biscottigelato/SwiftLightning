@@ -98,15 +98,21 @@ class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLog
   }
   
   override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
     let genIndicesRequest = MnemonicConfirm.GenRandomIndices.Request(numToGen: 3)
     interactor?.genRandomIndices(request: genIndicesRequest)
     
     checkSeedWords()
-    
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
     confirmField1.textField.becomeFirstResponder()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
     view.endEditing(true)
   }
   
@@ -178,7 +184,7 @@ class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLog
   }
   
   func displayConfirmSeedWords() {
-    router?.routeToWalletNavigation()
+    router?.routeToWalletThruRoot()
   }
   
   func displayConfirmSeedWordsFailure(viewModel: MnemonicConfirm.ConfirmSeedWords.ViewModel) {

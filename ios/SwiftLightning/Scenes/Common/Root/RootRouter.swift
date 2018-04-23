@@ -16,6 +16,7 @@ import UIKit
 {
   func routeToCreateRecover()
   func routeToUnlockApp()
+  func routeToWalletNavigation()
 }
 
 protocol RootDataPassing
@@ -48,6 +49,13 @@ class RootRouter: NSObject, RootRoutingLogic, RootDataPassing
     navigateToUnlockApp(source: viewController!, destination: destinationVC)
   }
   
+  func routeToWalletNavigation() {
+    let storyboard = UIStoryboard(name: "WalletNavigation", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletNavigationController") as! WalletNavigationController
+    navigateToWalletNavigation(source: viewController!, destination: destinationVC)
+  }
+  
+  
   // MARK: Navigation
   
   func navigateToCreateRecover(source: RootViewController, destination: CreateRecoverViewController) {
@@ -58,6 +66,11 @@ class RootRouter: NSObject, RootRoutingLogic, RootDataPassing
     source.present(destination, animated: false, completion: nil)
   }
   
+  func navigateToWalletNavigation(source: RootViewController, destination: WalletNavigationController) {
+    source.present(destination, animated: true, completion: nil)
+  }
+  
+  
   // MARK: Passing data
   
   func passDataToCreateRecover(source: RootDataStore, destination: inout CreateRecoverDataStore) {
@@ -67,4 +80,5 @@ class RootRouter: NSObject, RootRoutingLogic, RootDataPassing
   func passDataToUnlockApp(source: RootDataStore, destination: inout UnlockAppDataStore) {
     // destination.name = source.name
   }
+
 }

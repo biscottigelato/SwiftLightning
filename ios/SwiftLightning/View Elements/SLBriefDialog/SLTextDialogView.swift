@@ -11,7 +11,36 @@ import UIKit
 
 class SLTextDialogView: NibView {
   
+  struct Constants {
+    static let transitionDuration: Double = 0.3
+    static let appearanceDuration: Double = 2.0
+  }
+  
   @IBOutlet weak var textLabel: UILabel!
+  
+  static func show(_ dialogText: String, on view: UIView) {
+    
+    let copiedDialog = SLTextDialogView()
+    copiedDialog.textLabel.text = dialogText
+    copiedDialog.alpha = 0.0
+    
+    view.addSubview(copiedDialog)
+    copiedDialog.snp.makeConstraints { make in
+      make.center.equalTo(view)
+    }
+    
+    UIView.animate(withDuration: Constants.transitionDuration) {  // TODO: Consider factoring these out
+      copiedDialog.alpha = 1.0
+    }
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + Constants.appearanceDuration) {  // TODO: Consider factoring these out
+      UIView.animate(withDuration: Constants.transitionDuration, animations: {
+        copiedDialog.alpha = 0.0
+      }, completion: { (complete) in
+        copiedDialog.removeFromSuperview()
+      })
+    }
+  }
   
   override func layoutSubviews() {
     super.layoutSubviews()

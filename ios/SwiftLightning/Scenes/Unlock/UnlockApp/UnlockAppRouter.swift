@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol UnlockAppRoutingLogic
 {
-  func routeToWalletNavigation()
+  func routeToWalletThruRoot()
 }
 
 protocol UnlockAppDataPassing
@@ -30,20 +30,14 @@ class UnlockAppRouter: NSObject, UnlockAppRoutingLogic, UnlockAppDataPassing
   
   // MARK: Routing
   
-  func routeToWalletNavigation() {
-    let storyboard = UIStoryboard(name: "WalletNavigation", bundle: nil)
-    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletNavigationController") as! WalletNavigationController
-    navigateToWalletNavigation(source: viewController!, destination: destinationVC)
+  func routeToWalletThruRoot() {
+    // Take a detour. Ask the RootViewController to do the work
+    AppDelegate.rootViewController.dismiss(animated: false) {
+      AppDelegate.rootViewController.goWalletNavigation()
+    }
   }
   
   
   // MARK: Navigation
   
-  func navigateToWalletNavigation(source: UnlockAppViewController, destination: WalletNavigationController) {
-    
-    // Force to present right from the root. Less views in memory
-    AppDelegate.rootViewController.dismiss(animated: false) {
-      AppDelegate.rootViewController.present(destination, animated: true, completion: nil)
-    }
-  }
 }
