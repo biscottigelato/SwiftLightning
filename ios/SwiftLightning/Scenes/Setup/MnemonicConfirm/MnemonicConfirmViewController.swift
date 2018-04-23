@@ -178,7 +178,7 @@ class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLog
   }
   
   func displayConfirmSeedWords() {
-    router?.routeToWalletMain()
+    router?.routeToWalletNavigation()
   }
   
   func displayConfirmSeedWordsFailure(viewModel: MnemonicConfirm.ConfirmSeedWords.ViewModel) {

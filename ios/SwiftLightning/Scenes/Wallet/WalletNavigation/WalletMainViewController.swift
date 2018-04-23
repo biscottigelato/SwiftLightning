@@ -14,7 +14,7 @@ import UIKit
 
 protocol WalletMainDisplayLogic: class
 {
-  func displaySomething(viewModel: WalletMain.Something.ViewModel)
+//  func displaySomething(viewModel: WalletMain.Something.ViewModel)
 }
 
 class WalletMainViewController: UIViewController, WalletMainDisplayLogic
@@ -36,6 +36,7 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic
     setup()
   }
   
+  
   // MARK: Setup
   
   private func setup()
@@ -52,6 +53,7 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic
     router.dataStore = interactor
   }
   
+  
   // MARK: Routing
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?)
@@ -64,26 +66,18 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic
     }
   }
   
+  
   // MARK: View lifecycle
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    doSomething()
   }
   
-  // MARK: Do something
   
-  //@IBOutlet weak var nameTextField: UITextField!
+  // MARK: Receive
   
-  func doSomething()
-  {
-    let request = WalletMain.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: WalletMain.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
+  @IBAction func receiveTapped(_ sender: SLBarButton) {
+    router?.routeToReceiveMain()
   }
 }

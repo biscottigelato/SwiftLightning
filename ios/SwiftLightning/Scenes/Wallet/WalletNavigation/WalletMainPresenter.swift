@@ -25,7 +25,7 @@ class WalletMainPresenter: WalletMainPresentationLogic
   
   func presentSomething(response: WalletMain.Something.Response)
   {
-    let viewModel = WalletMain.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    // let viewModel = WalletMain.Something.ViewModel()
+    // viewController?.displaySomething(viewModel: viewModel)
   }
 }

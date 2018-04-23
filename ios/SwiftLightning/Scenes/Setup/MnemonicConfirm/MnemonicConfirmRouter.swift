@@ -13,7 +13,7 @@
 import UIKit
 
 @objc protocol MnemonicConfirmRoutingLogic {
-  func routeToWalletMain()
+  func routeToWalletNavigation()
   func routeToMnemonicDisplay()
 }
 
@@ -27,12 +27,10 @@ class MnemonicConfirmRouter: NSObject, MnemonicConfirmRoutingLogic, MnemonicConf
   
   // MARK: Routing
   
-  func routeToWalletMain() {
-    let storyboard = UIStoryboard(name: "WalletMain", bundle: nil)
-    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletMainViewController") as! WalletMainViewController
-    var destinationDS = destinationVC.router!.dataStore!
-    passDataToWalletMain(source: dataStore!, destination: &destinationDS)
-    navigateToWalletMain(source: viewController!, destination: destinationVC)
+  func routeToWalletNavigation() {
+    let storyboard = UIStoryboard(name: "WalletNavigation", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletNavigationController") as! WalletNavigationController
+    navigateToWalletNavigation(source: viewController!, destination: destinationVC)
   }
   
   func routeToMnemonicDisplay() {
@@ -46,7 +44,7 @@ class MnemonicConfirmRouter: NSObject, MnemonicConfirmRoutingLogic, MnemonicConf
   
   // MARK: Navigation
   
-  func navigateToWalletMain(source: MnemonicConfirmViewController, destination: WalletMainViewController) {
+  func navigateToWalletNavigation(source: MnemonicConfirmViewController, destination: WalletNavigationController) {
     
     // Force to present right from the root. Less views in memory
     AppDelegate.rootViewController.dismiss(animated: false) {

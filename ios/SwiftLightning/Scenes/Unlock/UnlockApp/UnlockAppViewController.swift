@@ -125,7 +125,7 @@ class UnlockAppViewController: UIViewController, UnlockAppDisplayLogic, UITextFi
       UIApplication.shared.endIgnoringInteractionEvents()
       self.activityIndicator.removeFromSuperview()
       
-      self.router?.routeToWalletMain()
+      self.router?.routeToWalletNavigation()
     }
   }
   

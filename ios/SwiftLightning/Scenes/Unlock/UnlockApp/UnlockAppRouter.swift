@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol UnlockAppRoutingLogic
 {
-  func routeToWalletMain()
+  func routeToWalletNavigation()
 }
 
 protocol UnlockAppDataPassing
@@ -30,29 +30,20 @@ class UnlockAppRouter: NSObject, UnlockAppRoutingLogic, UnlockAppDataPassing
   
   // MARK: Routing
   
-  func routeToWalletMain() {
-    let storyboard = UIStoryboard(name: "WalletMain", bundle: nil)
-    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletMainViewController") as! WalletMainViewController
-    var destinationDS = destinationVC.router!.dataStore!
-    passDataToWalletMain(source: dataStore!, destination: &destinationDS)
-    navigateToWalletMain(source: viewController!, destination: destinationVC)
+  func routeToWalletNavigation() {
+    let storyboard = UIStoryboard(name: "WalletNavigation", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletNavigationController") as! WalletNavigationController
+    navigateToWalletNavigation(source: viewController!, destination: destinationVC)
   }
   
   
   // MARK: Navigation
   
-  func navigateToWalletMain(source: UnlockAppViewController, destination: WalletMainViewController) {
+  func navigateToWalletNavigation(source: UnlockAppViewController, destination: WalletNavigationController) {
     
     // Force to present right from the root. Less views in memory
     AppDelegate.rootViewController.dismiss(animated: false) {
       AppDelegate.rootViewController.present(destination, animated: true, completion: nil)
     }
-  }
-  
-  
-  // MARK: Passing data
-  
-  func passDataToWalletMain(source: UnlockAppDataStore, destination: inout WalletMainDataStore) {
-    // destination.name = source.name
   }
 }
