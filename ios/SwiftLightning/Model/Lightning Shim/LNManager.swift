@@ -31,7 +31,7 @@ class LNManager {
   
   static var isWalletPresent: Bool {
     guard let enumerator = FileManager.default.enumerator(atPath: LNServices.directoryPath) else {
-      SLLog.fatal("Cannot enumerate LND directory at path: \(LNServices.directoryPath)")
+      return false
     }
     
     let directoryURL = URL(fileURLWithPath: LNServices.directoryPath, isDirectory: true)

@@ -14,28 +14,40 @@ import UIKit
 
 protocol ReceiveMainBusinessLogic
 {
-  func doSomething(request: ReceiveMain.Something.Request)
+  func generateOnChain(request: ReceiveMain.GenerateOnChain.Request)
 }
 
 protocol ReceiveMainDataStore
 {
-  //var name: String { get set }
 }
 
 class ReceiveMainInteractor: ReceiveMainBusinessLogic, ReceiveMainDataStore
 {
   var presenter: ReceiveMainPresentationLogic?
-  var worker: ReceiveMainWorker?
-  //var name: String = ""
+
   
-  // MARK: Do something
+  // MARK: Generate On Chain
   
-  func doSomething(request: ReceiveMain.Something.Request)
+  func generateOnChain(request: ReceiveMain.GenerateOnChain.Request)
   {
-    worker = ReceiveMainWorker()
-    worker?.doSomeWork()
-    
-    let response = ReceiveMain.Something.Response()
-    presenter?.presentSomething(response: response)
+    do {
+      try LNServices.newAddress { (responder) in
+        do {
+          let onChainAddress = try responder()
+          let result = Result<String>.success(onChainAddress)
+          let response = ReceiveMain.GenerateOnChain.Response(result: result)
+          self.presenter?.presentOnChain(response: response)
+          
+        } catch {
+          let result = Result<String>.failure(error)
+          let response = ReceiveMain.GenerateOnChain.Response(result: result)
+          self.presenter?.presentOnChain(response: response)
+        }
+      }
+    } catch {
+      let result = Result<String>.failure(error)
+      let response = ReceiveMain.GenerateOnChain.Response(result: result)
+      self.presenter?.presentOnChain(response: response)
+    }
   }
 }

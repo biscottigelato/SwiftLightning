@@ -26,64 +26,72 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jun-wl-aKq" userLabel="Form Backing" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="10" y="84" width="355" height="382"/>
+                                <rect key="frame" x="10" y="84" width="355" height="377"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QTa-Re-YS8">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="382"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="377"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fn-cy-L7H" userLabel="ContentView">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="382"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="377"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2H3-P7-LMG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="382"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="377"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OSg-Ii-VEt" userLabel="HeaderSpacer">
                                                                 <rect key="frame" x="57.5" y="0.0" width="240" height="40"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33h-wa-t3S" userLabel="QRGroupView">
-                                                                <rect key="frame" x="0.0" y="40" width="355" height="342"/>
+                                                                <rect key="frame" x="0.0" y="40" width="355" height="309"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2qh-np-uh2" userLabel="Top Spacer">
-                                                                        <rect key="frame" x="146.5" y="0.0" width="62.5" height="62"/>
+                                                                        <rect key="frame" x="155" y="0.0" width="46" height="46.5"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="2qh-np-uh2" secondAttribute="height" multiplier="1:1" id="nXZ-Fq-OIl"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ln3-qa-2jA" userLabel="Left Spacer">
-                                                                        <rect key="frame" x="0.0" y="123.5" width="77.5" height="77.5"/>
+                                                                        <rect key="frame" x="0.0" y="108" width="77.5" height="77.5"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="ln3-qa-2jA" secondAttribute="height" multiplier="1:1" id="hMv-rs-lDY"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G9b-62-c11">
-                                                                        <rect key="frame" x="77.5" y="62" width="200" height="200.5"/>
+                                                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G9b-62-c11">
+                                                                        <rect key="frame" x="77.5" y="46.5" width="200" height="200.5"/>
+                                                                        <gestureRecognizers/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="200" id="bmU-QL-yCN"/>
                                                                             <constraint firstAttribute="width" secondItem="G9b-62-c11" secondAttribute="height" multiplier="1:1" id="fva-te-hMf"/>
                                                                         </constraints>
+                                                                        <connections>
+                                                                            <outletCollection property="gestureRecognizers" destination="tpK-th-5VP" appends="YES" id="MBc-oF-Emu"/>
+                                                                        </connections>
                                                                     </imageView>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t7w-Kr-9Lu" userLabel="Right Spacer">
-                                                                        <rect key="frame" x="277.5" y="123.5" width="77.5" height="77.5"/>
+                                                                        <rect key="frame" x="277.5" y="108" width="77.5" height="77.5"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="t7w-Kr-9Lu" secondAttribute="height" multiplier="1:1" id="nx1-CY-PKW"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRI-X7-qFr" userLabel="Bottom Spacer Top">
-                                                                        <rect key="frame" x="0.0" y="262.5" width="355" height="31.5"/>
+                                                                        <rect key="frame" x="0.0" y="247" width="355" height="24"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </view>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="800" text="receiveAddress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MQ-MI-kXV">
-                                                                        <rect key="frame" x="135" y="294" width="85" height="16.5"/>
+                                                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="800" text="receiveAddress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MQ-MI-kXV">
+                                                                        <rect key="frame" x="137" y="271" width="82.5" height="14"/>
+                                                                        <gestureRecognizers/>
                                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                                                                         <color key="textColor" name="MediumTextGray"/>
                                                                         <nil key="highlightedColor"/>
+                                                                        <connections>
+                                                                            <outletCollection property="gestureRecognizers" destination="pwn-fF-yz9" appends="YES" id="xe9-F6-6x9"/>
+                                                                        </connections>
                                                                     </label>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fCs-TR-hSd" userLabel="Bottom Spacer Bottom">
-                                                                        <rect key="frame" x="0.0" y="310.5" width="355" height="31.5"/>
+                                                                        <rect key="frame" x="0.0" y="285" width="355" height="24"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </view>
                                                                 </subviews>
@@ -101,7 +109,7 @@
                                                                     <constraint firstItem="fCs-TR-hSd" firstAttribute="centerX" secondItem="G9b-62-c11" secondAttribute="centerX" id="Tny-Gl-aIO"/>
                                                                     <constraint firstItem="4MQ-MI-kXV" firstAttribute="top" secondItem="CRI-X7-qFr" secondAttribute="bottom" id="VTG-MD-mrV"/>
                                                                     <constraint firstItem="CRI-X7-qFr" firstAttribute="height" secondItem="2qh-np-uh2" secondAttribute="height" multiplier="0.5" id="Y79-pE-beo"/>
-                                                                    <constraint firstItem="2qh-np-uh2" firstAttribute="height" secondItem="ln3-qa-2jA" secondAttribute="height" multiplier="0.8" id="g1w-tK-CTK"/>
+                                                                    <constraint firstItem="2qh-np-uh2" firstAttribute="height" secondItem="ln3-qa-2jA" secondAttribute="height" multiplier="0.6" id="g1w-tK-CTK"/>
                                                                     <constraint firstItem="t7w-Kr-9Lu" firstAttribute="centerY" secondItem="G9b-62-c11" secondAttribute="centerY" id="goL-bR-ThX"/>
                                                                     <constraint firstItem="CRI-X7-qFr" firstAttribute="width" secondItem="33h-wa-t3S" secondAttribute="width" id="idW-fB-DGb"/>
                                                                     <constraint firstItem="fCs-TR-hSd" firstAttribute="height" secondItem="CRI-X7-qFr" secondAttribute="height" id="pU0-yW-rez"/>
@@ -113,7 +121,14 @@
                                                                     <constraint firstAttribute="trailing" secondItem="t7w-Kr-9Lu" secondAttribute="trailing" id="zs2-2M-AHM"/>
                                                                 </constraints>
                                                             </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BSx-vt-9Mr" userLabel="FooterSpacer">
+                                                                <rect key="frame" x="57.5" y="349" width="240" height="28"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </view>
                                                         </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="BSx-vt-9Mr" firstAttribute="height" secondItem="2qh-np-uh2" secondAttribute="height" multiplier="0.6" id="sTx-da-mK9"/>
+                                                        </constraints>
                                                     </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" name="FormBackground"/>
@@ -174,15 +189,46 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2MH-Fo-iay"/>
                     </view>
+                    <navigationItem key="navigationItem" id="sH6-R1-3Jt">
+                        <barButtonItem key="leftBarButtonItem" image="CloseCrossLight" id="orY-Sg-CHe">
+                            <color key="tintColor" name="NormalText"/>
+                            <connections>
+                                <action selector="closeTapped:" destination="PWR-rK-2gB" id="g62-wH-WEd"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" image="ShareLight" id="mql-0q-MzK">
+                            <color key="tintColor" name="NormalText"/>
+                            <connections>
+                                <action selector="shareTapped:" destination="PWR-rK-2gB" id="UwK-v6-QV8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <size key="freeformSize" width="375" height="700"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="4MQ-MI-kXV" id="KHI-BH-bKs"/>
+                        <outlet property="qrImageView" destination="G9b-62-c11" id="HuH-QG-blw"/>
+                        <outlet property="shareBarButton" destination="mql-0q-MzK" id="Pwf-tF-iqq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Th4-Fy-Rjr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="tpK-th-5VP">
+                    <connections>
+                        <action selector="addressCopyTapped:" destination="PWR-rK-2gB" id="UQZ-Zx-RsX"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="pwn-fF-yz9">
+                    <connections>
+                        <action selector="addressCopyTapped:" destination="PWR-rK-2gB" id="qtV-bs-qHG"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="81" y="127"/>
+            <point key="canvasLocation" x="1020" y="126.83658170914543"/>
         </scene>
     </scenes>
     <resources>
+        <image name="CloseCrossLight" width="30" height="30"/>
+        <image name="ShareLight" width="30" height="30"/>
         <namedColor name="FormBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
@@ -191,6 +237,9 @@
         </namedColor>
         <namedColor name="MediumTextGray">
             <color red="0.53333333333333333" green="0.52941176470588236" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="NormalText">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

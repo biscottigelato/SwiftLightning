@@ -200,6 +200,29 @@ class LNServices {
   }
   
   
+  // MARK: New Address
+  
+  static func newAddress(completion: @escaping (() throws -> (String)) -> Void) throws {
+    try prepareLightningService()
+    
+    var newAddressRequest = Lnrpc_NewAddressRequest()
+    newAddressRequest.type = .nestedPubkeyHash
+    
+    _ = try lightningService!.newAddress(newAddressRequest) { (response, result) in
+      if let response = response {
+        SLLog.info("LN New Wallet Success!")
+        
+        completion({ return response.address })
+        
+      } else {
+        let message = result.statusMessage ?? result.description
+        SLLog.warning("LN New Address Failed - \(message)")
+        completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
+      }
+    }
+  }
+  
+  
   // MARK: Get Info
   
   static func getInfo(completion: @escaping (() throws -> ()) -> Void) throws {  //TODO: Should return an info struct of sort

@@ -116,9 +116,9 @@ class PasswordCreateInteractor: PasswordCreateBusinessLogic, PasswordCreateDataS
   }
   
   private func generateSeedCompletion(result: () throws -> [String]) {
-    defer { passwordPlaintext = nil }
-    
     do {
+      defer { passwordPlaintext = nil }
+      
       guard let password = passwordPlaintext else {
         SLLog.fatal("Generate seed completed but no plaintext password")
       }
@@ -136,6 +136,7 @@ class PasswordCreateInteractor: PasswordCreateBusinessLogic, PasswordCreateDataS
                                   cipherSeedMnemonic: cipherSeedMnemonic,
                                   completion: createWalletCompletion)
     } catch {
+      passwordPlaintext = nil
       seedWalletResponse(error: error)
     }
   }

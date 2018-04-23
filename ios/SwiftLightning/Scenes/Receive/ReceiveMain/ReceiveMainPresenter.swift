@@ -14,18 +14,63 @@ import UIKit
 
 protocol ReceiveMainPresentationLogic
 {
-  func presentSomething(response: ReceiveMain.Something.Response)
+  func presentOnChain(response: ReceiveMain.GenerateOnChain.Response)
 }
 
 class ReceiveMainPresenter: ReceiveMainPresentationLogic
 {
   weak var viewController: ReceiveMainDisplayLogic?
   
-  // MARK: Do something
   
-  func presentSomething(response: ReceiveMain.Something.Response)
-  {
-    let viewModel = ReceiveMain.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+  // MARK: Present On Chain Address
+  
+  func presentOnChain(response: ReceiveMain.GenerateOnChain.Response) {
+
+    var qrCodeImage: UIImage?
+    var addressText: String?
+    var errTitle: String?
+    var errMsg: String?
+    
+    switch response.result {
+    case .success(let onChainAddress):
+      addressText = onChainAddress
+      
+      // Generate QR Code representation of the resulting address
+      let data = onChainAddress.data(using: .utf8)
+      guard let filter = CIFilter(name: "CIQRCodeGenerator") else {
+        errTitle = "QR Code Failure"
+        errMsg = "QR code generation internal error. Please try again"
+        break
+      }
+      
+      filter.setValue(data, forKey: "inputMessage")
+      filter.setValue("Q", forKey: "inputCorrectionLevel")
+      
+      guard let qrCodeCIImage = filter.outputImage else {
+        errTitle = "QR Code Failure"
+        errMsg = "QR code generation intenral error. Please try again"
+        break
+      }
+      
+      let scaleX = ReceiveMain.GenerateOnChain.Constants.qrImageSizeXY / qrCodeCIImage.extent.size.width
+      let scaleY = ReceiveMain.GenerateOnChain.Constants.qrImageSizeXY / qrCodeCIImage.extent.size.height
+      
+      let transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
+      qrCodeImage = UIImage(ciImage:qrCodeCIImage.transformed(by: transform))
+      
+    case .failure(let error):
+      errTitle = "Address Failure"
+      errMsg = error.localizedDescription
+    }
+    
+    let viewModel = ReceiveMain.GenerateOnChain.ViewModel(qrAddressImage: qrCodeImage,
+                                                          addressText: addressText,
+                                                          errTitle: errTitle, errMsg: errMsg)
+    viewController?.displayOnChainAddress(viewModel: viewModel)
+    
+    // QR Code would be missing for any error conditions
+    if qrCodeImage == nil {
+      viewController?.displayGenerateOnChainFailure(viewModel: viewModel)
+    }
   }
 }

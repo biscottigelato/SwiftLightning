@@ -11,11 +11,15 @@
 //
 
 import UIKit
+import SnapKit
+
 
 protocol ReceiveMainDisplayLogic: class
 {
-  func displaySomething(viewModel: ReceiveMain.Something.ViewModel)
+  func displayOnChainAddress(viewModel: ReceiveMain.GenerateOnChain.ViewModel)
+  func displayGenerateOnChainFailure(viewModel: ReceiveMain.GenerateOnChain.ViewModel)
 }
+
 
 class ReceiveMainViewController: UIViewController, ReceiveMainDisplayLogic
 {
@@ -36,6 +40,7 @@ class ReceiveMainViewController: UIViewController, ReceiveMainDisplayLogic
     setup()
   }
   
+  
   // MARK: Setup
   
   private func setup()
@@ -52,6 +57,7 @@ class ReceiveMainViewController: UIViewController, ReceiveMainDisplayLogic
     router.dataStore = interactor
   }
   
+  
   // MARK: Routing
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?)
@@ -64,26 +70,110 @@ class ReceiveMainViewController: UIViewController, ReceiveMainDisplayLogic
     }
   }
   
+  
   // MARK: View lifecycle
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    doSomething()
+    
+    // Configure the Navigation Bar
+    
+    
+    // Generate a new Address everytime on load
+    let request = ReceiveMain.GenerateOnChain.Request()
+    interactor?.generateOnChain(request: request)
   }
   
-  // MARK: Do something
   
-  //@IBOutlet weak var nameTextField: UITextField!
+  // MARK: Display New On-Chain Address
   
-  func doSomething()
-  {
-    let request = ReceiveMain.Something.Request()
-    interactor?.doSomething(request: request)
+  @IBOutlet weak var qrImageView: UIImageView!
+  @IBOutlet weak var addressLabel: UILabel!
+  
+  func displayOnChainAddress(viewModel: ReceiveMain.GenerateOnChain.ViewModel) {
+    DispatchQueue.main.async {
+      self.qrImageView.image = viewModel.qrAddressImage
+      self.addressLabel.text = viewModel.addressText
+      
+      if viewModel.addressText != nil {
+        self.shareBarButton.isEnabled = true
+      } else {
+        self.shareBarButton.isEnabled = false
+      }
+    }
   }
   
-  func displaySomething(viewModel: ReceiveMain.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
+  func displayGenerateOnChainFailure(viewModel: ReceiveMain.GenerateOnChain.ViewModel) {
+    let alertDialog = UIAlertController(title: viewModel.errTitle, message: viewModel.errMsg, preferredStyle: .alert).addAction(title: "OK", style: .default)
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true, completion: nil)
+    }
+  }
+  
+  
+  // MARK: Dismiss
+  
+  @IBAction func closeTapped(_ sender: UIBarButtonItem) {
+    router?.routeToWalletMain()
+  }
+  
+  
+  // MARK: Share Sheet
+  
+  @IBOutlet weak var shareBarButton: UIBarButtonItem!
+  
+  @IBAction func shareTapped(_ sender: UIBarButtonItem) {
+    
+    if let addressText = addressLabel.text {
+      let activityViewController : UIActivityViewController = UIActivityViewController(
+        activityItems: [addressText], applicationActivities: nil)
+      
+      activityViewController.popoverPresentationController?.barButtonItem = sender
+      
+      activityViewController.excludedActivityTypes = [
+        UIActivityType.postToWeibo,
+        UIActivityType.print,
+        UIActivityType.assignToContact,
+        UIActivityType.saveToCameraRoll,
+        UIActivityType.addToReadingList,
+        UIActivityType.postToFlickr,
+        UIActivityType.postToVimeo,
+        UIActivityType.postToTencentWeibo,
+        UIActivityType(rawValue: "com.apple.reminders.RemindersEditorExtension"),
+        UIActivityType(rawValue: "com.apple.mobilenotes.SharingExtension")
+      ]
+      
+      present(activityViewController, animated: true, completion: nil)
+    }
+  }
+  
+  
+  // MARK: Copying Address to Clipboard
+  
+  @IBAction func addressCopyTapped(_ sender: UITapGestureRecognizer) {
+    
+    // Don't do anything if there's no address displayed
+    if let addressText = addressLabel.text {
+      
+      let copiedDialog = SLTextDialogView()
+      copiedDialog.textLabel.text = "Copied"
+      
+      // This is waht actually puts the text onto the clipboard
+      UIPasteboard.general.string = addressText
+      
+      UIView.animate(withDuration: SLDesignConstants.defaultAnimationDuration) {  // TODO: Consider factoring these out
+        self.view.addSubview(copiedDialog)
+        copiedDialog.snp.makeConstraints { make in
+          make.center.equalTo(self.view)
+        }
+      }
+      
+      DispatchQueue.main.asyncAfter(deadline: .now() + SLDesignConstants.defaultBriefDialogDismissTime) {  // TODO: Consider factoring these out
+        UIView.animate(withDuration: SLDesignConstants.defaultAnimationDuration) {
+          copiedDialog.removeFromSuperview()
+        }
+      }
+    }
   }
 }

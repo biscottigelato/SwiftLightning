@@ -121,6 +121,8 @@
 		8C70EC07208D8A0E00D658DC /* SLFormHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EC06208D8A0E00D658DC /* SLFormHeaderView.swift */; };
 		8C70EC09208D8A2000D658DC /* SLFormHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C70EC08208D8A2000D658DC /* SLFormHeaderView.xib */; };
 		8C70EC0B208D934200D658DC /* SLDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EC0A208D934200D658DC /* SLDesign.swift */; };
+		8C70EC0E208DBC7A00D658DC /* SLTextDialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C70EC0D208DBC7A00D658DC /* SLTextDialogView.xib */; };
+		8C70EC10208DBCDF00D658DC /* SLTextDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EC0F208DBCDF00D658DC /* SLTextDialogView.swift */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SLLog.swift */; };
 		8C8E4E65208C0C040017BAB2 /* SLActivityIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C8E4E64208C0C040017BAB2 /* SLActivityIndicator.xib */; };
@@ -273,6 +275,8 @@
 		8C70EC06208D8A0E00D658DC /* SLFormHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLFormHeaderView.swift; sourceTree = "<group>"; };
 		8C70EC08208D8A2000D658DC /* SLFormHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLFormHeaderView.xib; sourceTree = "<group>"; };
 		8C70EC0A208D934200D658DC /* SLDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLDesign.swift; sourceTree = "<group>"; };
+		8C70EC0D208DBC7A00D658DC /* SLTextDialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLTextDialogView.xib; sourceTree = "<group>"; };
+		8C70EC0F208DBCDF00D658DC /* SLTextDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLTextDialogView.swift; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLog.swift; sourceTree = "<group>"; };
 		8C8E4E64208C0C040017BAB2 /* SLActivityIndicator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLActivityIndicator.xib; sourceTree = "<group>"; };
@@ -578,6 +582,15 @@
 			path = SLFormHeaderView;
 			sourceTree = "<group>";
 		};
+		8C70EC0C208DBC3B00D658DC /* SLBriefDialog */ = {
+			isa = PBXGroup;
+			children = (
+				8C70EC0D208DBC7A00D658DC /* SLTextDialogView.xib */,
+				8C70EC0F208DBCDF00D658DC /* SLTextDialogView.swift */,
+			);
+			path = SLBriefDialog;
+			sourceTree = "<group>";
+		};
 		8C7D30FE207542090068F2BD /* Protobuf */ = {
 			isa = PBXGroup;
 			children = (
@@ -609,6 +622,7 @@
 				8C090E4A20894A65009B8B8D /* SLSeedField */,
 				8C70EBD5208C382400D658DC /* SLFormBackingView */,
 				8C70EC05208D89CE00D658DC /* SLFormHeaderView */,
+				8C70EC0C208DBC3B00D658DC /* SLBriefDialog */,
 			);
 			path = "View Elements";
 			sourceTree = "<group>";
@@ -932,6 +946,7 @@
 				8C090E4C20894A85009B8B8D /* SLSeedField.xib in Resources */,
 				8C70EBD4208C346C00D658DC /* ReceiveMain.storyboard in Resources */,
 				8C090E3920886143009B8B8D /* MnemonicDisplay.storyboard in Resources */,
+				8C70EC0E208DBC7A00D658DC /* SLTextDialogView.xib in Resources */,
 				8C090E2420885C84009B8B8D /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				8C090E2320885C84009B8B8D /* OpenSans-ExtraBold.ttf in Resources */,
 			);
@@ -1111,6 +1126,7 @@
 				8C6B754F208AFEC800B751A2 /* UnlockAppWorker.swift in Sources */,
 				8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */,
 				8C090E352088612B009B8B8D /* MnemonicDisplayModels.swift in Sources */,
+				8C70EC10208DBCDF00D658DC /* SLTextDialogView.swift in Sources */,
 				8C70EBD0208C345B00D658DC /* ReceiveMainModels.swift in Sources */,
 				8C6B7562208B17BD00B751A2 /* WalletMainInteractor.swift in Sources */,
 				8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */,

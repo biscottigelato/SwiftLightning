@@ -14,18 +14,24 @@ import UIKit
 
 enum ReceiveMain
 {
-  // MARK: Use cases
-  
-  enum Something
+  enum GenerateOnChain
   {
+    struct Constants {
+      static let qrImageSizeXY: CGFloat = 200.0
+    }
     struct Request
     {
     }
     struct Response
     {
+      var result: Result<String>  // On Chain Address
     }
     struct ViewModel
     {
+      var qrAddressImage: UIImage?
+      var addressText: String?
+      var errTitle: String?
+      var errMsg: String?
     }
   }
 }
