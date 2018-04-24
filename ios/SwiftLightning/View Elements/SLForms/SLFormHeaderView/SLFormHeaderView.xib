@@ -28,7 +28,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wwb-Bf-52p">
-                    <rect key="frame" x="145" y="0.0" width="67" height="40"/>
+                    <rect key="frame" x="144" y="0.0" width="67" height="40"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BoltColored" translatesAutoresizingMaskIntoConstraints="NO" id="xk9-Da-Yzr">
                             <rect key="frame" x="0.0" y="8" width="24" height="24"/>

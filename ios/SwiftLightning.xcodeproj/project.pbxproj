@@ -127,6 +127,15 @@
 		8C70EC15208E51A700D658DC /* HttpStatusCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EC14208E51A700D658DC /* HttpStatusCodes.swift */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SLLog.swift */; };
+		8C8275B1208EA1920029BE7E /* ChannelOpen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C8275B0208EA1920029BE7E /* ChannelOpen.storyboard */; };
+		8C8275B8208EA1B30029BE7E /* ChannelOpenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275B2208EA1B30029BE7E /* ChannelOpenPresenter.swift */; };
+		8C8275B9208EA1B30029BE7E /* ChannelOpenWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275B3208EA1B30029BE7E /* ChannelOpenWorker.swift */; };
+		8C8275BA208EA1B30029BE7E /* ChannelOpenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275B4208EA1B30029BE7E /* ChannelOpenRouter.swift */; };
+		8C8275BB208EA1B30029BE7E /* ChannelOpenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275B5208EA1B30029BE7E /* ChannelOpenModels.swift */; };
+		8C8275BC208EA1B30029BE7E /* ChannelOpenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275B6208EA1B30029BE7E /* ChannelOpenViewController.swift */; };
+		8C8275BD208EA1B30029BE7E /* ChannelOpenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275B7208EA1B30029BE7E /* ChannelOpenInteractor.swift */; };
+		8C8275C6208EA62C0029BE7E /* SLFormEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C8275C5208EA62C0029BE7E /* SLFormEntryView.xib */; };
+		8C8275C8208EA63D0029BE7E /* SLFormEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275C7208EA63D0029BE7E /* SLFormEntryView.swift */; };
 		8C8E4E65208C0C040017BAB2 /* SLSpinnerDialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */; };
 		8C8E4E67208C0C240017BAB2 /* SLSpinnerDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */; };
 		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
@@ -283,6 +292,15 @@
 		8C70EC14208E51A700D658DC /* HttpStatusCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpStatusCodes.swift; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLog.swift; sourceTree = "<group>"; };
+		8C8275B0208EA1920029BE7E /* ChannelOpen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChannelOpen.storyboard; sourceTree = "<group>"; };
+		8C8275B2208EA1B30029BE7E /* ChannelOpenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelOpenPresenter.swift; sourceTree = "<group>"; };
+		8C8275B3208EA1B30029BE7E /* ChannelOpenWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelOpenWorker.swift; sourceTree = "<group>"; };
+		8C8275B4208EA1B30029BE7E /* ChannelOpenRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelOpenRouter.swift; sourceTree = "<group>"; };
+		8C8275B5208EA1B30029BE7E /* ChannelOpenModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelOpenModels.swift; sourceTree = "<group>"; };
+		8C8275B6208EA1B30029BE7E /* ChannelOpenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelOpenViewController.swift; sourceTree = "<group>"; };
+		8C8275B7208EA1B30029BE7E /* ChannelOpenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelOpenInteractor.swift; sourceTree = "<group>"; };
+		8C8275C5208EA62C0029BE7E /* SLFormEntryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLFormEntryView.xib; sourceTree = "<group>"; };
+		8C8275C7208EA63D0029BE7E /* SLFormEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLFormEntryView.swift; sourceTree = "<group>"; };
 		8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLSpinnerDialogView.xib; sourceTree = "<group>"; };
 		8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSpinnerDialogView.swift; sourceTree = "<group>"; };
 		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
@@ -620,13 +638,12 @@
 			children = (
 				8C70EC0A208D934200D658DC /* SLDesign.swift */,
 				8CFA16E020854C2F00813EA6 /* Generics */,
+				8C8275BE208EA4E40029BE7E /* SLForms */,
 				8CE3AE5F2086AED6007D1065 /* SLUnboxedHeading */,
 				8CFA16E120854C3C00813EA6 /* SLBarButton */,
 				8C1882B52086A193002E2835 /* SLIcon30Button */,
 				8C1882AB20869313002E2835 /* SLPasswordField */,
 				8C090E4A20894A65009B8B8D /* SLSeedField */,
-				8C70EBD5208C382400D658DC /* SLFormBackingView */,
-				8C70EC05208D89CE00D658DC /* SLFormHeaderView */,
 				8C70EC0C208DBC3B00D658DC /* SLBriefDialog */,
 				8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialogView */,
 			);
@@ -641,6 +658,63 @@
 				8C18829620868559002E2835 /* Fonts */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		8C8275A2208EA14A0029BE7E /* Channel */ = {
+			isa = PBXGroup;
+			children = (
+				8C8275A3208EA1650029BE7E /* ChannelOpen */,
+			);
+			path = Channel;
+			sourceTree = "<group>";
+		};
+		8C8275A3208EA1650029BE7E /* ChannelOpen */ = {
+			isa = PBXGroup;
+			children = (
+				8C8275B0208EA1920029BE7E /* ChannelOpen.storyboard */,
+				8C8275B2208EA1B30029BE7E /* ChannelOpenPresenter.swift */,
+				8C8275B3208EA1B30029BE7E /* ChannelOpenWorker.swift */,
+				8C8275B4208EA1B30029BE7E /* ChannelOpenRouter.swift */,
+				8C8275B5208EA1B30029BE7E /* ChannelOpenModels.swift */,
+				8C8275B6208EA1B30029BE7E /* ChannelOpenViewController.swift */,
+				8C8275B7208EA1B30029BE7E /* ChannelOpenInteractor.swift */,
+			);
+			path = ChannelOpen;
+			sourceTree = "<group>";
+		};
+		8C8275BE208EA4E40029BE7E /* SLForms */ = {
+			isa = PBXGroup;
+			children = (
+				8C70EBD5208C382400D658DC /* SLFormBackingView */,
+				8C70EC05208D89CE00D658DC /* SLFormHeaderView */,
+				8C8275BF208EA5020029BE7E /* SLFormAddrQRView */,
+				8C8275C0208EA5230029BE7E /* SLFormEntryView */,
+				8C8275C4208EA5740029BE7E /* SLFormSegCtrlView */,
+			);
+			path = SLForms;
+			sourceTree = "<group>";
+		};
+		8C8275BF208EA5020029BE7E /* SLFormAddrQRView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SLFormAddrQRView;
+			sourceTree = "<group>";
+		};
+		8C8275C0208EA5230029BE7E /* SLFormEntryView */ = {
+			isa = PBXGroup;
+			children = (
+				8C8275C5208EA62C0029BE7E /* SLFormEntryView.xib */,
+				8C8275C7208EA63D0029BE7E /* SLFormEntryView.swift */,
+			);
+			path = SLFormEntryView;
+			sourceTree = "<group>";
+		};
+		8C8275C4208EA5740029BE7E /* SLFormSegCtrlView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SLFormSegCtrlView;
 			sourceTree = "<group>";
 		};
 		8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialogView */ = {
@@ -670,7 +744,8 @@
 				8C090E6420896BB5009B8B8D /* Wallet */,
 				8CFA16942082ECD200813EA6 /* Receive */,
 				8CFA16932082ECC900813EA6 /* Pay */,
-				8CFA16952082ECE800813EA6 /* Settings */,
+				8C8275A2208EA14A0029BE7E /* Channel */,
+				8CFA16952082ECE800813EA6 /* Setting */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -712,11 +787,11 @@
 			path = Receive;
 			sourceTree = "<group>";
 		};
-		8CFA16952082ECE800813EA6 /* Settings */ = {
+		8CFA16952082ECE800813EA6 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Settings;
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		8CFA16962082EE7400813EA6 /* CreateRecover */ = {
@@ -921,6 +996,7 @@
 				8C18829120868545002E2835 /* Montserrat-Thin.ttf in Resources */,
 				8C18828F20868545002E2835 /* Montserrat-Italic.ttf in Resources */,
 				8C090E2720885C84009B8B8D /* OpenSans-LightItalic.ttf in Resources */,
+				8C8275C6208EA62C0029BE7E /* SLFormEntryView.xib in Resources */,
 				8C090E1220882552009B8B8D /* MnemonicExplain.storyboard in Resources */,
 				8C090E2820885C84009B8B8D /* OpenSans-Regular.ttf in Resources */,
 				8C090E2620885C84009B8B8D /* OpenSans-Light.ttf in Resources */,
@@ -948,6 +1024,7 @@
 				8C18828920868545002E2835 /* Montserrat-Bold.ttf in Resources */,
 				8C090E2220885C84009B8B8D /* OpenSans-BoldItalic.ttf in Resources */,
 				8C2FC70D2073513700966D31 /* Root.storyboard in Resources */,
+				8C8275B1208EA1920029BE7E /* ChannelOpen.storyboard in Resources */,
 				8C70EC09208D8A2000D658DC /* SLFormHeaderView.xib in Resources */,
 				8C090E4C20894A85009B8B8D /* SLSeedField.xib in Resources */,
 				8C70EBD4208C346C00D658DC /* ReceiveMain.storyboard in Resources */,
@@ -1053,8 +1130,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C8275B8208EA1B30029BE7E /* ChannelOpenPresenter.swift in Sources */,
+				8C8275B9208EA1B30029BE7E /* ChannelOpenWorker.swift in Sources */,
 				8C090E012087DEAA009B8B8D /* MnemonicExplainViewController.swift in Sources */,
 				8C70EC13208E511900D658DC /* SLRetry.swift in Sources */,
+				8C8275BC208EA1B30029BE7E /* ChannelOpenViewController.swift in Sources */,
 				8C70EBCE208C345B00D658DC /* ReceiveMainWorker.swift in Sources */,
 				8C090E4620894801009B8B8D /* MnemonicConfirmViewController.swift in Sources */,
 				8C090E322088612B009B8B8D /* MnemonicDisplayPresenter.swift in Sources */,
@@ -1080,6 +1160,7 @@
 				8C1882AD2086941D002E2835 /* NibView.swift in Sources */,
 				8C6B7561208B17BD00B751A2 /* WalletMainViewController.swift in Sources */,
 				8CFA16E420856E6800813EA6 /* SLBarButton.swift in Sources */,
+				8C8275BB208EA1B30029BE7E /* ChannelOpenModels.swift in Sources */,
 				8C6B7544208AF33200B751A2 /* RootModels.swift in Sources */,
 				8C090DFE2087DEAA009B8B8D /* MnemonicExplainWorker.swift in Sources */,
 				8CE3AE652086DA9E007D1065 /* UIColor+Extension.swift in Sources */,
@@ -1096,6 +1177,7 @@
 				8CFA16AE2083001F00813EA6 /* DesignableViews.swift in Sources */,
 				8C090E4E20894A94009B8B8D /* SLSeedField.swift in Sources */,
 				8CFA16A42082EF3A00813EA6 /* CreateRecoverModels.swift in Sources */,
+				8C8275BA208EA1B30029BE7E /* ChannelOpenRouter.swift in Sources */,
 				8C18829F20868EBE002E2835 /* PasswordCreateRouter.swift in Sources */,
 				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
 				8CFA16A52082EF3A00813EA6 /* CreateRecoverViewController.swift in Sources */,
@@ -1119,11 +1201,13 @@
 				8C6B755D208B17BD00B751A2 /* WalletMainPresenter.swift in Sources */,
 				8C6B755E208B17BD00B751A2 /* WalletMainWorker.swift in Sources */,
 				8C6B7541208AF33200B751A2 /* RootPresenter.swift in Sources */,
+				8C8275C8208EA63D0029BE7E /* SLFormEntryView.swift in Sources */,
 				8C090E4420894801009B8B8D /* MnemonicConfirmRouter.swift in Sources */,
 				8C6B7546208AF33200B751A2 /* RootInteractor.swift in Sources */,
 				8C70EBFD208C458700D658DC /* SLFormBackingView.swift in Sources */,
 				8C6B7553208AFEC800B751A2 /* UnlockAppInteractor.swift in Sources */,
 				8C6B7551208AFEC800B751A2 /* UnlockAppModels.swift in Sources */,
+				8C8275BD208EA1B30029BE7E /* ChannelOpenInteractor.swift in Sources */,
 				8C18829D20868EBE002E2835 /* PasswordCreatePresenter.swift in Sources */,
 				8C090DFF2087DEAA009B8B8D /* MnemonicExplainRouter.swift in Sources */,
 				8C090E372088612B009B8B8D /* MnemonicDisplayInteractor.swift in Sources */,

@@ -15,18 +15,18 @@
             <objects>
                 <viewController storyboardIdentifier="WalletMainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="biu-h6-UIo" customClass="WalletMainViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SZK-81-8wd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN2-Ib-3fj">
-                                <rect key="frame" x="0.0" y="280.5" width="375" height="42"/>
+                                <rect key="frame" x="0.0" y="350.5" width="375" height="30"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="Lgm-h8-d4g" userLabel="Left Spacer">
-                                        <rect key="frame" x="0.0" y="0.0" width="10" height="42"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="10" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oV-vV-vBX" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="0.0" width="172.5" height="42"/>
+                                        <rect key="frame" x="10" y="0.0" width="172.5" height="30"/>
                                         <color key="backgroundColor" name="LightAzureBlue"/>
                                         <state key="normal" title="Open Channel">
                                             <color key="titleColor" name="NormalText"/>
@@ -37,16 +37,19 @@
                                                 <integer key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="openChannel:" destination="biu-h6-UIo" eventType="touchUpInside" id="vaz-gO-hXS"/>
+                                        </connections>
                                     </button>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="Reh-xx-kBD" userLabel="Main Spacer">
-                                        <rect key="frame" x="182.5" y="0.0" width="10" height="42"/>
+                                        <rect key="frame" x="182.5" y="0.0" width="10" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="10" id="vTG-af-BJO"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lvb-Jn-gmu" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                        <rect key="frame" x="192.5" y="0.0" width="172.5" height="42"/>
+                                        <rect key="frame" x="192.5" y="0.0" width="172.5" height="30"/>
                                         <color key="backgroundColor" name="SandyOrange"/>
                                         <state key="normal" title="Update Balance">
                                             <color key="titleColor" name="NormalText"/>
@@ -59,7 +62,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="Y0O-dt-kVc" userLabel="Right Spacer">
-                                        <rect key="frame" x="365" y="0.0" width="10" height="42"/>
+                                        <rect key="frame" x="365" y="0.0" width="10" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
@@ -70,14 +73,14 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="OL8-Iv-mts">
-                                <rect key="frame" x="0.0" y="549" width="375" height="42"/>
+                                <rect key="frame" x="0.0" y="625" width="375" height="30"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="4nR-q0-Ikg" userLabel="Left Spacer">
-                                        <rect key="frame" x="0.0" y="21" width="10" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="15" width="10" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dp9-iQ-dmN" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="0.0" width="172.5" height="42"/>
+                                        <rect key="frame" x="10" y="0.0" width="172.5" height="30"/>
                                         <color key="backgroundColor" name="DisabledGray"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="Pay">
@@ -91,14 +94,14 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="pJ5-rv-EIR" userLabel="Main Spacer">
-                                        <rect key="frame" x="182.5" y="21" width="10" height="0.0"/>
+                                        <rect key="frame" x="182.5" y="15" width="10" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="10" id="Ny4-xE-qfW"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j8b-dY-gBy" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                        <rect key="frame" x="192.5" y="0.0" width="172.5" height="42"/>
+                                        <rect key="frame" x="192.5" y="0.0" width="172.5" height="30"/>
                                         <color key="backgroundColor" name="MedAquamarine"/>
                                         <state key="normal" title="Receive">
                                             <color key="titleColor" name="NormalText"/>
@@ -114,7 +117,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="vEa-OB-AnK" userLabel="Right Spacer">
-                                        <rect key="frame" x="365" y="21" width="10" height="0.0"/>
+                                        <rect key="frame" x="365" y="15" width="10" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
@@ -192,9 +195,6 @@
         </namedColor>
         <namedColor name="SandyOrangeShadow">
             <color red="0.57647058823529407" green="0.40784313725490196" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="SpaceCadetBlue">
-            <color red="0.14509803921568629" green="0.21568627450980393" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="SpaceCadetBlue">
             <color red="0.14509803921568629" green="0.21568627450980393" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

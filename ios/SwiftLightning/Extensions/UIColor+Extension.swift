@@ -17,6 +17,7 @@ extension UIColor {
   static let formBackground = UIColor(named: "FormBackground")!
   static let formShadow = UIColor(named: "FormShadow")!
   static let genericGray = UIColor(named: "GenericGray")!
+  static let genericGrayShadow = UIColor(named: "GenericGrayShadow")!
   static let jellyBeanRed = UIColor(named: "JellyBeanRed")!
   static let jellyBeanRedShadow = UIColor(named: "JellyBeanRedShadow")!
   static let lightAzureBlue = UIColor(named: "LightAzureBlue")

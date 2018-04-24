@@ -156,7 +156,7 @@
                                             <constraint firstItem="8fn-cy-L7H" firstAttribute="width" secondItem="QTa-Re-YS8" secondAttribute="width" id="qKl-2D-6aG"/>
                                         </constraints>
                                     </scrollView>
-                                    <view contentMode="scaleToFill" horizontalHuggingPriority="900" verticalHuggingPriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="j1F-JD-tuW" userLabel="Form Header" customClass="SLFormHeaderView" customModule="SwiftLightning" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" horizontalHuggingPriority="900" verticalHuggingPriority="900" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="j1F-JD-tuW" userLabel="Form Header" customClass="SLFormHeaderView" customModule="SwiftLightning" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
@@ -235,9 +235,6 @@
     <resources>
         <image name="CloseCrossLight" width="30" height="30"/>
         <image name="ShareLight" width="30" height="30"/>
-        <namedColor name="FormBackground">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <namedColor name="FormBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
