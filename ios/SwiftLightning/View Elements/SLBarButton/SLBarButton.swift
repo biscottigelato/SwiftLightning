@@ -32,6 +32,10 @@ import UIKit
     static let defaultShadowBlur: CGFloat = 5.0/2
     static let defaultShadowOpacity: Float = 0.3
     
+    static let halfShadowOffset = CGSize(width: 0.0, height: 2.5)
+    static let halfShadowBlur: CGFloat = 3.5/2
+    static let halfShadowOpacity: Float = 0.25
+    
     static let smallSizedCornerRadius: CGFloat = SLDesignConstants.defaultCornerRadius/2
     static let smallSizedWidth: CGFloat = 60.0
     static let smallSizedHeight: CGFloat = 28.0
@@ -122,13 +126,13 @@ import UIKit
       layer.shadowOpacity = Constants.defaultShadowOpacity
       
     case .half:
-      let buttonWidth = superviewWidth - 3*Constants.halfWidthLayoutMargin
+      let buttonWidth = (superviewWidth - 1.5*Constants.halfWidthLayoutMargin)/2
       intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
       titleLabel?.font = UIFont.regularFont(Constants.defaultFontSize)
-      layer.shadowOffset = Constants.defaultShadowOffset
-      layer.shadowRadius = Constants.defaultShadowBlur
-      layer.shadowOpacity = Constants.defaultShadowOpacity
+      layer.shadowOffset = Constants.halfShadowOffset
+      layer.shadowRadius = Constants.halfShadowBlur
+      layer.shadowOpacity = Constants.halfShadowOpacity
       
     case .formFull:
       let buttonWidth = superviewWidth - 2*Constants.fullWidthLayoutMargin
@@ -140,13 +144,13 @@ import UIKit
       layer.shadowOpacity = Constants.defaultShadowOpacity
       
     case .formHalf:
-      let buttonWidth = superviewWidth - 3*Constants.halfWidthLayoutMargin
+      let buttonWidth = (superviewWidth - 1.5*Constants.halfWidthLayoutMargin)/2
       intrinsicSize = CGSize(width: buttonWidth, height: Constants.defaultHeight)
       layer.cornerRadius = Constants.defaultCornerRadius
       titleLabel?.font = UIFont.regularFont(Constants.defaultFontSize)
-      layer.shadowOffset = Constants.defaultShadowOffset
-      layer.shadowRadius = Constants.defaultShadowBlur
-      layer.shadowOpacity = Constants.defaultShadowOpacity
+      layer.shadowOffset = Constants.halfShadowOffset
+      layer.shadowRadius = Constants.halfShadowBlur
+      layer.shadowOpacity = Constants.halfShadowOpacity
       
     case .field:
       intrinsicSize = CGSize(width: Constants.smallSizedWidth, height: Constants.smallSizedHeight)

@@ -22,6 +22,9 @@ import UIKit
   @IBOutlet weak var remainingLabel: UILabel!
   @IBOutlet weak var feeBalanceStack: UIStackView!
   
+  @IBOutlet weak var topSpacerHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var bottomSpacerHeightConstraint: NSLayoutConstraint!
+  
   
   // MARK: View lifecycle
   
@@ -76,9 +79,11 @@ import UIKit
   
   private func configureEntryView(by type: EntryType) {
     
+    let spacerHeight = topSpacerHeightConstraint.constant + bottomSpacerHeightConstraint.constant
+    
     switch type {
     case .description:
-      let intrinsicHeight = 2*button.intrinsicContentSize.height
+      let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
       intrinsicSize = CGSize(width: 288.0, height: intrinsicHeight)
       
       textField.keyboardType = .default
@@ -89,7 +94,7 @@ import UIKit
       button.isHidden = true
         
     case .key:
-      let intrinsicHeight = 2*button.intrinsicContentSize.height
+      let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
       intrinsicSize = CGSize(width: 288.0, height: intrinsicHeight)
       
       textField.keyboardType = .namePhonePad
@@ -102,33 +107,33 @@ import UIKit
       button.setTitle("Paste", for: .normal)
       
     case .money:
-      let intrinsicHeight = 2*button.intrinsicContentSize.height
+      let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
       intrinsicSize = CGSize(width: 288.0, height: intrinsicHeight)
       
       textField.keyboardType = .decimalPad
       textField.autocapitalizationType = .none
       textField.autocorrectionType = .no
-      convertedLabel.isHidden = false
+      // convertedLabel.isHidden = false
       feeBalanceStack.isHidden = true
       
       button.isHidden = false
       button.setTitle("Swap", for: .normal)
       
     case .moneyFeeBalance:
-      let intrinsicHeight = 3*button.intrinsicContentSize.height
+      let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
       intrinsicSize = CGSize(width: 288.0, height: intrinsicHeight)
       
       textField.keyboardType = .decimalPad
       textField.autocapitalizationType = .none
       textField.autocorrectionType = .no
-      convertedLabel.isHidden = false
-      feeBalanceStack.isHidden = false
+      // convertedLabel.isHidden = false
+      // feeBalanceStack.isHidden = false
       
       button.isHidden = false
       button.setTitle("Swap", for: .normal)
       
     case .numberIPPort:
-      let intrinsicHeight = 2*button.intrinsicContentSize.height
+      let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
       intrinsicSize = CGSize(width: 288.0, height: intrinsicHeight)
       
       textField.keyboardType = .numbersAndPunctuation

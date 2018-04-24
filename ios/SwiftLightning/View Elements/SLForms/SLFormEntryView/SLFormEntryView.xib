@@ -17,6 +17,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SLFormEntryView" customModule="SwiftLightning" customModuleProvider="target">
             <connections>
+                <outlet property="bottomSpacerHeightConstraint" destination="Dcv-LC-JeT" id="RZa-Jq-cea"/>
                 <outlet property="button" destination="Sfy-P4-gv3" id="clV-l0-wbR"/>
                 <outlet property="convertedLabel" destination="W2O-UY-DAR" id="J0s-6o-LDT"/>
                 <outlet property="feeBalanceStack" destination="kSi-C9-XKB" id="CAd-Cc-cUu"/>
@@ -25,6 +26,7 @@
                 <outlet property="remainingLabel" destination="6Sd-tx-gxV" id="tYW-tF-boz"/>
                 <outlet property="textField" destination="wzT-qJ-2VO" id="7tZ-jc-cCq"/>
                 <outlet property="textFieldTapRecognizer" destination="zUL-gA-ILA" id="ohN-qy-HMj"/>
+                <outlet property="topSpacerHeightConstraint" destination="H1O-52-xLo" id="ZjV-Zw-Sxy"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -33,42 +35,50 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="h5u-IQ-van">
-                    <rect key="frame" x="0.0" y="95" width="396" height="77.5"/>
+                    <rect key="frame" x="0.0" y="99" width="396" height="69"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="tx9-cS-DjK">
-                            <rect key="frame" x="0.0" y="0.0" width="396" height="20.5"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JjK-vr-kNu" userLabel="Top Spacer">
+                            <rect key="frame" x="0.0" y="0.0" width="396" height="8"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="8" id="H1O-52-xLo"/>
+                            </constraints>
+                        </view>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tx9-cS-DjK">
+                            <rect key="frame" x="0.0" y="8" width="396" height="28"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" text="Field Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjh-EZ-r1q">
-                                    <rect key="frame" x="0.0" y="0.0" width="396" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="4" width="396" height="20.5"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                     <color key="textColor" name="LightTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xce-b4-Klc">
-                                    <rect key="frame" x="0.0" y="4" width="0.0" height="16.5"/>
+                                    <rect key="frame" x="0.0" y="6" width="0.0" height="16.5"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                                     <color key="textColor" name="JellyBeanRed"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="WR3-wI-ttx">
-                            <rect key="frame" x="0.0" y="20.5" width="396" height="27"/>
+                            <rect key="frame" x="0.0" y="36" width="396" height="28"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="800" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wzT-qJ-2VO">
-                                    <rect key="frame" x="0.0" y="7" width="8" height="20"/>
+                                    <rect key="frame" x="0.0" y="8" width="331" height="20"/>
                                     <color key="textColor" name="DarkTextBlue"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~777.7 USD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2O-UY-DAR">
-                                    <rect key="frame" x="13" y="10.5" width="340" height="16.5"/>
+                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~777.7 USD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2O-UY-DAR">
+                                    <rect key="frame" x="333.5" y="11.5" width="0.0" height="16.5"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                                     <color key="textColor" name="MediumTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="900" verticalHuggingPriority="900" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sfy-P4-gv3" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                    <rect key="frame" x="358" y="0.0" width="38" height="27"/>
+                                    <rect key="frame" x="336" y="0.0" width="60" height="28"/>
                                     <color key="backgroundColor" name="GenericGray"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <state key="normal" title="Button">
@@ -82,41 +92,52 @@
                                     </userDefinedRuntimeAttributes>
                                 </button>
                             </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <gestureRecognizers/>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="zUL-gA-ILA" appends="YES" id="3bK-b8-jCp"/>
                             </connections>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="kSi-C9-XKB">
-                            <rect key="frame" x="0.0" y="47.5" width="396" height="30"/>
+                        <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="kSi-C9-XKB">
+                            <rect key="frame" x="0.0" y="64" width="396" height="0.0"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="600" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sTQ-ZU-q3q">
-                                    <rect key="frame" x="0.0" y="0.0" width="79" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="79" height="0.0"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                     <state key="normal" title="fee: b77 USD">
                                         <color key="titleColor" name="LightAzureBlue"/>
                                     </state>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" text="remaining balance: b12,345" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Sd-tx-gxV">
-                                    <rect key="frame" x="84" y="15" width="269" height="15"/>
+                                    <rect key="frame" x="84" y="0.0" width="247" height="0.0"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="11"/>
                                     <color key="textColor" name="MediumTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="IC5-sM-2PC">
-                                    <rect key="frame" x="358" y="3" width="38" height="27"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <rect key="frame" x="336" y="0.0" width="60" height="0.0"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                             </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcn-an-VdE" userLabel="Bottom Spacer">
+                            <rect key="frame" x="0.0" y="64" width="396" height="5"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="5" id="Dcv-LC-JeT"/>
+                            </constraints>
+                        </view>
                     </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="IC5-sM-2PC" firstAttribute="height" secondItem="Sfy-P4-gv3" secondAttribute="height" priority="700" id="Zsq-nb-vb1"/>
                         <constraint firstItem="IC5-sM-2PC" firstAttribute="width" secondItem="Sfy-P4-gv3" secondAttribute="width" priority="700" id="adk-mC-AFR"/>
+                        <constraint firstItem="tx9-cS-DjK" firstAttribute="height" secondItem="Sfy-P4-gv3" secondAttribute="height" priority="850" id="aeE-I9-L9c"/>
                     </constraints>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="h5u-IQ-van" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="L2Z-dp-IMJ"/>

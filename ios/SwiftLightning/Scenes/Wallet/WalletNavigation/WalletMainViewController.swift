@@ -87,7 +87,7 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic
   @IBAction func openChannel(_ sender: SLBarButton) {
     let storyboard = UIStoryboard(name: "ChannelOpen", bundle: nil)
     let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChannelOpenViewController") as! ChannelOpenViewController
-    present(destinationVC, animated: true, completion: nil)
+    navigationController?.pushViewController(destinationVC, animated: true)
   }
   
 }
