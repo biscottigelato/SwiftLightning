@@ -27,10 +27,15 @@ import UIKit
   
   
   // MARK: View lifecycle
+  var initialLayout = true
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    configureEntryView(by: entryViewType)
+    
+    if initialLayout {
+      initialLayout = false
+      initEntryView(by: entryViewType)
+    }
   }
   
   
@@ -73,11 +78,11 @@ import UIKit
     }
     set {
       entryViewType = EntryType(rawValue: newValue) ?? .description
-      configureEntryView(by: entryViewType)
+      initEntryView(by: entryViewType)
     }
   }
   
-  private func configureEntryView(by type: EntryType) {
+  private func initEntryView(by type: EntryType) {
     
     let spacerHeight = topSpacerHeightConstraint.constant + bottomSpacerHeightConstraint.constant
     
@@ -99,7 +104,7 @@ import UIKit
       
       textField.keyboardType = .namePhonePad
       textField.autocapitalizationType = .none
-      textField.autocorrectionType = .no
+      textField.autocorrectionType = .yes //.no
       convertedLabel.isHidden = true
       feeBalanceStack.isHidden = true
       
@@ -113,6 +118,7 @@ import UIKit
       textField.keyboardType = .decimalPad
       textField.autocapitalizationType = .none
       textField.autocorrectionType = .no
+      textField.placeholder = "₿"
       // convertedLabel.isHidden = false
       feeBalanceStack.isHidden = true
       
@@ -126,6 +132,7 @@ import UIKit
       textField.keyboardType = .decimalPad
       textField.autocapitalizationType = .none
       textField.autocorrectionType = .no
+      textField.placeholder = "₿"
       // convertedLabel.isHidden = false
       // feeBalanceStack.isHidden = false
       
@@ -148,4 +155,16 @@ import UIKit
     
     invalidateIntrinsicContentSize()
   }
+  
+  
+  // MARK: Keyboard management
+  
+  
+  
+  // MARK: Text Field
+  
+  @IBAction func textFieldStackTapped(_ sender: UITapGestureRecognizer) {
+    textField.becomeFirstResponder()
+  }
+  
 }

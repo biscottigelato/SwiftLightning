@@ -17,11 +17,18 @@ protocol ChannelOpenDisplayLogic: class
   func displaySomething(viewModel: ChannelOpen.Something.ViewModel)
 }
 
-class ChannelOpenViewController: UIViewController, ChannelOpenDisplayLogic
+class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
 {
   var interactor: ChannelOpenBusinessLogic?
   var router: (NSObjectProtocol & ChannelOpenRoutingLogic & ChannelOpenDataPassing)?
 
+  
+  // MARK: IBOutlet
+  
+  @IBOutlet weak var scrollView: UIScrollView!
+  @IBOutlet weak var formBottomConstraint: NSLayoutConstraint!
+  
+  
   // MARK: Object lifecycle
   
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -52,6 +59,7 @@ class ChannelOpenViewController: UIViewController, ChannelOpenDisplayLogic
     router.dataStore = interactor
   }
   
+  
   // MARK: Routing
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?)
@@ -64,13 +72,16 @@ class ChannelOpenViewController: UIViewController, ChannelOpenDisplayLogic
     }
   }
   
+  
   // MARK: View lifecycle
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    doSomething()
+    keyboardConstraint = formBottomConstraint
+    keyboardConstraintMargin = formBottomConstraint.constant
   }
+  
   
   // MARK: Do something
   

@@ -30,7 +30,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="tRN-Id-nLn">
                                                         <rect key="frame" x="15" y="0.0" width="325" height="408"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rzh-dl-dcF" userLabel="Header Spacer">
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Rzh-dl-dcF" userLabel="Header Spacer">
                                                                 <rect key="frame" x="0.0" y="0.0" width="325" height="40"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -71,7 +71,7 @@
                                                                     <constraint firstAttribute="height" constant="1" id="8cy-Qa-8Qs"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RNh-zW-MP9" userLabel="Funding Entry View" customClass="SLFormEntryView" customModule="SwiftLightning" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="RNh-zW-MP9" userLabel="Funding Entry View" customClass="SLFormEntryView" customModule="SwiftLightning" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="180" width="325" height="69"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -88,7 +88,7 @@
                                                                     <constraint firstAttribute="height" constant="1" id="MHg-2i-YCS"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKN-SR-NLV" customClass="SLFormEntryView" customModule="SwiftLightning" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jKN-SR-NLV" customClass="SLFormEntryView" customModule="SwiftLightning" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="250" width="325" height="69"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -166,7 +166,7 @@
                                     <constraint firstItem="LC8-GW-279" firstAttribute="leading" secondItem="0xo-ES-N3e" secondAttribute="leading" id="6Wz-rz-5ya"/>
                                     <constraint firstAttribute="trailing" secondItem="PbX-XU-m6q" secondAttribute="trailing" id="A6L-qM-eKN"/>
                                     <constraint firstAttribute="bottom" secondItem="PbX-XU-m6q" secondAttribute="bottom" id="U3d-aE-xQp"/>
-                                    <constraint firstAttribute="height" secondItem="tRN-Id-nLn" secondAttribute="height" id="XrD-jo-zgc"/>
+                                    <constraint firstAttribute="height" secondItem="tRN-Id-nLn" secondAttribute="height" priority="800" id="XrD-jo-zgc"/>
                                     <constraint firstItem="PbX-XU-m6q" firstAttribute="top" secondItem="0xo-ES-N3e" secondAttribute="top" id="gs2-3g-DF6"/>
                                     <constraint firstItem="LC8-GW-279" firstAttribute="top" secondItem="0xo-ES-N3e" secondAttribute="top" id="u4C-P6-Pcb"/>
                                     <constraint firstItem="PbX-XU-m6q" firstAttribute="leading" secondItem="0xo-ES-N3e" secondAttribute="leading" id="vHL-F6-jHJ"/>
@@ -184,7 +184,7 @@
                             <constraint firstItem="CdN-KY-XDo" firstAttribute="trailing" secondItem="0xo-ES-N3e" secondAttribute="trailing" constant="10" id="7XZ-CD-rLp"/>
                             <constraint firstItem="0xo-ES-N3e" firstAttribute="leading" secondItem="CdN-KY-XDo" secondAttribute="leading" constant="10" id="KhK-z8-cbw"/>
                             <constraint firstItem="0xo-ES-N3e" firstAttribute="top" secondItem="CdN-KY-XDo" secondAttribute="top" constant="20" id="gkS-0x-nv9"/>
-                            <constraint firstItem="CdN-KY-XDo" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0xo-ES-N3e" secondAttribute="bottom" constant="20" id="vyF-ts-vQN"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0xo-ES-N3e" secondAttribute="bottom" constant="20" id="vyF-ts-vQN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CdN-KY-XDo"/>
                     </view>
@@ -197,6 +197,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="formBottomConstraint" destination="vyF-ts-vQN" id="idS-BZ-mYS"/>
+                        <outlet property="scrollView" destination="PbX-XU-m6q" id="L9M-kY-gk2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ANZ-70-9yk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
