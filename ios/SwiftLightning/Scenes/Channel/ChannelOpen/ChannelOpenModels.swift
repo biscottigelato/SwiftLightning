@@ -16,16 +16,23 @@ enum ChannelOpen
 {
   // MARK: Use cases
   
-  enum Something
+  enum GatherChannelInfo
   {
     struct Request
     {
+      var nodePubKey: String
+      var ipAddress: String
+      var port: Int
+      var fundingAmt: Double // (Should be NumericalDecimal type)
+      var initPayAmt: Double // (Should be NumericalDecimal type)
     }
     struct Response
     {
+      // Some sort of Channel Info Struct?
     }
     struct ViewModel
     {
+      // Go to Confirm screen, or present Error
     }
   }
 }

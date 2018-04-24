@@ -23,12 +23,6 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
   var router: (NSObjectProtocol & ChannelOpenRoutingLogic & ChannelOpenDataPassing)?
 
   
-  // MARK: IBOutlet
-  
-  @IBOutlet weak var scrollView: UIScrollView!
-  @IBOutlet weak var formBottomConstraint: NSLayoutConstraint!
-  
-  
   // MARK: Object lifecycle
   
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -75,6 +69,8 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
   
   // MARK: View lifecycle
   
+  @IBOutlet weak var formBottomConstraint: NSLayoutConstraint!
+  
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -83,9 +79,17 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
   }
   
   
-  // MARK: Do something
+  // MARK: Open Channel
   
-  //@IBOutlet weak var nameTextField: UITextField!
+  @IBOutlet weak var nodePubKeyEntryView: SLFormEntryView!
+  @IBOutlet weak var nodePortIPEntryView: SLFormEntryView!
+  @IBOutlet weak var fundingEntryView: SLFormEntryView!
+  @IBOutlet weak var initPaymentEntryView: SLFormEntryView!
+  @IBOutlet weak var openChannelButton: SLBarButton!
+  
+  @IBAction func openChannelTapped(_ sender: SLBarButton) {
+  }
+  
   
   func doSomething()
   {
