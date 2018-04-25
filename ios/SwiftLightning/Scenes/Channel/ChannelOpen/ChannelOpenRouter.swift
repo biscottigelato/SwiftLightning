@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol ChannelOpenRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+  func routeToChannelConfirm()
 }
 
 protocol ChannelOpenDataPassing
@@ -29,32 +29,26 @@ class ChannelOpenRouter: NSObject, ChannelOpenRoutingLogic, ChannelOpenDataPassi
   
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToChannelConfirm()
+  {
+    let storyboard = UIStoryboard(name: "ChannelConfirm", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChannelConfirmViewController") as! ChannelConfirmViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToChannelConfirm(source: dataStore!, destination: &destinationDS)
+    navigateToChannelConfirm(source: viewController!, destination: destinationVC)
+  }
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: ChannelOpenViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func navigateToChannelConfirm(source: ChannelOpenViewController, destination: ChannelConfirmViewController)
+  {
+    source.navigationController?.pushViewController(destination, animated: true)
+  }
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: ChannelOpenDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func passDataToChannelConfirm(source: ChannelOpenDataStore, destination: inout ChannelConfirmDataStore)
+  {
+    //destination.name = source.name
+  }
 }

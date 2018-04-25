@@ -218,7 +218,7 @@
         <image name="CameraLight" width="30" height="30"/>
         <image name="CloseCrossLight" width="30" height="30"/>
         <namedColor name="DisabledGray">
-            <color red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="DisabledGrayShadow">
             <color red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="displayP3"/>
@@ -231,15 +231,6 @@
         </namedColor>
         <namedColor name="FormLineGray">
             <color red="0.8666666666666667" green="0.86274509803921573" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="FormLineGray">
-            <color red="0.86666666670000003" green="0.86274509799999999" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="FormLineGray">
-            <color red="0.86666666670000003" green="0.86274509799999999" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="FormLineGray">
-            <color red="0.86666666670000003" green="0.86274509799999999" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="NormalText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

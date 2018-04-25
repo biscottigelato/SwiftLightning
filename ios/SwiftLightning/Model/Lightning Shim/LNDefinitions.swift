@@ -15,6 +15,14 @@ struct LNConstants {
 }
 
 
+enum OnChainConfirmSpeed {
+  case economy
+  case normal
+  case urgent
+  case custom(Bitcoin)
+}
+
+
 class GRPCResultError: NSError {
   static let domain = "GRPCResultDomain"
   

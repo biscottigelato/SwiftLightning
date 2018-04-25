@@ -14,18 +14,24 @@ import UIKit
 
 protocol ChannelOpenPresentationLogic
 {
-  func presentSomething(response: ChannelOpen.Something.Response)
+  func presentChannelConfirm(response: ChannelOpen.ChannelConfirm.Response)
 }
 
 class ChannelOpenPresenter: ChannelOpenPresentationLogic
 {
   weak var viewController: ChannelOpenDisplayLogic?
   
-  // MARK: Do something
   
-  func presentSomething(response: ChannelOpen.Something.Response)
-  {
-    let viewModel = ChannelOpen.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+  // MARK: Channel Opening Confirm
+  
+  func presentChannelConfirm(response: ChannelOpen.ChannelConfirm.Response) {
+    if response.isPubKeyValid, response.isIPValid, response.isPortValid, response.isFundingValid, response.isInitPayValid {
+      viewController?.displayChannelConfirm()
+      
+    } else {
+      let viewModel = ChannelOpen.ChannelConfirm.ErrorVM(errTitle: "Channel Open Error",
+                                                         errMsg: "Invalid new channel parameters. Please correct and try again")
+      viewController?.displayChannelConfirmError(viewModel: viewModel)
+    }
   }
 }

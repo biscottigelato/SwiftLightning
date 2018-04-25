@@ -49,4 +49,42 @@ class LNManager {
     }
     return false
   }
+  
+  static func validateNodePubKey(_ nodePubKey: String) -> Bool {
+    // TODO: Actually validate the Node Pub Key
+    return true
+  }
+  
+  static func parsePortIPString(_ ipPortString: String) -> (ipString: String?, port: Int?) {
+    var ipString: String?
+    
+    // Try to break into IP and Port
+    let subStrings = ipPortString.split(separator: ":")
+    guard subStrings.count == 2 else { return (nil, nil) }
+    
+    let ipAddressString = subStrings[0]
+    let portString = subStrings[1]
+    
+    // Validate IP Address
+    let ipOctetStrings = ipAddressString.split(separator: ":")
+    
+    if ipOctetStrings.count != 4 {
+      ipString = nil
+    } else {
+      ipString = String(ipAddressString)
+      for ipOctetString in ipOctetStrings {
+        guard let ipOctet = Int(ipOctetString), ipOctet >= 0, ipOctet < 256 else {
+          ipString = nil
+          break
+        }
+      }
+    }
+    
+    // Validate Port
+    guard let port = Int(portString), port >= 0, port <= 99999 else {
+      return (ipString, nil)
+    }
+    
+    return (ipString, port)
+  }
 }

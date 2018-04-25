@@ -14,7 +14,8 @@ import UIKit
 
 protocol ChannelOpenDisplayLogic: class
 {
-  func displaySomething(viewModel: ChannelOpen.Something.ViewModel)
+  func displayChannelConfirm()
+  func displayChannelConfirmError(viewModel: ChannelOpen.ChannelConfirm.ErrorVM)
 }
 
 class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
@@ -37,6 +38,7 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
     setup()
   }
   
+  
   // MARK: Setup
   
   private func setup()
@@ -51,19 +53,6 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
     presenter.viewController = viewController
     router.viewController = viewController
     router.dataStore = interactor
-  }
-  
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
-    }
   }
   
   
@@ -88,17 +77,32 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
   @IBOutlet weak var openChannelButton: SLBarButton!
   
   @IBAction func openChannelTapped(_ sender: SLBarButton) {
+    openChannel()
   }
   
-  
-  func doSomething()
-  {
-    let request = ChannelOpen.Something.Request()
-    interactor?.doSomething(request: request)
+  func openChannel() {
+    let nodePubKeyString = nodePubKeyEntryView.textField.text ?? ""
+    let nodePortIPString = nodePortIPEntryView.textField.text ?? ""
+    let fundingAmtString = fundingEntryView.textField.text ?? ""
+    let initPaymentString = initPaymentEntryView.textField.text ?? ""
+    
+    let request = ChannelOpen.ChannelConfirm.Request(nodePubKey: nodePubKeyString,
+                                                     nodeIPPort: nodePortIPString,
+                                                     fundingAmt: fundingAmtString,
+                                                     initPayAmt: initPaymentString)
+    interactor?.channelConfirm(request: request)
   }
   
-  func displaySomething(viewModel: ChannelOpen.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
+  func displayChannelConfirm() {
+    DispatchQueue.main.async {
+      self.router?.routeToChannelConfirm()
+    }
+  }
+  
+  func displayChannelConfirmError(viewModel: ChannelOpen.ChannelConfirm.ErrorVM) {
+    let alertDialog = UIAlertController(title: viewModel.errTitle, message: viewModel.errMsg, preferredStyle: .alert).addAction(title: "OK", style: .default)
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true, completion: nil)
+    }
   }
 }
