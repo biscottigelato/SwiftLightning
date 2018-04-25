@@ -25,7 +25,7 @@ import UIKit
   // MARK: - Constants
   
   struct Constants {
-    static let defaultCornerRadius: CGFloat = SLDesignConstants.defaultCornerRadius
+    static let defaultCornerRadius: CGFloat = SLDesign.Constants.defaultCornerRadius
     static let defaultHeight: CGFloat = 42.0
     static let defaultFontSize: CGFloat = 16.0
     static let defaultShadowOffset = CGSize(width: 0.0, height: 4.0)
@@ -36,7 +36,7 @@ import UIKit
     static let halfShadowBlur: CGFloat = 3.5/2
     static let halfShadowOpacity: Float = 0.25
     
-    static let smallSizedCornerRadius: CGFloat = SLDesignConstants.defaultCornerRadius/2
+    static let smallSizedCornerRadius: CGFloat = SLDesign.Constants.defaultCornerRadius/2
     static let smallSizedWidth: CGFloat = 60.0
     static let smallSizedHeight: CGFloat = 28.0
     static let smallSizedFontSize: CGFloat = 12.0
@@ -44,8 +44,8 @@ import UIKit
     static let smallSizedShadowBlur: CGFloat = 3.0/2
     static let smallSizedShadowOpacity: Float = 0.2
     
-    static let fullWidthLayoutMargin: CGFloat = 1.5*SLDesignConstants.formSidesMargin
-    static let halfWidthLayoutMargin: CGFloat = SLDesignConstants.formSidesMargin
+    static let fullWidthLayoutMargin: CGFloat = 1.5*SLDesign.Constants.formSidesMargin
+    static let halfWidthLayoutMargin: CGFloat = SLDesign.Constants.formSidesMargin
   }
   
   

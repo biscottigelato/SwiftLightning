@@ -30,6 +30,6 @@ import UIKit
                  lineLabelContraint.constant +
                  infoLabel.intrinsicContentSize.height
 
-    return CGSize(width: 288.0, height: height)
+    return CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: height)
   }
 }

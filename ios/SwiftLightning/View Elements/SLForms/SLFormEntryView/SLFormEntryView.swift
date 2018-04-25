@@ -89,7 +89,7 @@ import UIKit
     switch type {
     case .description:
       let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
-      intrinsicSize = CGSize(width: 288.0, height: intrinsicHeight)
+      intrinsicSize = CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: intrinsicHeight)
       
       textField.keyboardType = .default
       textField.autocapitalizationType = .sentences
@@ -100,7 +100,7 @@ import UIKit
         
     case .key:
       let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
-      intrinsicSize = CGSize(width: 288.0, height: intrinsicHeight)
+      intrinsicSize = CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: intrinsicHeight)
       
       textField.keyboardType = .namePhonePad
       textField.autocapitalizationType = .none
@@ -113,7 +113,7 @@ import UIKit
       
     case .money:
       let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
-      intrinsicSize = CGSize(width: 288.0, height: intrinsicHeight)
+      intrinsicSize = CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: intrinsicHeight)
       
       textField.keyboardType = .decimalPad
       textField.autocapitalizationType = .none
@@ -127,7 +127,7 @@ import UIKit
       
     case .moneyFeeBalance:
       let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
-      intrinsicSize = CGSize(width: 288.0, height: intrinsicHeight)
+      intrinsicSize = CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: intrinsicHeight)
       
       textField.keyboardType = .decimalPad
       textField.autocapitalizationType = .none
@@ -141,7 +141,7 @@ import UIKit
       
     case .numberIPPort:
       let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
-      intrinsicSize = CGSize(width: 288.0, height: intrinsicHeight)
+      intrinsicSize = CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: intrinsicHeight)
       
       textField.keyboardType = .numbersAndPunctuation
       textField.autocapitalizationType = .none

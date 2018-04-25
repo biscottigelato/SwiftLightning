@@ -8,8 +8,11 @@
 
 import UIKit
 
-struct SLDesignConstants {
-  static let defaultCornerRadius: CGFloat = 10.0
-  static let formSidesMargin: CGFloat = 10.0
-  static let defaultTransitionDuration: Double = 0.5  // seconds
+struct SLDesign {
+  struct Constants {
+    static let defaultCornerRadius: CGFloat = 10.0
+    static let formSidesMargin: CGFloat = 10.0
+    static let defaultTransitionDuration: Double = 0.5  // seconds
+    static let defaultUIElementWidth: CGFloat = 288.0  // This is form width of iPhone5S. But in essence an arbitrary number
+  }
 }
