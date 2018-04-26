@@ -89,7 +89,8 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
     let request = ChannelOpen.ChannelConfirm.Request(nodePubKey: nodePubKeyString,
                                                      nodeIPPort: nodePortIPString,
                                                      fundingAmt: fundingAmtString,
-                                                     initPayAmt: initPaymentString)
+                                                     initPayAmt: initPaymentString,
+                                                     confSpeed: .normal)  // TODO: Actually let user set Confirmation Speed
     interactor?.channelConfirm(request: request)
   }
   

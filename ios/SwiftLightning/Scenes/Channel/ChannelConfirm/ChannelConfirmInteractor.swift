@@ -14,28 +14,64 @@ import UIKit
 
 protocol ChannelConfirmBusinessLogic
 {
-  func doSomething(request: ChannelConfirm.Something.Request)
+  func refreshAll(request: ChannelConfirm.RefreshAll.Request)
 }
+
 
 protocol ChannelConfirmDataStore
 {
-  //var name: String { get set }
+  var nodePubKey: String? { get set }
+  var nodeIP: String? { get set }
+  var nodePort: Int? { get set }
+  var fundingAmt: Bitcoin? { get set }
+  var initPayAmt: Bitcoin? { get set }
+  var confSpeed: OnChainConfirmSpeed? { get set }
 }
+
 
 class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataStore
 {
   var presenter: ChannelConfirmPresentationLogic?
-  var worker: ChannelConfirmWorker?
-  //var name: String = ""
   
-  // MARK: Do something
   
-  func doSomething(request: ChannelConfirm.Something.Request)
+  // MARK: Data Store
+  
+  var nodePubKey: String?
+  var nodeIP: String?
+  var nodePort: Int?
+  var fundingAmt: Bitcoin?
+  var initPayAmt: Bitcoin?
+  var confSpeed: OnChainConfirmSpeed?
+  
+  
+  // MARK: Refresh Channel Confirmation
+  
+  func refreshAll(request: ChannelConfirm.RefreshAll.Request)
   {
-    worker = ChannelConfirmWorker()
-    worker?.doSomeWork()
+    guard let nodePubKey = nodePubKey, let nodeIP = nodeIP, let nodePort = nodePort,
+      let fundingAmt = fundingAmt, let initPayAmt = initPayAmt, let confSpeed = confSpeed else {
+      SLLog.fatal("1 or more entry in ChannelConfirmDataStore is nil")
+    }
     
-    let response = ChannelConfirm.Something.Response()
-    presenter?.presentSomething(response: response)
+    // Calculate:
+    
+    // Calculate Can Pay Amt = Funding Amt - Init Payment - Fee
+    let canPayAmt = Bitcoin(fundingAmt - initPayAmt) // TODO: minus Fees
+    
+    let response = ChannelConfirm.RefreshAll.Response<USD>(nodePubKey: nodePubKey,
+                                                           nodeIP: nodeIP,
+                                                           nodePort: nodePort,
+                                                           fundingAmt: fundingAmt,
+                                                           initPayAmt: initPayAmt,
+                                                           confSpeed: confSpeed,
+                                                           fiatFundingAmt: Money<USD>(floatLiteral: 0.0),
+                                                           fiatInitPayAmt: Money<USD>(floatLiteral: 0.0),
+                                                           canPayAmt: canPayAmt,
+                                                           canRcvAmt: initPayAmt,
+                                                           fiatCanPayAmt: Money<USD>(floatLiteral: 0.0),
+                                                           fiatCanRcvAmt: Money<USD>(floatLiteral: 0.0),
+                                                           feeAmt: Bitcoin(floatLiteral: 0.0),
+                                                           fiatFeeAmt: Money<USD>(floatLiteral: 0.0))
+    presenter?.presentRefreshAll(response: response)
   }
 }

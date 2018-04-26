@@ -14,14 +14,16 @@ import UIKit
 
 protocol ChannelConfirmDisplayLogic: class
 {
-  func displaySomething(viewModel: ChannelConfirm.Something.ViewModel)
+  func displayRefreshAll(viewModel: ChannelConfirm.RefreshAll.ViewModel)
 }
+
 
 class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
 {
   var interactor: ChannelConfirmBusinessLogic?
   var router: (NSObjectProtocol & ChannelConfirmRoutingLogic & ChannelConfirmDataPassing)?
 
+  
   // MARK: Object lifecycle
   
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -35,6 +37,7 @@ class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
     super.init(coder: aDecoder)
     setup()
   }
+  
   
   // MARK: Setup
   
@@ -51,39 +54,45 @@ class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
     router.viewController = viewController
     router.dataStore = interactor
   }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
-    }
-  }
+
   
   // MARK: View lifecycle
   
-  override func viewDidLoad()
-  {
+  override func viewDidLoad() {
     super.viewDidLoad()
-    doSomething()
+    refreshAll()
   }
   
-  // MARK: Do something
   
-  //@IBOutlet weak var nameTextField: UITextField!
+  // MARK: Refresh All
   
-  func doSomething()
-  {
-    let request = ChannelConfirm.Something.Request()
-    interactor?.doSomething(request: request)
+  @IBOutlet weak var fundingLabelView: SLFormLabelView!
+  @IBOutlet weak var nodeLabelView: SLFormNodeView!
+  @IBOutlet weak var initPayLabelView: SLFormLabelView!
+  @IBOutlet weak var confSpeedLabelView: SLFormLabelView!
+  @IBOutlet weak var channelSummaryView: SLFormChSummaryView!
+  
+  
+  func refreshAll() {
+    let request = ChannelConfirm.RefreshAll.Request()
+    interactor?.refreshAll(request: request)
   }
   
-  func displaySomething(viewModel: ChannelConfirm.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
+  func displayRefreshAll(viewModel: ChannelConfirm.RefreshAll.ViewModel) {
+    fundingLabelView.textLabel.text = viewModel.fundingAmt
+    fundingLabelView.refAmtLabel.isHidden = true  // TODO: Fiat/Reference Amount
+    
+    nodeLabelView.nodePubKeyLabel.text = viewModel.nodePubKey
+    nodeLabelView.ipAddressLabel.text = viewModel.nodeIP
+    nodeLabelView.portNumberLabel.text = viewModel.nodePort
+    
+    initPayLabelView.textLabel.text = viewModel.initPayAmt
+    initPayLabelView.refAmtLabel.isHidden = true // TODO: Fiat/Reference Amount
+    
+    confSpeedLabelView.textLabel.text = viewModel.confSpeed
+    
+    channelSummaryView.canPayAmtLabel.text = viewModel.canPayAmt
+    channelSummaryView.canRcvAmtLabel.text = viewModel.canRcvAmt
+    channelSummaryView.feeAmtLabel.text = viewModel.fee
   }
 }

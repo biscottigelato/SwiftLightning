@@ -14,18 +14,30 @@ import UIKit
 
 protocol ChannelConfirmPresentationLogic
 {
-  func presentSomething(response: ChannelConfirm.Something.Response)
+  func presentRefreshAll<C: Currency>(response: ChannelConfirm.RefreshAll.Response<C>)
 }
+
 
 class ChannelConfirmPresenter: ChannelConfirmPresentationLogic
 {
   weak var viewController: ChannelConfirmDisplayLogic?
   
-  // MARK: Do something
+  // MARK: Refresh All
   
-  func presentSomething(response: ChannelConfirm.Something.Response)
-  {
-    let viewModel = ChannelConfirm.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+  func presentRefreshAll<C: Currency>(response: ChannelConfirm.RefreshAll.Response<C>) {
+
+    let viewModel = ChannelConfirm.RefreshAll.ViewModel(fundingAmt: response.fundingAmt.formattedInSatoshis(),
+                                                        refFundingAmt: "",
+                                                        nodePubKey: response.nodePubKey,
+                                                        nodeIP: response.nodeIP,
+                                                        nodePort: String(response.nodePort),
+                                                        initPayAmt: response.initPayAmt.formattedInSatoshis(),
+                                                        refInitPayAmt: "",
+                                                        confSpeed: response.confSpeed.description,
+                                                        canPayAmt: response.canPayAmt.formattedInSatoshis(),
+                                                        canRcvAmt: response.canPayAmt.formattedInSatoshis(),
+                                                        fee: "")
+    
+    viewController?.displayRefreshAll(viewModel: viewModel)
   }
 }

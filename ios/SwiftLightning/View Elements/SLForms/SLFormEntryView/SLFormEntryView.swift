@@ -118,7 +118,7 @@ import UIKit
       textField.keyboardType = .decimalPad
       textField.autocapitalizationType = .none
       textField.autocorrectionType = .no
-      textField.placeholder = "₿"
+      textField.placeholder = "sat"  // TODO: Variable hint based on currency in use
       // convertedLabel.isHidden = false
       feeBalanceStack.isHidden = true
       
@@ -132,7 +132,7 @@ import UIKit
       textField.keyboardType = .decimalPad
       textField.autocapitalizationType = .none
       textField.autocorrectionType = .no
-      textField.placeholder = "₿"
+      textField.placeholder = "sat"  // TODO: Variable hint based on currency in use
       // convertedLabel.isHidden = false
       // feeBalanceStack.isHidden = false
       

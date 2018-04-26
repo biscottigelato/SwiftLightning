@@ -31,6 +31,10 @@ class Bitcoin: Money<XBT> {
     super.init(integerLiteral: value)
   }
   
+  init(_ money: Money<XBT>) {
+    super.init(decimal: money.amount)
+  }
+  
   init(inSatoshi float: FloatLiteralType) {
     super.init(floatLiteral: float, magnitudeFromBaseUnit: Constants.magnitudeOfSatoshi)
   }

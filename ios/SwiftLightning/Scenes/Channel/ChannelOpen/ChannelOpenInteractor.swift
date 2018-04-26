@@ -24,6 +24,7 @@ protocol ChannelOpenDataStore
   var nodePort: Int { get }
   var fundingAmt: Bitcoin { get }
   var initPayAmt: Bitcoin { get }
+  var confSpeed: OnChainConfirmSpeed { get }
 }
 
 class ChannelOpenInteractor: ChannelOpenBusinessLogic, ChannelOpenDataStore {
@@ -39,6 +40,7 @@ class ChannelOpenInteractor: ChannelOpenBusinessLogic, ChannelOpenDataStore {
   private var _nodePort: Int?
   private var _fundingAmt: Bitcoin?
   private var _initPayAmt: Bitcoin?
+  private var _confSpeed: OnChainConfirmSpeed?
   
   var nodePubKey: String {
     guard let returnValue = _nodePubKey else {
@@ -75,6 +77,13 @@ class ChannelOpenInteractor: ChannelOpenBusinessLogic, ChannelOpenDataStore {
     return returnValue
   }
   
+  var confSpeed: OnChainConfirmSpeed {
+    guard let returnValue = _confSpeed else {
+      SLLog.fatal("confSpeed in Data Store = nil")
+    }
+    return returnValue
+  }
+  
   
   // MARK: Channel Opening Confirm
   
@@ -91,6 +100,8 @@ class ChannelOpenInteractor: ChannelOpenBusinessLogic, ChannelOpenDataStore {
     let isNodeIPValid = _nodeIP != nil
     let isNodePortValid = _nodePort != nil
     
+    // TODO: Calculate Fee involved for desired Conf Speed
+    _confSpeed = request.confSpeed
     
     // Validate and Convert Funding Amount
     var isFundingAmtValid = false

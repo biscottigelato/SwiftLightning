@@ -66,7 +66,7 @@ class LNManager {
     let portString = subStrings[1]
     
     // Validate IP Address
-    let ipOctetStrings = ipAddressString.split(separator: ":")
+    let ipOctetStrings = ipAddressString.split(separator: ".")
     
     if ipOctetStrings.count != 4 {
       ipString = nil

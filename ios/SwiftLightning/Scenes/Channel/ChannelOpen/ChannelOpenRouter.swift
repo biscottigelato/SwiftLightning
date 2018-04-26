@@ -49,6 +49,11 @@ class ChannelOpenRouter: NSObject, ChannelOpenRoutingLogic, ChannelOpenDataPassi
   
   func passDataToChannelConfirm(source: ChannelOpenDataStore, destination: inout ChannelConfirmDataStore)
   {
-    //destination.name = source.name
+    destination.nodePubKey = source.nodePubKey
+    destination.nodeIP = source.nodeIP
+    destination.nodePort = source.nodePort
+    destination.fundingAmt = source.fundingAmt
+    destination.initPayAmt = source.initPayAmt
+    destination.confSpeed = source.confSpeed
   }
 }

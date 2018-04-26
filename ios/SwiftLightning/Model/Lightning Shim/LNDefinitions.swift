@@ -20,6 +20,19 @@ enum OnChainConfirmSpeed {
   case normal
   case urgent
   case custom(Bitcoin)
+  
+  var description: String {
+    switch self {
+    case .economy:
+      return "Economy (1 - 3 days)"
+    case .normal:
+      return "Normal (few hours)"
+    case .urgent:
+      return "Urgent (10 - 30 minutes)"
+    case .custom:
+      return "Custom"
+    }
+  }
 }
 
 

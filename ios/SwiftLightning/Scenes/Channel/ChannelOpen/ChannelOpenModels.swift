@@ -134,6 +134,7 @@ enum ChannelOpen
       var nodeIPPort: String
       var fundingAmt: String
       var initPayAmt: String
+      var confSpeed: OnChainConfirmSpeed
     }
     struct Response {
       var isPubKeyValid: Bool

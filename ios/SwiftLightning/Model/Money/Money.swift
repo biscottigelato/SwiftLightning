@@ -80,4 +80,106 @@ class Money<C: Currency>: MoneyType {
   static func <<C: Currency>(lhs: Money<C>, rhs:Money<C>) -> Bool {
     return lhs.amount < rhs.amount
   }
+  
+  
+  // MARK: Basic Arithmetic Operations
+  
+  func adding(by addend: Money) -> Money {
+    return Money(decimal: amount + addend.amount)
+  }
+  
+  func subtracting(by subtrahend: Money) -> Money {
+    return Money(decimal: amount - subtrahend.amount)
+  }
+  
+  func multiplying(by multiplier: Money) -> Money {
+    return Money(decimal: amount * multiplier.amount)
+  }
+  
+  func dividing(by divisor: Money) -> Money {
+    return Money(decimal: amount / divisor.amount)
+  }
+  
+  
+  // MARK: Operator Overloading
+  
+  // Addition
+  
+  static func +(lhs: Money, rhs: Money) -> Money {
+    return lhs.adding(by: rhs)
+  }
+  
+  static func +(lhs: Money, rhs: IntegerLiteralType) -> Money {
+    return lhs + Money(integerLiteral: rhs)
+  }
+  
+  static func +(lhs: IntegerLiteralType, rhs: Money) -> Money {
+    return Money(integerLiteral: lhs) + rhs
+  }
+  
+  static func +(lhs: Money, rhs: FloatLiteralType) -> Money {
+    return lhs + Money(floatLiteral: rhs)
+  }
+  
+  static func +(lhs: FloatLiteralType, rhs: Money) -> Money {
+    return Money(floatLiteral: lhs) + rhs
+  }
+  
+  // Subtraction
+  
+  static func -(lhs: Money, rhs: Money) -> Money {
+    return lhs.subtracting(by: rhs)
+  }
+  
+  static func -(lhs: Money, rhs: IntegerLiteralType) -> Money {
+    return lhs - Money(integerLiteral: rhs)
+  }
+  
+  static func -(lhs: IntegerLiteralType, rhs: Money) -> Money {
+    return Money(integerLiteral: lhs) - rhs
+  }
+  
+  static func -(lhs: Money, rhs: FloatLiteralType) -> Money {
+    return lhs - Money(floatLiteral: rhs)
+  }
+  
+  static func -(lhs: FloatLiteralType, rhs: Money) -> Money {
+    return Money(floatLiteral: lhs) - rhs
+  }
+  
+  // Multiplication
+  // Explicitly not allow 2 money types to multiply together. Doesn't make sense to do so
+  
+  static func *(lhs: Money, rhs: IntegerLiteralType) -> Money {
+    return lhs.multiplying(by: Money(integerLiteral: rhs))
+  }
+  
+  static func *(lhs: IntegerLiteralType, rhs: Money) -> Money {
+    return Money(integerLiteral: lhs).multiplying(by: rhs)
+  }
+  
+  static func *(lhs: Money, rhs: FloatLiteralType) -> Money {
+    return lhs.multiplying(by: Money(floatLiteral: rhs))
+  }
+  
+  static func *(lhs: FloatLiteralType, rhs: Money) -> Money {
+    return Money(floatLiteral: lhs).multiplying(by: rhs)
+  }
+  
+  // Division
+  // Explicitly not allow literal types to be divided by money type
+  
+  static func /(lhs: Money, rhs: Money) -> Money {
+    return lhs.subtracting(by: rhs)
+  }
+  
+  static func /(lhs: Money, rhs: IntegerLiteralType) -> Money {
+    return lhs / Money(integerLiteral: rhs)
+  }
+  
+  static func /(lhs: Money, rhs: FloatLiteralType) -> Money {
+    return lhs / Money(floatLiteral: rhs)
+  }
 }
+
+
