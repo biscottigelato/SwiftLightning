@@ -23,53 +23,113 @@ class Bitcoin: Money<XBT> {
     static let magnitudeOfBit = -6
   }
   
-  required init(floatLiteral value: FloatLiteralType) {
-    super.init(floatLiteral: value)
+  
+  // MARK: Number Formatters
+  
+  override class var formatter: NumberFormatter {
+    let _formatter = super.formatter
+    _formatter.minimumFractionDigits = 0
+    _formatter.maximumFractionDigits = 10
+    
+    _formatter.usesSignificantDigits = true
+    _formatter.minimumSignificantDigits = 3
+    _formatter.maximumSignificantDigits = 12
+    return _formatter
   }
   
-  required init(integerLiteral value: IntegerLiteralType) {
-    super.init(integerLiteral: value)
+  class var bitFormatter: NumberFormatter {
+    let _formatter = self.formatter
+    _formatter.currencySymbol = ""
+    _formatter.currencyCode = "bits"
+
+    _formatter.multiplier = NSNumber(value: pow(10.0,6.0))
+    
+    _formatter.minimumFractionDigits = 0
+    _formatter.maximumFractionDigits = 4
+    
+    return _formatter
   }
   
-  init(_ money: Money<XBT>) {
-    super.init(decimal: money.amount)
+  class var satoshiFormatter: NumberFormatter {
+    let _formatter = self.formatter
+    _formatter.currencySymbol = ""
+    _formatter.currencyCode = "sats"
+
+    _formatter.multiplier = NSNumber(value: pow(10.0,8.0))
+    
+    _formatter.minimumFractionDigits = 0
+    _formatter.maximumFractionDigits = 2
+    
+    return _formatter
   }
   
-  init(inSatoshi float: FloatLiteralType) {
-    super.init(floatLiteral: float, magnitudeFromBaseUnit: Constants.magnitudeOfSatoshi)
+  class var limitedFormatter: NumberFormatter {
+    let _formatter = self.formatter
+
+    _formatter.usesSignificantDigits = true
+    _formatter.minimumSignificantDigits = 3
+    _formatter.maximumSignificantDigits = 5
+    return _formatter
   }
   
-  init(inSatoshi integer: IntegerLiteralType) {
-    super.init(integerLiteral: integer, magnitudeFromBaseUnit: Constants.magnitudeOfSatoshi)
+  
+  // MARK: Initializers
+  
+  convenience init(_ money: Money<XBT>) {
+    self.init(money.amount)
   }
   
-  init?(inSatoshi string: String) {
-    super.init(string: string, magnitudeFromBaseUnit: Constants.magnitudeOfSatoshi)
+  convenience init(inSatoshi integer: IntegerLiteralType) {
+    self.init(integerLiteral: integer, magnitudeFromBaseUnit: Constants.magnitudeOfSatoshi)
   }
   
-  init(inBits float: FloatLiteralType) {
-    super.init(floatLiteral: float, magnitudeFromBaseUnit: Constants.magnitudeOfBit)
+  convenience init?(inSatoshi string: String) {
+    self.init(string, formatter: Bitcoin.satoshiFormatter)
   }
   
-  init(inBits integer: IntegerLiteralType) {
-    super.init(integerLiteral: integer, magnitudeFromBaseUnit: Constants.magnitudeOfBit)
+  convenience init(inBits integer: IntegerLiteralType) {
+    self.init(integerLiteral: integer, magnitudeFromBaseUnit: Constants.magnitudeOfBit)
   }
   
-  init?(inBits string: String) {
-    super.init(string: string, magnitudeFromBaseUnit: Constants.magnitudeOfBit)
+  convenience init?(inBits string: String) {
+    self.init(string, formatter: Bitcoin.bitFormatter)
   }
   
-  func formattedInSatoshis(withStyle style: NumberFormatter.Style = .currency) -> String {
-    let formatter = Money<XBT>.formatter
-    formatter.numberStyle = style
-    formatter.multiplier = NSNumber(value: 10^(-Constants.magnitudeOfSatoshi))
+  
+  // MARK: Comparable & Equatable Conformance
+  
+  static func ==(lhs: Bitcoin, rhs: Bitcoin) -> Bool {
+    return lhs.amount == rhs.amount
+  }
+  
+  static func ==(lhs: Bitcoin, rhs: Money<XBT>) -> Bool {
+    return lhs.amount == rhs.amount
+  }
+  
+  static func ==(lhs: Money<XBT>, rhs: Bitcoin) -> Bool {
+    return lhs.amount == rhs.amount
+  }
+  
+  static func <(lhs: Bitcoin, rhs: Bitcoin) -> Bool {
+    return lhs.amount < rhs.amount
+  }
+  
+  static func <(lhs: Bitcoin, rhs:Money<XBT>) -> Bool {
+    return lhs.amount < rhs.amount
+  }
+  
+  static func <(lhs: Money<XBT>, rhs:Bitcoin) -> Bool {
+    return lhs.amount < rhs.amount
+  }
+  
+  
+  // MARK: Formatted Strings
+  
+  func formattedInSatoshis(using formatter: NumberFormatter = Bitcoin.satoshiFormatter) -> String {
     return formatter.string(from: amount as NSDecimalNumber)!
   }
   
-  func formattedInBits(withStyle style: NumberFormatter.Style = .currency) -> String {
-    let formatter = Money<XBT>.formatter
-    formatter.numberStyle = style
-    formatter.multiplier = NSNumber(value: 10^(-Constants.magnitudeOfBit))
+  func formattedInBits(using formatter: NumberFormatter = Bitcoin.bitFormatter) -> String {
     return formatter.string(from: amount as NSDecimalNumber)!
   }
 }

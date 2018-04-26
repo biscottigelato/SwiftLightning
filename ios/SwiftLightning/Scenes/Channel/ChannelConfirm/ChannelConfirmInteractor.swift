@@ -56,7 +56,7 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
     // Calculate:
     
     // Calculate Can Pay Amt = Funding Amt - Init Payment - Fee
-    let canPayAmt = Bitcoin(fundingAmt - initPayAmt) // TODO: minus Fees
+    let canPayAmt = Bitcoin(fundingAmt - initPayAmt)  // TODO: minus Fees
     
     let response = ChannelConfirm.RefreshAll.Response<USD>(nodePubKey: nodePubKey,
                                                            nodeIP: nodeIP,
@@ -64,14 +64,14 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
                                                            fundingAmt: fundingAmt,
                                                            initPayAmt: initPayAmt,
                                                            confSpeed: confSpeed,
-                                                           fiatFundingAmt: Money<USD>(floatLiteral: 0.0),
-                                                           fiatInitPayAmt: Money<USD>(floatLiteral: 0.0),
+                                                           fiatFundingAmt: Money<USD>("0.0")!,
+                                                           fiatInitPayAmt: Money<USD>("0.0")!,
                                                            canPayAmt: canPayAmt,
                                                            canRcvAmt: initPayAmt,
-                                                           fiatCanPayAmt: Money<USD>(floatLiteral: 0.0),
-                                                           fiatCanRcvAmt: Money<USD>(floatLiteral: 0.0),
-                                                           feeAmt: Bitcoin(floatLiteral: 0.0),
-                                                           fiatFeeAmt: Money<USD>(floatLiteral: 0.0))
+                                                           fiatCanPayAmt: Money<USD>("0.0")!,
+                                                           fiatCanRcvAmt: Money<USD>("0.0")!,
+                                                           feeAmt: Bitcoin("0.0")!,
+                                                           fiatFeeAmt: Money<USD>("0.0")!)
     presenter?.presentRefreshAll(response: response)
   }
 }

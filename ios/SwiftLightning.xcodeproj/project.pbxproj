@@ -49,7 +49,6 @@
 		8C090E4C20894A85009B8B8D /* SLSeedField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E4B20894A85009B8B8D /* SLSeedField.xib */; };
 		8C090E4E20894A94009B8B8D /* SLSeedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E4D20894A94009B8B8D /* SLSeedField.swift */; };
 		8C090E5020895CA9009B8B8D /* SLRandValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E4F20895CA9009B8B8D /* SLRandValues.swift */; };
-		8C090E6320896172009B8B8D /* SLRandValuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E6220896172009B8B8D /* SLRandValuesTests.swift */; };
 		8C090E7420899DA6009B8B8D /* PlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E7220899DA5009B8B8D /* PlaygroundViewController.swift */; };
 		8C090E7920899DB9009B8B8D /* Playground.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E7720899DB9009B8B8D /* Playground.storyboard */; };
 		8C188271208679BD002E2835 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C188270208679BD002E2835 /* GradientView.swift */; };
@@ -155,6 +154,7 @@
 		8C82760620912A5C0029BE7E /* SLFormChSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82760520912A5C0029BE7E /* SLFormChSummaryView.swift */; };
 		8C82760820912A750029BE7E /* SLFormPaySummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C82760720912A750029BE7E /* SLFormPaySummaryView.xib */; };
 		8C82760A20912A890029BE7E /* SLFormPaySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82760920912A890029BE7E /* SLFormPaySummaryView.swift */; };
+		8C82761D20916FA40029BE7E /* BitcoinTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82761C20916FA40029BE7E /* BitcoinTest.swift */; };
 		8C8E4E65208C0C040017BAB2 /* SLSpinnerDialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */; };
 		8C8E4E67208C0C240017BAB2 /* SLSpinnerDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */; };
 		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
@@ -176,7 +176,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8C090E5D208960E6009B8B8D /* PBXContainerItemProxy */ = {
+		8C82761520916CF10029BE7E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8C2FC6FC2073513600966D31 /* Project object */;
 			proxyType = 1;
@@ -230,7 +230,6 @@
 		8C090E4B20894A85009B8B8D /* SLSeedField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLSeedField.xib; sourceTree = "<group>"; };
 		8C090E4D20894A94009B8B8D /* SLSeedField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSeedField.swift; sourceTree = "<group>"; };
 		8C090E4F20895CA9009B8B8D /* SLRandValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLRandValues.swift; sourceTree = "<group>"; };
-		8C090E58208960E6009B8B8D /* SwiftLightningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftLightningTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C090E6220896172009B8B8D /* SLRandValuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLRandValuesTests.swift; sourceTree = "<group>"; };
 		8C090E7220899DA5009B8B8D /* PlaygroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaygroundViewController.swift; sourceTree = "<group>"; };
 		8C090E7820899DB9009B8B8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Playground.storyboard; sourceTree = "<group>"; };
@@ -339,6 +338,9 @@
 		8C82760520912A5C0029BE7E /* SLFormChSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLFormChSummaryView.swift; sourceTree = "<group>"; };
 		8C82760720912A750029BE7E /* SLFormPaySummaryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLFormPaySummaryView.xib; sourceTree = "<group>"; };
 		8C82760920912A890029BE7E /* SLFormPaySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLFormPaySummaryView.swift; sourceTree = "<group>"; };
+		8C82761020916CF10029BE7E /* SwiftLightningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftLightningTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C82761420916CF10029BE7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C82761C20916FA40029BE7E /* BitcoinTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinTest.swift; sourceTree = "<group>"; };
 		8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLSpinnerDialogView.xib; sourceTree = "<group>"; };
 		8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSpinnerDialogView.swift; sourceTree = "<group>"; };
 		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
@@ -360,19 +362,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8C090E55208960E6009B8B8D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8C2FC7012073513600966D31 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8C2ACFB7207359DD004E6A84 /* Lightningd.framework in Frameworks */,
 				B6B514D5D47CE23C7C8010FE /* Pods_SwiftLightning.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C82760D20916CF10029BE7E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +530,7 @@
 			children = (
 				8C2FC7062073513700966D31 /* SwiftLightning */,
 				8C7D30FE207542090068F2BD /* Protobuf */,
+				8C82761120916CF10029BE7E /* SwiftLightningTests */,
 				8C2FC7052073513700966D31 /* Products */,
 				AE3AC051CBE548BC89273011 /* Pods */,
 				54857E4EC15F1FF28D39F6FE /* Frameworks */,
@@ -538,7 +541,7 @@
 			isa = PBXGroup;
 			children = (
 				8C2FC7042073513700966D31 /* SwiftLightning.app */,
-				8C090E58208960E6009B8B8D /* SwiftLightningTests.xctest */,
+				8C82761020916CF10029BE7E /* SwiftLightningTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -765,6 +768,7 @@
 		8C8275DA208FF1AD0029BE7E /* Money */ = {
 			isa = PBXGroup;
 			children = (
+				8C82760B20916C650029BE7E /* Test */,
 				8C8275DF208FF8770029BE7E /* Currency.swift */,
 				8C8275DD208FF8630029BE7E /* Money.swift */,
 				8C8275DB208FF1CF0029BE7E /* Bitcoin.swift */,
@@ -820,6 +824,22 @@
 				8C82760920912A890029BE7E /* SLFormPaySummaryView.swift */,
 			);
 			path = SLFormPaySummaryView;
+			sourceTree = "<group>";
+		};
+		8C82760B20916C650029BE7E /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				8C82761C20916FA40029BE7E /* BitcoinTest.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		8C82761120916CF10029BE7E /* SwiftLightningTests */ = {
+			isa = PBXGroup;
+			children = (
+				8C82761420916CF10029BE7E /* Info.plist */,
+			);
+			path = SwiftLightningTests;
 			sourceTree = "<group>";
 		};
 		8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialogView */ = {
@@ -999,24 +1019,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8C090E57208960E6009B8B8D /* SwiftLightningTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8C090E5F208960E6009B8B8D /* Build configuration list for PBXNativeTarget "SwiftLightningTests" */;
-			buildPhases = (
-				8C090E54208960E6009B8B8D /* Sources */,
-				8C090E55208960E6009B8B8D /* Frameworks */,
-				8C090E56208960E6009B8B8D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8C090E5E208960E6009B8B8D /* PBXTargetDependency */,
-			);
-			name = SwiftLightningTests;
-			productName = SwiftLightningTests;
-			productReference = 8C090E58208960E6009B8B8D /* SwiftLightningTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		8C2FC7032073513600966D31 /* SwiftLightning */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8C2FC7162073513900966D31 /* Build configuration list for PBXNativeTarget "SwiftLightning" */;
@@ -1038,6 +1040,24 @@
 			productReference = 8C2FC7042073513700966D31 /* SwiftLightning.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8C82760F20916CF10029BE7E /* SwiftLightningTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C82761720916CF10029BE7E /* Build configuration list for PBXNativeTarget "SwiftLightningTests" */;
+			buildPhases = (
+				8C82760C20916CF10029BE7E /* Sources */,
+				8C82760D20916CF10029BE7E /* Frameworks */,
+				8C82760E20916CF10029BE7E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8C82761620916CF10029BE7E /* PBXTargetDependency */,
+			);
+			name = SwiftLightningTests;
+			productName = SwiftLightningTests;
+			productReference = 8C82761020916CF10029BE7E /* SwiftLightningTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1048,12 +1068,13 @@
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = BiscottiGelato;
 				TargetAttributes = {
-					8C090E57208960E6009B8B8D = {
-						CreatedOnToolsVersion = 9.3;
-						TestTargetID = 8C2FC7032073513600966D31;
-					};
 					8C2FC7032073513600966D31 = {
 						CreatedOnToolsVersion = 9.3;
+					};
+					8C82760F20916CF10029BE7E = {
+						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
+						TestTargetID = 8C2FC7032073513600966D31;
 					};
 				};
 			};
@@ -1071,19 +1092,12 @@
 			projectRoot = "";
 			targets = (
 				8C2FC7032073513600966D31 /* SwiftLightning */,
-				8C090E57208960E6009B8B8D /* SwiftLightningTests */,
+				8C82760F20916CF10029BE7E /* SwiftLightningTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8C090E56208960E6009B8B8D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8C2FC7022073513600966D31 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1142,6 +1156,13 @@
 				8C090E2420885C84009B8B8D /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				8C090E2320885C84009B8B8D /* OpenSans-ExtraBold.ttf in Resources */,
 				8C8275FE209118330029BE7E /* SLFormNodeView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C82760E20916CF10029BE7E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1228,14 +1249,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8C090E54208960E6009B8B8D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8C090E6320896172009B8B8D /* SLRandValuesTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8C2FC7002073513600966D31 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1352,13 +1365,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8C82760C20916CF10029BE7E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C82761D20916FA40029BE7E /* BitcoinTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8C090E5E208960E6009B8B8D /* PBXTargetDependency */ = {
+		8C82761620916CF10029BE7E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8C2FC7032073513600966D31 /* SwiftLightning */;
-			targetProxy = 8C090E5D208960E6009B8B8D /* PBXContainerItemProxy */;
+			targetProxy = 8C82761520916CF10029BE7E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1382,48 +1403,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		8C090E60208960E6009B8B8D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G37J442U66;
-				INFOPLIST_FILE = SwiftLightningTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightningTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftLightning.app/SwiftLightning";
-			};
-			name = Debug;
-		};
-		8C090E61208960E6009B8B8D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G37J442U66;
-				INFOPLIST_FILE = SwiftLightningTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightningTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftLightning.app/SwiftLightning";
-			};
-			name = Release;
-		};
 		8C2FC7142073513900966D31 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1587,18 +1566,54 @@
 			};
 			name = Release;
 		};
+		8C82761820916CF10029BE7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G37J442U66;
+				INFOPLIST_FILE = SwiftLightningTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightningTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftLightning.app/SwiftLightning";
+			};
+			name = Debug;
+		};
+		8C82761920916CF10029BE7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G37J442U66;
+				INFOPLIST_FILE = SwiftLightningTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightningTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftLightning.app/SwiftLightning";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8C090E5F208960E6009B8B8D /* Build configuration list for PBXNativeTarget "SwiftLightningTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8C090E60208960E6009B8B8D /* Debug */,
-				8C090E61208960E6009B8B8D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		8C2FC6FF2073513600966D31 /* Build configuration list for PBXProject "SwiftLightning" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1613,6 +1628,15 @@
 			buildConfigurations = (
 				8C2FC7172073513900966D31 /* Debug */,
 				8C2FC7182073513900966D31 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C82761720916CF10029BE7E /* Build configuration list for PBXNativeTarget "SwiftLightningTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C82761820916CF10029BE7E /* Debug */,
+				8C82761920916CF10029BE7E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
