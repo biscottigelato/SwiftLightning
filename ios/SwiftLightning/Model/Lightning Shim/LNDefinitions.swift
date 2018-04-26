@@ -12,6 +12,9 @@ import grpc
 struct LNConstants {
   static let cipherSeedMnemonicWordCount = 24
   static let walletPasswordMinLength = 6
+  static let defaultLightningNodePort = 9735
+  static let maxValidLightningPort = 65535
+  static let minValidLightningPort = 1
 }
 
 
@@ -26,7 +29,7 @@ enum OnChainConfirmSpeed {
     case .economy:
       return "Economy (1 - 3 days)"
     case .normal:
-      return "Normal (few hours)"
+      return "Normal (1 - 4 hours)"
     case .urgent:
       return "Urgent (10 - 30 minutes)"
     case .custom:

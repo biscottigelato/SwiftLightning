@@ -122,8 +122,8 @@ import UIKit
       // convertedLabel.isHidden = false
       feeBalanceStack.isHidden = true
       
-      button.isHidden = false
-      button.setTitle("Swap", for: .normal)
+      button.isHidden = true  // TODO: Allow for reference currency display swapping
+      button.setTitle("sat", for: .normal)
       
     case .moneyFeeBalance:
       let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
@@ -136,8 +136,8 @@ import UIKit
       // convertedLabel.isHidden = false
       // feeBalanceStack.isHidden = false
       
-      button.isHidden = false
-      button.setTitle("Swap", for: .normal)
+      button.isHidden = true  // TODO: Allow for reference currency display swapping
+      button.setTitle("sat", for: .normal)
       
     case .numberIPPort:
       let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
@@ -156,15 +156,24 @@ import UIKit
     invalidateIntrinsicContentSize()
   }
   
-  
-  // MARK: Keyboard management
-  
-  
-  
+
   // MARK: Text Field
   
   @IBAction func textFieldStackTapped(_ sender: UITapGestureRecognizer) {
     textField.becomeFirstResponder()
   }
   
+  
+  // MARK: Button
+  
+  @IBAction func buttonTapped(_ sender: SLBarButton) {
+    switch entryViewType {
+    case .key, .numberIPPort:
+      if let pasteboardString = UIPasteboard.general.string {
+        textField.text = pasteboardString
+      }
+    default:
+      break  // TODO: Allow for reference currency display swapping
+    }
+  }
 }

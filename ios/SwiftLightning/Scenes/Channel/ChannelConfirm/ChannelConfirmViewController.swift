@@ -95,4 +95,22 @@ class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
     channelSummaryView.canRcvAmtLabel.text = viewModel.canRcvAmt
     channelSummaryView.feeAmtLabel.text = viewModel.fee
   }
+  
+  
+  // MARK: Dismiss
+  
+  @IBAction func backTapped(_ sender: UIBarButtonItem) {
+    router?.routeToChannelOpen()
+  }
+  
+  @IBAction func cancelTapped(_ sender: SLBarButton) {
+    router?.routeToChannelOpen()
+  }
+  
+  
+  // MARK: Confirm
+  
+  @IBAction func confirmTapped(_ sender: SLBarButton) {
+    
+  }
 }

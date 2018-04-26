@@ -118,7 +118,7 @@ class ChannelOpenInteractor: ChannelOpenBusinessLogic, ChannelOpenDataStore {
     var isInitPayAmtValid = false
     
     // TODO: Need to know what the text field value means. Satoshi? Bits? USD? etc
-    if let initPayAmt = Bitcoin(inSatoshi: request.fundingAmt), initPayAmt <= fundingAmt {
+    if let initPayAmt = Bitcoin(inSatoshi: request.initPayAmt), initPayAmt <= fundingAmt {
       _initPayAmt = initPayAmt
       isInitPayAmtValid = true
     }

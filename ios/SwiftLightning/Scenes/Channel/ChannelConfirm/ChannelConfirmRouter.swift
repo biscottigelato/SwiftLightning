@@ -12,49 +12,41 @@
 
 import UIKit
 
-@objc protocol ChannelConfirmRoutingLogic
-{
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+@objc protocol ChannelConfirmRoutingLogic {
+  func routeToChannelOpen()
 }
 
-protocol ChannelConfirmDataPassing
-{
+
+protocol ChannelConfirmDataPassing {
   var dataStore: ChannelConfirmDataStore? { get }
 }
 
-class ChannelConfirmRouter: NSObject, ChannelConfirmRoutingLogic, ChannelConfirmDataPassing
-{
+
+class ChannelConfirmRouter: NSObject, ChannelConfirmRoutingLogic, ChannelConfirmDataPassing {
+  
   weak var viewController: ChannelConfirmViewController?
   var dataStore: ChannelConfirmDataStore?
   
+  
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToChannelOpen() {
+    let destinationVC = viewController!.presentingViewController as! ChannelOpenViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToChannelOpen(source: dataStore!, destination: &destinationDS)
+    navigateToChannelOpen(source: viewController!, destination: destinationVC)
+  }
 
+  
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: ChannelConfirmViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func navigateToChannelOpen(source: ChannelConfirmViewController, destination: ChannelOpenViewController) {
+    source.navigationController?.popViewController(animated: true)
+  }
   
-  // MARK: Passing data
   
-  //func passDataToSomewhere(source: ChannelConfirmDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  // MARK: Passing Data
+  
+  func passDataToChannelOpen(source: ChannelConfirmDataStore, destination: inout ChannelOpenDataStore) {
+  }
 }

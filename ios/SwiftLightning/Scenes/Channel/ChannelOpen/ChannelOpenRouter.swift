@@ -12,48 +12,63 @@
 
 import UIKit
 
-@objc protocol ChannelOpenRoutingLogic
-{
+@objc protocol ChannelOpenRoutingLogic {
   func routeToChannelConfirm()
+  func routeToWalletMain()
 }
 
-protocol ChannelOpenDataPassing
-{
+
+protocol ChannelOpenDataPassing {
   var dataStore: ChannelOpenDataStore? { get }
 }
 
-class ChannelOpenRouter: NSObject, ChannelOpenRoutingLogic, ChannelOpenDataPassing
-{
+
+class ChannelOpenRouter: NSObject, ChannelOpenRoutingLogic, ChannelOpenDataPassing {
+  
   weak var viewController: ChannelOpenViewController?
   var dataStore: ChannelOpenDataStore?
   
+  
   // MARK: Routing
   
-  func routeToChannelConfirm()
-  {
+  func routeToChannelConfirm() {
     let storyboard = UIStoryboard(name: "ChannelConfirm", bundle: nil)
     let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChannelConfirmViewController") as! ChannelConfirmViewController
     var destinationDS = destinationVC.router!.dataStore!
     passDataToChannelConfirm(source: dataStore!, destination: &destinationDS)
     navigateToChannelConfirm(source: viewController!, destination: destinationVC)
   }
+  
+  func routeToWalletMain() {
+    let destinationVC = viewController!.presentingViewController as! WalletMainViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToWalletMain(source: dataStore!, destination: &destinationDS)
+    navigateToWalletMain(source: viewController!, destination: destinationVC)
+  }
 
+  
   // MARK: Navigation
   
-  func navigateToChannelConfirm(source: ChannelOpenViewController, destination: ChannelConfirmViewController)
-  {
+  func navigateToChannelConfirm(source: ChannelOpenViewController, destination: ChannelConfirmViewController) {
     source.navigationController?.pushViewController(destination, animated: true)
   }
   
+  func navigateToWalletMain(source: ChannelOpenViewController, destination: WalletMainViewController) {
+    source.navigationController?.popViewController(animated: true)
+  }
+  
+  
   // MARK: Passing data
   
-  func passDataToChannelConfirm(source: ChannelOpenDataStore, destination: inout ChannelConfirmDataStore)
-  {
+  func passDataToChannelConfirm(source: ChannelOpenDataStore, destination: inout ChannelConfirmDataStore) {
     destination.nodePubKey = source.nodePubKey
     destination.nodeIP = source.nodeIP
     destination.nodePort = source.nodePort
     destination.fundingAmt = source.fundingAmt
     destination.initPayAmt = source.initPayAmt
     destination.confSpeed = source.confSpeed
+  }
+  
+  func passDataToWalletMain(source: ChannelOpenDataStore, destination: inout WalletMainDataStore) {
   }
 }

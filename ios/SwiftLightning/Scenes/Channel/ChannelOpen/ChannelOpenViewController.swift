@@ -106,4 +106,11 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
       self.present(alertDialog, animated: true, completion: nil)
     }
   }
+  
+  
+  // MARK: Dismiss
+  
+  @IBAction func closeCrossTapped(_ sender: UIBarButtonItem) {
+    router?.routeToWalletMain()
+  }
 }

@@ -26,17 +26,17 @@ class ChannelConfirmPresenter: ChannelConfirmPresentationLogic
   
   func presentRefreshAll<C: Currency>(response: ChannelConfirm.RefreshAll.Response<C>) {
 
-    let viewModel = ChannelConfirm.RefreshAll.ViewModel(fundingAmt: response.fundingAmt.formattedInSatoshis(),
+    let viewModel = ChannelConfirm.RefreshAll.ViewModel(fundingAmt: response.fundingAmt.formattedInSatoshis() + " sat",
                                                         refFundingAmt: "",
                                                         nodePubKey: response.nodePubKey,
                                                         nodeIP: response.nodeIP,
                                                         nodePort: String(response.nodePort),
-                                                        initPayAmt: response.initPayAmt.formattedInSatoshis(),
+                                                        initPayAmt: response.initPayAmt.formattedInSatoshis() + " sat",
                                                         refInitPayAmt: "",
                                                         confSpeed: response.confSpeed.description,
-                                                        canPayAmt: response.canPayAmt.formattedInSatoshis(),
-                                                        canRcvAmt: response.canPayAmt.formattedInSatoshis(),
-                                                        fee: "")
+                                                        canPayAmt: response.canPayAmt.formattedInSatoshis() + " s",
+                                                        canRcvAmt: response.canRcvAmt.formattedInSatoshis() + " s",
+                                                        fee: "auto")
     
     viewController?.displayRefreshAll(viewModel: viewModel)
   }

@@ -194,6 +194,9 @@
                     <navigationItem key="navigationItem" id="Wym-8w-ANL">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="CloseCrossLight" id="5gj-Kh-wue">
                             <color key="tintColor" name="NormalText"/>
+                            <connections>
+                                <action selector="closeCrossTapped:" destination="Mvo-Yz-Rga" id="kIh-nm-fcW"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="CameraLight" id="OJM-P7-q7F">
                             <color key="tintColor" name="NormalText"/>

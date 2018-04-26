@@ -57,34 +57,24 @@ class LNManager {
   
   static func parsePortIPString(_ ipPortString: String) -> (ipString: String?, port: Int?) {
     var ipString: String?
+    var port: Int? = LNConstants.defaultLightningNodePort
     
     // Try to break into IP and Port
     let subStrings = ipPortString.split(separator: ":")
-    guard subStrings.count == 2 else { return (nil, nil) }
+    guard subStrings.count > 0, subStrings.count < 3 else { return (nil, nil) }
     
-    let ipAddressString = subStrings[0]
-    let portString = subStrings[1]
+    // TODO: Actually Validate the address. But given it can also be a named domain.. It's difficult...
+    ipString = String(subStrings[0])
     
-    // Validate IP Address
-    let ipOctetStrings = ipAddressString.split(separator: ".")
-    
-    if ipOctetStrings.count != 4 {
-      ipString = nil
-    } else {
-      ipString = String(ipAddressString)
-      for ipOctetString in ipOctetStrings {
-        guard let ipOctet = Int(ipOctetString), ipOctet >= 0, ipOctet < 256 else {
-          ipString = nil
-          break
-        }
+    if subStrings.count == 2 {
+      // Validate Port
+      if let validPort = Int(subStrings[1]), validPort >= LNConstants.minValidLightningPort, validPort <= LNConstants.maxValidLightningPort {
+        port = validPort
+      } else {
+        port = nil
       }
     }
-    
-    // Validate Port
-    guard let port = Int(portString), port >= 0, port <= 99999 else {
-      return (ipString, nil)
-    }
-    
+
     return (ipString, port)
   }
 }
