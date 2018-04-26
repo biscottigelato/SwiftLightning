@@ -54,4 +54,17 @@ enum ChannelConfirm {
       var errMsg: String
     }
   }
+  
+  enum OpenChannel {
+    struct Request {
+      // Use Data Store values
+    }
+    struct Response {
+      var result: Result<Void>
+    }
+    struct ErrorVM {
+      var errTitle: String
+      var errMsg: String
+    }
+  }
 }

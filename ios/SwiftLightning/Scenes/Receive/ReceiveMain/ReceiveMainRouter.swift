@@ -32,16 +32,16 @@ class ReceiveMainRouter: NSObject, ReceiveMainRoutingLogic, ReceiveMainDataPassi
   
   func routeToWalletMain()
   {
-    let storyboard = UIStoryboard(name: "WalletNavigation", bundle: nil)
-    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletMainViewController") as! WalletMainViewController
-    var destinationDS = destinationVC.router!.dataStore!
-    passDataToWalletMain(source: dataStore!, destination: &destinationDS)
-    navigateToWalletMain(source: viewController!, destination: destinationVC)
+//    let storyboard = UIStoryboard(name: "WalletNavigation", bundle: nil)
+//    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletMainViewController") as! WalletMainViewController
+//    var destinationDS = destinationVC.router!.dataStore!
+//    passDataToWalletMain(source: dataStore!, destination: &destinationDS)
+    navigateToWalletMain(source: viewController!)
   }
 
   // MARK: Navigation
   
-  func navigateToWalletMain(source: ReceiveMainViewController, destination: WalletMainViewController)
+  func navigateToWalletMain(source: ReceiveMainViewController)
   {
     guard let navigationController = source.navigationController else {
       SLLog.assert("\(type(of: source)).navigationController = nil")

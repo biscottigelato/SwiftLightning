@@ -40,21 +40,29 @@ class ChannelOpenRouter: NSObject, ChannelOpenRoutingLogic, ChannelOpenDataPassi
   }
   
   func routeToWalletMain() {
-    let destinationVC = viewController!.presentingViewController as! WalletMainViewController
-    var destinationDS = destinationVC.router!.dataStore!
-    passDataToWalletMain(source: dataStore!, destination: &destinationDS)
-    navigateToWalletMain(source: viewController!, destination: destinationVC)
+//    let destinationVC = viewController! as! WalletMainViewController
+//    var destinationDS = destinationVC.router!.dataStore!
+//    passDataToWalletMain(source: dataStore!, destination: &destinationDS)
+    navigateToWalletMain(source: viewController!)
   }
 
   
   // MARK: Navigation
   
   func navigateToChannelConfirm(source: ChannelOpenViewController, destination: ChannelConfirmViewController) {
-    source.navigationController?.pushViewController(destination, animated: true)
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    navigationController.pushViewController(destination, animated: true)
   }
   
-  func navigateToWalletMain(source: ChannelOpenViewController, destination: WalletMainViewController) {
-    source.navigationController?.popViewController(animated: true)
+  func navigateToWalletMain(source: ChannelOpenViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    navigationController.popViewController(animated: true)
   }
   
   

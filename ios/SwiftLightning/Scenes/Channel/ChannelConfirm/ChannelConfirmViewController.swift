@@ -108,7 +108,7 @@ class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
   }
   
   
-  // MARK: Confirm
+  // MARK: Channel Opening Confirmed
   
   @IBAction func confirmTapped(_ sender: SLBarButton) {
     

@@ -31,17 +31,21 @@ class ChannelConfirmRouter: NSObject, ChannelConfirmRoutingLogic, ChannelConfirm
   // MARK: Routing
   
   func routeToChannelOpen() {
-    let destinationVC = viewController!.presentingViewController as! ChannelOpenViewController
-    var destinationDS = destinationVC.router!.dataStore!
-    passDataToChannelOpen(source: dataStore!, destination: &destinationDS)
-    navigateToChannelOpen(source: viewController!, destination: destinationVC)
+//    let destinationVC = viewController!.presentingViewController as! ChannelOpenViewController
+//    var destinationDS = destinationVC.router!.dataStore!
+//    passDataToChannelOpen(source: dataStore!, destination: &destinationDS)
+    navigateToChannelOpen(source: viewController!)
   }
 
   
   // MARK: Navigation
   
-  func navigateToChannelOpen(source: ChannelConfirmViewController, destination: ChannelOpenViewController) {
-    source.navigationController?.popViewController(animated: true)
+  func navigateToChannelOpen(source: ChannelConfirmViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    navigationController.popViewController(animated: true)
   }
   
   
