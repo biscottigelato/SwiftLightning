@@ -40,6 +40,174 @@ enum OnChainConfirmSpeed {
 }
 
 
+// MARK: Lightning - Blockchain Entities
+
+struct LNPeer: CustomStringConvertible {
+  var pubKey: String
+  var address: String
+  var bytesSent: UInt
+  var bytesRecv: UInt
+  var satSent: Int
+  var satRecv: Int
+  var inbound: Bool
+  var pingTime: Int
+
+  var description: String {
+    return """
+      LN Peer details -
+        pubKey:    \(pubKey)
+        address:   \(address)
+        bytesSent: \(bytesSent)
+        bytesRecv: \(bytesRecv)
+        satSent:   \(satSent)
+        satRecv:   \(satRecv)
+        inbound:   \(inbound)
+        pingTime:  \(pingTime)
+      """
+  }
+}
+
+
+struct LNChannel: CustomStringConvertible {
+  var isActive: Bool
+  var remotePubKey: String
+  var channelPoint: String
+  var chanID: UInt
+  var capacity: Int
+  var localBalance: Int
+  var remoteBalance: Int
+  var commitFee: Int
+  var commitWeight: Int
+  var feePerKw: Int
+  var unsettledBalance: Int
+  var totalSatoshisSent: Int
+  var totalSatoshisReceived: Int
+  var numUpdates: UInt
+  var pendingHTLCs: [LNHTLC]
+  var csvDelay: UInt
+  var isPrivate: Bool
+  
+  var description: String {
+    var descriptiveString = """
+      LN Channel details -
+        active:           \(isActive)
+        remotePubKey:     \(remotePubKey)
+        channelPoint:     \(channelPoint)
+        chanID:           \(chanID)
+        capacity:         \(capacity)
+        localBalance:     \(localBalance)
+        remoteBalance:    \(remoteBalance)
+        commitFee:        \(commitFee)
+        commitWeight:     \(commitWeight)
+        feePerKw:         \(feePerKw)
+        unsettledBalance: \(unsettledBalance)
+        satoshisSent:     \(totalSatoshisSent)
+        satoshisReceived: \(totalSatoshisReceived)
+        numUpdates:       \(numUpdates)
+        csvDelay:         \(csvDelay)
+        private:          \(isPrivate)
+      """
+    
+    for (index, htlc) in pendingHTLCs.enumerated() {
+      descriptiveString += "\nHTLC #\(index)\n\(htlc)"
+    }
+    
+    return descriptiveString
+  }
+}
+
+
+struct LNHTLC: CustomStringConvertible {
+  var incoming: Bool
+  var amount: Int
+  var hashLock: Data
+  var expirationHeight: UInt
+  
+  var description: String {
+    return """
+      HTLC details -
+        incoming:         \(incoming)
+        amount:           \(amount)
+        hashLock:         \(hashLock)
+        expirationHeight: \(expirationHeight)
+      """
+  }
+}
+
+
+struct LNTransaction {
+  
+}
+
+
+struct BTCTransactions {
+  
+}
+
+
+struct LNDInfo: CustomStringConvertible {
+  var identityPubkey: String
+  var alias: String
+  var numPendingChannels: UInt
+  var numActiveChannels: UInt
+  var numPeers: UInt
+  var blockHeight: UInt32
+  var blockHash: String
+  var syncedToChain: Bool
+  var testnet: Bool
+  var chains: [String]
+  var uris: [String]
+  var bestHeaderTimestamp: Int
+  
+  var description: String {
+    return """
+    LND Information -
+      Identity Pubkey:       \(identityPubkey)
+      Alias:                 \(alias)
+      Num Pending Channels:  \(numPendingChannels)
+      Num Active Channels :  \(numActiveChannels)
+      Number of Peers:       \(numPeers)
+      Block Height:          \(blockHeight)
+      Block Hash:            \(blockHash)")
+      Synced to Chain:       \(syncedToChain)
+      Testnet:               \(testnet)
+      Chains:                \(chains.joined(separator: ", "))
+      URIs:                  \(uris.joined(separator: ", "))
+      Best Header Timestamp: \(bestHeaderTimestamp)
+    """
+  }
+}
+
+
+// MARK: Errors
+
+
+enum LNError: Int, Error {
+  
+  case createWalletInvalidCipherSeed
+  case createWalletInvalidPassword
+  
+  case unlockWalletInvalidPassword
+  
+  
+  // Computed Properties
+  var code: Int { return self.rawValue }
+  
+  var localizedDescription: String {
+    switch self {
+      
+    case .createWalletInvalidCipherSeed:
+      return NSLocalizedString("Cipher seed invalid when creating wallet", comment: "LNError Type")
+    case .createWalletInvalidPassword:
+      return NSLocalizedString("Password invalid when creating wallet", comment: "LNError Type")
+      
+    case .unlockWalletInvalidPassword:
+      return NSLocalizedString("Password invalid when unlocking wallet", comment: "LNError Type")
+    }
+  }
+}
+
+
 class GRPCResultError: NSError {
   static let domain = "GRPCResultDomain"
   
@@ -175,27 +343,4 @@ class GRPCResultError: NSError {
 }
 
 
-enum LNError: Int, Error {
-  
-  case createWalletInvalidCipherSeed
-  case createWalletInvalidPassword
-  
-  case unlockWalletInvalidPassword
-  
-  
-  // Computed Properties
-  var code: Int { return self.rawValue }
-  
-  var localizedDescription: String {
-    switch self {
-      
-    case .createWalletInvalidCipherSeed:
-      return NSLocalizedString("Cipher seed invalid when creating wallet", comment: "LNError Type")
-    case .createWalletInvalidPassword:
-      return NSLocalizedString("Password invalid when creating wallet", comment: "LNError Type")
-      
-    case .unlockWalletInvalidPassword:
-      return NSLocalizedString("Password invalid when unlocking wallet", comment: "LNError Type")
-    }
-  }
-}
+

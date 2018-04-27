@@ -72,7 +72,7 @@ class PlaygroundViewController: SLViewController {
   @IBAction func getInfo(_ sender: UIButton) {
     LNServices.getInfo { (result) in
       do {
-        try result()
+        _ = try result()
       } catch {
         SLLog.warning(error.localizedDescription)
       }
@@ -222,7 +222,7 @@ class PlaygroundViewController: SLViewController {
   @IBAction func listPeer(_ sender: UIButton) {
     LNServices.listPeers { (response) in
       do {
-        try response()
+        _ = try response()
       } catch {
         SLLog.warning(error.localizedDescription)
       }
@@ -233,7 +233,7 @@ class PlaygroundViewController: SLViewController {
   @IBAction func listChannels(_ sender: UIButton) {
     LNServices.listChannels { (response) in
       do {
-        try response()
+        _ = try response()
       } catch {
         SLLog.warning(error.localizedDescription)
       }

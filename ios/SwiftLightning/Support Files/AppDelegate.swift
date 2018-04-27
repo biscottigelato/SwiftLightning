@@ -26,18 +26,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UIApplication.shared.statusBarStyle = .lightContent
 
     // Launch Root View Controller
-    let storyboard = UIStoryboard(name: "Root", bundle: nil)
-    guard let viewController = storyboard.instantiateViewController(withIdentifier: "RootViewController") as? RootViewController else {
-      SLLog.fatal("ViewController initiated not of RootViewController Class!!")
-    }
-    
-    AppDelegate.rootViewController = viewController
+//    let storyboard = UIStoryboard(name: "Root", bundle: nil)
+//    guard let viewController = storyboard.instantiateViewController(withIdentifier: "RootViewController") as? RootViewController else {
+//      SLLog.fatal("ViewController initiated not of RootViewController Class!!")
+//    }
+//
+//    AppDelegate.rootViewController = viewController
 
     // Launch Playground
-//    let storyboard = UIStoryboard(name: "Playground", bundle: nil)
-//    guard let viewController = storyboard.instantiateViewController(withIdentifier: "PlaygroundViewController") as? PlaygroundViewController else {
-//      SLLog.fatal("ViewController initiated not of PlaygroundViewController Class!!")
-//    }
+    let storyboard = UIStoryboard(name: "Playground", bundle: nil)
+    guard let viewController = storyboard.instantiateViewController(withIdentifier: "PlaygroundViewController") as? PlaygroundViewController else {
+      SLLog.fatal("ViewController initiated not of PlaygroundViewController Class!!")
+    }
     
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.rootViewController = viewController

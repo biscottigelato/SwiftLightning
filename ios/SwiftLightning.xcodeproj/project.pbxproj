@@ -138,7 +138,6 @@
 		8C8275DC208FF1CF0029BE7E /* Bitcoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275DB208FF1CF0029BE7E /* Bitcoin.swift */; };
 		8C8275DE208FF8640029BE7E /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275DD208FF8630029BE7E /* Money.swift */; };
 		8C8275E0208FF8770029BE7E /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275DF208FF8770029BE7E /* Currency.swift */; };
-		8C8275E32090349D0029BE7E /* LNChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275E22090349D0029BE7E /* LNChannel.swift */; };
 		8C8275EF20910FA40029BE7E /* ChannelConfirmPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275E920910FA40029BE7E /* ChannelConfirmPresenter.swift */; };
 		8C8275F020910FA40029BE7E /* ChannelConfirmWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275EA20910FA40029BE7E /* ChannelConfirmWorker.swift */; };
 		8C8275F120910FA40029BE7E /* ChannelConfirmRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275EB20910FA40029BE7E /* ChannelConfirmRouter.swift */; };
@@ -322,7 +321,6 @@
 		8C8275DB208FF1CF0029BE7E /* Bitcoin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bitcoin.swift; sourceTree = "<group>"; };
 		8C8275DD208FF8630029BE7E /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
 		8C8275DF208FF8770029BE7E /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
-		8C8275E22090349D0029BE7E /* LNChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNChannel.swift; sourceTree = "<group>"; };
 		8C8275E920910FA40029BE7E /* ChannelConfirmPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelConfirmPresenter.swift; sourceTree = "<group>"; };
 		8C8275EA20910FA40029BE7E /* ChannelConfirmWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelConfirmWorker.swift; sourceTree = "<group>"; };
 		8C8275EB20910FA40029BE7E /* ChannelConfirmRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelConfirmRouter.swift; sourceTree = "<group>"; };
@@ -410,7 +408,6 @@
 		8C090DF020870AE7009B8B8D /* Lightning Shim */ = {
 			isa = PBXGroup;
 			children = (
-				8C8275E22090349D0029BE7E /* LNChannel.swift */,
 				8C090DF320870DB9009B8B8D /* LNDefinitions.swift */,
 				8C090E032087F28D009B8B8D /* LNManager.swift */,
 				8C4710FA2077E79C005D7ABC /* LNServices.swift */,
@@ -1335,7 +1332,6 @@
 				8C6B755E208B17BD00B751A2 /* WalletMainWorker.swift in Sources */,
 				8C6B7541208AF33200B751A2 /* RootPresenter.swift in Sources */,
 				8C8275C8208EA63D0029BE7E /* SLFormEntryView.swift in Sources */,
-				8C8275E32090349D0029BE7E /* LNChannel.swift in Sources */,
 				8C8275EF20910FA40029BE7E /* ChannelConfirmPresenter.swift in Sources */,
 				8C8275F220910FA40029BE7E /* ChannelConfirmModels.swift in Sources */,
 				8C090E4420894801009B8B8D /* MnemonicConfirmRouter.swift in Sources */,

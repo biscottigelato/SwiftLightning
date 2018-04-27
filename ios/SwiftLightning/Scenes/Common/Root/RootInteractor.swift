@@ -44,7 +44,7 @@ class RootInteractor: RootBusinessLogic, RootDataStore
     // Decrease retry delay so unlock process is more responsive
     LNServices.getInfo(retryCount: 20, retryDelay: 0.5) { (completion) in
       do {
-        try completion()
+        _ = try completion()
         let response = Root.ConfirmWalletUnlock.Response(isWalletUnlocked: true)
         self.presenter?.presentConfirmWalletUnlock(response: response)
       } catch {

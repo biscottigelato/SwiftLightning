@@ -97,7 +97,7 @@ class LNServices {
     // Unary GRPC
     _ = try walletUnlockerService!.genSeed(Lnrpc_GenSeedRequest()) { (response, result) in
       if let response = response {
-        SLLog.info("LN Generate Seed Success!")
+        SLLog.debug("LN Generate Seed Success!")
         
         #if DEBUG  // CAUTION: Make double sure this only gets logged on Debug
         var ciperSeedMnemonicDisplayString = "Generated Mnemonic: "
@@ -144,7 +144,7 @@ class LNServices {
     // Unary GRPC
     _ = try walletUnlockerService!.initWallet(request) { (response, result) in
       if response != nil {
-        SLLog.info("LN Create Wallet Success!")
+        SLLog.debug("LN Create Wallet Success!")
         completion({ return })
       } else {
         let message = result.statusMessage ?? result.description
@@ -173,7 +173,7 @@ class LNServices {
     // Unary GRPC
     _ = try walletUnlockerService!.unlockWallet(request) { (response, result) in
       if response != nil {
-        SLLog.info("LN Unlock Wallet Success!")
+        SLLog.debug("LN Unlock Wallet Success!")
         completion({ return })
       } else {
         let message = result.statusMessage ?? result.description
@@ -216,6 +216,8 @@ class LNServices {
         // Unary GRPC
         _ = try lightningService!.walletBalance(Lnrpc_WalletBalanceRequest()) { (response, result) in
           if let response = response {
+            SLLog.debug("LN Wallet Balance Success!")
+            
             let totalBalance = Int(response.totalBalance)
             let confirmedBalance = Int(response.confirmedBalance)
             let unconfirmedBalance = Int(response.unconfirmedBalance)
@@ -263,7 +265,7 @@ class LNServices {
         _ = try lightningService!.newAddress(newAddressRequest) { (response, result) in
           
           if let response = response {
-            SLLog.info("LN New Address Success!")
+            SLLog.debug("LN New Address Success!")
             
             // Success! - dereference retry
             retry.success()
@@ -317,7 +319,7 @@ class LNServices {
           retry.success()
           
           if response != nil {
-            SLLog.info("LN Connect Peer Success!")
+            SLLog.debug("LN Connect Peer Success!")
             completion({ return })
           } else {
             let message = result.statusMessage ?? result.description
@@ -348,7 +350,7 @@ class LNServices {
   
   static func listPeers(retryCount: Int = LNManager.Constants.defaultRetryCount,
                         retryDelay: Double = LNManager.Constants.defaultRetryDelay,
-                        completion: @escaping (() throws -> ()) -> Void) {
+                        completion: @escaping (() throws -> ([LNPeer])) -> Void) {
     let retry = SLRetry()
     let task = { () -> () in
       do {
@@ -357,25 +359,30 @@ class LNServices {
         // Unary GRPC
         _ = try lightningService!.listPeers(Lnrpc_ListPeersRequest()) { (response, result) in
           if let response = response {
+            SLLog.debug("LN List Peers Success!")
             
-            SLLog.verbose("LN List Peers Success!")
-            
+            var lnPeers = [LNPeer]()
             for (index, peer) in response.peers.enumerated() {
+              
+              let lnPeer = LNPeer(pubKey: peer.pubKey,
+                                  address: peer.address,
+                                  bytesSent: UInt(peer.bytesSent),
+                                  bytesRecv: UInt(peer.bytesRecv),
+                                  satSent: Int(peer.satSent),
+                                  satRecv: Int(peer.satRecv),
+                                  inbound: peer.inbound,
+                                  pingTime: Int(peer.pingTime))
+              
+              lnPeers.append(lnPeer)
+              
               SLLog.verbose("")
               SLLog.verbose("Peer #\(index)")
-              SLLog.verbose(" pub_key: \(peer.pubKey)")
-              SLLog.verbose(" address: \(peer.address)")
-              SLLog.verbose(" bytes_sent: \(peer.bytesSent)")
-              SLLog.verbose(" bytes_recv: \(peer.bytesRecv)")
-              SLLog.verbose(" sat_sent: \(peer.satSent)")
-              SLLog.verbose(" sat_recv: \(peer.satRecv)")
-              SLLog.verbose(" inbound: \(peer.inbound)")
-              SLLog.verbose(" ping_time: \(peer.pingTime)")
+              SLLog.verbose(String(describing: lnPeer))
             }
             
             // Success! - dereference retry
             retry.success()
-            completion({ return })
+            completion({ return lnPeers })
             
           } else {
             let message = result.statusMessage ?? result.description
@@ -402,7 +409,7 @@ class LNServices {
   
   static func getInfo(retryCount: Int = LNManager.Constants.defaultRetryCount,
                       retryDelay: Double = LNManager.Constants.defaultRetryDelay,
-                      completion: @escaping (() throws -> ()) -> Void) {  //TODO: Should return an info struct of sort
+                      completion: @escaping (() throws -> (LNDInfo)) -> Void) {  //TODO: Should return an info struct of sort
     
     let retry = SLRetry()
     let task = { () -> () in
@@ -412,23 +419,26 @@ class LNServices {
         // Unary GRPC
         _ = try lightningService!.getInfo(Lnrpc_GetInfoRequest()) { (response, result) in
           if let response = response {
-            SLLog.verbose("LN Get Info Success!")
-            SLLog.verbose("Identity Pubkey:       \(response.identityPubkey)")
-            SLLog.verbose("Alias:                 \(response.alias)")
-            SLLog.verbose("Num Pending Channels:  \(response.numPendingChannels)")
-            SLLog.verbose("Num Active Channels :  \(response.numActiveChannels)")
-            SLLog.verbose("Number of Peers:       \(response.numPeers)")
-            SLLog.verbose("Block Height:          \(response.blockHeight)")
-            SLLog.verbose("Block Hash:            \(response.blockHash)")
-            SLLog.verbose("Synced to Chain:       \(response.syncedToChain)")
-            SLLog.verbose("Testnet:               \(response.testnet)")
-            SLLog.verbose("Chains:                \(response.chains.joined(separator: ", "))")
-            SLLog.verbose("URIs:                  \(response.uris.joined(separator: ", "))")
-            SLLog.verbose("Best Header Timestamp: \(response.bestHeaderTimestamp)")
+            SLLog.debug("LN Get Info Success!")
+            
+            let lndInfo = LNDInfo(identityPubkey: response.identityPubkey,
+                                  alias: response.alias,
+                                  numPendingChannels: UInt(response.numPendingChannels),
+                                  numActiveChannels: UInt(response.numActiveChannels),
+                                  numPeers: UInt(response.numPeers),
+                                  blockHeight: response.blockHeight,
+                                  blockHash: response.blockHash,
+                                  syncedToChain: response.syncedToChain,
+                                  testnet: response.testnet,
+                                  chains: response.chains,
+                                  uris: response.uris,
+                                  bestHeaderTimestamp: Int(response.bestHeaderTimestamp))
+            
+            SLLog.verbose(String(describing: lndInfo))
             
             // Success! - dereference retry
             retry.success()
-            completion({ return })
+            completion({ return lndInfo })
             
           } else {
             let message = result.statusMessage ?? result.description
@@ -455,7 +465,7 @@ class LNServices {
   
   static func listChannels(retryCount: Int = LNManager.Constants.defaultRetryCount,
                            retryDelay: Double = LNManager.Constants.defaultRetryDelay,
-                           completion: @escaping (() throws -> ()) -> Void) {
+                           completion: @escaping (() throws -> ([LNChannel])) -> Void) {
     let retry = SLRetry()
     let task = { () -> () in
       do {
@@ -464,44 +474,47 @@ class LNServices {
         // Unary GRPC
         _ = try lightningService!.listChannels(Lnrpc_ListChannelsRequest()) { (response, result) in
           if let response = response {
+            SLLog.debug("LN List Channels Success!")
             
-            SLLog.verbose("LN List Channels Success!")
-            
+            var lnChannels = [LNChannel]()
             for (index, channel) in response.channels.enumerated() {
+              
+              var lnHTLCs = [LNHTLC]()
+              for htlc in channel.pendingHtlcs {
+                let lnHTLC = LNHTLC(incoming: htlc.incoming,
+                                    amount: Int(htlc.amount),
+                                    hashLock: htlc.hashLock,
+                                    expirationHeight: UInt(htlc.expirationHeight))
+                lnHTLCs.append(lnHTLC)
+              }
+              
+              let lnChannel = LNChannel(isActive: channel.active,
+                                        remotePubKey: channel.remotePubkey,
+                                        channelPoint: channel.channelPoint,
+                                        chanID: UInt(channel.chanID),
+                                        capacity: Int(channel.capacity),
+                                        localBalance: Int(channel.localBalance),
+                                        remoteBalance: Int(channel.remoteBalance),
+                                        commitFee: Int(channel.commitFee),
+                                        commitWeight: Int(channel.commitWeight),
+                                        feePerKw: Int(channel.feePerKw),
+                                        unsettledBalance: Int(channel.unsettledBalance),
+                                        totalSatoshisSent: Int(channel.totalSatoshisSent),
+                                        totalSatoshisReceived: Int(channel.totalSatoshisReceived),
+                                        numUpdates: UInt(channel.numUpdates),
+                                        pendingHTLCs: lnHTLCs,
+                                        csvDelay: UInt(channel.csvDelay),
+                                        isPrivate: channel.private)
+              lnChannels.append(lnChannel)
+              
               SLLog.verbose("")
               SLLog.verbose("Channel #\(index)")
-              SLLog.verbose(" active: \(channel.active)")
-              SLLog.verbose(" remote_pubkey: \(channel.remotePubkey)")
-              SLLog.verbose(" channel_point: \(channel.channelPoint)")
-              SLLog.verbose(" chan_id: \(channel.chanID)")
-              SLLog.verbose(" capacity: \(channel.capacity)")
-              SLLog.verbose(" local_balance: \(channel.localBalance)")
-              SLLog.verbose(" remote_balance: \(channel.remoteBalance)")
-              SLLog.verbose(" commit_fee: \(channel.commitFee)")
-              SLLog.verbose(" commit_weight: \(channel.commitWeight)")
-              SLLog.verbose(" fee_per_kw: \(channel.feePerKw)")
-              SLLog.verbose(" unsettled_balance: \(channel.unsettledBalance)")
-              SLLog.verbose(" total_satoshis_sent: \(channel.totalSatoshisSent)")
-              SLLog.verbose(" total_satoshis_received: \(channel.totalSatoshisReceived)")
-              SLLog.verbose(" num_updates: \(channel.numUpdates)")
-              
-              for (htlcIndex, htlc) in channel.pendingHtlcs.enumerated() {
-                SLLog.verbose("")
-                SLLog.verbose(" HTLC #\(htlcIndex)")
-                SLLog.verbose("  incoming: \(htlc.incoming)")
-                SLLog.verbose("  amount: \(htlc.amount)")
-                SLLog.verbose("  hashLock: \(htlc.hashLock.hexEncodedString())")
-                SLLog.verbose("  expirationHeight: \(htlc.expirationHeight)")
-              }
-              if channel.pendingHtlcs.count != 0 { SLLog.verbose("") }
-              
-              SLLog.verbose(" csv_delay: \(channel.csvDelay)")
-              SLLog.verbose(" private: \(channel.private)")
+              SLLog.verbose(String(describing: lnChannel))
             }
             
             // Success! - dereference retry
             retry.success()
-            completion({ return })
+            completion({ return lnChannels })
             
           } else {
             let message = result.statusMessage ?? result.description
@@ -548,7 +561,7 @@ class LNServices {
         // Server Streaming GRPC
         let call = try lightningService!.openChannel(request) { (result) in
           if result.success, result.statusCode.rawValue == 0 {
-            SLLog.info("LN Open Channel Request Success!")
+            SLLog.debug("LN Open Channel Request Success!")
             completion({ return })
           }
           else {
@@ -585,7 +598,7 @@ class LNServices {
     // Unary GRPC
     _ = try lightningService!.stopDaemon(Lnrpc_StopRequest()) { (response, result) in
       if response != nil {
-        SLLog.info("Stop Daemon Success!")
+        SLLog.debug("Stop Daemon Success!")
         completion({ return })
       } else {
         let message = result.statusMessage ?? result.description
