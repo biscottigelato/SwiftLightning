@@ -77,27 +77,19 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
   // MARK: Open Channel
   
   func openChannel(request: ChannelConfirm.OpenChannel.Request) {
-
     guard let nodePubKeyString = nodePubKey, let nodeIP = nodeIP, let nodePort = nodePort,
-      let fundingAmt = fundingAmt, let initPayAmt = initPayAmt else {
+      fundingAmt != nil, initPayAmt != nil else {
         SLLog.fatal("1 or more entry in ChannelConfirmDataStore is nil")
     }
 
-    guard let nodePubKeyData = Data(hexString: nodePubKeyString) else {
+    guard Data(hexString: nodePubKeyString) != nil else {
       SLLog.fatal("Node Pub Key should have been validated ahead of time")
     }
 
     LNServices.connectPeer(pubKey: nodePubKeyString, hostAddr: nodeIP, hostPort: nodePort) { (responder) in
       do {
         try responder()
-        
-        // This is the actual request that opens the channel
-        LNServices.openChannel(nodePubKey: nodePubKeyData,
-                               localFundingAmt: fundingAmt.integerInSatoshis,
-                               pushSat: initPayAmt.integerInSatoshis,
-                               targetConf: LNConstants.defaultChannelConfirmation,
-                               streaming: self.openChannelStreaming,
-                               completion: self.openChannelCompletion)
+        self.checkPeerConnect(pubKey: nodePubKeyString)
         
       } catch {
         let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
@@ -106,11 +98,60 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
     }
   }
 
-
+  
+  private func checkPeerConnect(pubKey: String) {
+    guard let nodePubKeyString = nodePubKey, let fundingAmt = fundingAmt, let initPayAmt = initPayAmt else {
+      SLLog.fatal("1 or more entry in ChannelConfirmDataStore is nil")
+    }
+    
+    guard let nodePubKeyData = Data(hexString: nodePubKeyString) else {
+      SLLog.fatal("Node Pub Key should have been validated ahead of time")
+    }
+    
+    let retry = SLRetry()
+    let task = { () -> () in
+      
+      LNServices.listPeers() { (responder) in
+        do {
+          let peers = try responder()
+          if peers.contains(where: { $0.pubKey == pubKey }) {
+            
+            // This is the actual request that opens the channel
+            LNServices.openChannel(nodePubKey: nodePubKeyData,
+                                   localFundingAmt: fundingAmt.integerInSatoshis,
+                                   pushSat: initPayAmt.integerInSatoshis,
+                                   targetConf: LNConstants.defaultChannelConfirmation,
+                                   streaming: self.openChannelStreaming,
+                                   completion: self.openChannelCompletion)
+          } else {
+            retry.attempt(error: ChannelConfirm.OpenChannelError.peerNotConnected)
+          }
+        } catch {
+          let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
+          self.presenter?.presentOpenChannel(response: response)
+        }
+      }
+    }
+    let fail = { (error: Error) -> () in
+      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
+      self.presenter?.presentOpenChannel(response: response)
+    }
+    
+    retry.start("LN Find Peer",
+                withCountOf: ChannelConfirm.OpenChannel.Constants.lnFindPeerRetry,
+                withDelayOf: ChannelConfirm.OpenChannel.Constants.lnFindPeerDelay,
+                taskBlock: task, failBlock: fail)
+  }
+  
+  
+  
   private func openChannelStreaming(callHandle: () throws -> (Lnrpc_LightningOpenChannelCall)) {
     do {
       /* call */ _ = try callHandle()
-      // TODO: Pass to Stream Handler module for receive handling
+      
+      // TODO: OpenChannel Scene should hang out for at least the first stream before declaring yay
+      
+      // TODO: Pass to Stream Handler module for receive handling after the first stream
 
       let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.success(()))
       presenter?.presentOpenChannel(response: response)
@@ -126,8 +167,12 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
       try responder()
       // TODO: Do direct trigger into Event Center
     } catch {
+      
+      // TODO: This is the nay path if the Open Channel Scene still exists
       let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
       presenter?.presentOpenChannel(response: response)
+      
+      // If the Scene dun exist, route to Event Center instead
       // TODO: Do direct trigger into Event Cetner
     }
   }

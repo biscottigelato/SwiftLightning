@@ -56,12 +56,22 @@ enum ChannelConfirm {
   }
   
   enum OpenChannelError: Error {
-    case PeerConnectFailed(String)
-    case OpenChannelRequestFailed(String)
+    case peerNotConnected
+    
+    var localizedDescription: String {
+      switch self {
+        
+      case .peerNotConnected:
+        return NSLocalizedString("Peer Not Connected", comment: "ChannelConfirm.OpenChannelError Type")
+      }
+    }
   }
   
   enum OpenChannel {
-    
+    struct Constants {
+      static let lnFindPeerRetry = 5
+      static let lnFindPeerDelay = 2.0
+    }
     struct Request {
       // Use Data Store values
     }

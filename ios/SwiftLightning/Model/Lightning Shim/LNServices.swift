@@ -323,7 +323,7 @@ class LNServices {
             completion({ return })
           } else {
             let message = result.statusMessage ?? result.description
-            if message.contains("already connected") {
+            if message.contains("already connected") {  // TODO: Hack: Is there a better way?
               SLLog.warning(message)
               completion({ return })
             } else {
