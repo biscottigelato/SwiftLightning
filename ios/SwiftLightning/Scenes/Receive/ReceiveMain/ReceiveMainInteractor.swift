@@ -28,26 +28,19 @@ class ReceiveMainInteractor: ReceiveMainBusinessLogic, ReceiveMainDataStore
   
   // MARK: Generate On Chain
   
-  func generateOnChain(request: ReceiveMain.GenerateOnChain.Request)
-  {
-    do {
-      try LNServices.newAddress { (responder) in
-        do {
-          let onChainAddress = try responder()
-          let result = Result<String>.success(onChainAddress)
-          let response = ReceiveMain.GenerateOnChain.Response(result: result)
-          self.presenter?.presentOnChain(response: response)
-          
-        } catch {
-          let result = Result<String>.failure(error)
-          let response = ReceiveMain.GenerateOnChain.Response(result: result)
-          self.presenter?.presentOnChain(response: response)
-        }
+  func generateOnChain(request: ReceiveMain.GenerateOnChain.Request) {
+    LNServices.newAddress { (responder) in
+      do {
+        let onChainAddress = try responder()
+        let result = Result<String>.success(onChainAddress)
+        let response = ReceiveMain.GenerateOnChain.Response(result: result)
+        self.presenter?.presentOnChain(response: response)
+        
+      } catch {
+        let result = Result<String>.failure(error)
+        let response = ReceiveMain.GenerateOnChain.Response(result: result)
+        self.presenter?.presentOnChain(response: response)
       }
-    } catch {
-      let result = Result<String>.failure(error)
-      let response = ReceiveMain.GenerateOnChain.Response(result: result)
-      self.presenter?.presentOnChain(response: response)
     }
   }
 }

@@ -64,6 +64,17 @@ class Money<C: Currency>: MoneyType {
   }
   
   
+  // MARK: Convert to fundamental types
+  
+  var integer: Int {
+    return Int(truncating: (amount as NSDecimalNumber))
+  }
+
+  var double: Double? {  // Making this an optional just as a reminder this is dangerous
+    return Double(truncating: (amount as NSDecimalNumber))
+  }
+  
+  
   // MARK: Comparable & Equatable Conformance
   
   static func ==<C: Currency>(lhs: Money<C>, rhs: Money<C>) -> Bool {
@@ -142,7 +153,7 @@ class Money<C: Currency>: MoneyType {
   // Explicitly not allow literal types to be divided by money type
   
   static func /(lhs: Money, rhs: Money) -> Money {
-    return lhs.subtracting(by: rhs)
+    return lhs.dividing(by: rhs)
   }
   
   static func /(lhs: Money, rhs: IntegerLiteralType) -> Money {

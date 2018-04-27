@@ -73,6 +73,17 @@ class Bitcoin: Money<XBT> {
   }
   
   
+  // MARK: Convert to fundamental types
+  
+  var integerInSatoshis: Int {
+    return Int(truncating: (amount as NSDecimalNumber).multiplying(byPowerOf10: -Int16(Constants.magnitudeOfSatoshi)))
+  }
+  
+  var integerInBits: Int {
+    return Int(truncating: (amount as NSDecimalNumber).multiplying(byPowerOf10: -Int16(Constants.magnitudeOfBit)))
+  }
+  
+  
   // MARK: Initializers
   
   convenience init(_ money: Money<XBT>) {

@@ -43,6 +43,21 @@ class BitcoinTest: XCTestCase {
     XCTAssertEqual(btcMoney, xbtMoney)
   }
   
+  func testXBTSubtractionCompatibility() {
+    let result = Bitcoin("0.654")! - Money<XBT>("0.1235")!
+    XCTAssertEqual(Bitcoin(result), Bitcoin("0.5305"))
+  }
+  
+  func textXBTMultiplicationCompatibility() {
+    let result = 3*Bitcoin("111.1111")!
+    XCTAssertEqual(result, Money<XBT>("333.3333"))
+  }
+  
+  func testXBTDivisionCompatibility() {
+    let result = Bitcoin("0.660")!/10
+    XCTAssertEqual(result, Money<XBT>("0.066"))
+  }
+  
   func testInSatoshiFormattedOutput() {
     let bitcoin = Bitcoin("0.0001234567")
     XCTAssertEqual(bitcoin?.formattedInSatoshis(), "12,345.67")
@@ -75,5 +90,17 @@ class BitcoinTest: XCTestCase {
     let bitcoin = Bitcoin(inBits: "1234.5123")
     let formatter = Bitcoin.limitedFormatter
     XCTAssertEqual(bitcoin?.formatted(using: formatter), "₿0.0012345")
+  }
+  
+  func testBitcoinIntInSatoshis() {
+    let bitcoin = Bitcoin(inSatoshi: "123876")!
+    let satoshi = bitcoin.integerInSatoshis
+    XCTAssertEqual(satoshi, 123876)
+  }
+  
+  func testBitcoinIntInBits() {
+    let bitcoin = Bitcoin(inSatoshi: "987421")!
+    let bits = bitcoin.integerInBits
+    XCTAssertEqual(bits, 9874)
   }
 }
