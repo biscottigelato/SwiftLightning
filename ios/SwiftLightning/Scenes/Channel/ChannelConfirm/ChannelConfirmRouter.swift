@@ -14,6 +14,7 @@ import UIKit
 
 @objc protocol ChannelConfirmRoutingLogic {
   func routeToChannelOpen()
+  func routeToWalletMain()
 }
 
 
@@ -37,6 +38,10 @@ class ChannelConfirmRouter: NSObject, ChannelConfirmRoutingLogic, ChannelConfirm
     navigateToChannelOpen(source: viewController!)
   }
 
+  func routeToWalletMain() {
+    navigateToWalletMain(source: viewController!)
+  }
+  
   
   // MARK: Navigation
   
@@ -48,9 +53,20 @@ class ChannelConfirmRouter: NSObject, ChannelConfirmRoutingLogic, ChannelConfirm
     navigationController.popViewController(animated: true)
   }
   
+  func navigateToWalletMain(source: ChannelConfirmViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    navigationController.popToRootViewController(animated: true)
+  }
+  
   
   // MARK: Passing Data
   
   func passDataToChannelOpen(source: ChannelConfirmDataStore, destination: inout ChannelOpenDataStore) {
+  }
+  
+  func passDataToWalletMain(source: ChannelConfirmDataStore, destination: inout WalletMainDataStore) {
   }
 }

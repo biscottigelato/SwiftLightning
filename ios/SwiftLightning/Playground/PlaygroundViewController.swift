@@ -144,7 +144,7 @@ class PlaygroundViewController: SLViewController {
   
   @IBAction func openChannel(_ sender: UIButton) {
 
-    let nodePubKey = Data(hexString: "020a3ce6e6893749bbcdb67ac67570e816a17c678bbcb6b12b0325f3fec036a014")!
+    let nodePubKey = Data(hexString: "12345ce6e6893749bbcdb67ac67570e816a17c678bbcb6b12b0325f3fec036a014")!
 
     LNServices.openChannel(nodePubKey: nodePubKey,
                            localFundingAmt: Bitcoin(totalBalance/10).integerInSatoshis,
@@ -192,35 +192,29 @@ class PlaygroundViewController: SLViewController {
         SLLog.warning("LN Open Channel call stream result with no type")
         return
       }
-    
-    switch update {
-    case .chanPending(let pendingUpdate):
-      SLLog.info("LN Open Channel Pending Update:")
+  
+      switch update {
+      case .chanPending(let pendingUpdate):
+        SLLog.info("LN Open Channel Pending Update:")
+        
+        SLLog.info(" TXID:          \(pendingUpdate.txid.hexEncodedString(options: .littleEndian))")
+        SLLog.info(" Output Index:  \(pendingUpdate.outputIndex)")
       
-      SLLog.info(" TXID:          \(pendingUpdate.txid.hexEncodedString(options: .littleEndian))")
-      SLLog.info(" Output Index:  \(pendingUpdate.outputIndex)")
-    
-    case .confirmation(let confirmUpdate):
-      SLLog.info("LN Open Channel Confirmation Update:")
+      case .confirmation(let confirmUpdate):
+        SLLog.info("LN Open Channel Confirmation Update:")
+        
+        SLLog.info(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
+        SLLog.info(" Block Height:       \(confirmUpdate.blockHeight)")
+        SLLog.info(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
       
-      SLLog.info(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
-      SLLog.info(" Block Height:       \(confirmUpdate.blockHeight)")
-      SLLog.info(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
-    
-    case .chanOpen(let openUpdate):
-      SLLog.info("LN Open Channel Open Update:")
-      SLLog.info(" TXID:          \(openUpdate.channelPoint.fundingTxidStr)")
-      SLLog.info(" Output Index:  \(openUpdate.channelPoint.outputIndex)")
-    }
-    
+      case .chanOpen(let openUpdate):
+        SLLog.info("LN Open Channel Open Update:")
+        SLLog.info(" TXID:          \(openUpdate.channelPoint.fundingTxidStr)")
+        SLLog.info(" Output Index:  \(openUpdate.channelPoint.outputIndex)")
+      }
+      
     case .error(let error):
       SLLog.warning("LN Open Channel call stream error - \(error.localizedDescription)")
-    }
-    
-    do {
-      try self.call?.receive(completion: self.callReceiveCallback)
-    } catch {
-      SLLog.warning("Open Channel Receive Failed - \(error.localizedDescription)")
     }
   }
   

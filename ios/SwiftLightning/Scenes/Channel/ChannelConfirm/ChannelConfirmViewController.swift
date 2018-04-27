@@ -15,6 +15,8 @@ import UIKit
 protocol ChannelConfirmDisplayLogic: class
 {
   func displayRefreshAll(viewModel: ChannelConfirm.RefreshAll.ViewModel)
+  func displayOpenChannelSubmitted(viewModel: ChannelConfirm.OpenChannel.ViewModel)
+  func displayOpenChannelFailure(viewModel: ChannelConfirm.OpenChannel.ErrorVM)
 }
 
 
@@ -79,21 +81,23 @@ class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
   }
   
   func displayRefreshAll(viewModel: ChannelConfirm.RefreshAll.ViewModel) {
-    fundingLabelView.textLabel.text = viewModel.fundingAmt
-    fundingLabelView.refAmtLabel.isHidden = true  // TODO: Fiat/Reference Amount
-    
-    nodeLabelView.nodePubKeyLabel.text = viewModel.nodePubKey
-    nodeLabelView.ipAddressLabel.text = viewModel.nodeIP
-    nodeLabelView.portNumberLabel.text = viewModel.nodePort
-    
-    initPayLabelView.textLabel.text = viewModel.initPayAmt
-    initPayLabelView.refAmtLabel.isHidden = true // TODO: Fiat/Reference Amount
-    
-    confSpeedLabelView.textLabel.text = viewModel.confSpeed
-    
-    channelSummaryView.canPayAmtLabel.text = viewModel.canPayAmt
-    channelSummaryView.canRcvAmtLabel.text = viewModel.canRcvAmt
-    channelSummaryView.feeAmtLabel.text = viewModel.fee
+    DispatchQueue.main.async {
+      self.fundingLabelView.textLabel.text = viewModel.fundingAmt
+      self.fundingLabelView.refAmtLabel.isHidden = true  // TODO: Fiat/Reference Amount
+      
+      self.nodeLabelView.nodePubKeyLabel.text = viewModel.nodePubKey
+      self.nodeLabelView.ipAddressLabel.text = viewModel.nodeIP
+      self.nodeLabelView.portNumberLabel.text = viewModel.nodePort
+      
+      self.initPayLabelView.textLabel.text = viewModel.initPayAmt
+      self.initPayLabelView.refAmtLabel.isHidden = true // TODO: Fiat/Reference Amount
+      
+      self.confSpeedLabelView.textLabel.text = viewModel.confSpeed
+      
+      self.channelSummaryView.canPayAmtLabel.text = viewModel.canPayAmt
+      self.channelSummaryView.canRcvAmtLabel.text = viewModel.canRcvAmt
+      self.channelSummaryView.feeAmtLabel.text = viewModel.fee
+    }
   }
   
   
@@ -111,6 +115,27 @@ class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
   // MARK: Channel Opening Confirmed
   
   @IBAction func confirmTapped(_ sender: SLBarButton) {
-    
+    let request = ChannelConfirm.OpenChannel.Request()
+    interactor?.openChannel(request: request)
+  }
+  
+  func displayOpenChannelSubmitted(viewModel: ChannelConfirm.OpenChannel.ViewModel) {
+    let alertDialog = UIAlertController(title: viewModel.alertTitle,
+                                        message: viewModel.alertMsg,
+                                        preferredStyle: .alert).addAction(title: "OK", style: .default)
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true) {
+        self.router?.routeToWalletMain()
+      }
+    }
+  }
+  
+  func displayOpenChannelFailure(viewModel: ChannelConfirm.OpenChannel.ErrorVM) {
+    let alertDialog = UIAlertController(title: viewModel.errTitle,
+                                        message: viewModel.errTitle,
+                                        preferredStyle: .alert).addAction(title: "OK", style: .default)
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true)
+    }
   }
 }

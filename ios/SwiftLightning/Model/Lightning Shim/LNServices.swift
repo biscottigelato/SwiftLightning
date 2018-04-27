@@ -312,17 +312,21 @@ class LNServices {
         
         // Unary GRPC
         _ = try lightningService!.connectPeer(request) { (response, result) in
+          
+          // We won't retry anymore after getting here. Deference retry
+          retry.success()
+          
           if response != nil {
             SLLog.info("LN Connect Peer Success!")
-            
-            // Success! - dereference retry
-            retry.success()
             completion({ return })
-            
           } else {
-            // Error - don't retry for this one
             let message = result.statusMessage ?? result.description
-            completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
+            if message.contains("already connected") {
+              SLLog.warning(message)
+              completion({ return })
+            } else {
+              completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
+            }
           }
         }
         

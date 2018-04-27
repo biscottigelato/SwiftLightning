@@ -12,14 +12,13 @@
 
 import UIKit
 
-protocol ChannelConfirmBusinessLogic
-{
+protocol ChannelConfirmBusinessLogic {
   func refreshAll(request: ChannelConfirm.RefreshAll.Request)
+  func openChannel(request: ChannelConfirm.OpenChannel.Request)
 }
 
 
-protocol ChannelConfirmDataStore
-{
+protocol ChannelConfirmDataStore {
   var nodePubKey: String? { get set }
   var nodeIP: String? { get set }
   var nodePort: Int? { get set }
@@ -29,10 +28,9 @@ protocol ChannelConfirmDataStore
 }
 
 
-class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataStore
-{
-  var presenter: ChannelConfirmPresentationLogic?
+class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataStore {
   
+  var presenter: ChannelConfirmPresentationLogic?
   
   // MARK: Data Store
   
@@ -45,9 +43,9 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
   
   
   // MARK: Refresh Channel Confirmation
-  
-  func refreshAll(request: ChannelConfirm.RefreshAll.Request)
-  {
+
+  func refreshAll(request: ChannelConfirm.RefreshAll.Request) {
+    
     guard let nodePubKey = nodePubKey, let nodeIP = nodeIP, let nodePort = nodePort,
       let fundingAmt = fundingAmt, let initPayAmt = initPayAmt, let confSpeed = confSpeed else {
       SLLog.fatal("1 or more entry in ChannelConfirmDataStore is nil")
@@ -73,5 +71,64 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
                                                            feeAmt: Bitcoin("0.0")!,
                                                            fiatFeeAmt: Money<USD>("0.0")!)
     presenter?.presentRefreshAll(response: response)
+  }
+  
+  
+  // MARK: Open Channel
+  
+  func openChannel(request: ChannelConfirm.OpenChannel.Request) {
+
+    guard let nodePubKeyString = nodePubKey, let nodeIP = nodeIP, let nodePort = nodePort,
+      let fundingAmt = fundingAmt, let initPayAmt = initPayAmt else {
+        SLLog.fatal("1 or more entry in ChannelConfirmDataStore is nil")
+    }
+
+    guard let nodePubKeyData = Data(hexString: nodePubKeyString) else {
+      SLLog.fatal("Node Pub Key should have been validated ahead of time")
+    }
+
+    LNServices.connectPeer(pubKey: nodePubKeyString, hostAddr: nodeIP, hostPort: nodePort) { (responder) in
+      do {
+        try responder()
+        
+        // This is the actual request that opens the channel
+        LNServices.openChannel(nodePubKey: nodePubKeyData,
+                               localFundingAmt: fundingAmt.integerInSatoshis,
+                               pushSat: initPayAmt.integerInSatoshis,
+                               targetConf: LNConstants.defaultChannelConfirmation,
+                               streaming: self.openChannelStreaming,
+                               completion: self.openChannelCompletion)
+        
+      } catch {
+        let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
+        self.presenter?.presentOpenChannel(response: response)
+      }
+    }
+  }
+
+
+  private func openChannelStreaming(callHandle: () throws -> (Lnrpc_LightningOpenChannelCall)) {
+    do {
+      /* call */ _ = try callHandle()
+      // TODO: Pass to Stream Handler module for receive handling
+
+      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.success(()))
+      presenter?.presentOpenChannel(response: response)
+    } catch {
+      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
+      presenter?.presentOpenChannel(response: response)
+    }
+  }
+  
+  
+  private func openChannelCompletion(responder: () throws -> ()) {
+    do {
+      try responder()
+      // TODO: Do direct trigger into Event Center
+    } catch {
+      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
+      presenter?.presentOpenChannel(response: response)
+      // TODO: Do direct trigger into Event Cetner
+    }
   }
 }

@@ -55,12 +55,22 @@ enum ChannelConfirm {
     }
   }
   
+  enum OpenChannelError: Error {
+    case PeerConnectFailed(String)
+    case OpenChannelRequestFailed(String)
+  }
+  
   enum OpenChannel {
+    
     struct Request {
       // Use Data Store values
     }
     struct Response {
       var result: Result<Void>
+    }
+    struct ViewModel {
+      var alertTitle: String
+      var alertMsg: String
     }
     struct ErrorVM {
       var errTitle: String

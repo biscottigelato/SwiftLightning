@@ -67,14 +67,18 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
     keyboardConstraintMargin = formBottomConstraint.constant
   }
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    nodePubKeyEntryView.textField.becomeFirstResponder()
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
     
     // TODO: Button should stay disabled until all entries are valid
     openChannelButton.backgroundColor = UIColor.medAquamarine
     openChannelButton.shadowColor = UIColor.medAquamarineShadow
     openChannelButton.setTitleColor(UIColor.normalText, for: .normal)
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    nodePubKeyEntryView.textField.becomeFirstResponder()
   }
   
   

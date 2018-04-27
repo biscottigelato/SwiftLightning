@@ -51,7 +51,17 @@ class LNManager {
   }
   
   static func validateNodePubKey(_ nodePubKey: String) -> Bool {
-    // TODO: Actually validate the Node Pub Key
+    // Just to make sure the string is valid hex
+    guard let nodePubKeyData = Data(hexString: nodePubKey) else {
+      return false
+    }
+    
+    // Needs to be 32 + 1 bytes in length
+    if nodePubKeyData.count != (32 + 1) {
+      return false
+    }
+
+    // TODO: More BOLT spec specific validation
     return true
   }
   

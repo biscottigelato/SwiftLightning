@@ -12,14 +12,14 @@
 
 import UIKit
 
-protocol ChannelConfirmPresentationLogic
-{
+protocol ChannelConfirmPresentationLogic {
   func presentRefreshAll<C: Currency>(response: ChannelConfirm.RefreshAll.Response<C>)
+  func presentOpenChannel(response: ChannelConfirm.OpenChannel.Response)
 }
 
 
-class ChannelConfirmPresenter: ChannelConfirmPresentationLogic
-{
+class ChannelConfirmPresenter: ChannelConfirmPresentationLogic {
+  
   weak var viewController: ChannelConfirmDisplayLogic?
   
   // MARK: Refresh All
@@ -39,5 +39,24 @@ class ChannelConfirmPresenter: ChannelConfirmPresentationLogic
                                                         fee: "auto")
     
     viewController?.displayRefreshAll(viewModel: viewModel)
+  }
+  
+  
+  // MARK: Open Channel
+  
+  func presentOpenChannel(response: ChannelConfirm.OpenChannel.Response) {
+    
+    switch response.result {
+    case .success:
+      let numConf = LNConstants.defaultChannelConfirmation
+      let viewModel = ChannelConfirm.OpenChannel.ViewModel(alertTitle: "Open Broadcasted",
+                                                           alertMsg: "Lightning channel opening transaction have been broadcasted. It will take \(numConf) confirmations before the channel can start to be used")
+      viewController?.displayOpenChannelSubmitted(viewModel: viewModel)
+      
+    case .failure(let error):
+      let viewModel = ChannelConfirm.OpenChannel.ErrorVM(errTitle: "Channel Error",
+                                                         errMsg: error.localizedDescription)
+      viewController?.displayOpenChannelFailure(viewModel: viewModel)
+    }
   }
 }
