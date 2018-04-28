@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,22 +24,22 @@
             <objects>
                 <viewController storyboardIdentifier="WalletMainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="biu-h6-UIo" customClass="WalletMainViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SZK-81-8wd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN2-Ib-3fj">
-                                <rect key="frame" x="0.0" y="344.5" width="375" height="42"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN2-Ib-3fj" userLabel="Temp Button Stack">
+                                <rect key="frame" x="0.0" y="286.5" width="375" height="30"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="Lgm-h8-d4g" userLabel="Left Spacer">
-                                        <rect key="frame" x="0.0" y="0.0" width="10" height="42"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="10" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oV-vV-vBX" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="0.0" width="172.5" height="42"/>
-                                        <color key="backgroundColor" name="LightAzureBlue"/>
+                                        <rect key="frame" x="10" y="0.0" width="172.5" height="30"/>
+                                        <color key="backgroundColor" name="JellyBeanRed"/>
                                         <state key="normal" title="Open Channel">
                                             <color key="titleColor" name="NormalText"/>
-                                            <color key="titleShadowColor" name="LightAzureBlueShadow"/>
+                                            <color key="titleShadowColor" name="JellyBeanRedShadow"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
@@ -50,14 +51,14 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="Reh-xx-kBD" userLabel="Main Spacer">
-                                        <rect key="frame" x="182.5" y="0.0" width="10" height="42"/>
+                                        <rect key="frame" x="182.5" y="0.0" width="10" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="10" id="vTG-af-BJO"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lvb-Jn-gmu" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                        <rect key="frame" x="192.5" y="0.0" width="172.5" height="42"/>
+                                        <rect key="frame" x="192.5" y="0.0" width="172.5" height="30"/>
                                         <color key="backgroundColor" name="SandyOrange"/>
                                         <state key="normal" title="Update Balance">
                                             <color key="titleColor" name="NormalText"/>
@@ -73,7 +74,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="Y0O-dt-kVc" userLabel="Right Spacer">
-                                        <rect key="frame" x="365" y="0.0" width="10" height="42"/>
+                                        <rect key="frame" x="365" y="0.0" width="10" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
@@ -83,36 +84,39 @@
                                     <constraint firstItem="5oV-vV-vBX" firstAttribute="width" secondItem="Lvb-Jn-gmu" secondAttribute="width" id="vy5-Qk-nKI"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="OL8-Iv-mts">
-                                <rect key="frame" x="0.0" y="613" width="375" height="42"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="OL8-Iv-mts" userLabel="PayRx Button Stack">
+                                <rect key="frame" x="0.0" y="561" width="375" height="30"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="4nR-q0-Ikg" userLabel="Left Spacer">
-                                        <rect key="frame" x="0.0" y="21" width="10" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="15" width="10" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dp9-iQ-dmN" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="0.0" width="172.5" height="42"/>
-                                        <color key="backgroundColor" name="DisabledGray"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dp9-iQ-dmN" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="0.0" width="172.5" height="30"/>
+                                        <color key="backgroundColor" name="LightAzureBlue"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="Pay">
-                                            <color key="titleColor" name="DisabledText"/>
-                                            <color key="titleShadowColor" name="DisabledGrayShadow"/>
+                                            <color key="titleColor" name="NormalText"/>
+                                            <color key="titleShadowColor" name="LightAzureBlueShadow"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
                                                 <integer key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="payTapped:" destination="biu-h6-UIo" eventType="touchUpInside" id="qwb-34-7rh"/>
+                                        </connections>
                                     </button>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="pJ5-rv-EIR" userLabel="Main Spacer">
-                                        <rect key="frame" x="182.5" y="21" width="10" height="0.0"/>
+                                        <rect key="frame" x="182.5" y="15" width="10" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="10" id="Ny4-xE-qfW"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j8b-dY-gBy" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                        <rect key="frame" x="192.5" y="0.0" width="172.5" height="42"/>
+                                        <rect key="frame" x="192.5" y="0.0" width="172.5" height="30"/>
                                         <color key="backgroundColor" name="MedAquamarine"/>
                                         <state key="normal" title="Receive">
                                             <color key="titleColor" name="NormalText"/>
@@ -128,7 +132,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="vEa-OB-AnK" userLabel="Right Spacer">
-                                        <rect key="frame" x="365" y="21" width="10" height="0.0"/>
+                                        <rect key="frame" x="365" y="15" width="10" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
@@ -139,7 +143,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AlB-OF-a1v" userLabel="Total Stack">
-                                <rect key="frame" x="15" y="69" width="130" height="48.5"/>
+                                <rect key="frame" x="15" y="5" width="130" height="48.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Total Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eP3-z3-krn">
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="14"/>
@@ -147,7 +151,7 @@
                                         <color key="textColor" name="NormalText"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="G5g-Gb-4iq">
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="G5g-Gb-4iq">
                                         <rect key="frame" x="0.0" y="14" width="130" height="34.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="600" text="678,354" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DHY-EV-q61" userLabel="Confirmed Balance">
@@ -156,53 +160,38 @@
                                                 <color key="textColor" name="NormalText"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Phm-Tw-nNF">
-                                                <rect key="frame" x="116" y="16.5" width="14" height="18"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Zi-PS-GK6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="14" height="14"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
-                                                        <color key="textColor" name="NormalText"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="vYO-bU-4dj">
-                                                        <rect key="frame" x="0.0" y="14" width="14" height="4"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="4" id="l4l-QV-zaw"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
-                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Zi-PS-GK6">
+                                                <rect key="frame" x="116" y="16.5" width="14" height="14"/>
+                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
+                                                <color key="textColor" name="NormalText"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                     </stackView>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zkY-WT-qcP" userLabel="Channel Stack">
-                                <rect key="frame" x="300" y="69" width="60" height="48.5"/>
+                                <rect key="frame" x="300" y="5" width="60" height="48.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="dEW-je-5dH">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="13.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="14"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="843,345" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Sf-ah-19C" userLabel="Channel Balance">
-                                        <rect key="frame" x="0.0" y="13.5" width="60" height="15"/>
+                                        <rect key="frame" x="0.0" y="14" width="60" height="15"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="11"/>
                                         <color key="textColor" name="NormalText"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="600" text="in Channels" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ub3-sF-TqS">
-                                        <rect key="frame" x="0.0" y="28.5" width="60" height="15"/>
+                                        <rect key="frame" x="0.0" y="29" width="60" height="15"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="11"/>
                                         <color key="textColor" name="NormalText"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="iXt-QK-Tqt">
-                                        <rect key="frame" x="0.0" y="43.5" width="60" height="5"/>
+                                        <rect key="frame" x="0.0" y="44" width="60" height="4.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="5" id="voX-Vc-vt3"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
                             </stackView>
@@ -213,6 +202,7 @@
                             <constraint firstItem="AlB-OF-a1v" firstAttribute="height" secondItem="zkY-WT-qcP" secondAttribute="height" id="8Wt-dl-9DC"/>
                             <constraint firstItem="z5t-Y1-iMe" firstAttribute="trailing" secondItem="OL8-Iv-mts" secondAttribute="trailing" id="9Jw-rj-VNK"/>
                             <constraint firstItem="AlB-OF-a1v" firstAttribute="leading" secondItem="z5t-Y1-iMe" secondAttribute="leading" constant="15" id="KZ0-kU-cdx"/>
+                            <constraint firstItem="DHY-EV-q61" firstAttribute="firstBaseline" secondItem="Ub3-sF-TqS" secondAttribute="baseline" id="XHe-Bm-D14"/>
                             <constraint firstItem="zkY-WT-qcP" firstAttribute="top" secondItem="z5t-Y1-iMe" secondAttribute="top" constant="5" id="bgu-iQ-5Ex"/>
                             <constraint firstItem="iN2-Ib-3fj" firstAttribute="centerY" secondItem="z5t-Y1-iMe" secondAttribute="centerY" id="cIh-C4-E7Z"/>
                             <constraint firstItem="AlB-OF-a1v" firstAttribute="top" secondItem="z5t-Y1-iMe" secondAttribute="top" constant="5" id="iQ3-yx-ASc"/>
@@ -223,7 +213,40 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="z5t-Y1-iMe"/>
                     </view>
-                    <navigationItem key="navigationItem" id="SBE-4f-E57"/>
+                    <navigationItem key="navigationItem" id="SBE-4f-E57">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" id="ghT-0z-IIs">
+                            <view key="customView" contentMode="scaleToFill" id="5fO-Jo-eQW">
+                                <rect key="frame" x="276" y="5.5" width="83" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fPL-HT-SOu">
+                                        <rect key="frame" x="0.0" y="0.0" width="83" height="33"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="7mp-bW-jEE">
+                                                <rect key="frame" x="0.0" y="16.5" width="7" height="0.0"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9H-8p-31M">
+                                                <rect key="frame" x="15" y="1.5" width="30" height="30"/>
+                                                <state key="normal" image="SearchLight"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQf-ve-yul">
+                                                <rect key="frame" x="53" y="1.5" width="30" height="30"/>
+                                                <state key="normal" image="GearLight"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="fPL-HT-SOu" firstAttribute="top" secondItem="5fO-Jo-eQW" secondAttribute="top" id="E0a-62-3s1"/>
+                                    <constraint firstAttribute="bottom" secondItem="fPL-HT-SOu" secondAttribute="bottom" id="J1Q-5i-VTP"/>
+                                    <constraint firstAttribute="trailing" secondItem="fPL-HT-SOu" secondAttribute="trailing" id="LCe-YL-ric"/>
+                                    <constraint firstItem="fPL-HT-SOu" firstAttribute="leading" secondItem="5fO-Jo-eQW" secondAttribute="leading" id="asA-Wu-tri"/>
+                                </constraints>
+                            </view>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="channelBalanceLabel" destination="9Sf-ah-19C" id="ccg-FZ-oDo"/>
                         <outlet property="totalBalanceLabel" destination="DHY-EV-q61" id="7Ck-RV-Ggg"/>
@@ -238,7 +261,7 @@
             <objects>
                 <navigationController storyboardIdentifier="WalletNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="e69-Ee-TmO" customClass="WalletNavigationController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fQ4-1t-lyF">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="fQ4-1t-lyF">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="SpaceCadetBlue"/>
@@ -254,14 +277,13 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="DisabledGray">
-            <color red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        <image name="GearLight" width="30" height="30"/>
+        <image name="SearchLight" width="30" height="30"/>
+        <namedColor name="JellyBeanRed">
+            <color red="0.792156862745098" green="0.40784313725490196" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="DisabledGrayShadow">
-            <color red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="0.1000000015" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="DisabledText">
-            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+        <namedColor name="JellyBeanRedShadow">
+            <color red="0.46274509803921571" green="0.23529411764705882" blue="0.22745098039215686" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="LightAzureBlue">
             <color red="0.4823529411764706" green="0.71372549019607845" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

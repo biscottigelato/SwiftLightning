@@ -71,6 +71,13 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic
   }
   
   
+  // MARK: Pay
+  
+  @IBAction func payTapped(_ sender: SLBarButton) {
+    router?.routeToPayMain()
+  }
+  
+  
   // MARK: Receive
   
   @IBAction func receiveTapped(_ sender: SLBarButton) {

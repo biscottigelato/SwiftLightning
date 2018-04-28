@@ -19,26 +19,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xo-ES-N3e" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="10" y="84" width="355" height="436"/>
+                                <rect key="frame" x="10" y="84" width="355" height="454"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PbX-XU-m6q">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="436"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="454"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EAS-WT-IOT" userLabel="Content View">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="436"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="454"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="tRN-Id-nLn">
-                                                        <rect key="frame" x="15" y="0.0" width="325" height="436"/>
+                                                        <rect key="frame" x="15" y="0.0" width="325" height="454"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Rzh-dl-dcF" userLabel="Header Spacer">
                                                                 <rect key="frame" x="0.0" y="0.0" width="325" height="40"/>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="FsO-L6-lUs"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="P0k-Qf-xUh" userLabel="Node Pub Key Entry View" customClass="SLFormEntryView" customModule="SwiftLightning" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="40" width="325" height="69"/>
+                                                                <rect key="frame" x="0.0" y="40" width="325" height="73"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="fieldTitle" value="Node Public Key"/>
@@ -48,14 +48,14 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aXI-eU-uL4" userLabel="Line">
-                                                                <rect key="frame" x="0.0" y="109" width="325" height="1"/>
+                                                                <rect key="frame" x="0.0" y="113" width="325" height="1"/>
                                                                 <color key="backgroundColor" name="FormLineGray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="Ukn-R9-qck"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="mU9-T6-VyE" userLabel="Node IP:Port Entry View" customClass="SLFormEntryView" customModule="SwiftLightning" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="110" width="325" height="69"/>
+                                                                <rect key="frame" x="0.0" y="114" width="325" height="73"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="fieldTitle" value="Node IP:Port"/>
@@ -65,14 +65,14 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k2e-As-EKL" userLabel="Line">
-                                                                <rect key="frame" x="0.0" y="179" width="325" height="1"/>
+                                                                <rect key="frame" x="0.0" y="187" width="325" height="1"/>
                                                                 <color key="backgroundColor" name="FormLineGray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="8cy-Qa-8Qs"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="RNh-zW-MP9" userLabel="Funding Entry View" customClass="SLFormEntryView" customModule="SwiftLightning" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="180" width="325" height="97"/>
+                                                                <rect key="frame" x="0.0" y="188" width="325" height="103"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="fieldTitle" value="Funding Amount"/>
@@ -82,14 +82,14 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="17o-rE-J7T" userLabel="Line">
-                                                                <rect key="frame" x="0.0" y="277" width="325" height="1"/>
+                                                                <rect key="frame" x="0.0" y="291" width="325" height="1"/>
                                                                 <color key="backgroundColor" name="FormLineGray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="MHg-2i-YCS"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jKN-SR-NLV" customClass="SLFormEntryView" customModule="SwiftLightning" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="278" width="325" height="69"/>
+                                                                <rect key="frame" x="0.0" y="292" width="325" height="73"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="fieldTitle" value="Initial Payment"/>
@@ -99,14 +99,14 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SlI-y5-hbj" userLabel="Line">
-                                                                <rect key="frame" x="0.0" y="347" width="325" height="1"/>
+                                                                <rect key="frame" x="0.0" y="365" width="325" height="1"/>
                                                                 <color key="backgroundColor" name="FormLineGray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="7Ac-hw-hVT"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GfQ-3o-49z">
-                                                                <rect key="frame" x="0.0" y="348" width="325" height="88"/>
+                                                                <rect key="frame" x="0.0" y="366" width="325" height="88"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLI-wp-IpX" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
                                                                         <rect key="frame" x="85" y="23" width="155" height="42"/>
@@ -125,7 +125,7 @@
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="88" id="8W2-Lu-nLx"/>
                                                                     <constraint firstItem="PLI-wp-IpX" firstAttribute="centerY" secondItem="GfQ-3o-49z" secondAttribute="centerY" id="cm0-7l-UVO"/>
@@ -135,7 +135,7 @@
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="FormBackground"/>
                                                 <constraints>
                                                     <constraint firstItem="tRN-Id-nLn" firstAttribute="leading" secondItem="EAS-WT-IOT" secondAttribute="leading" constant="15" id="9JF-oq-QCw"/>
                                                     <constraint firstAttribute="bottom" secondItem="tRN-Id-nLn" secondAttribute="bottom" id="dDj-0H-n0D"/>
@@ -144,10 +144,8 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" name="FormBackground"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="EAS-WT-IOT" secondAttribute="bottom" id="Fpa-xW-Qfh"/>
-                                            <constraint firstItem="EAS-WT-IOT" firstAttribute="width" secondItem="PbX-XU-m6q" secondAttribute="width" id="XEP-FE-9qD"/>
                                             <constraint firstAttribute="trailing" secondItem="EAS-WT-IOT" secondAttribute="trailing" id="amq-wo-Gnf"/>
                                             <constraint firstItem="EAS-WT-IOT" firstAttribute="leading" secondItem="PbX-XU-m6q" secondAttribute="leading" id="oUI-Jf-P2M"/>
                                             <constraint firstItem="EAS-WT-IOT" firstAttribute="top" secondItem="PbX-XU-m6q" secondAttribute="top" id="tm1-QH-d9c"/>
@@ -166,12 +164,13 @@
                                 </subviews>
                                 <color key="backgroundColor" name="FormBackground"/>
                                 <constraints>
+                                    <constraint firstItem="EAS-WT-IOT" firstAttribute="width" secondItem="0xo-ES-N3e" secondAttribute="width" id="3BV-Uq-P1K"/>
                                     <constraint firstItem="LC8-GW-279" firstAttribute="leading" secondItem="0xo-ES-N3e" secondAttribute="leading" id="6Wz-rz-5ya"/>
                                     <constraint firstAttribute="trailing" secondItem="PbX-XU-m6q" secondAttribute="trailing" id="A6L-qM-eKN"/>
                                     <constraint firstAttribute="bottom" secondItem="PbX-XU-m6q" secondAttribute="bottom" id="U3d-aE-xQp"/>
-                                    <constraint firstAttribute="height" secondItem="tRN-Id-nLn" secondAttribute="height" priority="800" id="XrD-jo-zgc"/>
                                     <constraint firstItem="PbX-XU-m6q" firstAttribute="top" secondItem="0xo-ES-N3e" secondAttribute="top" id="gs2-3g-DF6"/>
                                     <constraint firstItem="LC8-GW-279" firstAttribute="top" secondItem="0xo-ES-N3e" secondAttribute="top" id="u4C-P6-Pcb"/>
+                                    <constraint firstItem="EAS-WT-IOT" firstAttribute="height" secondItem="0xo-ES-N3e" secondAttribute="height" priority="800" id="uYl-LC-IDb"/>
                                     <constraint firstItem="PbX-XU-m6q" firstAttribute="leading" secondItem="0xo-ES-N3e" secondAttribute="leading" id="vHL-F6-jHJ"/>
                                     <constraint firstAttribute="trailing" secondItem="LC8-GW-279" secondAttribute="trailing" id="xhr-DS-720"/>
                                 </constraints>
@@ -228,6 +227,9 @@
         </namedColor>
         <namedColor name="DisabledText">
             <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="FormBackground">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="FormBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

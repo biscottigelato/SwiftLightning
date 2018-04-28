@@ -25,6 +25,7 @@ import UIKit
   @IBOutlet weak var feeBalanceStack: UIStackView!
   
   @IBOutlet weak var topSpacerHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var stackHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var bottomSpacerHeightConstraint: NSLayoutConstraint!
   
   
@@ -91,7 +92,7 @@ import UIKit
     
     switch type {
     case .description:
-      let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
+      let intrinsicHeight = 2*stackHeightConstraint.constant + spacerHeight
       intrinsicSize = CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: intrinsicHeight)
       
       textField.keyboardType = .default
@@ -102,7 +103,7 @@ import UIKit
       button.isHidden = true
         
     case .key:
-      let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
+      let intrinsicHeight = 2*stackHeightConstraint.constant + spacerHeight
       intrinsicSize = CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: intrinsicHeight)
       
       textField.keyboardType = .namePhonePad
@@ -115,7 +116,7 @@ import UIKit
       button.setTitle("Paste", for: .normal)
       
     case .money:
-      let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
+      let intrinsicHeight = 2*stackHeightConstraint.constant + spacerHeight
       intrinsicSize = CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: intrinsicHeight)
       
       textField.keyboardType = .decimalPad
@@ -131,7 +132,7 @@ import UIKit
       button.setTitle("sat", for: .normal)
       
     case .moneyFeeBalance:
-      let intrinsicHeight = 3*button.intrinsicContentSize.height + spacerHeight
+      let intrinsicHeight = 3*stackHeightConstraint.constant + spacerHeight
       intrinsicSize = CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: intrinsicHeight)
       
       textField.keyboardType = .decimalPad
@@ -147,7 +148,7 @@ import UIKit
       button.setTitle("sat", for: .normal)
       
     case .numberIPPort:
-      let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
+      let intrinsicHeight = 2*stackHeightConstraint.constant + spacerHeight
       intrinsicSize = CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: intrinsicHeight)
       
       textField.keyboardType = .numbersAndPunctuation

@@ -234,6 +234,8 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, UITe
   
   func displayConfirmButton(enable: Bool) {
     DispatchQueue.main.async {
+      self.openChannelButton.isEnabled = enable
+      
       if enable {
         self.openChannelButton.backgroundColor = UIColor.medAquamarine
         self.openChannelButton.shadowColor = UIColor.medAquamarineShadow
@@ -243,7 +245,6 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, UITe
         self.openChannelButton.shadowColor = UIColor.disabledGrayShadow
         self.openChannelButton.setTitleColor(UIColor.disabledText, for: .normal)
       }
-      self.openChannelButton.isEnabled = enable
     }
   }
   

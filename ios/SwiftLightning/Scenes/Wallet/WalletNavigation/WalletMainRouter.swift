@@ -13,6 +13,7 @@
 import UIKit
 
 @objc protocol WalletMainRoutingLogic {
+  func routeToPayMain()
   func routeToReceiveMain()
 }
 
@@ -27,6 +28,14 @@ class WalletMainRouter: NSObject, WalletMainRoutingLogic, WalletMainDataPassing 
   
   // MARK: Routing
   
+  func routeToPayMain() {
+    let storyboard = UIStoryboard(name: "PayMain", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "PayMainViewController") as! PayMainViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToPayMain(source: dataStore!, destination: &destinationDS)
+    navigateToPayMain(source: viewController!, destination: destinationVC)
+  }
+  
   func routeToReceiveMain() {
     let storyboard = UIStoryboard(name: "ReceiveMain", bundle: nil)
     let destinationVC = storyboard.instantiateViewController(withIdentifier: "ReceiveMainViewController") as! ReceiveMainViewController
@@ -38,6 +47,14 @@ class WalletMainRouter: NSObject, WalletMainRoutingLogic, WalletMainDataPassing 
   
   // MARK: Navigation
   
+  func navigateToPayMain(source: WalletMainViewController, destination: PayMainViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    navigationController.pushViewController(destination, animated: true)
+  }
+  
   func navigateToReceiveMain(source: WalletMainViewController, destination: ReceiveMainViewController) {
     guard let navigationController = source.navigationController else {
       SLLog.assert("\(type(of: source)).navigationController = nil")
@@ -48,6 +65,10 @@ class WalletMainRouter: NSObject, WalletMainRoutingLogic, WalletMainDataPassing 
   
   
   // MARK: Passing data
+  
+  func passDataToPayMain(source: WalletMainDataStore, destination: inout PayMainDataStore) {
+    // destination.name = source.name
+  }
   
   func passDataToReceiveMain(source: WalletMainDataStore, destination: inout ReceiveMainDataStore) {
     // destination.name = source.name
