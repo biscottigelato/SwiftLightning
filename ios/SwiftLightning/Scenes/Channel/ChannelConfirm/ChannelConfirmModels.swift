@@ -55,14 +55,14 @@ enum ChannelConfirm {
     }
   }
   
-  enum OpenChannelError: Error {
+  enum OpenChannelError: Int, LocalizedError {
     case peerNotConnected
     
-    var localizedDescription: String {
+    var errorDescription: String? {
       switch self {
         
       case .peerNotConnected:
-        return NSLocalizedString("Peer Not Connected", comment: "ChannelConfirm.OpenChannelError Type")
+        return NSLocalizedString("Unable to establish connection to peer. Peer is not reachable. Please also check your local network settings.", comment: "ChannelConfirm.OpenChannelError Type")
       }
     }
   }

@@ -30,9 +30,9 @@ class Bitcoin: Money<XBT> {
     let _formatter = super.formatter
     _formatter.minimumFractionDigits = 0
     _formatter.maximumFractionDigits = 10
+    _formatter.maximumIntegerDigits = 6  // 1 million bitcoins?
     
     _formatter.usesSignificantDigits = true
-    _formatter.minimumSignificantDigits = 3
     _formatter.maximumSignificantDigits = 12
     return _formatter
   }
@@ -46,6 +46,7 @@ class Bitcoin: Money<XBT> {
     
     _formatter.minimumFractionDigits = 0
     _formatter.maximumFractionDigits = 4
+    _formatter.maximumIntegerDigits = 12  // 1 million bitcoins?
     
     return _formatter
   }
@@ -59,6 +60,7 @@ class Bitcoin: Money<XBT> {
     
     _formatter.minimumFractionDigits = 0
     _formatter.maximumFractionDigits = 2
+    _formatter.maximumIntegerDigits = 14  // 1 million bitcoins?
     
     return _formatter
   }
@@ -67,7 +69,6 @@ class Bitcoin: Money<XBT> {
     let _formatter = self.formatter
 
     _formatter.usesSignificantDigits = true
-    _formatter.minimumSignificantDigits = 3
     _formatter.maximumSignificantDigits = 5
     return _formatter
   }

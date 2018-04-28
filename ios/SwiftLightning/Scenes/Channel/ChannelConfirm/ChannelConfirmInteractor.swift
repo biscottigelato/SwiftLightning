@@ -132,8 +132,8 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
         }
       }
     }
-    let fail = { (error: Error) -> () in
-      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
+    let fail = { (failError: Error) -> () in
+      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(failError))
       self.presenter?.presentOpenChannel(response: response)
     }
     
@@ -147,17 +147,16 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
   
   private func openChannelStreaming(callHandle: () throws -> (Lnrpc_LightningOpenChannelCall)) {
     do {
-      /* call */ _ = try callHandle()
-      
-      // TODO: OpenChannel Scene should hang out for at least the first stream before declaring yay
+      let _ = try callHandle()
       
       // TODO: Pass to Stream Handler module for receive handling after the first stream
 
       let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.success(()))
       presenter?.presentOpenChannel(response: response)
     } catch {
-      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
-      presenter?.presentOpenChannel(response: response)
+      // Counting on failures to come thru the Completion path instead of the Streaming path
+//      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
+//      presenter?.presentOpenChannel(response: response)
     }
   }
   
@@ -168,7 +167,7 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
       // TODO: Do direct trigger into Event Center
     } catch {
       
-      // TODO: This is the nay path if the Open Channel Scene still exists
+      // This is the nay path if the Open Channel Scene still exists
       let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
       presenter?.presentOpenChannel(response: response)
       

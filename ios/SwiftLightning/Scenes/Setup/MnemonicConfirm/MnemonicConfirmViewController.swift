@@ -26,6 +26,7 @@ class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLog
   var interactor: MnemonicConfirmBusinessLogic?
   var router: (NSObjectProtocol & MnemonicConfirmRoutingLogic & MnemonicConfirmDataPassing)?
 
+  
   // MARK: Common IBOutlets
   
   @IBOutlet weak var scrollView: UIScrollView!
@@ -36,14 +37,12 @@ class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLog
   
   // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     setup()
   }
   
-  required init?(coder aDecoder: NSCoder)
-  {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
@@ -51,8 +50,7 @@ class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLog
   
   // MARK: Setup
   
-  private func setup()
-  {
+  private func setup() {
     let viewController = self
     let interactor = MnemonicConfirmInteractor()
     let presenter = MnemonicConfirmPresenter()
@@ -66,23 +64,10 @@ class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLog
   }
   
   
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
-    }
-  }
-  
-  
   // MARK: View lifecycle
   
-  override func viewDidLoad()
-  {
+  override func viewDidLoad() {
+    
     super.viewDidLoad()
     keyboardScrollView = scrollView  // Hook the keyboard scroll adjust to the SLVC superclass
     

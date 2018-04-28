@@ -12,14 +12,131 @@
 
 import UIKit
 
-protocol ChannelOpenPresentationLogic
-{
+protocol ChannelOpenPresentationLogic {
+  
   func presentChannelConfirm(response: ChannelOpen.ChannelConfirm.Response)
+  func presentNodePubKeyValid(response: ChannelOpen.ValidateNodePubKey.Response)
+  func presentNodePortIPValid(response: ChannelOpen.ValidateNodeIPPort.Response)
+  func presentAmountValid(response: ChannelOpen.ValidateAmounts.Response)
+  func presentOnChainConfirmedBalance(response: ChannelOpen.GetBalance.Response)
 }
 
-class ChannelOpenPresenter: ChannelOpenPresentationLogic
-{
+
+class ChannelOpenPresenter: ChannelOpenPresentationLogic {
+  
   weak var viewController: ChannelOpenDisplayLogic?
+  
+  
+  // MARK: Validate Entries
+  
+  var pubKeyValid = false
+  var ipPortValid = false
+  var fundingValid = false
+  var initPayValid = false
+  
+  func presentNodePubKeyValid(response: ChannelOpen.ValidateNodePubKey.Response) {
+    var errorLabelString = ""
+    
+    if !response.isKeyValid {
+      errorLabelString = "Invalid Public Key"
+      pubKeyValid = false
+    } else {
+      pubKeyValid = true
+    }
+    updateValidities()
+    
+    let viewModel = ChannelOpen.ValidateNodePubKey.WarningVM(errorLabel: errorLabelString)
+    viewController?.displayNodePubKeyValidWarning(viewModel: viewModel)
+  }
+  
+  func presentNodePortIPValid(response: ChannelOpen.ValidateNodeIPPort.Response) {
+    var errorLabelString = ""
+    ipPortValid = false
+    
+    if !response.isIPValid {
+      errorLabelString = "Invalid Host Address"
+    } else if !response.isPortValid {
+      errorLabelString = "Invalid Port"
+    } else {
+      ipPortValid = true
+    }
+    updateValidities()
+    
+    let viewModel = ChannelOpen.ValidateNodeIPPort.WarningVM(errorLabel: errorLabelString)
+    viewController?.displayIPPortValidWarning(viewModel: viewModel)
+  }
+  
+  func presentAmountValid(response: ChannelOpen.ValidateAmounts.Response) {
+    
+    var errorLabelString = ""
+    var errorAlertString: String? = nil
+    
+    fundingValid = false
+    initPayValid = false
+    
+    switch response.initPayError {
+    case .some(.invalid):
+      errorLabelString = "Invalid Entry"
+    case .some(.insufficient):
+      errorLabelString = "Over Channel Funding"
+    case .some(.feeEstimation):
+      errorLabelString = ""
+      errorAlertString = "Cannot obtain fee estimation"
+    case .some(.walletBalance):
+      errorLabelString = ""
+      errorAlertString = "Cannot obtain wallet balance"
+    case .none:
+      errorLabelString = ""
+      initPayValid = true
+    }
+    
+    let initPayViewModel = ChannelOpen.ValidateAmounts.InitPayWarningVM(initPayErrorLabel: errorLabelString)
+    viewController?.displayInitPayAmtValidWarning(viewModel: initPayViewModel)
+    
+    switch response.fundingError {
+    case .some(.invalid):
+      errorLabelString = "Invalid Entry"
+    case .some(.insufficient):
+      errorLabelString = "Insufficient Funds"
+    case .some(.feeEstimation):
+      errorLabelString = ""
+      errorAlertString = "Cannot obtain fee estimation"
+    case .some(.walletBalance):
+      errorLabelString = ""
+      errorAlertString = "Cannot obtain wallet balance"
+    case .none:
+      errorLabelString = ""
+      fundingValid = true
+    }
+    
+    updateValidities()
+    
+    let fundingViewModel = ChannelOpen.ValidateAmounts.FundingWarningVM(fundingErrorLabel: errorLabelString)
+    viewController?.displayFundingAmtValidWarning(viewModel: fundingViewModel)
+    
+    if let errorAlertString = errorAlertString {
+      let viewModel = ChannelOpen.ValidateAmounts.ErrorVM(errTitle: "Channel Amount Error", errMsg: errorAlertString)
+      viewController?.displayAmtValidError(viewModel: viewModel)
+    }
+  }
+  
+  private func updateValidities() {
+    viewController?.displayConfirmButton(enable: pubKeyValid && ipPortValid && fundingValid && initPayValid)
+  }
+  
+  
+  // MARK: Get Balance
+  
+  func presentOnChainConfirmedBalance(response: ChannelOpen.GetBalance.Response) {
+    if let confirmedBalance = response.onChainBalance {
+      let balanceString = confirmedBalance.formattedInSatoshis()
+      let viewModel = ChannelOpen.GetBalance.ViewModel(onChainBalance: balanceString)
+      viewController?.displayOnChainConfirmedBalance(viewModel: viewModel)
+    } else {
+      let viewModel = ChannelOpen.GetBalance.ErrorVM(errTitle: "Wallet Balance", errMsg: "Cannot retreive wallet balance. Please restart app.")
+      viewController?.displayOnChainConfirmedBalanceError(viewModel: viewModel)
+    }
+  }
   
   
   // MARK: Channel Opening Confirm

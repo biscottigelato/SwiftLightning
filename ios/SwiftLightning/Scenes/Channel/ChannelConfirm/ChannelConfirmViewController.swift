@@ -114,7 +114,11 @@ class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
   
   // MARK: Channel Opening Confirmed
   
+  let activityIndicator = SLSpinnerDialogView()
+  
   @IBAction func confirmTapped(_ sender: SLBarButton) {
+    activityIndicator.show(on: view)
+    
     let request = ChannelConfirm.OpenChannel.Request()
     interactor?.openChannel(request: request)
   }
@@ -122,19 +126,23 @@ class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
   func displayOpenChannelSubmitted(viewModel: ChannelConfirm.OpenChannel.ViewModel) {
     let alertDialog = UIAlertController(title: viewModel.alertTitle,
                                         message: viewModel.alertMsg,
-                                        preferredStyle: .alert).addAction(title: "OK", style: .default)
+                                        preferredStyle: .alert).addAction(title: "OK", style: .default) { (alert) in
+                                          
+      DispatchQueue.main.async { self.router?.routeToWalletMain() }
+    }
+    
     DispatchQueue.main.async {
-      self.present(alertDialog, animated: true) {
-        self.router?.routeToWalletMain()
-      }
+      self.activityIndicator.remove()
+      self.present(alertDialog, animated: true)
     }
   }
   
   func displayOpenChannelFailure(viewModel: ChannelConfirm.OpenChannel.ErrorVM) {
     let alertDialog = UIAlertController(title: viewModel.errTitle,
-                                        message: viewModel.errTitle,
+                                        message: viewModel.errMsg,
                                         preferredStyle: .alert).addAction(title: "OK", style: .default)
     DispatchQueue.main.async {
+      self.activityIndicator.remove()
       self.present(alertDialog, animated: true)
     }
   }

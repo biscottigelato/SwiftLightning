@@ -561,7 +561,7 @@ class LNServices {
         // Server Streaming GRPC
         let call = try lightningService!.openChannel(request) { (result) in
           if result.success, result.statusCode.rawValue == 0 {
-            SLLog.debug("LN Open Channel Request Success!")
+            SLLog.debug("LN Open Channel Resulted in Success!")
             completion({ return })
           }
           else {
@@ -572,10 +572,47 @@ class LNServices {
           }
         }
         
-        // Success! - dereference retry
+        // Dereference retry
         retry.success()
-        streaming({ return call })
-
+        
+        do {
+          try call.receive { (result) in
+            switch result {
+            case .result(let resultType):
+              guard let update = resultType?.update else {
+                SLLog.warning("LN Open Channel call stream result with no type")
+                streaming({ throw LNError.openChannelStreamNoType })
+                break
+              }
+              
+              switch update {
+              case .chanPending(let pendingUpdate):
+                SLLog.verbose("LN Open Channel Pending Update:")
+                SLLog.verbose(" TXID:          \(pendingUpdate.txid.hexEncodedString(options: .littleEndian))")
+                SLLog.verbose(" Output Index:  \(pendingUpdate.outputIndex)")
+                
+              case .confirmation(let confirmUpdate):
+                SLLog.verbose("LN Open Channel Confirmation Update:")
+                SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
+                SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
+                SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
+                
+              case .chanOpen(let openUpdate):
+                SLLog.verbose("LN Open Channel Open Update:")
+                SLLog.verbose(" TXID:          \(openUpdate.channelPoint.fundingTxidStr)")
+                SLLog.verbose(" Output Index:  \(openUpdate.channelPoint.outputIndex)")
+              }
+              streaming({ return call })
+              
+            case .error(let error):
+              SLLog.warning("LN Open Channel call stream error - \(error.localizedDescription)")
+              streaming({ throw error })
+            }
+          }
+        } catch {
+          SLLog.warning("LNOpen Channel call stream thrown - \(error.localizedDescription)")
+          streaming({ throw error })
+        }
       } catch {
         // Error - attempt to retry
         retry.attempt(error: error)

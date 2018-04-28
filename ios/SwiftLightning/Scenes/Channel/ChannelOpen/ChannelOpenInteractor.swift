@@ -15,6 +15,10 @@ import UIKit
 protocol ChannelOpenBusinessLogic
 {
   func channelConfirm(request: ChannelOpen.ChannelConfirm.Request)
+  func validateNodePubKey(request: ChannelOpen.ValidateNodePubKey.Request)
+  func validateNodeIPPort(request: ChannelOpen.ValidateNodeIPPort.Request)
+  func validateAmounts(request: ChannelOpen.ValidateAmounts.Request)
+  func getOnChainConfirmedBalance(request: ChannelOpen.GetBalance.Request)
 }
 
 protocol ChannelOpenDataStore
@@ -82,6 +86,85 @@ class ChannelOpenInteractor: ChannelOpenBusinessLogic, ChannelOpenDataStore {
       SLLog.fatal("confSpeed in Data Store = nil")
     }
     return returnValue
+  }
+  
+  
+  // MARK: On Chain Confirmed Balance
+  
+  func getOnChainConfirmedBalance(request: ChannelOpen.GetBalance.Request) {
+    LNServices.walletBalance { (responder) in
+      do {
+        let balance = try responder()
+        let response = ChannelOpen.GetBalance.Response(onChainBalance: Bitcoin(inSatoshi: balance.confirmed))
+        self.presenter?.presentOnChainConfirmedBalance(response: response)
+      } catch {
+        let response = ChannelOpen.GetBalance.Response(onChainBalance: nil)
+        self.presenter?.presentOnChainConfirmedBalance(response: response)
+      }
+    }
+  }
+  
+  
+  // MARK: Validate Entries
+  
+  func validateNodePubKey(request: ChannelOpen.ValidateNodePubKey.Request) {
+    let isNodePubKeyValid = LNManager.validateNodePubKey(request.nodePubKey)
+    let response = ChannelOpen.ValidateNodePubKey.Response(isKeyValid: isNodePubKeyValid)
+    presenter?.presentNodePubKeyValid(response: response)
+  }
+  
+  func validateNodeIPPort(request: ChannelOpen.ValidateNodeIPPort.Request) {
+    let ipPort = LNManager.parsePortIPString(request.nodeIPPort)
+    let isNodeIPValid = ipPort.ipString != nil
+    let isNodePortValid = ipPort.port != nil
+    let response = ChannelOpen.ValidateNodeIPPort.Response(isIPValid: isNodeIPValid,
+                                                           isPortValid: isNodePortValid)
+    presenter?.presentNodePortIPValid(response: response)
+  }
+  
+  func validateAmounts(request: ChannelOpen.ValidateAmounts.Request) {
+    // TODO: Calculate Fee involved for desired Conf Speed
+    
+    LNServices.walletBalance { (responder) in
+      do {
+        let balanceInSat = try responder()
+        
+        var fundingError: ChannelOpen.ValidateAmounts.Error? = nil
+        var initPayError: ChannelOpen.ValidateAmounts.Error? = nil
+        
+        // TODO: Need to know what the text field value means. Satoshi? Bits? USD? etc
+        guard let fundingAmt = Bitcoin(inSatoshi: request.fundingAmt) else {
+          let response = ChannelOpen.ValidateAmounts.Response(fundingError: ChannelOpen.ValidateAmounts.Error.invalid,
+                                                              initPayError: nil)
+          self.presenter?.presentAmountValid(response: response)
+          return
+        }
+      
+        if fundingAmt.integerInSatoshis > balanceInSat.confirmed {
+          fundingError = ChannelOpen.ValidateAmounts.Error.insufficient
+        }
+        
+        guard let initPayAmt = Bitcoin(inSatoshi: request.initPayAmt) else {
+          let response = ChannelOpen.ValidateAmounts.Response(fundingError: fundingError,
+                                                              initPayError: ChannelOpen.ValidateAmounts.Error.invalid)
+          self.presenter?.presentAmountValid(response: response)
+          return
+        }
+        
+        if initPayAmt > fundingAmt {
+          initPayError = ChannelOpen.ValidateAmounts.Error.insufficient
+        }
+        
+        let response = ChannelOpen.ValidateAmounts.Response(fundingError: fundingError,
+                                                            initPayError: initPayError)
+        self.presenter?.presentAmountValid(response: response)
+        
+      } catch {
+        let response = ChannelOpen.ValidateAmounts.Response(fundingError: ChannelOpen.ValidateAmounts.Error.walletBalance,
+                                                            initPayError: ChannelOpen.ValidateAmounts.Error.walletBalance)
+        self.presenter?.presentAmountValid(response: response)
+      }
+    }
   }
   
   

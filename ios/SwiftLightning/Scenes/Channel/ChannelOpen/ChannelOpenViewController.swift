@@ -12,17 +12,34 @@
 
 import UIKit
 
-protocol ChannelOpenDisplayLogic: class
-{
+protocol ChannelOpenDisplayLogic: class {
+  
+  func displayNodePubKeyValidWarning(viewModel: ChannelOpen.ValidateNodePubKey.WarningVM)
+  func displayIPPortValidWarning(viewModel: ChannelOpen.ValidateNodeIPPort.WarningVM)
+  func displayFundingAmtValidWarning(viewModel: ChannelOpen.ValidateAmounts.FundingWarningVM)
+  func displayInitPayAmtValidWarning(viewModel: ChannelOpen.ValidateAmounts.InitPayWarningVM)
+  func displayAmtValidError(viewModel: ChannelOpen.ValidateAmounts.ErrorVM)
+  func displayOnChainConfirmedBalance(viewModel: ChannelOpen.GetBalance.ViewModel)
+  func displayOnChainConfirmedBalanceError(viewModel: ChannelOpen.GetBalance.ErrorVM)
   func displayChannelConfirm()
   func displayChannelConfirmError(viewModel: ChannelOpen.ChannelConfirm.ErrorVM)
+  func displayConfirmButton(enable: Bool)
 }
 
-class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
-{
+
+class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, UITextFieldDelegate {
+  
   var interactor: ChannelOpenBusinessLogic?
   var router: (NSObjectProtocol & ChannelOpenRoutingLogic & ChannelOpenDataPassing)?
 
+  
+  // MARK: Common IBOutlets
+  @IBOutlet weak var nodePubKeyEntryView: SLFormEntryView!
+  @IBOutlet weak var nodePortIPEntryView: SLFormEntryView!
+  @IBOutlet weak var fundingEntryView: SLFormEntryView!
+  @IBOutlet weak var initPaymentEntryView: SLFormEntryView!
+  @IBOutlet weak var openChannelButton: SLBarButton!
+  
   
   // MARK: Object lifecycle
   
@@ -65,15 +82,18 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
     super.viewDidLoad()
     keyboardConstraint = formBottomConstraint
     keyboardConstraintMargin = formBottomConstraint.constant
+    
+    nodePubKeyEntryView.textField.delegate = self
+    nodePortIPEntryView.textField.delegate = self
+    fundingEntryView.textField.delegate = self
+    initPaymentEntryView.textField.delegate = self
+    
+    fundingEntryView.errorLabel.isHidden = true
+    initPaymentEntryView.errorLabel.isHidden = true
   }
   
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    
-    // TODO: Button should stay disabled until all entries are valid
-    openChannelButton.backgroundColor = UIColor.medAquamarine
-    openChannelButton.shadowColor = UIColor.medAquamarineShadow
-    openChannelButton.setTitleColor(UIColor.normalText, for: .normal)
+  override func viewWillAppear(_ animated: Bool) {
+    updateOnChainedConfirmedBalance()
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -82,13 +102,153 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
   }
   
   
-  // MARK: Open Channel
+  // MARK: Text Field Return
   
-  @IBOutlet weak var nodePubKeyEntryView: SLFormEntryView!
-  @IBOutlet weak var nodePortIPEntryView: SLFormEntryView!
-  @IBOutlet weak var fundingEntryView: SLFormEntryView!
-  @IBOutlet weak var initPaymentEntryView: SLFormEntryView!
-  @IBOutlet weak var openChannelButton: SLBarButton!
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    switch textField {
+    case nodePubKeyEntryView.textField:
+      nodePortIPEntryView.textField.becomeFirstResponder()
+    case nodePortIPEntryView.textField:
+      fundingEntryView.textField.becomeFirstResponder()
+    case fundingEntryView.textField:
+      initPaymentEntryView.textField.becomeFirstResponder()
+    case initPaymentEntryView.textField:
+      if openChannelButton.isEnabled { openChannel() }
+    default:
+      break
+    }
+    return true
+  }
+  
+  
+  // MARK: Update Balance
+  
+  func updateOnChainedConfirmedBalance() {
+    let request = ChannelOpen.GetBalance.Request()
+    interactor?.getOnChainConfirmedBalance(request: request)
+  }
+  
+  func displayOnChainConfirmedBalance(viewModel: ChannelOpen.GetBalance.ViewModel) {
+    DispatchQueue.main.async {
+      self.fundingEntryView.remainingLabel.text = "on-chain balance: \(viewModel.onChainBalance)"
+    }
+  }
+  
+  func displayOnChainConfirmedBalanceError(viewModel: ChannelOpen.GetBalance.ErrorVM) {
+    let alertDialog = UIAlertController(title: viewModel.errTitle,
+                                        message: viewModel.errMsg,
+                                        preferredStyle: .alert).addAction(title: "OK", style: .default)
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true, completion: nil)
+    }
+  }
+  
+  
+  // MARK: Verify Text Field Entries
+  
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    switch textField {
+      
+    case nodePubKeyEntryView.textField:
+      if let nodePubKey = nodePubKeyEntryView.textField.text, nodePubKey != "" {
+        
+        // See if the host address is appended at the end of the key. If so split it
+        let splitKey = LNManager.splitKeyAddressString(nodePubKey.trimmingCharacters(in: .whitespacesAndNewlines))
+        
+        if let ipPort = splitKey.addr {
+          if let ipPortText = nodePortIPEntryView.textField.text, ipPortText != "" {
+            // Don't overwrite. There's already text
+          } else {
+            nodePortIPEntryView.textField.text = ipPort
+            nodePortIPEntryView.textField.delegate?.textFieldDidEndEditing?(nodePortIPEntryView.textField)
+            nodePubKeyEntryView.textField.text = splitKey.key
+          }
+        }
+        
+        let request = ChannelOpen.ValidateNodePubKey.Request(nodePubKey: splitKey.key)
+        interactor?.validateNodePubKey(request: request)
+      }
+      
+    case nodePortIPEntryView.textField:
+      if let nodeIPPort = nodePortIPEntryView.textField.text, nodeIPPort != "" {
+        let request = ChannelOpen.ValidateNodeIPPort.Request(nodeIPPort: nodeIPPort)
+        interactor?.validateNodeIPPort(request: request)
+      }
+      
+    case fundingEntryView.textField, initPaymentEntryView.textField:
+      
+      var fundingString = ""
+      if let fundingAmt = fundingEntryView.textField.text, fundingAmt != "" {
+        fundingString = fundingAmt
+        self.fundingEntryView.errorLabel.isHidden = false
+      }
+      
+      var initPayString = ""
+      if let initPayAmt = initPaymentEntryView.textField.text, initPayAmt != "" {
+        initPayString = initPayAmt
+        self.initPaymentEntryView.errorLabel.isHidden = false
+      }
+      
+      let request = ChannelOpen.ValidateAmounts.Request(fundingAmt: fundingString,
+                                                        initPayAmt: initPayString,
+                                                        confSpeed: OnChainConfirmSpeed.normal)  // TODO:
+      interactor?.validateAmounts(request: request)
+
+    default:
+      break
+    }
+  }
+  
+  func displayNodePubKeyValidWarning(viewModel: ChannelOpen.ValidateNodePubKey.WarningVM) {
+    DispatchQueue.main.async {
+      self.nodePubKeyEntryView.errorLabel.text = viewModel.errorLabel
+    }
+  }
+  
+  func displayIPPortValidWarning(viewModel: ChannelOpen.ValidateNodeIPPort.WarningVM) {
+    DispatchQueue.main.async {
+      self.nodePortIPEntryView.errorLabel.text = viewModel.errorLabel
+    }
+  }
+  
+  func displayFundingAmtValidWarning(viewModel: ChannelOpen.ValidateAmounts.FundingWarningVM) {
+    DispatchQueue.main.async {
+      self.fundingEntryView.errorLabel.text = viewModel.fundingErrorLabel
+    }
+  }
+  
+  func displayInitPayAmtValidWarning(viewModel: ChannelOpen.ValidateAmounts.InitPayWarningVM) {
+    DispatchQueue.main.async {
+      self.initPaymentEntryView.errorLabel.text = viewModel.initPayErrorLabel
+    }
+  }
+  
+  func displayAmtValidError(viewModel: ChannelOpen.ValidateAmounts.ErrorVM) {
+    let alertDialog = UIAlertController(title: viewModel.errTitle,
+                                        message: viewModel.errMsg,
+                                        preferredStyle: .alert).addAction(title: "OK", style: .default)
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true, completion: nil)
+    }
+  }
+  
+  func displayConfirmButton(enable: Bool) {
+    DispatchQueue.main.async {
+      if enable {
+        self.openChannelButton.backgroundColor = UIColor.medAquamarine
+        self.openChannelButton.shadowColor = UIColor.medAquamarineShadow
+        self.openChannelButton.setTitleColor(UIColor.normalText, for: .normal)
+      } else {
+        self.openChannelButton.backgroundColor = UIColor.disabledGray
+        self.openChannelButton.shadowColor = UIColor.disabledGrayShadow
+        self.openChannelButton.setTitleColor(UIColor.disabledText, for: .normal)
+      }
+      self.openChannelButton.isEnabled = enable
+    }
+  }
+  
+  
+  // MARK: Open Channel
   
   @IBAction func openChannelTapped(_ sender: SLBarButton) {
     openChannel()
@@ -98,7 +258,7 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic
     let nodePubKeyString = nodePubKeyEntryView.textField.text ?? ""
     let nodePortIPString = nodePortIPEntryView.textField.text ?? ""
     let fundingAmtString = fundingEntryView.textField.text ?? ""
-    let initPaymentString = initPaymentEntryView.textField.text ?? ""
+    let initPaymentString = initPaymentEntryView.textField.text ?? "0"
     
     let request = ChannelOpen.ChannelConfirm.Request(nodePubKey: nodePubKeyString,
                                                      nodeIPPort: nodePortIPString,

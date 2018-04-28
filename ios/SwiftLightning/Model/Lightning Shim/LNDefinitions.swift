@@ -182,18 +182,20 @@ struct LNDInfo: CustomStringConvertible {
 // MARK: Errors
 
 
-enum LNError: Int, Error {
+enum LNError: Int, LocalizedError {
   
   case createWalletInvalidCipherSeed
   case createWalletInvalidPassword
   
   case unlockWalletInvalidPassword
   
+  case openChannelStreamNoType
+  
   
   // Computed Properties
   var code: Int { return self.rawValue }
   
-  var localizedDescription: String {
+  var errorDescription: String? {
     switch self {
       
     case .createWalletInvalidCipherSeed:
@@ -203,6 +205,9 @@ enum LNError: Int, Error {
       
     case .unlockWalletInvalidPassword:
       return NSLocalizedString("Password invalid when unlocking wallet", comment: "LNError Type")
+    
+    case .openChannelStreamNoType:
+      return NSLocalizedString("OpenChannel Stream Call result has no type", comment: "LN Error Type")
     }
   }
 }

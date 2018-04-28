@@ -136,10 +136,6 @@ class PlaygroundViewController: SLViewController {
   }
   
   
-  // 02212d3ec887188b284dbb7b2e6eb40629a6e14fb049673f22d2a0aa05f902090e @ testnet-lnd.yalls.org : LNConstants.defaultLightningNodePort
-  // 020a3ce6e6893749bbcdb67ac67570e816a17c678bbcb6b12b0325f3fec036a014 @ 189.4.126.1 : 9735
-  // 03fd0aebde8713e9c311f22468d3d0524e788b1ef57f4cda41bf5b5a2300fc5cd6 @ 86.61.67.183 : 9735
-  
   var call: Lnrpc_LightningOpenChannelCall?
   
   @IBAction func openChannel(_ sender: UIButton) {

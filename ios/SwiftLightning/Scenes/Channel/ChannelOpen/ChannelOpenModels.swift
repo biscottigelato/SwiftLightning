@@ -14,47 +14,46 @@ import UIKit
 
 enum ChannelOpen
 {
-  enum VerifyNodePubKey {
+  enum ValidateNodePubKey {
     struct Request {
       var nodePubKey: String
     }
     struct Response {
-      var isKeyValid: Bool?
+      var isKeyValid: Bool
     }
     struct WarningVM {
       var errorLabel: String
     }
-    struct ErrorVM {
-      var errTitle: String
-      var errMsg: String
-    }
   }
   
-  enum VerifyNodeIPPort {
+  enum ValidateNodeIPPort {
     struct Request {
       var nodeIPPort: String
     }
     struct Response {
-      var isIPValid: Bool?
-      var isPortValid: Bool?
+      var isIPValid: Bool
+      var isPortValid: Bool
     }
     struct WarningVM {
       var errorLabel: String
     }
-    struct ErrorVM {
-      var errTitle: String
-      var errMsg: String
-    }
   }
   
-  enum VerifyAmounts {
+  enum ValidateAmounts {
+    enum Error {
+      case invalid
+      case insufficient
+      case walletBalance
+      case feeEstimation
+    }
     struct Request {
       var fundingAmt: String
       var initPayAmt: String
+      var confSpeed: OnChainConfirmSpeed
     }
     struct Response {
-      var isBalanceSufficient: Bool?
-      var isInitPayOK: Bool?
+      var fundingError: ChannelOpen.ValidateAmounts.Error?
+      var initPayError: ChannelOpen.ValidateAmounts.Error?
     }
     struct FundingWarningVM {
       var fundingErrorLabel: String
@@ -68,43 +67,11 @@ enum ChannelOpen
     }
   }
   
-  enum GetRefFundingAmt {
-    struct Request {
-      var fundingAmt: String
-    }
-    struct Response<C: Currency> {
-      var refFundingAmt: Money<C>
-    }
-    struct ViewModel {
-      var refFundingAmg: String
-    }
-    struct ErrorVM {
-      var errTitle: String
-      var errMsg: String
-    }
-  }
-  
-  enum GetRefInitPayAmt {
-    struct Request {
-      var initPayAmt: String
-    }
-    struct Resposne<C: Currency> {
-      var refInitPayAmt: Money<C>
-    }
-    struct ViewModel {
-      var refInitPayAmt: String
-    }
-    struct ErrVM {
-      var errTitle: String
-      var errMsg: String
-    }
-  }
-  
   enum GetBalance {
     struct Request {
     }
     struct Response {
-      var onChainBalance: Bitcoin
+      var onChainBalance: Bitcoin?
     }
     struct ViewModel {
       var onChainBalance: String
@@ -114,19 +81,51 @@ enum ChannelOpen
       var errMsg: String
     }
   }
-  
-  //  enum GetFeeEstimate {
-  //    struct Request {
-  //      var confirmSpeed: OnChainConfirmSpeed
-  //    }
-  //    struct Response {
-  //      var isFundSufficient: Bool?
-  //    }
-  //    struct ViewModel {
-  //      var errTitle: String
-  //      var errMsg: String
-  //    }
-  //  }
+
+//  enum GetRefFundingAmt {
+//    struct Request {
+//      var fundingAmt: String
+//    }
+//    struct Response<C: Currency> {
+//      var refFundingAmt: Money<C>
+//    }
+//    struct ViewModel {
+//      var refFundingAmg: String
+//    }
+//    struct ErrorVM {
+//      var errTitle: String
+//      var errMsg: String
+//    }
+//  }
+//
+//  enum GetRefInitPayAmt {
+//    struct Request {
+//      var initPayAmt: String
+//    }
+//    struct Resposne<C: Currency> {
+//      var refInitPayAmt: Money<C>
+//    }
+//    struct ViewModel {
+//      var refInitPayAmt: String
+//    }
+//    struct ErrVM {
+//      var errTitle: String
+//      var errMsg: String
+//    }
+//  }
+//
+//  enum GetFeeEstimate {
+//    struct Request {
+//      var confirmSpeed: OnChainConfirmSpeed
+//    }
+//    struct Response {
+//      var isFundSufficient: Bool?
+//    }
+//    struct ViewModel {
+//      var errTitle: String
+//      var errMsg: String
+//    }
+//  }
   
   enum ChannelConfirm {
     struct Request {

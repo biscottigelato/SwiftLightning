@@ -15,6 +15,7 @@ import UIKit
   @IBOutlet var textFieldTapRecognizer: UITapGestureRecognizer!
   
   @IBOutlet weak var fieldTitleLabel: UILabel!
+  @IBOutlet weak var errorLabel: UILabel!
   @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var convertedLabel: UILabel!
   @IBOutlet weak var button: SLBarButton!
@@ -27,6 +28,7 @@ import UIKit
   
   
   // MARK: View lifecycle
+  
   var initialLayout = true
   
   override func layoutSubviews() {
@@ -118,25 +120,33 @@ import UIKit
       textField.keyboardType = .decimalPad
       textField.autocapitalizationType = .none
       textField.autocorrectionType = .no
-      textField.placeholder = "sat"  // TODO: Variable hint based on currency in use
+      textField.font = UIFont.mediumFont(14.0)
+      
+      // TODO: Variable hint based on currency in use
       // convertedLabel.isHidden = false
       feeBalanceStack.isHidden = true
       
-      button.isHidden = true  // TODO: Allow for reference currency display swapping
+      button.isEnabled = false  // TODO: Allow for reference currency display swapping
+      button.backgroundColor = UIColor.disabledGray
+      button.shadowColor = UIColor.disabledGrayShadow
       button.setTitle("sat", for: .normal)
       
     case .moneyFeeBalance:
-      let intrinsicHeight = 2*button.intrinsicContentSize.height + spacerHeight
+      let intrinsicHeight = 3*button.intrinsicContentSize.height + spacerHeight
       intrinsicSize = CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: intrinsicHeight)
       
       textField.keyboardType = .decimalPad
       textField.autocapitalizationType = .none
       textField.autocorrectionType = .no
-      textField.placeholder = "sat"  // TODO: Variable hint based on currency in use
-      // convertedLabel.isHidden = false
-      // feeBalanceStack.isHidden = false
+      textField.font = UIFont.mediumFont(14.0)
       
-      button.isHidden = true  // TODO: Allow for reference currency display swapping
+      // TODO: Variable hint based on currency in use
+      // convertedLabel.isHidden = false
+      feeBalanceStack.isHidden = false
+      
+      button.isEnabled = false  // TODO: Allow for reference currency display swapping
+      button.backgroundColor = UIColor.disabledGray
+      button.shadowColor = UIColor.disabledGrayShadow
       button.setTitle("sat", for: .normal)
       
     case .numberIPPort:
@@ -164,6 +174,24 @@ import UIKit
   }
   
   
+  @IBAction func textFieldChanged(_ sender: UITextField) {
+    switch entryViewType {
+    case .moneyFeeBalance, .money:
+      if let text = sender.text,
+        let amount = Bitcoin(inSatoshi: text.trimmingCharacters(in: .whitespacesAndNewlines)) {
+        
+        sender.text = amount.formattedInSatoshis()
+      }
+      
+    case .key, .numberIPPort:
+      sender.text = sender.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+      
+    case .description:
+      break
+    }
+  }
+  
+  
   // MARK: Button
   
   @IBAction func buttonTapped(_ sender: SLBarButton) {
@@ -171,6 +199,8 @@ import UIKit
     case .key, .numberIPPort:
       if let pasteboardString = UIPasteboard.general.string {
         textField.text = pasteboardString
+        textField.becomeFirstResponder()
+        textField.delegate?.textFieldDidEndEditing?(textField)
       }
     default:
       break  // TODO: Allow for reference currency display swapping

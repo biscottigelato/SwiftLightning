@@ -19,16 +19,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0xo-ES-N3e" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="10" y="84" width="355" height="408"/>
+                                <rect key="frame" x="10" y="84" width="355" height="436"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PbX-XU-m6q">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="408"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="436"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EAS-WT-IOT" userLabel="Content View">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="408"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="436"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="tRN-Id-nLn">
-                                                        <rect key="frame" x="15" y="0.0" width="325" height="408"/>
+                                                        <rect key="frame" x="15" y="0.0" width="325" height="436"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Rzh-dl-dcF" userLabel="Header Spacer">
                                                                 <rect key="frame" x="0.0" y="0.0" width="325" height="40"/>
@@ -72,7 +72,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RNh-zW-MP9" userLabel="Funding Entry View" customClass="SLFormEntryView" customModule="SwiftLightning" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="180" width="325" height="69"/>
+                                                                <rect key="frame" x="0.0" y="180" width="325" height="97"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="fieldTitle" value="Funding Amount"/>
@@ -82,14 +82,14 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="17o-rE-J7T" userLabel="Line">
-                                                                <rect key="frame" x="0.0" y="249" width="325" height="1"/>
+                                                                <rect key="frame" x="0.0" y="277" width="325" height="1"/>
                                                                 <color key="backgroundColor" name="FormLineGray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="MHg-2i-YCS"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jKN-SR-NLV" customClass="SLFormEntryView" customModule="SwiftLightning" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="250" width="325" height="69"/>
+                                                                <rect key="frame" x="0.0" y="278" width="325" height="69"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="fieldTitle" value="Initial Payment"/>
@@ -99,14 +99,14 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SlI-y5-hbj" userLabel="Line">
-                                                                <rect key="frame" x="0.0" y="319" width="325" height="1"/>
+                                                                <rect key="frame" x="0.0" y="347" width="325" height="1"/>
                                                                 <color key="backgroundColor" name="FormLineGray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="7Ac-hw-hVT"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GfQ-3o-49z">
-                                                                <rect key="frame" x="0.0" y="320" width="325" height="88"/>
+                                                                <rect key="frame" x="0.0" y="348" width="325" height="88"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLI-wp-IpX" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
                                                                         <rect key="frame" x="139.5" y="23" width="46" height="42"/>
