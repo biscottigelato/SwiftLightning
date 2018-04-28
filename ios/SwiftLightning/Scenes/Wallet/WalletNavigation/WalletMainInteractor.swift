@@ -12,30 +12,45 @@
 
 import UIKit
 
-protocol WalletMainBusinessLogic
-{
-  func doSomething(request: WalletMain.Something.Request)
+protocol WalletMainBusinessLogic {
+  func updateBalances(request: WalletMain.UpdateBalances.Request)
 }
 
-protocol WalletMainDataStore
-{
-  //var name: String { get set }
-}
+protocol WalletMainDataStore { }
 
-class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore
-{
+
+class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
+  
   var presenter: WalletMainPresentationLogic?
-  var worker: WalletMainWorker?
-  //var name: String = ""
   
-  // MARK: Do something
+  // MARK: Update Balances
   
-  func doSomething(request: WalletMain.Something.Request)
-  {
-    worker = WalletMainWorker()
-    worker?.doSomeWork()
+  func updateBalances(request: WalletMain.UpdateBalances.Request) {
     
-    let response = WalletMain.Something.Response()
-    presenter?.presentSomething(response: response)
+    LNServices.walletBalance() { (walletResponder) in
+      do {
+        let onChainBalance = try walletResponder()
+        let onChainBitcoin = Bitcoin(inSatoshi: onChainBalance.confirmed)
+        
+        LNServices.channelBalance() { (channelResponder) in
+          do {
+            let channelBalance = try channelResponder()
+            let channelBitcoin = Bitcoin(inSatoshi: channelBalance)
+            
+            let response = WalletMain.UpdateBalances.Response(onChainBalance: onChainBitcoin, channelBalance: channelBitcoin)
+            self.presenter?.presentUpdatedBalances(response: response)
+
+          } catch {
+            let response = WalletMain.UpdateBalances.Response(onChainBalance: onChainBitcoin, channelBalance: nil)
+            self.presenter?.presentUpdatedBalances(response: response)
+          }
+        }
+
+      } catch {
+        let response = WalletMain.UpdateBalances.Response(onChainBalance: nil, channelBalance: nil)
+        self.presenter?.presentUpdatedBalances(response: response)
+      }
+    }
+
   }
 }

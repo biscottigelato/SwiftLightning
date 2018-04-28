@@ -14,18 +14,28 @@ import UIKit
 
 protocol WalletMainPresentationLogic
 {
-  func presentSomething(response: WalletMain.Something.Response)
+  func presentUpdatedBalances(response: WalletMain.UpdateBalances.Response)
 }
 
-class WalletMainPresenter: WalletMainPresentationLogic
-{
+class WalletMainPresenter: WalletMainPresentationLogic {
   weak var viewController: WalletMainDisplayLogic?
   
-  // MARK: Do something
+  // MARK: Update Balances
   
-  func presentSomething(response: WalletMain.Something.Response)
-  {
-    // let viewModel = WalletMain.Something.ViewModel()
-    // viewController?.displaySomething(viewModel: viewModel)
+  func presentUpdatedBalances(response: WalletMain.UpdateBalances.Response) {
+    
+    guard let onChainBalance = response.onChainBalance, let channelBalance = response.channelBalance else {
+      let viewModel = WalletMain.UpdateBalances.ErrorVM(errTitle: "Balance Error",
+                                                        errMsg: "Cannot get Wallet and Channel Balance. Consider restarting the app to recover")
+      viewController?.displayBalancesError(viewModel: viewModel)
+      return
+    }
+    
+    let totalBalance = Bitcoin(onChainBalance + channelBalance)
+    let totalString = "\(totalBalance.formattedInSatoshis()) s"
+    let channelString = "\(channelBalance.formattedInSatoshis()) s"
+    let viewModel = WalletMain.UpdateBalances.ViewModel(totalBalanceString: totalString,
+                                                        channelBalanceString: channelString)
+    viewController?.displayBalances(viewModel: viewModel)
   }
 }

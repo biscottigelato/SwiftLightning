@@ -222,6 +222,10 @@ class LNServices {
             let confirmedBalance = Int(response.confirmedBalance)
             let unconfirmedBalance = Int(response.unconfirmedBalance)
             
+            SLLog.verbose("Total Balance: \(response.totalBalance)")
+            SLLog.verbose("Confirmed Balance: \(response.confirmedBalance)")
+            SLLog.verbose("Unconfirmed Balance: \(response.unconfirmedBalance)")
+            
             // Success! - dereference retry
             retry.success()
             completion({ return (totalBalance, confirmedBalance, unconfirmedBalance) })
@@ -244,6 +248,47 @@ class LNServices {
     }
     
     retry.start("LN Wallet Balance", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
+  
+  
+  // MARK: Channel Balance
+  
+  static func channelBalance(retryCount: Int = LNManager.Constants.defaultRetryCount,
+                            retryDelay: Double = LNManager.Constants.defaultRetryDelay,
+                            completion: @escaping (() throws -> (Int)) -> Void) {
+    let retry = SLRetry()
+    let task = { () -> () in
+      do {
+        try prepareLightningService()
+        
+        // Unary GRPC
+        _ = try lightningService!.channelBalance(Lnrpc_ChannelBalanceRequest()) { (response, result) in
+          if let response = response {
+            SLLog.debug("LN Channel Balance Success!")
+            SLLog.verbose("Channel Balance: \(response.balance)")
+            
+            // Success! - dereference retry
+            retry.success()
+            completion({ return Int(response.balance) })
+            
+          } else {
+            let message = result.statusMessage ?? result.description
+            
+            // Error - attempt to retry?
+            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
+          }
+        }
+      } catch {
+        // Error - attempt to retry
+        retry.attempt(error: error)
+      }
+    }
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Channel Balance Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    retry.start("LN Channel Balance", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   

@@ -12,10 +12,11 @@
 
 import UIKit
 
-protocol WalletMainDisplayLogic: class
-{
-//  func displaySomething(viewModel: WalletMain.Something.ViewModel)
+protocol WalletMainDisplayLogic: class {
+  func displayBalances(viewModel: WalletMain.UpdateBalances.ViewModel)
+  func displayBalancesError(viewModel: WalletMain.UpdateBalances.ErrorVM)
 }
+
 
 class WalletMainViewController: UIViewController, WalletMainDisplayLogic
 {
@@ -24,17 +25,21 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic
 
   // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     setup()
   }
   
-  required init?(coder aDecoder: NSCoder)
-  {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
+  
+  
+  // MARK: IBOutlets
+  
+  @IBOutlet weak var totalBalanceLabel: UILabel!
+  @IBOutlet weak var channelBalanceLabel: UILabel!
   
   
   // MARK: Setup
@@ -54,24 +59,15 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic
   }
   
   
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
-    }
-  }
-  
-  
   // MARK: View lifecycle
   
-  override func viewDidLoad()
-  {
+  override func viewDidLoad() {
     super.viewDidLoad()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    updateBalances()
   }
   
   
@@ -81,6 +77,32 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic
     router?.routeToReceiveMain()
   }
   
+  
+  // MARK: Update Balance - This is Temporary
+  
+  @IBAction func updateBalanceTapped(_ sender: SLBarButton) {
+    updateBalances()
+  }
+  
+  private func updateBalances() {
+    let request = WalletMain.UpdateBalances.Request()
+    interactor?.updateBalances(request: request)
+  }
+  
+  func displayBalances(viewModel: WalletMain.UpdateBalances.ViewModel) {
+    DispatchQueue.main.async {
+      self.totalBalanceLabel.text = viewModel.totalBalanceString
+      self.channelBalanceLabel.text = viewModel.channelBalanceString
+    }
+  }
+  
+  func displayBalancesError(viewModel: WalletMain.UpdateBalances.ErrorVM) {
+    let alertDialog = UIAlertController(title: viewModel.errTitle, message: viewModel.errMsg, preferredStyle: .alert).addAction(title: "OK", style: .default)
+    
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true, completion: nil)
+    }
+  }
   
   // MARK: Open Channel - This is Temporary.
   

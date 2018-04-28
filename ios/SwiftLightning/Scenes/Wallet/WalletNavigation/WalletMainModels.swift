@@ -14,18 +14,23 @@ import UIKit
 
 enum WalletMain
 {
-  // MARK: Use cases
+  // MARK: Update Balances
   
-  enum Something
-  {
-    struct Request
-    {
+  enum UpdateBalances {
+    
+    struct Request {
     }
-    struct Response
-    {
+    struct Response {
+      var onChainBalance: Bitcoin?
+      var channelBalance: Bitcoin?
     }
-    struct ViewModel
-    {
+    struct ViewModel {
+      var totalBalanceString: String
+      var channelBalanceString: String
+    }
+    struct ErrorVM {
+      var errTitle: String
+      var errMsg: String
     }
   }
 }
