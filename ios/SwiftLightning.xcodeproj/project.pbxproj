@@ -126,6 +126,13 @@
 		8C70EC15208E51A700D658DC /* HttpStatusCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EC14208E51A700D658DC /* HttpStatusCodes.swift */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SLLog.swift */; };
+		8C7EC53220950449001C8FD6 /* PayMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */; };
+		8C7EC53320950449001C8FD6 /* PayMainWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC52D20950449001C8FD6 /* PayMainWorker.swift */; };
+		8C7EC53420950449001C8FD6 /* PayMainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC52E20950449001C8FD6 /* PayMainRouter.swift */; };
+		8C7EC53520950449001C8FD6 /* PayMainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC52F20950449001C8FD6 /* PayMainModels.swift */; };
+		8C7EC53620950449001C8FD6 /* PayMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC53020950449001C8FD6 /* PayMainViewController.swift */; };
+		8C7EC53720950449001C8FD6 /* PayMainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC53120950449001C8FD6 /* PayMainInteractor.swift */; };
+		8C7EC53920950593001C8FD6 /* PayMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C7EC53820950593001C8FD6 /* PayMain.storyboard */; };
 		8C8275B1208EA1920029BE7E /* ChannelOpen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C8275B0208EA1920029BE7E /* ChannelOpen.storyboard */; };
 		8C8275B8208EA1B30029BE7E /* ChannelOpenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275B2208EA1B30029BE7E /* ChannelOpenPresenter.swift */; };
 		8C8275B9208EA1B30029BE7E /* ChannelOpenWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8275B3208EA1B30029BE7E /* ChannelOpenWorker.swift */; };
@@ -309,6 +316,13 @@
 		8C70EC14208E51A700D658DC /* HttpStatusCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpStatusCodes.swift; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLog.swift; sourceTree = "<group>"; };
+		8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainPresenter.swift; sourceTree = "<group>"; };
+		8C7EC52D20950449001C8FD6 /* PayMainWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainWorker.swift; sourceTree = "<group>"; };
+		8C7EC52E20950449001C8FD6 /* PayMainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainRouter.swift; sourceTree = "<group>"; };
+		8C7EC52F20950449001C8FD6 /* PayMainModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainModels.swift; sourceTree = "<group>"; };
+		8C7EC53020950449001C8FD6 /* PayMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainViewController.swift; sourceTree = "<group>"; };
+		8C7EC53120950449001C8FD6 /* PayMainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainInteractor.swift; sourceTree = "<group>"; };
+		8C7EC53820950593001C8FD6 /* PayMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PayMain.storyboard; sourceTree = "<group>"; };
 		8C8275B0208EA1920029BE7E /* ChannelOpen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChannelOpen.storyboard; sourceTree = "<group>"; };
 		8C8275B2208EA1B30029BE7E /* ChannelOpenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelOpenPresenter.swift; sourceTree = "<group>"; };
 		8C8275B3208EA1B30029BE7E /* ChannelOpenWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelOpenWorker.swift; sourceTree = "<group>"; };
@@ -700,6 +714,20 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		8C7EC52B20950429001C8FD6 /* PayMain */ = {
+			isa = PBXGroup;
+			children = (
+				8C7EC53820950593001C8FD6 /* PayMain.storyboard */,
+				8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */,
+				8C7EC52D20950449001C8FD6 /* PayMainWorker.swift */,
+				8C7EC52E20950449001C8FD6 /* PayMainRouter.swift */,
+				8C7EC52F20950449001C8FD6 /* PayMainModels.swift */,
+				8C7EC53020950449001C8FD6 /* PayMainViewController.swift */,
+				8C7EC53120950449001C8FD6 /* PayMainInteractor.swift */,
+			);
+			path = PayMain;
+			sourceTree = "<group>";
+		};
 		8C8275A2208EA14A0029BE7E /* Channel */ = {
 			isa = PBXGroup;
 			children = (
@@ -897,6 +925,7 @@
 		8CFA16932082ECC900813EA6 /* Pay */ = {
 			isa = PBXGroup;
 			children = (
+				8C7EC52B20950429001C8FD6 /* PayMain */,
 			);
 			path = Pay;
 			sourceTree = "<group>";
@@ -1136,6 +1165,7 @@
 				8C18829420868545002E2835 /* Montserrat-ThinItalic.ttf in Resources */,
 				8C090E2120885C84009B8B8D /* OpenSans-Bold.ttf in Resources */,
 				8C18829020868545002E2835 /* Montserrat-ExtraLight.ttf in Resources */,
+				8C7EC53920950593001C8FD6 /* PayMain.storyboard in Resources */,
 				8C6B7564208B17CB00B751A2 /* WalletNavigation.storyboard in Resources */,
 				8C18828720868545002E2835 /* Montserrat-ExtraBold.ttf in Resources */,
 				8C82760820912A750029BE7E /* SLFormPaySummaryView.xib in Resources */,
@@ -1279,6 +1309,7 @@
 				8CFA16A12082EF3A00813EA6 /* CreateRecoverPresenter.swift in Sources */,
 				8CFA16A22082EF3A00813EA6 /* CreateRecoverWorker.swift in Sources */,
 				8C6B7543208AF33200B751A2 /* RootRouter.swift in Sources */,
+				8C7EC53620950449001C8FD6 /* PayMainViewController.swift in Sources */,
 				8C1882AD2086941D002E2835 /* NibView.swift in Sources */,
 				8C6B7561208B17BD00B751A2 /* WalletMainViewController.swift in Sources */,
 				8C8276002091183F0029BE7E /* SLFormNodeView.swift in Sources */,
@@ -1299,6 +1330,7 @@
 				8C1882A120868EBE002E2835 /* PasswordCreateViewController.swift in Sources */,
 				8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */,
 				8CFA16AE2083001F00813EA6 /* DesignableViews.swift in Sources */,
+				8C7EC53220950449001C8FD6 /* PayMainPresenter.swift in Sources */,
 				8C090E4E20894A94009B8B8D /* SLSeedField.swift in Sources */,
 				8CFA16A42082EF3A00813EA6 /* CreateRecoverModels.swift in Sources */,
 				8C8275BA208EA1B30029BE7E /* ChannelOpenRouter.swift in Sources */,
@@ -1306,6 +1338,7 @@
 				8C18829F20868EBE002E2835 /* PasswordCreateRouter.swift in Sources */,
 				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
 				8C8275FC209118250029BE7E /* SLFormLabelView.swift in Sources */,
+				8C7EC53320950449001C8FD6 /* PayMainWorker.swift in Sources */,
 				8CFA16A52082EF3A00813EA6 /* CreateRecoverViewController.swift in Sources */,
 				8C090E042087F28D009B8B8D /* LNManager.swift in Sources */,
 				8C8275F020910FA40029BE7E /* ChannelConfirmWorker.swift in Sources */,
@@ -1327,7 +1360,9 @@
 				8C8275F120910FA40029BE7E /* ChannelConfirmRouter.swift in Sources */,
 				8C18829E20868EBE002E2835 /* PasswordCreateWorker.swift in Sources */,
 				8C090DFD2087DEAA009B8B8D /* MnemonicExplainPresenter.swift in Sources */,
+				8C7EC53420950449001C8FD6 /* PayMainRouter.swift in Sources */,
 				8C8275F420910FA40029BE7E /* ChannelConfirmInteractor.swift in Sources */,
+				8C7EC53520950449001C8FD6 /* PayMainModels.swift in Sources */,
 				8C6B755D208B17BD00B751A2 /* WalletMainPresenter.swift in Sources */,
 				8C6B755E208B17BD00B751A2 /* WalletMainWorker.swift in Sources */,
 				8C6B7541208AF33200B751A2 /* RootPresenter.swift in Sources */,
@@ -1337,6 +1372,7 @@
 				8C090E4420894801009B8B8D /* MnemonicConfirmRouter.swift in Sources */,
 				8C6B7546208AF33200B751A2 /* RootInteractor.swift in Sources */,
 				8C70EBFD208C458700D658DC /* SLFormBackingView.swift in Sources */,
+				8C7EC53720950449001C8FD6 /* PayMainInteractor.swift in Sources */,
 				8C6B7553208AFEC800B751A2 /* UnlockAppInteractor.swift in Sources */,
 				8C6B7551208AFEC800B751A2 /* UnlockAppModels.swift in Sources */,
 				8C8275BD208EA1B30029BE7E /* ChannelOpenInteractor.swift in Sources */,

@@ -10,6 +10,7 @@ import UIKit
 
 @IBDesignable class SLFormEntryView: NibView {
   
+  
   // MARK: IBOutlets
   
   @IBOutlet var textFieldTapRecognizer: UITapGestureRecognizer!
@@ -127,8 +128,6 @@ import UIKit
       feeBalanceStack.isHidden = true
       
       button.isEnabled = false  // TODO: Allow for reference currency display swapping
-      button.backgroundColor = UIColor.disabledGray
-      button.shadowColor = UIColor.disabledGrayShadow
       button.setTitle("sat", for: .normal)
       
     case .moneyFeeBalance:
@@ -145,8 +144,6 @@ import UIKit
       feeBalanceStack.isHidden = false
       
       button.isEnabled = false  // TODO: Allow for reference currency display swapping
-      button.backgroundColor = UIColor.disabledGray
-      button.shadowColor = UIColor.disabledGrayShadow
       button.setTitle("sat", for: .normal)
       
     case .numberIPPort:
