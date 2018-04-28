@@ -108,7 +108,7 @@
                                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GfQ-3o-49z">
                                                                 <rect key="frame" x="0.0" y="348" width="325" height="88"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLI-wp-IpX" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLI-wp-IpX" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
                                                                         <rect key="frame" x="139.5" y="23" width="46" height="42"/>
                                                                         <color key="backgroundColor" name="DisabledGray"/>
                                                                         <state key="normal" title="Button">

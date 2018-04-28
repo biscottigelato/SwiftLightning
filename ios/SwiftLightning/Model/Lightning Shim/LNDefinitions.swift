@@ -16,6 +16,7 @@ struct LNConstants {
   static let maxValidLightningPort = 65535
   static let minValidLightningPort = 1
   static let defaultChannelConfirmation = 3
+  static let minChannelSize = Bitcoin(inSatoshi: 20000)
 }
 
 

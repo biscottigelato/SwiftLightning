@@ -167,7 +167,7 @@
     </scenes>
     <resources>
         <namedColor name="DisabledGray">
-            <color red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="DisabledGrayShadow">
             <color red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="0.1000000015" colorSpace="custom" customColorSpace="displayP3"/>

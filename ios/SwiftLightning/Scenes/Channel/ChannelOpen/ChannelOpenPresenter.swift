@@ -76,9 +76,9 @@ class ChannelOpenPresenter: ChannelOpenPresentationLogic {
     
     switch response.initPayError {
     case .some(.invalid):
-      errorLabelString = "Invalid Entry"
+      errorLabelString = "Invalid entry"
     case .some(.insufficient):
-      errorLabelString = "Over Channel Funding"
+      errorLabelString = "Over channel funding"
     case .some(.feeEstimation):
       errorLabelString = ""
       errorAlertString = "Cannot obtain fee estimation"
@@ -88,6 +88,9 @@ class ChannelOpenPresenter: ChannelOpenPresentationLogic {
     case .none:
       errorLabelString = ""
       initPayValid = true
+    default:
+      errorLabelString = ""
+      errorAlertString = "Unexpected Error!"
     }
     
     let initPayViewModel = ChannelOpen.ValidateAmounts.InitPayWarningVM(initPayErrorLabel: errorLabelString)
@@ -98,6 +101,8 @@ class ChannelOpenPresenter: ChannelOpenPresentationLogic {
       errorLabelString = "Invalid Entry"
     case .some(.insufficient):
       errorLabelString = "Insufficient Funds"
+    case .some(.minChannelSize):
+      errorLabelString = "Min channel size (20,000) sat"
     case .some(.feeEstimation):
       errorLabelString = ""
       errorAlertString = "Cannot obtain fee estimation"

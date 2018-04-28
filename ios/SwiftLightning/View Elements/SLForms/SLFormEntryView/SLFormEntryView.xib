@@ -36,7 +36,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="h5u-IQ-van">
-                    <rect key="frame" x="0.0" y="85" width="358" height="97"/>
+                    <rect key="frame" x="0.0" y="99" width="358" height="69"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JjK-vr-kNu" userLabel="Top Spacer">
                             <rect key="frame" x="0.0" y="0.0" width="358" height="8"/>
@@ -55,18 +55,11 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xce-b4-Klc" userLabel="Error Label">
-                                    <rect key="frame" x="66.5" y="0.0" width="271.5" height="28"/>
+                                    <rect key="frame" x="66.5" y="0.0" width="291.5" height="28"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                                     <color key="textColor" name="JellyBeanRed"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="IBC-0s-3Dl" userLabel="End Spacer">
-                                    <rect key="frame" x="338" y="14" width="20" height="0.0"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="20" id="Vso-rP-Fwa"/>
-                                    </constraints>
-                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <gestureRecognizers/>
@@ -117,20 +110,20 @@
                             </connections>
                         </stackView>
                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="kSi-C9-XKB">
-                            <rect key="frame" x="0.0" y="64" width="358" height="28"/>
+                            <rect key="frame" x="0.0" y="64" width="358" height="10"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="600" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5fh-pM-mxR">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="28"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="54" height="10"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="dzA-FQ-xsW">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="10"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="54" height="10"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="10" id="Ubq-bV-sLk"/>
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="600" verticalHuggingPriority="900" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="500" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sTQ-ZU-q3q">
-                                            <rect key="frame" x="0.0" y="10" width="50" height="18"/>
+                                            <rect key="frame" x="0.0" y="10" width="54" height="0.0"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                             <state key="normal" title="fee: auto">
                                                 <color key="titleColor" name="MediumTextGray"/>
@@ -139,7 +132,7 @@
                                     </subviews>
                                 </stackView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" horizontalCompressionResistancePriority="780" text="on-chain balance:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Sd-tx-gxV">
-                                    <rect key="frame" x="55" y="13" width="303" height="15"/>
+                                    <rect key="frame" x="59" y="0.0" width="299" height="10"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="11"/>
                                     <color key="textColor" name="MediumTextGray"/>
                                     <nil key="highlightedColor"/>
@@ -148,7 +141,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcn-an-VdE" userLabel="Bottom Spacer">
-                            <rect key="frame" x="0.0" y="92" width="358" height="5"/>
+                            <rect key="frame" x="0.0" y="64" width="358" height="5"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="5" id="Dcv-LC-JeT"/>

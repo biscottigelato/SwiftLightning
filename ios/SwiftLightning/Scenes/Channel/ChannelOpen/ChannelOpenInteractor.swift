@@ -144,6 +144,10 @@ class ChannelOpenInteractor: ChannelOpenBusinessLogic, ChannelOpenDataStore {
           fundingError = ChannelOpen.ValidateAmounts.Error.insufficient
         }
         
+        if fundingAmt < LNConstants.minChannelSize {
+          fundingError = ChannelOpen.ValidateAmounts.Error.minChannelSize
+        }
+        
         guard let initPayAmt = Bitcoin(inSatoshi: request.initPayAmt) else {
           let response = ChannelOpen.ValidateAmounts.Response(fundingError: fundingError,
                                                               initPayError: ChannelOpen.ValidateAmounts.Error.invalid)
@@ -169,58 +173,79 @@ class ChannelOpenInteractor: ChannelOpenBusinessLogic, ChannelOpenDataStore {
   
   
   // MARK: Channel Opening Confirm
+  // TODO: Should better consolidate with the individual entry validations
   
   func channelConfirm(request: ChannelOpen.ChannelConfirm.Request)
   {
-    // Validate and Convert Node Pub Key
-    let isNodePubKeyValid = LNManager.validateNodePubKey(request.nodePubKey)
-    _nodePubKey = request.nodePubKey
-    
-    // Validate and Convert Port IP
-    let ipPort = LNManager.parsePortIPString(request.nodeIPPort)
-    _nodeIP = ipPort.ipString
-    _nodePort = ipPort.port
-    let isNodeIPValid = _nodeIP != nil
-    let isNodePortValid = _nodePort != nil
-    
     // TODO: Calculate Fee involved for desired Conf Speed
-    _confSpeed = request.confSpeed
     
-    // Validate and Convert Funding Amount
-    var isFundingAmtValid = false
-    
-    // TODO: Need to know what the text field value means. Satoshi? Bits? USD? etc
-    if let fundingAmt = Bitcoin(inSatoshi: request.fundingAmt) {
-      _fundingAmt = fundingAmt
-      isFundingAmtValid = true
+    LNServices.walletBalance { (responder) in
+      do {
+        let balanceInSat = try responder()
+        
+        // Validate and Convert Node Pub Key
+        let isNodePubKeyValid = LNManager.validateNodePubKey(request.nodePubKey)
+        self._nodePubKey = request.nodePubKey
+        
+        // Validate and Convert Port IP
+        let ipPort = LNManager.parsePortIPString(request.nodeIPPort)
+        self._nodeIP = ipPort.ipString
+        self._nodePort = ipPort.port
+        let isNodeIPValid = self._nodeIP != nil
+        let isNodePortValid = self._nodePort != nil
+        
+        // TODO: Calculate Fee involved for desired Conf Speed
+        self._confSpeed = request.confSpeed
+        
+        // Validate and Convert Funding Amount
+        var isFundingAmtValid = false
+        
+        // TODO: Need to know what the text field value means. Satoshi? Bits? USD? etc
+        if let fundingAmt = Bitcoin(inSatoshi: request.fundingAmt),
+          fundingAmt <= Bitcoin(inSatoshi: balanceInSat.confirmed),
+          fundingAmt >= LNConstants.minChannelSize {
+          self._fundingAmt = fundingAmt
+          isFundingAmtValid = true
+        }
+        
+        // TODO: Check for sufficient on-chain funds
+        
+        // Validate and Convert Initial Payment
+        var isInitPayAmtValid = false
+        
+        // TODO: Need to know what the text field value means. Satoshi? Bits? USD? etc
+        if let initPayAmt = Bitcoin(inSatoshi: request.initPayAmt), initPayAmt <= self.fundingAmt {
+          self._initPayAmt = initPayAmt
+          isInitPayAmtValid = true
+        }
+        
+        // Store to DataStore if A-OK
+        if !(isNodePubKeyValid && isNodeIPValid && isNodePortValid && isFundingAmtValid && isInitPayAmtValid) {
+          self._nodePubKey = nil
+          self._nodeIP = nil
+          self._nodePort = nil
+          self._fundingAmt = nil
+          self._initPayAmt = nil
+        }
+        
+        // Report field valid status to Presenter
+        let response = ChannelOpen.ChannelConfirm.Response(isPubKeyValid: isNodePubKeyValid,
+                                                           isIPValid: isNodeIPValid,
+                                                           isPortValid: isNodePortValid,
+                                                           isFundingValid: isFundingAmtValid,
+                                                           isInitPayValid: isInitPayAmtValid)
+        self.presenter?.presentChannelConfirm(response: response)
+        
+      } catch {
+        SLLog.warning("Channel Confirm cannot get balance - \(error.localizedDescription)")
+        
+        let response = ChannelOpen.ChannelConfirm.Response(isPubKeyValid: false,
+                                                           isIPValid: false,
+                                                           isPortValid: false,
+                                                           isFundingValid: false,
+                                                           isInitPayValid: false)
+        self.presenter?.presentChannelConfirm(response: response)
+      }
     }
-    
-    // TODO: Check for sufficient on-chain funds
-    
-    // Validate and Convert Initial Payment
-    var isInitPayAmtValid = false
-    
-    // TODO: Need to know what the text field value means. Satoshi? Bits? USD? etc
-    if let initPayAmt = Bitcoin(inSatoshi: request.initPayAmt), initPayAmt <= fundingAmt {
-      _initPayAmt = initPayAmt
-      isInitPayAmtValid = true
-    }
-    
-    // Store to DataStore if A-OK
-    if !(isNodePubKeyValid && isNodeIPValid && isNodePortValid && isFundingAmtValid && isInitPayAmtValid) {
-      _nodePubKey = nil
-      _nodeIP = nil
-      _nodePort = nil
-      _fundingAmt = nil
-      _initPayAmt = nil
-    }
-    
-    // Report field valid status to Presenter
-    let response = ChannelOpen.ChannelConfirm.Response(isPubKeyValid: isNodePubKeyValid,
-                                                       isIPValid: isNodeIPValid,
-                                                       isPortValid: isNodePortValid,
-                                                       isFundingValid: isFundingAmtValid,
-                                                       isInitPayValid: isInitPayAmtValid)
-    presenter?.presentChannelConfirm(response: response)
   }
 }
