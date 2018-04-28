@@ -32,8 +32,8 @@ class WalletMainPresenter: WalletMainPresentationLogic {
     }
     
     let totalBalance = Bitcoin(onChainBalance + channelBalance)
-    let totalString = "\(totalBalance.formattedInSatoshis()) s"
-    let channelString = "\(channelBalance.formattedInSatoshis()) s"
+    let totalString = "\(totalBalance.formattedInSatoshis())"
+    let channelString = "\(channelBalance.formattedInSatoshis())"
     let viewModel = WalletMain.UpdateBalances.ViewModel(totalBalanceString: totalString,
                                                         channelBalanceString: channelString)
     viewController?.displayBalances(viewModel: viewModel)
