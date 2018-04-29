@@ -12,20 +12,104 @@
 
 import UIKit
 
-enum PayMain
-{
-  // MARK: Use cases
+enum PayMain {
   
-  enum Something
-  {
-    struct Request
-    {
+  // MARK: Validate Address
+  enum Error {
+    
+  }
+  
+  enum RouteError {
+    
+  }
+  
+  enum ValidateAddress {
+    enum Error {
+      
     }
-    struct Response
-    {
+    struct Request {
+      var rawAddressString: String
+      var rawAmountString: String
     }
-    struct ViewModel
-    {
+    struct Response {
+      var paymentType: BitcoinNetworkType
+      var revisedAddress: String?
+      var revisedAmount: String?
+      var addressError: PayMain.ValidateAddress.Error?
+      var routeError: PayMain.RouteError?
+      var error: PayMain.Error?
+    }
+    struct ViewModel {
+      var revisedAddress: String?
+      var revisedAmount: String?
+    }
+    struct WarningVM {
+      var errMsg: String
+    }
+    struct RouteVM {
+      var errMsg: String
+    }
+    struct ErrorVM {
+      var errTitle: String
+      var errMsg: String
     }
   }
+  
+  
+  enum ValidateAmount {
+    enum Error {
+      
+    }
+    struct Request {
+      var rawAddressString: String
+      var rawAmountString: String
+    }
+    struct Response {
+      var amountError: PayMain.ValidateAmount.Error?
+      var routeError: PayMain.RouteError?
+      var error: PayMain.Error?
+    }
+    struct WarningVM {
+      var errMsg: String
+    }
+    struct RouteVM {
+      var errMsg: String
+    }
+    struct ErrorVM {
+      var errTitle: String
+      var errMsg: String
+    }
+  }
+  
+  
+  // MARK: Confirm Payment
+  
+  enum ConfirmPayment {
+    struct Request {
+      var rawAddressString: String
+      var rawAmountString: String
+    }
+    struct Response {
+      var paymentType: BitcoinNetworkType
+      var revisedAddress: String?
+      var revisedAmount: String?
+      var addressError: PayMain.ValidateAddress.Error?
+      var amountError: PayMain.ValidateAmount.Error?
+      var routeError: PayMain.RouteError?
+      var error: PayMain.Error?
+    }
+    struct ViewModel {
+      var revisedAddress: String?
+      var revisedAmount: String?
+      var goToConfirm: Bool
+    }
+    struct RouteVM {
+      var errMsg: String
+    }
+    struct ErrorVM {
+      var errTitle: String
+      var errMsg: String
+    }
+  }
+  
 }

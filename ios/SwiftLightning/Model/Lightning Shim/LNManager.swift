@@ -10,11 +10,6 @@ import Foundation
 
 class LNManager {
   
-  struct Constants {
-    static let defaultRetryCount: Int = 5
-    static let defaultRetryDelay: Double = 1
-  }
-  
   // Temporary storage. Shall be cleared when done setting up wallet
   static private(set) var cipherSeedMnemonic: [String]?
  
@@ -52,6 +47,9 @@ class LNManager {
   }
   
   
+  // MARK: Node Pub Key handling
+  
+  
   static func splitKeyAddressString(_ inputString: String) -> (key: String, addr: String?) {
     let subStrings = inputString.split(separator: "@", maxSplits: 2)
     
@@ -83,6 +81,9 @@ class LNManager {
   }
   
   
+  // MARK: Port IP Handling
+  
+  
   static func parsePortIPString(_ ipPortString: String) -> (ipString: String?, port: Int?) {
     var ipString: String?
     var port: Int? = LNConstants.defaultLightningNodePort
@@ -104,5 +105,117 @@ class LNManager {
     }
 
     return (ipString, port)
+  }
+  
+  
+  // MARK: Payment Address Handling
+  
+  // if Mainnet
+  // typealias AddressPrefixes = MainnetAddressPrefixes
+  // typealias PayReqPrefixes = MainnetPayreqPrefixes
+  
+  enum MainnetPayReqPrefixes: String {
+    case btcuri = "bitcoin:"
+    case lnbtc  = "lnbc"
+  }
+  
+  enum MainnetAddressPrefixes: String {
+    case p2pkh  = "1"
+    case p2sh   = "3"
+    case bech32 = "bc1"
+  }
+  
+  // if Testnet
+  typealias AddressPrefixes = TestnetAddressPrefixes
+  typealias PayReqPrefixes = TestnetPayreqPrefixes
+  
+  enum TestnetPayreqPrefixes: String {
+    case btcuri = "bitcoin:"
+    case lnbtc  = "lntb"
+  }
+  
+  enum TestnetAddressPrefixes: String {
+    case p2pkh1 = "m"
+    case p2pkh2 = "n"
+    case p2sh   = "2"
+    case bech32 = "tb1"
+  }
+  
+  func determineAddress(inputString: String,
+                        completion: @escaping (String?, Bitcoin?, String?, BitcoinNetworkType?, Bool?) -> ()) {
+    
+    var address: String?
+    var amount: Bitcoin?
+    var description: String?
+    var networkType: BitcoinNetworkType?
+    
+    // Deal with Payment Requests first
+
+    // Lightning Invoice? Processing ends inside if so
+    if inputString.hasPrefix(PayReqPrefixes.lnbtc.rawValue) {
+      networkType = BitcoinNetworkType.lightning
+      
+      LNServices.decodePayReq(inputString) { (responder) in
+        do {
+          let lnPayReq = try responder()
+          address = lnPayReq.destination
+          amount = Bitcoin(inSatoshi: lnPayReq.numSatoshis)
+          description = lnPayReq.destination
+          completion(address, amount, description, networkType, true)
+          
+        } catch {
+          // Can't even decode...
+          completion(nil, nil, nil, networkType, nil)
+          return
+        }
+      }
+      return  // Go no further. Processing is Async from this point on for LN.
+    }
+    
+    // Bitcoin Payment Request?
+    else if inputString.hasPrefix(PayReqPrefixes.btcuri.rawValue) {
+      networkType = BitcoinNetworkType.onChain
+        
+      // Looks like one. Attempt to decode
+      do {
+        let payReq = try PaymentURI(inputString)
+        address = payReq.address
+        description = payReq.label
+        
+        if let payReqAmt = payReq.amount {
+          amount = Bitcoin(payReqAmt)
+        }
+        
+      } catch {
+        // Doesn't look like a valid payment request
+        completion(nil, nil, nil, networkType, false)
+      }
+    }
+
+    // So we should have something that kinda resembles a Bitcoin address at this point. Validate
+    if address == nil { address = inputString }
+    
+    // TODO: The following statement needs to be modified to be Mainnet compatible
+    if address!.hasPrefix(AddressPrefixes.p2pkh1.rawValue) || address!.hasPrefix(AddressPrefixes.p2pkh2.rawValue) || address!.hasPrefix(AddressPrefixes.p2sh.rawValue) {
+      do {
+        _ = try Address(address!)
+      } catch {
+        completion(address, amount, description, networkType, false)
+      }
+    }
+    
+    // SegWit Address type
+    else if address!.hasPrefix(AddressPrefixes.bech32.rawValue) {
+      do {
+        _ = try SegwitAddrCoder.shared.decode(addr: address!)
+      } catch {
+        completion(address, amount, description, networkType, false)
+      }
+    }
+    
+    // So nothing hit for the address. If this is from a Payment Request, some of the following stuff might be != nil
+    else {
+      completion(address, amount, description, networkType, false)
+    }
   }
 }

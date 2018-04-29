@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol PayMainRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+  func routeToPayConfirm()
 }
 
 protocol PayMainDataPassing
@@ -29,32 +29,21 @@ class PayMainRouter: NSObject, PayMainRoutingLogic, PayMainDataPassing
   
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToPayConfirm() {
+    let storyboard = UIStoryboard(name: "PayConfirm", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "PayConfirmViewController") as! PayConfirmViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToPayConfirm(source: dataStore!, destination: &destinationDS)
+    navigateToPayConfirm(source: viewController!, destination: destinationVC)
+  }
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: PayMainViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
+  func navigateToPayConfirm(source: PayMainViewController, destination: PayConfirmViewController) {
+    
+  }
+
   // MARK: Passing data
-  
-  //func passDataToSomewhere(source: PayMainDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+
+  func passDataToPayConfirm(source: PayMainDataStore, destination: inout PayConfirmDataStore) { }
 }

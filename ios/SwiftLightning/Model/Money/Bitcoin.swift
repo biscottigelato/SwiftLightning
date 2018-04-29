@@ -39,7 +39,7 @@ class Bitcoin: Money<XBT> {
   
   class var bitFormatter: NumberFormatter {
     let _formatter = self.formatter
-    _formatter.currencySymbol = ""
+    _formatter.currencySymbol = "ƀ"
     _formatter.currencyCode = "bits"
 
     _formatter.multiplier = NSNumber(value: pow(10.0,6.0))
@@ -53,7 +53,7 @@ class Bitcoin: Money<XBT> {
   
   class var satoshiFormatter: NumberFormatter {
     let _formatter = self.formatter
-    _formatter.currencySymbol = ""
+    _formatter.currencySymbol = "" //ṡ
     _formatter.currencyCode = "sats"
 
     _formatter.multiplier = NSNumber(value: pow(10.0,8.0))

@@ -1,5 +1,5 @@
 //
-//  PayMainWorker.swift
+//  PayConfirmModels.swift
 //  SwiftLightning
 //
 //  Created by Howard Lee on 2018-04-28.
@@ -12,8 +12,20 @@
 
 import UIKit
 
-class PayMainWorker
+enum PayConfirm
 {
-
-
+  // MARK: Use cases
+  
+  enum Something
+  {
+    struct Request
+    {
+    }
+    struct Response
+    {
+    }
+    struct ViewModel
+    {
+    }
+  }
 }

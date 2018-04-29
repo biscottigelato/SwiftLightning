@@ -12,34 +12,44 @@
 
 import UIKit
 
-protocol PayMainDisplayLogic: class
-{
-  func displaySomething(viewModel: PayMain.Something.ViewModel)
+protocol PayMainDisplayLogic: class {
 }
 
-class PayMainViewController: UIViewController, PayMainDisplayLogic
-{
+
+class PayMainViewController: UIViewController, PayMainDisplayLogic {
   var interactor: PayMainBusinessLogic?
   var router: (NSObjectProtocol & PayMainRoutingLogic & PayMainDataPassing)?
-
+  
+  
+  // MARK: IBOutlets
+  
+  @IBOutlet weak var headerView: SLFormHeaderView!
+  @IBOutlet weak var addressEntryView: SLFormEntryView!
+  @IBOutlet weak var amountEntryView: SLFormEntryView!
+  @IBOutlet weak var descriptionEntryView: SLFormEntryView!
+  @IBOutlet weak var sendButton: SLBarButton!
+  
+  var isAddressInvalid: Bool = false
+  var isAmountInvalid: Bool = false
+  
+  
   // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     setup()
   }
   
-  required init?(coder aDecoder: NSCoder)
-  {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
   
+  
   // MARK: Setup
   
-  private func setup()
-  {
+  private func setup() {
+    
     let viewController = self
     let interactor = PayMainInteractor()
     let presenter = PayMainPresenter()
@@ -51,39 +61,60 @@ class PayMainViewController: UIViewController, PayMainDisplayLogic
     router.viewController = viewController
     router.dataStore = interactor
   }
+
   
-  // MARK: Routing
+  // MARK: View lifecycle
   
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
+  override func viewDidLoad() {
+    super.viewDidLoad()
+  }
+  
+  
+  // MARK: Dismiss
+  
+  @IBAction func closeCrossTapped(_ sender: UIBarButtonItem) {
+    
+  }
+  
+  
+  // MARK: Send Payment
+  
+  @IBAction func sendTapped(_ sender: SLBarButton) {
+    let request = PayMain.ConfirmPayment.Request(rawAddressString: addressEntryView.textField.text ?? "",
+                                                 rawAmountString: amountEntryView.textField.text ?? "")
+    interactor?.confirmPayment(request: request)
+  }
+  
+  func displayConfirmPayment(viewModel: PayMain.ConfirmPayment.ViewModel) {
+    if let address = viewModel.revisedAddress {
+      addressEntryView.textField.text = address
+    }
+    
+    if let amount = viewModel.revisedAmount {
+      amountEntryView.textField.text = amount
+    }
+    
+    if viewModel.goToConfirm {
+      DispatchQueue.main.async {
+        self.router?.routeToPayConfirm()
       }
     }
   }
   
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
+  func displayConfirmPaymentError(viewModel: PayMain.ConfirmPayment.ErrorVM) {
+    let alertDialog = UIAlertController(title: viewModel.errTitle, message: viewModel.errMsg, preferredStyle: .alert).addAction(title: "OK", style: .default)
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true, completion: nil)
+    }
   }
   
-  // MARK: Do something
   
-  //@IBOutlet weak var nameTextField: UITextField!
   
-  func doSomething()
-  {
-    let request = PayMain.Something.Request()
-    interactor?.doSomething(request: request)
-  }
   
-  func displaySomething(viewModel: PayMain.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+  
+  
+  
+  
+  
+  
 }

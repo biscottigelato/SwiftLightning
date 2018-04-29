@@ -205,8 +205,8 @@ class LNServices {
   
   // MARK: Wallet Balance
   
-  static func walletBalance(retryCount: Int = LNManager.Constants.defaultRetryCount,
-                            retryDelay: Double = LNManager.Constants.defaultRetryDelay,
+  static func walletBalance(retryCount: Int = LNConstants.defaultRetryCount,
+                            retryDelay: Double = LNConstants.defaultRetryDelay,
                             completion: @escaping (() throws -> (total: Int, confirmed: Int, unconfirmed: Int)) -> Void) {
     let retry = SLRetry()
     let task = { () -> () in
@@ -253,8 +253,8 @@ class LNServices {
   
   // MARK: Channel Balance
   
-  static func channelBalance(retryCount: Int = LNManager.Constants.defaultRetryCount,
-                            retryDelay: Double = LNManager.Constants.defaultRetryDelay,
+  static func channelBalance(retryCount: Int = LNConstants.defaultRetryCount,
+                            retryDelay: Double = LNConstants.defaultRetryDelay,
                             completion: @escaping (() throws -> (Int)) -> Void) {
     let retry = SLRetry()
     let task = { () -> () in
@@ -294,8 +294,8 @@ class LNServices {
   
   // MARK: New Address
   
-  static func newAddress(retryCount: Int = LNManager.Constants.defaultRetryCount,
-                         retryDelay: Double = LNManager.Constants.defaultRetryDelay,
+  static func newAddress(retryCount: Int = LNConstants.defaultRetryCount,
+                         retryDelay: Double = LNConstants.defaultRetryDelay,
                         completion: @escaping (() throws -> (String)) -> Void) {
     
     let retry = SLRetry()
@@ -340,8 +340,8 @@ class LNServices {
   // MARK: Connect Peer
   
   static func connectPeer(pubKey: String, hostAddr: String, hostPort: Int,
-                          retryCount: Int = LNManager.Constants.defaultRetryCount,
-                          retryDelay: Double = LNManager.Constants.defaultRetryDelay,
+                          retryCount: Int = LNConstants.defaultRetryCount,
+                          retryDelay: Double = LNConstants.defaultRetryDelay,
                           completion: @escaping (() throws -> ()) -> Void) {
     
     let retry = SLRetry()
@@ -393,8 +393,8 @@ class LNServices {
   
   // MARK: List Peers
   
-  static func listPeers(retryCount: Int = LNManager.Constants.defaultRetryCount,
-                        retryDelay: Double = LNManager.Constants.defaultRetryDelay,
+  static func listPeers(retryCount: Int = LNConstants.defaultRetryCount,
+                        retryDelay: Double = LNConstants.defaultRetryDelay,
                         completion: @escaping (() throws -> ([LNPeer])) -> Void) {
     let retry = SLRetry()
     let task = { () -> () in
@@ -452,8 +452,8 @@ class LNServices {
   
   // MARK: Get Info
   
-  static func getInfo(retryCount: Int = LNManager.Constants.defaultRetryCount,
-                      retryDelay: Double = LNManager.Constants.defaultRetryDelay,
+  static func getInfo(retryCount: Int = LNConstants.defaultRetryCount,
+                      retryDelay: Double = LNConstants.defaultRetryDelay,
                       completion: @escaping (() throws -> (LNDInfo)) -> Void) {  //TODO: Should return an info struct of sort
     
     let retry = SLRetry()
@@ -508,8 +508,8 @@ class LNServices {
   
   // MARK: List Channels
   
-  static func listChannels(retryCount: Int = LNManager.Constants.defaultRetryCount,
-                           retryDelay: Double = LNManager.Constants.defaultRetryDelay,
+  static func listChannels(retryCount: Int = LNConstants.defaultRetryCount,
+                           retryDelay: Double = LNConstants.defaultRetryDelay,
                            completion: @escaping (() throws -> ([LNChannel])) -> Void) {
     let retry = SLRetry()
     let task = { () -> () in
@@ -585,8 +585,8 @@ class LNServices {
   // MARK: Open Channel
   
   static func openChannel(nodePubKey: Data, localFundingAmt: Int, pushSat: Int, targetConf: Int? = nil, satPerByte: Int? = nil,
-                          retryCount: Int = LNManager.Constants.defaultRetryCount,
-                          retryDelay: Double = LNManager.Constants.defaultRetryDelay,
+                          retryCount: Int = LNConstants.defaultRetryCount,
+                          retryDelay: Double = LNConstants.defaultRetryDelay,
                           streaming: @escaping (() throws -> (Lnrpc_LightningOpenChannelCall)) -> Void,
                           completion: @escaping (() throws -> ()) -> Void) {
     
@@ -669,6 +669,64 @@ class LNServices {
     }
     
     retry.start("LN Open Channel", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
+  
+  
+  // MARK: DecodePayReq
+  
+  static func decodePayReq(_ payReqInput: String,
+                           retryCount: Int = LNConstants.defaultRetryCount,
+                           retryDelay: Double = LNConstants.defaultRetryDelay,
+                           completion: @escaping (() throws -> (LNPayReq)) -> Void) {
+    let retry = SLRetry()
+    let task = { () -> () in
+      do {
+        try prepareLightningService()
+        
+        var payReqString = Lnrpc_PayReqString()
+        payReqString.payReq = payReqInput
+        
+        // Unary GRPC
+        _ = try lightningService!.decodePayReq(payReqString) { (payReq, result) in
+          
+          if let payReq = payReq {
+            SLLog.debug("LN Decode Pay Req Success!")
+            
+            let lnPayReq = LNPayReq(destination: payReq.destination,
+                                    paymentHash: payReq.paymentHash,
+                                    numSatoshis: Int(payReq.numSatoshis),
+                                    timestamp: Int(payReq.timestamp),
+                                    expiry: Int(payReq.expiry),
+                                    payDescription: payReq.destination,
+                                    descriptionHash: payReq.paymentHash,
+                                    fallbackAddr: payReq.fallbackAddr,
+                                    cltvExpiry: Int(payReq.cltvExpiry))
+          
+            SLLog.verbose("")
+            SLLog.verbose(String(describing: lnPayReq))
+            
+            // Success! - dereference retry
+            retry.success()
+            completion({ return lnPayReq })
+            
+          } else {
+            let message = result.statusMessage ?? result.description
+            
+            // Error - attempt to retry?
+            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
+          }
+        }
+      } catch {
+        // Error - attempt to retry
+        retry.attempt(error: error)
+      }
+    }
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Decode Pay Req Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    retry.start("LN Decode Pay Req", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   

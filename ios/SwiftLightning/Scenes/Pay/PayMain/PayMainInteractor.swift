@@ -14,7 +14,7 @@ import UIKit
 
 protocol PayMainBusinessLogic {
   
-  func doSomething(request: PayMain.Something.Request)
+  func confirmPayment(request: PayMain.ConfirmPayment.Request)
 }
 
 
@@ -28,16 +28,16 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
   
   var presenter: PayMainPresentationLogic?
   var worker: PayMainWorker?
-  //var name: String = ""
   
-  // MARK: Do something
+  // MARK: Confirm Payment
   
-  func doSomething(request: PayMain.Something.Request)
-  {
-    worker = PayMainWorker()
-    worker?.doSomeWork()
+  func confirmPayment(request: PayMain.ConfirmPayment.Request) {
     
-    let response = PayMain.Something.Response()
-    presenter?.presentSomething(response: response)
+    
+    
+    
+    
+    
+    
   }
 }

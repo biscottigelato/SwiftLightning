@@ -40,6 +40,16 @@ DEPENDENCIES:
   - SwiftGRPC (from `https://github.com/grpc/grpc-swift`)
   - SwiftProtobuf (~> 1.0)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - BoringSSL
+    - CocoaLumberjack
+    - Crashlytics
+    - Fabric
+    - nanopb
+    - SnapKit
+    - SwiftProtobuf
+
 EXTERNAL SOURCES:
   gRPC-Core:
     :branch: fix-cocoapods-swift
@@ -68,4 +78,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 79668c66ca4511adfaf547acb1bb0873cd4d5078
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0

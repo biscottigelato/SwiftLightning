@@ -1,5 +1,5 @@
 //
-//  PayMainWorker.swift
+//  PayConfirmWorker.swift
 //  SwiftLightning
 //
 //  Created by Howard Lee on 2018-04-28.
@@ -12,8 +12,9 @@
 
 import UIKit
 
-class PayMainWorker
+class PayConfirmWorker
 {
-
-
+  func doSomeWork()
+  {
+  }
 }

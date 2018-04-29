@@ -14,7 +14,7 @@ import UIKit
 
 protocol PayMainPresentationLogic
 {
-  func presentSomething(response: PayMain.Something.Response)
+//  func presentSomething(response: PayMain.Something.Response)
 }
 
 class PayMainPresenter: PayMainPresentationLogic
@@ -23,9 +23,9 @@ class PayMainPresenter: PayMainPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: PayMain.Something.Response)
-  {
-    let viewModel = PayMain.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+//  func presentSomething(response: PayMain.Something.Response)
+//  {
+//    let viewModel = PayMain.Something.ViewModel()
+//    viewController?.displaySomething(viewModel: viewModel)
+//  }
 }

@@ -17,6 +17,21 @@ struct LNConstants {
   static let minValidLightningPort = 1
   static let defaultChannelConfirmation = 3
   static let minChannelSize = Bitcoin(inSatoshi: 20000)
+  static let defaultRetryCount: Int = 5
+  static let defaultRetryDelay: Double = 1
+}
+
+
+enum BitcoinNetworkType {
+  case onChain
+  case lightning
+}
+
+
+enum BitcoinPubKeyHexPrefix: String {
+  case uncompressed = "4"
+  case compressed1 = "2"
+  case compressed2 = "3"
 }
 
 
@@ -25,6 +40,19 @@ enum OnChainConfirmSpeed {
   case normal
   case urgent
   case custom(Bitcoin)
+  
+  var confBlocks: Int {
+    switch self {
+    case .economy:
+      return 800
+    case .normal:
+      return 40
+    case .urgent:
+      return 2
+    default:
+      return 0
+    }
+  }
   
   var description: String {
     switch self {
@@ -162,26 +190,53 @@ struct LNDInfo: CustomStringConvertible {
   
   var description: String {
     return """
-    LND Information -
-      Identity Pubkey:       \(identityPubkey)
-      Alias:                 \(alias)
-      Num Pending Channels:  \(numPendingChannels)
-      Num Active Channels :  \(numActiveChannels)
-      Number of Peers:       \(numPeers)
-      Block Height:          \(blockHeight)
-      Block Hash:            \(blockHash)")
-      Synced to Chain:       \(syncedToChain)
-      Testnet:               \(testnet)
-      Chains:                \(chains.joined(separator: ", "))
-      URIs:                  \(uris.joined(separator: ", "))
-      Best Header Timestamp: \(bestHeaderTimestamp)
+      LND Information -
+        Identity Pubkey:       \(identityPubkey)
+        Alias:                 \(alias)
+        Num Pending Channels:  \(numPendingChannels)
+        Num Active Channels :  \(numActiveChannels)
+        Number of Peers:       \(numPeers)
+        Block Height:          \(blockHeight)
+        Block Hash:            \(blockHash)")
+        Synced to Chain:       \(syncedToChain)
+        Testnet:               \(testnet)
+        Chains:                \(chains.joined(separator: ", "))
+        URIs:                  \(uris.joined(separator: ", "))
+        Best Header Timestamp: \(bestHeaderTimestamp)
+    """
+  }
+}
+
+
+struct LNPayReq: CustomStringConvertible {
+  var destination: String
+  var paymentHash: String
+  var numSatoshis: Int
+  var timestamp: Int
+  var expiry: Int
+  var payDescription: String
+  var descriptionHash: String
+  var fallbackAddr: String
+  var cltvExpiry: Int
+  
+  var description: String {
+    return """
+      LN Payment Request -
+        Destination:      \(destination)
+        Payment Hash:     \(paymentHash)
+        Num Satoshis:     \(numSatoshis)
+        Timestamp:        \(timestamp)
+        Expiry:           \(expiry)
+        Description:      \(payDescription)
+        Description Hash: \(descriptionHash)
+        Fallback Address: \(fallbackAddr)
+        CLTV Expiry:      \(cltvExpiry)
     """
   }
 }
 
 
 // MARK: Errors
-
 
 enum LNError: Int, LocalizedError {
   
