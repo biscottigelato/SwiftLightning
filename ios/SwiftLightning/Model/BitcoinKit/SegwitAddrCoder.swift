@@ -44,11 +44,11 @@ public class SegwitAddrCoder {
   }
   
   /// Decode segwit address
-  public func decode(addr: String) throws -> (version: Int, program: Data) {
+  public func decode(hrp: String? = nil, addr: String) throws -> (version: Int, program: Data) {
     let dec = try bech32.decode(addr)
-//    guard dec.hrp == hrp else {
-//      throw CoderError.hrpMismatch(dec.hrp, hrp)
-//    }
+    if let hrp = hrp, dec.hrp != hrp {
+      throw CoderError.hrpMismatch(dec.hrp, hrp)
+    }
     guard dec.checksum.count >= 1 else {
       throw CoderError.checksumSizeTooLow
     }

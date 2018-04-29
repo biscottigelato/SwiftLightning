@@ -14,6 +14,7 @@ import Foundation
 
 /// Bech32 checksum implementation
 public class Bech32 {
+  
   private let gen: [UInt32] = [0x3b6a57b2, 0x26508e6d, 0x1ea119fa, 0x3d4233dd, 0x2a1462b3]
   /// Bech32 checksum delimiter
   private let checksumMarker: String = "1"

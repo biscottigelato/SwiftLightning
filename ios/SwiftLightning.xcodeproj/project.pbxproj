@@ -85,13 +85,17 @@
 		8C1AE3752095A58100A4D9BF /* PaymentURI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AE3742095A58100A4D9BF /* PaymentURI.swift */; };
 		8C1AE3772095A76800A4D9BF /* Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AE3762095A76700A4D9BF /* Encoding.swift */; };
 		8C1AE37A2095A81500A4D9BF /* SecureHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AE3792095A81500A4D9BF /* SecureHash.swift */; };
-		8C1AE37F2095BB7600A4D9BF /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AE37E2095BB7600A4D9BF /* String+Extension.swift */; };
 		8C1AE3832095BF4000A4D9BF /* Bech32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AE3822095BF4000A4D9BF /* Bech32.swift */; };
 		8C1AE3852095BF6E00A4D9BF /* SegwitAddrCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AE3842095BF6E00A4D9BF /* SegwitAddrCoder.swift */; };
 		8C2ACFB7207359DD004E6A84 /* Lightningd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2ACFB6207359DD004E6A84 /* Lightningd.framework */; };
 		8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FC7072073513700966D31 /* AppDelegate.swift */; };
 		8C2FC70D2073513700966D31 /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70B2073513700966D31 /* Root.storyboard */; };
 		8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70E2073513800966D31 /* Assets.xcassets */; };
+		8C36A02C20966DA2003BEFB6 /* AddressTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02B20966DA2003BEFB6 /* AddressTest.swift */; };
+		8C36A02E20966DB3003BEFB6 /* PaymentURITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */; };
+		8C36A03020966DCA003BEFB6 /* SecureHashTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */; };
+		8C36A03220966E6F003BEFB6 /* EncodingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A03120966E6F003BEFB6 /* EncodingTest.swift */; };
+		8C36A03420966F20003BEFB6 /* Bech32Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A03320966F20003BEFB6 /* Bech32Test.swift */; };
 		8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */; };
 		8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710FA2077E79C005D7ABC /* LNServices.swift */; };
 		8C6B7541208AF33200B751A2 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B753B208AF33200B751A2 /* RootPresenter.swift */; };
@@ -288,7 +292,6 @@
 		8C1AE3762095A76700A4D9BF /* Encoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoding.swift; sourceTree = "<group>"; };
 		8C1AE3792095A81500A4D9BF /* SecureHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureHash.swift; sourceTree = "<group>"; };
 		8C1AE37B2095ACCA00A4D9BF /* SwiftLightning-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftLightning-Bridging-Header.h"; sourceTree = "<group>"; };
-		8C1AE37E2095BB7600A4D9BF /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		8C1AE3822095BF4000A4D9BF /* Bech32.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bech32.swift; sourceTree = "<group>"; };
 		8C1AE3842095BF6E00A4D9BF /* SegwitAddrCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegwitAddrCoder.swift; sourceTree = "<group>"; };
 		8C2ACFB6207359DD004E6A84 /* Lightningd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Lightningd.framework; sourceTree = "<group>"; };
@@ -297,6 +300,11 @@
 		8C2FC70C2073513700966D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Root.storyboard; sourceTree = "<group>"; };
 		8C2FC70E2073513800966D31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C2FC7132073513900966D31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C36A02B20966DA2003BEFB6 /* AddressTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTest.swift; sourceTree = "<group>"; };
+		8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentURITest.swift; sourceTree = "<group>"; };
+		8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureHashTest.swift; sourceTree = "<group>"; };
+		8C36A03120966E6F003BEFB6 /* EncodingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingTest.swift; sourceTree = "<group>"; };
+		8C36A03320966F20003BEFB6 /* Bech32Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bech32Test.swift; sourceTree = "<group>"; };
 		8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.grpc.swift; sourceTree = "<group>"; };
 		8C4710FA2077E79C005D7ABC /* LNServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNServices.swift; sourceTree = "<group>"; };
 		8C6B753B208AF33200B751A2 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
@@ -442,7 +450,6 @@
 		8C090DEF20870AD3009B8B8D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8C1AE3782095A80200A4D9BF /* Crypto */,
 				8C1AE3712095A55800A4D9BF /* BitcoinKit */,
 				8C8275DA208FF1AD0029BE7E /* Money */,
 				8C090DF020870AE7009B8B8D /* Lightning Shim */,
@@ -570,21 +577,15 @@
 		8C1AE3712095A55800A4D9BF /* BitcoinKit */ = {
 			isa = PBXGroup;
 			children = (
-				8C1AE3722095A57700A4D9BF /* Address.swift */,
-				8C1AE3762095A76700A4D9BF /* Encoding.swift */,
+				8C36A026209662B8003BEFB6 /* Test */,
 				8C1AE3742095A58100A4D9BF /* PaymentURI.swift */,
+				8C1AE3792095A81500A4D9BF /* SecureHash.swift */,
+				8C1AE3762095A76700A4D9BF /* Encoding.swift */,
+				8C1AE3722095A57700A4D9BF /* Address.swift */,
 				8C1AE3822095BF4000A4D9BF /* Bech32.swift */,
 				8C1AE3842095BF6E00A4D9BF /* SegwitAddrCoder.swift */,
 			);
 			path = BitcoinKit;
-			sourceTree = "<group>";
-		};
-		8C1AE3782095A80200A4D9BF /* Crypto */ = {
-			isa = PBXGroup;
-			children = (
-				8C1AE3792095A81500A4D9BF /* SecureHash.swift */,
-			);
-			path = Crypto;
 			sourceTree = "<group>";
 		};
 		8C2FC6FB2073513600966D31 = {
@@ -623,6 +624,18 @@
 			path = SwiftLightning;
 			sourceTree = "<group>";
 		};
+		8C36A026209662B8003BEFB6 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				8C36A02B20966DA2003BEFB6 /* AddressTest.swift */,
+				8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */,
+				8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */,
+				8C36A03120966E6F003BEFB6 /* EncodingTest.swift */,
+				8C36A03320966F20003BEFB6 /* Bech32Test.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
 		8C4710FC20783DEB005D7ABC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -633,7 +646,6 @@
 				8CE3AE642086DA9E007D1065 /* UIColor+Extension.swift */,
 				8C090DEA2086F92A009B8B8D /* UITextField+Extension.swift */,
 				8C090E0F20881DAB009B8B8D /* UIAlertController+Extension.swift */,
-				8C1AE37E2095BB7600A4D9BF /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1400,7 +1412,6 @@
 				8C1AE3832095BF4000A4D9BF /* Bech32.swift in Sources */,
 				8C090E042087F28D009B8B8D /* LNManager.swift in Sources */,
 				8C8275F020910FA40029BE7E /* ChannelConfirmWorker.swift in Sources */,
-				8C1AE37F2095BB7600A4D9BF /* String+Extension.swift in Sources */,
 				8C8275F320910FA40029BE7E /* ChannelConfirmViewController.swift in Sources */,
 				8CD063AB209563BC00D2B66B /* PayConfirmInteractor.swift in Sources */,
 				8C090E2020885772009B8B8D /* URL+Extension.swift in Sources */,
@@ -1469,7 +1480,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C36A02C20966DA2003BEFB6 /* AddressTest.swift in Sources */,
+				8C36A02E20966DB3003BEFB6 /* PaymentURITest.swift in Sources */,
+				8C36A03420966F20003BEFB6 /* Bech32Test.swift in Sources */,
+				8C36A03020966DCA003BEFB6 /* SecureHashTest.swift in Sources */,
 				8C82761D20916FA40029BE7E /* BitcoinTest.swift in Sources */,
+				8C36A03220966E6F003BEFB6 /* EncodingTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
