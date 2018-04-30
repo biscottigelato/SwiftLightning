@@ -114,35 +114,35 @@ class LNManager {
   // typealias AddressPrefixes = MainnetAddressPrefixes
   // typealias PayReqPrefixes = MainnetPayreqPrefixes
   
-  enum MainnetPayReqPrefixes: String {
+  private enum MainnetPayReqPrefixes: String {
     case btcuri = "bitcoin:"
     case lnbtc  = "lnbc"
   }
   
-  enum MainnetAddressPrefixes: String {
+  private enum MainnetAddressPrefixes: String {
     case p2pkh  = "1"
     case p2sh   = "3"
     case bech32 = "bc1"
   }
   
   // if Testnet
-  typealias AddressPrefixes = TestnetAddressPrefixes
-  typealias PayReqPrefixes = TestnetPayreqPrefixes
+  private typealias AddressPrefixes = TestnetAddressPrefixes
+  private typealias PayReqPrefixes = TestnetPayreqPrefixes
   
-  enum TestnetPayreqPrefixes: String {
+  private enum TestnetPayreqPrefixes: String {
     case btcuri = "bitcoin:"
     case lnbtc  = "lntb"
   }
   
-  enum TestnetAddressPrefixes: String {
+  private enum TestnetAddressPrefixes: String {
     case p2pkh1 = "m"
     case p2pkh2 = "n"
     case p2sh   = "2"
     case bech32 = "tb1"
   }
   
-  func determineAddress(inputString: String,
-                        completion: @escaping (String?, Bitcoin?, String?, BitcoinNetworkType?, Bool?) -> ()) {
+  static func determineAddress(inputString: String,
+                                completion: @escaping (String?, Bitcoin?, String?, BitcoinNetworkType?, Bool?) -> ()) {
     
     var address: String?
     var amount: Bitcoin?

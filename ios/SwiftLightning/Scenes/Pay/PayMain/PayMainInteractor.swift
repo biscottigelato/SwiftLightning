@@ -32,12 +32,154 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
   // MARK: Confirm Payment
   
   func confirmPayment(request: PayMain.ConfirmPayment.Request) {
+    let amount: Bitcoin? = Bitcoin(inSatoshi: request.rawAmountString)
     
+    validate(inputAddress: request.rawAmountString, inputAmount: amount) { result in
+      
+      let response = PayMain.ConfirmPayment.Response(inputAddress: request.rawAddressString,
+                                                     inputAmount: amount,
+                                                     validationResult: result)
+      self.presenter?.presentConfirmPayment(response: response)
+    }
+  }
+  
+  
+  // MARK: Common Validation Algorithm
+  
+  private func validate(inputAddress: String,
+                        inputAmount: Bitcoin?,
+                        completion: @escaping (PayMain.ValidationResult) -> ()) {
     
-    
-    
-    
-    
-    
+    LNManager.determineAddress(inputString: inputAddress) { address, amount, description, network, valid in
+      
+      // Pre-fill bulk of the result ahead of time. Adjust as necassary
+      var result = PayMain.ValidationResult(paymentType: network,
+                                            revisedAddress: address,
+                                            revisedAmount: amount,
+                                            description: description)
+      // Error case first
+      guard let valid = valid else {
+        result.error = PayMain.Err.determineAddr
+        completion(result)
+        return
+      }
+      
+      // No further validation is possible without a valid address or known payment type
+      guard let addr = address, let type = network, valid else {
+        result.addressError = PayMain.AddrError.invalidAddr
+        completion(result)
+        return
+      }
+      
+      
+      // Validate the amount only if there's an amount in the payment request
+      if let amount = amount, let inputAmount = inputAmount {
+        
+        // For Lightning requests, the amount fields must match.
+        // For Bitcoin on chain, will only hit this case if a pay req is put in last.
+        //   If the amount is put in last, won't have a problem with mismatch
+        // So just enforce the match for both cases here
+        guard amount == inputAmount else {
+          result.amountError = PayMain.AmountError.amtMismatch
+          completion(result)
+          return
+        }
+      }
+      
+      // Nothing for description, we are always going to overwrite the field if available
+      
+      // Find route and fee if LN
+      // TODO: Estimate fee for on-Chain
+      if let amount = amount ?? inputAmount {
+        switch type {
+        case .lightning:
+          LNServices.queryRoutes(pubKey: addr,
+                                 amt: amount.integerInSatoshis,
+                                 numRoutes: 1) { (responder) in
+            do {
+              let routes = try responder()
+              
+              guard routes.count > 0 else {
+                throw PayMain.RouteError.noRouteFound
+              }
+              result.fee = Bitcoin(inSatoshi: routes[0].totalFees)
+              
+              // Check everything against channel balance
+              LNServices.channelBalance() { (balancer) in
+                do {
+                  let balance = try balancer()
+                  
+                  guard Bitcoin(inSatoshi: balance) >= Bitcoin(amount + result.fee!) else {
+                    result.amountError = PayMain.AmountError.insufficient
+                    completion(result)
+                    return
+                  }
+                  
+                  // This is finally perfection for LN Payment!
+                  completion(result)
+                  return
+                  
+                } catch {
+                  result.error = error
+                  completion(result)
+                  return
+                }
+              }
+            } catch {
+              result.routeError = error
+              completion(result)
+              return
+            }
+          }
+          
+        case .onChain:
+          
+          // Check everything against wallet balance
+          LNServices.walletBalance() { (balancer) in
+            do {
+              let balance = try balancer()
+              
+              guard Bitcoin(inSatoshi: balance.confirmed) >= amount else {  // TODO: Subtract fee when fee estimation is in place
+                result.amountError = PayMain.AmountError.insufficient
+                completion(result)
+                return
+              }
+              
+              // This is finally perfection for On Chain Payment!
+              completion(result)
+              return
+              
+            } catch {
+              result.error = error
+              completion(result)
+              return
+            }
+          }
+        }
+      }
+      
+      // This is success for all other cases
+      completion(result)
+    }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

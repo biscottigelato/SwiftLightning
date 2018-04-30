@@ -140,7 +140,6 @@ struct LNChannel: CustomStringConvertible {
     for (index, htlc) in pendingHTLCs.enumerated() {
       descriptiveString += "\nHTLC #\(index)\n\(htlc)"
     }
-    
     return descriptiveString
   }
 }
@@ -231,6 +230,47 @@ struct LNPayReq: CustomStringConvertible {
         Description Hash: \(descriptionHash)
         Fallback Address: \(fallbackAddr)
         CLTV Expiry:      \(cltvExpiry)
+    """
+  }
+}
+
+
+struct LNRoute: CustomStringConvertible {
+  var totalTimeLock: UInt
+  var totalFees: Int
+  var totalAmt: Int
+  var hops: [LNHop]
+  
+  var description: String {
+    var descriptiveString = """
+    LN Route details -
+    totalTimeLock: \(totalTimeLock)
+    totalFees:     \(totalFees)
+    totalAmt:      \(totalAmt)
+    """
+    
+    for (index, hop) in hops.enumerated() {
+      descriptiveString += "\nHop #\(index)\n\(hop)"
+    }
+    return descriptiveString
+  }
+}
+
+
+struct LNHop: CustomStringConvertible {
+  var chanID: UInt
+  var chanCapacity: Int
+  var amtToForward: Int
+  var fee: Int
+  var expiry: UInt
+  
+  var description: String {
+    return """
+    Hop details -
+    chanID:       \(chanID)
+    chanCapacity: \(chanCapacity)
+    amtToForward: \(amtToForward)
+    expiry:       \(expiry)
     """
   }
 }

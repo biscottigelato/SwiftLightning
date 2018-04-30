@@ -46,7 +46,7 @@ $ go get github.com/biscottigelato/SwiftLightning
 
 Package LND Framework
 ```
-$ ./packagelnd.sh
+$ ./packagelnd.sh --init
 ```
 
 Convert rpc.proto to Swift

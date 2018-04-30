@@ -672,6 +672,74 @@ class LNServices {
   }
   
   
+  // MARK: QueryRoutes
+  
+  static func queryRoutes(pubKey: String, amt: Int, numRoutes: Int,
+                          retryCount: Int = LNConstants.defaultRetryCount,
+                          retryDelay: Double = LNConstants.defaultRetryDelay,
+                          completion: @escaping (() throws -> ([LNRoute])) -> Void) {
+    
+    let retry = SLRetry()
+    let task = { () -> () in
+      do {
+        try prepareLightningService()
+        
+        var request = Lnrpc_QueryRoutesRequest()
+        request.pubKey = pubKey
+        request.amt = Int64(amt)
+        request.numRoutes = Int32(numRoutes)
+        
+        _ = try lightningService!.queryRoutes(request) { (response, result) in
+          
+          if let response = response {
+            SLLog.debug("LN Query Routes Success!")
+            
+            var lnRoutes = [LNRoute]()
+            for route in response.routes {
+              
+              var lnHops = [LNHop]()
+              for hop in route.hops {
+                lnHops.append(LNHop(chanID: UInt(hop.chanID),
+                                    chanCapacity: Int(hop.chanCapacity),
+                                    amtToForward: Int(hop.amtToForward),
+                                    fee: Int(hop.fee),
+                                    expiry: UInt(hop.expiry)))
+              }
+              
+              lnRoutes.append(LNRoute(totalTimeLock: UInt(route.totalTimeLock),
+                                      totalFees: Int(route.totalFees),
+                                      totalAmt: Int(route.totalAmt),
+                                      hops: lnHops))
+            }
+            
+            SLLog.verbose("")
+            SLLog.verbose(String(describing: lnRoutes))
+            
+            // Success! - dereference retry
+            retry.success()
+            completion({ return lnRoutes })
+            
+          } else {
+            let message = result.statusMessage ?? result.description
+            
+            // Error - attempt to retry?
+            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
+          }
+        }
+      } catch {
+        // Error - attempt to retry
+        retry.attempt(error: error)
+      }
+    }
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Query Routes Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    retry.start("LN Query Routes", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
+  
+  
   // MARK: DecodePayReq
   
   static func decodePayReq(_ payReqInput: String,
