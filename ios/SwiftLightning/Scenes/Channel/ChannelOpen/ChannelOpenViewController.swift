@@ -130,7 +130,7 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, UITe
   
   func displayOnChainConfirmedBalance(viewModel: ChannelOpen.GetBalance.ViewModel) {
     DispatchQueue.main.async {
-      self.fundingEntryView.remainingLabel.text = "on-chain balance: \(viewModel.onChainBalance)"
+      self.fundingEntryView.balanceLabel.text = "on-chain balance: \(viewModel.onChainBalance)"
     }
   }
   

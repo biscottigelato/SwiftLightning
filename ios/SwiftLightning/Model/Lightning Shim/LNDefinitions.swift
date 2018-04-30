@@ -22,7 +22,7 @@ struct LNConstants {
 }
 
 
-enum BitcoinNetworkType {
+enum BitcoinPaymentType {
   case onChain
   case lightning
 }

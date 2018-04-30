@@ -13,6 +13,13 @@
 import UIKit
 
 protocol PayMainDisplayLogic: class {
+  
+  func updateInvalidity(addr: Bool, amt: Bool, route: Bool)
+  func displayConfirmPayment(viewModel: PayMain.ConfirmPayment.ViewModel)
+  func displayAddressWarning(viewModel: PayMain.AddressVM)
+  func displayAmountWarning(viewModel: PayMain.AmountVM)
+  func displayWarning(viewModel: PayMain.WarningVM)
+  func displayError(viewModel: PayMain.ErrorVM)
 }
 
 
@@ -27,10 +34,14 @@ class PayMainViewController: UIViewController, PayMainDisplayLogic {
   @IBOutlet weak var addressEntryView: SLFormEntryView!
   @IBOutlet weak var amountEntryView: SLFormEntryView!
   @IBOutlet weak var descriptionEntryView: SLFormEntryView!
+  
+  @IBOutlet weak var warningView: UIView!
+  @IBOutlet weak var warningLabel: UILabel!
   @IBOutlet weak var sendButton: SLBarButton!
   
   var isAddressInvalid: Bool = false
   var isAmountInvalid: Bool = false
+  var isRoutingInvalid: Bool = false
   
   
   // MARK: Object lifecycle
@@ -73,7 +84,32 @@ class PayMainViewController: UIViewController, PayMainDisplayLogic {
   // MARK: Dismiss
   
   @IBAction func closeCrossTapped(_ sender: UIBarButtonItem) {
+    DispatchQueue.main.async {
+      self.router?.routeToWalletMain()
+    }
+  }
+  
+  
+  // MARK: Validity Tracking
+  func updateInvalidity(addr: Bool, amt: Bool, route: Bool) {
+    isAddressInvalid = addr
+    isAmountInvalid = amt
+    isRoutingInvalid = route
     
+    // Update button state
+    if (isAddressInvalid || isAmountInvalid || isRoutingInvalid ||
+        !(addressEntryView.textField.text?.isEmpty ?? true) ||
+      !(amountEntryView.textField.text?.isEmpty ?? true)) {
+      
+      sendButton.backgroundColor = UIColor.disabledGray
+      sendButton.shadowColor = UIColor.disabledGrayShadow
+      sendButton.setTitleColor(UIColor.disabledText, for: .normal)
+      
+    } else {
+      sendButton.backgroundColor = UIColor.medAquamarine
+      sendButton.shadowColor = UIColor.medAquamarineShadow
+      sendButton.setTitleColor(UIColor.disabledText, for: .normal)
+    }
   }
   
   
@@ -94,27 +130,61 @@ class PayMainViewController: UIViewController, PayMainDisplayLogic {
       amountEntryView.textField.text = amount
     }
     
+    if let paymentType = viewModel.paymentType {
+      switch paymentType {
+      case .lightning:
+        headerView.iconImageView.image = UIImage(named: "BoltColored")
+        headerView.headerLabel.text = "Lightning Payment"
+      case .onChain:
+        headerView.iconImageView.image = UIImage(named: "ChainColored")
+        headerView.headerLabel.text = "On-Chain Payment"
+      }
+    }
+    
+    amountEntryView.balanceLabel.text = viewModel.balance
+    
+    // TODO: fee button color should change based on whether fee is within expected range
+    amountEntryView.feeButton.setTitle(viewModel.fee, for: .normal)
+    
     if viewModel.goToConfirm {
       DispatchQueue.main.async {
         self.router?.routeToPayConfirm()
       }
     }
   }
+   
   
-  func displayConfirmPaymentError(viewModel: PayMain.ConfirmPayment.ErrorVM) {
+  // MARK: Error Display
+  
+  func displayAddressWarning(viewModel: PayMain.AddressVM) {
+    DispatchQueue.main.async {
+      self.addressEntryView.errorLabel.text = viewModel.errMsg
+    }
+  }
+  
+  func displayAmountWarning(viewModel: PayMain.AmountVM) {
+    DispatchQueue.main.async {
+      self.amountEntryView.errorLabel.text = viewModel.errMsg
+    }
+  }
+  
+  func displayWarning(viewModel: PayMain.WarningVM) {
+    DispatchQueue.main.async {
+      if viewModel.errMsg != "" {
+        self.warningLabel.text = viewModel.errMsg
+        self.warningView.isHidden = false
+      } else {
+        self.warningLabel.text = ""
+        self.warningView.isHidden = true
+      }
+    }
+  }
+  
+  func displayError(viewModel: PayMain.ErrorVM) {
     let alertDialog = UIAlertController(title: viewModel.errTitle, message: viewModel.errMsg, preferredStyle: .alert).addAction(title: "OK", style: .default)
     DispatchQueue.main.async {
       self.present(alertDialog, animated: true, completion: nil)
     }
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
 }

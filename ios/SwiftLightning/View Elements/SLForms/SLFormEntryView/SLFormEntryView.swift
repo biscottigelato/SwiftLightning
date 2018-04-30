@@ -21,7 +21,7 @@ import UIKit
   @IBOutlet weak var convertedLabel: UILabel!
   @IBOutlet weak var button: SLBarButton!
   @IBOutlet weak var feeButton: UIButton!
-  @IBOutlet weak var remainingLabel: UILabel!
+  @IBOutlet weak var balanceLabel: UILabel!
   @IBOutlet weak var feeBalanceStack: UIStackView!
   
   @IBOutlet weak var topSpacerHeightConstraint: NSLayoutConstraint!

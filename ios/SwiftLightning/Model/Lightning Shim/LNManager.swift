@@ -142,18 +142,18 @@ class LNManager {
   }
   
   static func determineAddress(inputString: String,
-                                completion: @escaping (String?, Bitcoin?, String?, BitcoinNetworkType?, Bool?) -> ()) {
+                                completion: @escaping (String?, Bitcoin?, String?, BitcoinPaymentType?, Bool?) -> ()) {
     
     var address: String?
     var amount: Bitcoin?
     var description: String?
-    var networkType: BitcoinNetworkType?
+    var paymentType: BitcoinPaymentType?
     
     // Deal with Payment Requests first
 
     // Lightning Invoice? Processing ends inside if so
     if inputString.hasPrefix(PayReqPrefixes.lnbtc.rawValue) {
-      networkType = BitcoinNetworkType.lightning
+      paymentType = BitcoinPaymentType.lightning
       
       LNServices.decodePayReq(inputString) { (responder) in
         do {
@@ -161,11 +161,11 @@ class LNManager {
           address = lnPayReq.destination
           amount = Bitcoin(inSatoshi: lnPayReq.numSatoshis)
           description = lnPayReq.destination
-          completion(address, amount, description, networkType, true)
+          completion(address, amount, description, paymentType, true)
           
         } catch {
           // Can't even decode...
-          completion(nil, nil, nil, networkType, nil)
+          completion(nil, nil, nil, paymentType, nil)
           return
         }
       }
@@ -174,7 +174,7 @@ class LNManager {
     
     // Bitcoin Payment Request?
     else if inputString.hasPrefix(PayReqPrefixes.btcuri.rawValue) {
-      networkType = BitcoinNetworkType.onChain
+      paymentType = BitcoinPaymentType.onChain
         
       // Looks like one. Attempt to decode
       do {
@@ -188,7 +188,7 @@ class LNManager {
         
       } catch {
         // Doesn't look like a valid payment request
-        completion(nil, nil, nil, networkType, false)
+        completion(nil, nil, nil, paymentType, false)
       }
     }
 
@@ -200,7 +200,7 @@ class LNManager {
       do {
         _ = try Address(address!)
       } catch {
-        completion(address, amount, description, networkType, false)
+        completion(address, amount, description, paymentType, false)
       }
     }
     
@@ -209,13 +209,13 @@ class LNManager {
       do {
         _ = try SegwitAddrCoder.shared.decode(addr: address!)
       } catch {
-        completion(address, amount, description, networkType, false)
+        completion(address, amount, description, paymentType, false)
       }
     }
     
     // So nothing hit for the address. If this is from a Payment Request, some of the following stuff might be != nil
     else {
-      completion(address, amount, description, networkType, false)
+      completion(address, amount, description, paymentType, false)
     }
   }
 }

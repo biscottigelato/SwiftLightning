@@ -13,14 +13,15 @@
 import UIKit
 
 protocol PayMainBusinessLogic {
-  
   func confirmPayment(request: PayMain.ConfirmPayment.Request)
 }
 
 
 protocol PayMainDataStore {
-  
-  //var name: String { get set }
+  var address: String { get }
+  var amount: Bitcoin { get }
+  var description: String { get }
+  var fee: Bitcoin? { get }
 }
 
 
@@ -29,13 +30,57 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
   var presenter: PayMainPresentationLogic?
   var worker: PayMainWorker?
   
+  
+  // MARK: Data Store
+  
+  private var _address: String?
+  private var _amount: Bitcoin?
+  private var _description: String?
+  private var _fee: Bitcoin?
+  
+  var address: String {
+    guard let returnValue = _address else {
+      SLLog.fatal("address in Data Store = nil")
+    }
+    return returnValue
+  }
+  
+  var amount: Bitcoin {
+    guard let returnValue = _amount else {
+      SLLog.fatal("amount in Data Store = nil")
+    }
+    return returnValue
+  }
+  
+  var description: String {
+    return _description ?? ""
+  }
+  
+  var fee: Bitcoin? {
+    return _fee
+  }
+  
+  
   // MARK: Confirm Payment
   
   func confirmPayment(request: PayMain.ConfirmPayment.Request) {
     let amount: Bitcoin? = Bitcoin(inSatoshi: request.rawAmountString)
     
-    validate(inputAddress: request.rawAmountString, inputAmount: amount) { result in
+    validate(inputAddress: request.rawAddressString, inputAmount: amount) { result in
       
+      // Store parameters to Data Store
+      
+      // If it's lightning, just make sure it's the inputString (Payment Request)
+      if let paymentType = result.paymentType, paymentType == .lightning {
+        self._address = request.rawAddressString
+      } else {
+        self._address = result.revisedAddress ?? request.rawAddressString
+      }
+      self._amount = result.revisedAmount ?? amount
+      self._description = result.description
+      self._fee = result.fee
+      
+      // Respond to Presenter
       let response = PayMain.ConfirmPayment.Response(inputAddress: request.rawAddressString,
                                                      inputAmount: amount,
                                                      validationResult: result)
@@ -100,7 +145,7 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
               let routes = try responder()
               
               guard routes.count > 0 else {
-                throw PayMain.RouteError.noRouteFound
+                throw PayMain.Warning.noRouteFound
               }
               result.fee = Bitcoin(inSatoshi: routes[0].totalFees)
               
@@ -108,6 +153,7 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
               LNServices.channelBalance() { (balancer) in
                 do {
                   let balance = try balancer()
+                  result.balance = Bitcoin(inSatoshi: balance)
                   
                   guard Bitcoin(inSatoshi: balance) >= Bitcoin(amount + result.fee!) else {
                     result.amountError = PayMain.AmountError.insufficient
@@ -138,6 +184,7 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
           LNServices.walletBalance() { (balancer) in
             do {
               let balance = try balancer()
+              result.balance = Bitcoin(inSatoshi: balance.confirmed)
               
               guard Bitcoin(inSatoshi: balance.confirmed) >= amount else {  // TODO: Subtract fee when fee estimation is in place
                 result.amountError = PayMain.AmountError.insufficient
@@ -163,23 +210,3 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

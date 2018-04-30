@@ -12,18 +12,18 @@
 
 import UIKit
 
-@objc protocol PayMainRoutingLogic
-{
+@objc protocol PayMainRoutingLogic {
+  
   func routeToPayConfirm()
+  func routeToWalletMain()
 }
 
-protocol PayMainDataPassing
-{
+protocol PayMainDataPassing {
   var dataStore: PayMainDataStore? { get }
 }
 
-class PayMainRouter: NSObject, PayMainRoutingLogic, PayMainDataPassing
-{
+class PayMainRouter: NSObject, PayMainRoutingLogic, PayMainDataPassing {
+  
   weak var viewController: PayMainViewController?
   var dataStore: PayMainDataStore?
   
@@ -37,13 +37,31 @@ class PayMainRouter: NSObject, PayMainRoutingLogic, PayMainDataPassing
     navigateToPayConfirm(source: viewController!, destination: destinationVC)
   }
 
+  func routeToWalletMain() {
+//    let destinatoinVC = viewController! as! WalletMainViewController
+//    let destinatoinDS = destinationVC.router!.dataStore!
+//    passDataToWalletMain(source: dataStore!, destination: &destinationDS)
+    navigateToWalletMain(source: viewController!)
+  }
+  
+  
   // MARK: Navigation
   
   func navigateToPayConfirm(source: PayMainViewController, destination: PayConfirmViewController) {
     
   }
+  
+  func navigateToWalletMain(source: PayMainViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    navigationController.popViewController(animated: true)
+  }
 
+  
   // MARK: Passing data
 
   func passDataToPayConfirm(source: PayMainDataStore, destination: inout PayConfirmDataStore) { }
+  func passDataToWalletMain(source: PayMainDataStore, destination: inout WalletMainDataStore) { }
 }

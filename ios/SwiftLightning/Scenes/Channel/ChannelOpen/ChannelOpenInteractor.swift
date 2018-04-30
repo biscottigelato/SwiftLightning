@@ -12,8 +12,8 @@
 
 import UIKit
 
-protocol ChannelOpenBusinessLogic
-{
+protocol ChannelOpenBusinessLogic {
+  
   func channelConfirm(request: ChannelOpen.ChannelConfirm.Request)
   func validateNodePubKey(request: ChannelOpen.ValidateNodePubKey.Request)
   func validateNodeIPPort(request: ChannelOpen.ValidateNodeIPPort.Request)
@@ -21,8 +21,8 @@ protocol ChannelOpenBusinessLogic
   func getOnChainConfirmedBalance(request: ChannelOpen.GetBalance.Request)
 }
 
-protocol ChannelOpenDataStore
-{
+protocol ChannelOpenDataStore {
+  
   var nodePubKey: String { get }
   var nodeIP: String { get }
   var nodePort: Int { get }

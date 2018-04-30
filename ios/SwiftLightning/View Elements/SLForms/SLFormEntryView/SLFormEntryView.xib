@@ -17,6 +17,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SLFormEntryView" customModule="SwiftLightning" customModuleProvider="target">
             <connections>
+                <outlet property="balanceLabel" destination="6Sd-tx-gxV" id="aDf-zQ-MNP"/>
                 <outlet property="bottomSpacerHeightConstraint" destination="Dcv-LC-JeT" id="RZa-Jq-cea"/>
                 <outlet property="button" destination="Sfy-P4-gv3" id="clV-l0-wbR"/>
                 <outlet property="convertedLabel" destination="W2O-UY-DAR" id="J0s-6o-LDT"/>
@@ -24,7 +25,6 @@
                 <outlet property="feeBalanceStack" destination="kSi-C9-XKB" id="CAd-Cc-cUu"/>
                 <outlet property="feeButton" destination="sTQ-ZU-q3q" id="hGH-cM-WU8"/>
                 <outlet property="fieldTitleLabel" destination="pjh-EZ-r1q" id="YH6-Sq-wRK"/>
-                <outlet property="remainingLabel" destination="6Sd-tx-gxV" id="tYW-tF-boz"/>
                 <outlet property="stackHeightConstraint" destination="Atb-8q-TLP" id="0d0-Um-dic"/>
                 <outlet property="textField" destination="wzT-qJ-2VO" id="7tZ-jc-cCq"/>
                 <outlet property="textFieldTapRecognizer" destination="zUL-gA-ILA" id="ohN-qy-HMj"/>

@@ -14,6 +14,8 @@ import UIKit
 
 enum PayMain {
   
+  // MARK: Error definitions
+  
   enum Err: LocalizedError {
     case determineAddr
     case walletBalance
@@ -21,9 +23,9 @@ enum PayMain {
     var localizedDescription: String {
       switch self {
       case .determineAddr:
-        return NSLocalizedString("Address parsing failed", comment: "PayMain.Err type")
+        return NSLocalizedString("Address parsing failed", comment: "PayMain.Err enum")
       case .walletBalance:
-        return NSLocalizedString("Cannot obtain wallet balance", comment: "PayMain.Err type")
+        return NSLocalizedString("Cannot obtain wallet balance", comment: "PayMain.Err enum")
       }
     }
   }
@@ -34,7 +36,7 @@ enum PayMain {
     var localizedDescription: String {
       switch self {
       case .invalidAddr:
-        return NSLocalizedString("Invalid address", comment: "PayMain.AddrError type")
+        return NSLocalizedString("Invalid address", comment: "PayMain.AddrError enum")
       }
     }
   }
@@ -46,40 +48,45 @@ enum PayMain {
     var localizedDescription: String {
       switch self {
       case .amtMismatch:
-        return NSLocalizedString("Pay Req amount mismatch", comment: "PayMain.AmountError")
+        return NSLocalizedString("Pay Req amount mismatch", comment: "PayMain.AmountError enum")
       case .insufficient:
-        return NSLocalizedString("Insufficient funds", comment: "PayMain.AmountError")
+        return NSLocalizedString("Insufficient funds", comment: "PayMain.AmountError enum")
       }
     }
   }
   
-  enum RouteError: LocalizedError {
+  enum Warning: LocalizedError {
     case noRouteFound
     
     var localizedDescription: String {
       switch self {
       case .noRouteFound:
-        return NSLocalizedString("No route found to Lightning destination", comment: "PayMain.RouteError")
+        return NSLocalizedString("No route found to Lightning destination", comment: "PayMain.Warning enum")
       }
     }
   }
   
+  
+  // MARK: Validation Result
+  
   struct ValidationResult {
-    var paymentType: BitcoinNetworkType?
+    var paymentType: BitcoinPaymentType?
     var revisedAddress: String?
     var revisedAmount: Bitcoin?
     var description: String?
-    var fee: Bitcoin? = nil
+    var fee: Bitcoin?
+    var balance: Bitcoin?
     var addressError: PayMain.AddrError?
     var amountError: PayMain.AmountError?
     var routeError: Error?
     var error: Error?
     
-    init(paymentType: BitcoinNetworkType? = nil,  // nil means can't resolve type
+    init(paymentType: BitcoinPaymentType? = nil,  // nil means can't resolve type
          revisedAddress: String? = nil,  // nil means don't replace
          revisedAmount: Bitcoin? = nil,  // nil means don't replace, payreq amount if error
          description: String? = nil,  // nil means don't replace
          fee: Bitcoin? = nil,  // nil means no fee
+         balance: Bitcoin? = nil,
          addressError: PayMain.AddrError? = nil,
          amountError: PayMain.AmountError? = nil,
          routeError: Error? = nil,
@@ -90,12 +97,16 @@ enum PayMain {
       self.revisedAmount = revisedAmount
       self.description = description
       self.fee = fee
+      self.balance = balance
       self.addressError = addressError
       self.amountError = amountError
       self.routeError = routeError
       self.error = error
     }
   }
+  
+  
+  // MARK: Validate Address
   
   enum ValidateAddress {
     struct Request {
@@ -106,21 +117,17 @@ enum PayMain {
       var validationResult: ValidationResult
     }
     struct ViewModel {
-      var revisedAddress: String
-      var revisedAmount: String
+      var revisedAddress: String?
+      var revisedAmount: String?
+      var paymentType: BitcoinPaymentType?
+      var fee: String
+      var balance: String
     }
-    struct WarningVM {
-      var errMsg: String
-    }
-    struct RouteVM {
-      var errMsg: String
-    }
-    struct ErrorVM {
-      var errTitle: String
-      var errMsg: String
-    }
+
   }
   
+  
+  // MARK: Validate Amount
   
   enum ValidateAmount {
     struct Request {
@@ -129,16 +136,6 @@ enum PayMain {
     }
     struct Response {
       var validationResult: ValidationResult
-    }
-    struct WarningVM {
-      var errMsg: String
-    }
-    struct RouteVM {
-      var errMsg: String
-    }
-    struct ErrorVM {
-      var errTitle: String
-      var errMsg: String
     }
   }
   
@@ -158,15 +155,31 @@ enum PayMain {
     struct ViewModel {
       var revisedAddress: String?
       var revisedAmount: String?
+      var paymentType: BitcoinPaymentType?
+      var fee: String
+      var balance: String
       var goToConfirm: Bool
     }
-    struct RouteVM {
-      var errMsg: String
-    }
-    struct ErrorVM {
-      var errTitle: String
-      var errMsg: String
-    }
+  }
+  
+  
+  // MARK: Error View Models
+  
+  struct AddressVM {
+    var errMsg: String
+  }
+  
+  struct AmountVM {
+    var errMsg: String
+  }
+  
+  struct WarningVM {
+    var errMsg: String
+  }
+  
+  struct ErrorVM {
+    var errTitle: String
+    var errMsg: String
   }
   
 }
