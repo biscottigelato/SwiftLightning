@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -87,7 +87,6 @@
 		8C1AE37A2095A81500A4D9BF /* SecureHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AE3792095A81500A4D9BF /* SecureHash.swift */; };
 		8C1AE3832095BF4000A4D9BF /* Bech32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AE3822095BF4000A4D9BF /* Bech32.swift */; };
 		8C1AE3852095BF6E00A4D9BF /* SegwitAddrCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AE3842095BF6E00A4D9BF /* SegwitAddrCoder.swift */; };
-		8C2ACFB7207359DD004E6A84 /* Lightningd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2ACFB6207359DD004E6A84 /* Lightningd.framework */; };
 		8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FC7072073513700966D31 /* AppDelegate.swift */; };
 		8C2FC70D2073513700966D31 /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70B2073513700966D31 /* Root.storyboard */; };
 		8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70E2073513800966D31 /* Assets.xcassets */; };
@@ -96,6 +95,8 @@
 		8C36A03020966DCA003BEFB6 /* SecureHashTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */; };
 		8C36A03220966E6F003BEFB6 /* EncodingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A03120966E6F003BEFB6 /* EncodingTest.swift */; };
 		8C36A03420966F20003BEFB6 /* Bech32Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A03320966F20003BEFB6 /* Bech32Test.swift */; };
+		8C36A049209696A0003BEFB6 /* lnd.conf in Resources */ = {isa = PBXBuildFile; fileRef = 8C36A04820969694003BEFB6 /* lnd.conf */; };
+		8C36A04E2096B50B003BEFB6 /* Lndmobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C36A04D2096B50B003BEFB6 /* Lndmobile.framework */; };
 		8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */; };
 		8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710FA2077E79C005D7ABC /* LNServices.swift */; };
 		8C68653C209A6E87001E41DA /* CameraMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C686536209A6E87001E41DA /* CameraMainPresenter.swift */; };
@@ -316,7 +317,6 @@
 		8C1AE37B2095ACCA00A4D9BF /* SwiftLightning-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftLightning-Bridging-Header.h"; sourceTree = "<group>"; };
 		8C1AE3822095BF4000A4D9BF /* Bech32.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bech32.swift; sourceTree = "<group>"; };
 		8C1AE3842095BF6E00A4D9BF /* SegwitAddrCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegwitAddrCoder.swift; sourceTree = "<group>"; };
-		8C2ACFB6207359DD004E6A84 /* Lightningd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Lightningd.framework; sourceTree = "<group>"; };
 		8C2FC7042073513700966D31 /* SwiftLightning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftLightning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C2FC7072073513700966D31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C2FC70C2073513700966D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Root.storyboard; sourceTree = "<group>"; };
@@ -327,6 +327,8 @@
 		8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureHashTest.swift; sourceTree = "<group>"; };
 		8C36A03120966E6F003BEFB6 /* EncodingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingTest.swift; sourceTree = "<group>"; };
 		8C36A03320966F20003BEFB6 /* Bech32Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bech32Test.swift; sourceTree = "<group>"; };
+		8C36A04820969694003BEFB6 /* lnd.conf */ = {isa = PBXFileReference; lastKnownFileType = text; path = lnd.conf; sourceTree = "<group>"; };
+		8C36A04D2096B50B003BEFB6 /* Lndmobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Lndmobile.framework; sourceTree = "<group>"; };
 		8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.grpc.swift; sourceTree = "<group>"; };
 		8C4710FA2077E79C005D7ABC /* LNServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNServices.swift; sourceTree = "<group>"; };
 		8C686536209A6E87001E41DA /* CameraMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMainPresenter.swift; sourceTree = "<group>"; };
@@ -459,8 +461,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C2ACFB7207359DD004E6A84 /* Lightningd.framework in Frameworks */,
 				B6B514D5D47CE23C7C8010FE /* Pods_SwiftLightning.framework in Frameworks */,
+				8C36A04E2096B50B003BEFB6 /* Lndmobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,7 +479,7 @@
 		54857E4EC15F1FF28D39F6FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8C2ACFB6207359DD004E6A84 /* Lightningd.framework */,
+				8C36A04D2096B50B003BEFB6 /* Lndmobile.framework */,
 				099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */,
 			);
 			name = Frameworks;
@@ -661,6 +663,7 @@
 			children = (
 				8C7D310620755AF00068F2BD /* Assets */,
 				8C7D310220755A050068F2BD /* Support Files */,
+				8C36A03920968DC0003BEFB6 /* Resources */,
 				8C4710FC20783DEB005D7ABC /* Extensions */,
 				8C090E082088197D009B8B8D /* Shared */,
 				8C7D310420755AE30068F2BD /* Common Views */,
@@ -682,6 +685,14 @@
 				8C36A03320966F20003BEFB6 /* Bech32Test.swift */,
 			);
 			path = Test;
+			sourceTree = "<group>";
+		};
+		8C36A03920968DC0003BEFB6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8C36A04820969694003BEFB6 /* lnd.conf */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		8C4710FC20783DEB005D7ABC /* Extensions */ = {
@@ -1332,7 +1343,7 @@
 				};
 			};
 			buildConfigurationList = 8C2FC6FF2073513600966D31 /* Build configuration list for PBXProject "SwiftLightning" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1402,6 +1413,7 @@
 				8C18828720868545002E2835 /* Montserrat-ExtraBold.ttf in Resources */,
 				8C686543209A6EE2001E41DA /* CameraMain.storyboard in Resources */,
 				8C82760820912A750029BE7E /* SLFormPaySummaryView.xib in Resources */,
+				8C36A049209696A0003BEFB6 /* lnd.conf in Resources */,
 				8C090E2520885C84009B8B8D /* OpenSans-Italic.ttf in Resources */,
 				8C18828C20868545002E2835 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
 				8C18828920868545002E2835 /* Montserrat-Bold.ttf in Resources */,
@@ -1743,6 +1755,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftLightning/Support Files/SwiftLightning-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1796,8 +1809,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftLightning/Support Files/SwiftLightning-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1816,7 +1830,10 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "SwiftLightning/Support Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1837,7 +1854,10 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "SwiftLightning/Support Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1854,9 +1874,14 @@
 				DEVELOPMENT_TEAM = G37J442U66;
 				INFOPLIST_FILE = SwiftLightningTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightningTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1873,7 +1898,11 @@
 				DEVELOPMENT_TEAM = G37J442U66;
 				INFOPLIST_FILE = SwiftLightningTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightningTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

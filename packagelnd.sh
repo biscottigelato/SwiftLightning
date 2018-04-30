@@ -3,30 +3,25 @@ then
   rm -f Gopkg.toml
   rm -f Gopkg.lock
   rm -Rdf vendor
-  rm -Rdf ios/Lightningd.framework
-  
-  mv lnd/start.go lnd/start.bak
-  rm -f lnd/*.go
-  mv lnd/start.bak lnd/start.go
+  rm -Rdf ios/Lndmobile.framework
 
 elif [ "$1" = "--init" ]
 then
   # This just gets lnd into /vendor
-  cp -v Gopkg.base Gopkg.toml
+  cp -v Gopkgtoml.base Gopkg.toml
+  cp -v Gopkglock.base Gopkg.lock
+  dep ensure -vendor-only
+
+  # Get the mobile package to local
+  mkdir mobile
+  cp vendor/github.com/lightningnetwork/lnd/mobile/*.* ./mobile
   dep ensure
 
-  # This makes a copy of lnd main package files along with it's Gopkg.toml
-  cp -v vendor/github.com/lightningnetwork/lnd/*.go ./lnd
-  cp -v -f vendor/github.com/lightningnetwork/lnd/Gopkg.toml Gopkg.toml
-  dep ensure
-
-  gsed -i 's/package main/package lnd/g' lnd/*.go
-
-  gomobile bind -target=ios -o=ios/Lightningd.framework github.com/biscottigelato/SwiftLightning/gomobile
+  gomobile bind -target=ios -o=ios/Lndmobile.framework github.com/biscottigelato/SwiftLightning/mobile
 
 elif [ "$1" = "--bind" ]
 then
-  gomobile bind -target=ios -o=ios/Lightningd.framework github.com/biscottigelato/SwiftLightning/gomobile
+  gomobile bind -target=ios -o=ios/Lndmobile.framework github.com/biscottigelato/SwiftLightning/mobile
 
 else
   echo "Please specify --init, --bind, or --clean"

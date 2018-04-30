@@ -7,7 +7,19 @@
 //
 
 import Foundation
-import Lightningd
+import Lndmobile
+
+
+class LNDMobileStartCallback: NSObject, LndmobileCallbackProtocol {
+  func onError(_ p0: Error!) {
+    SLLog.verbose("LND Calledback with Error \(p0.localizedDescription)")
+  }
+  
+  func onResponse(_ p0: Data!) {
+    SLLog.verbose("LND Calledback with Data")
+  }
+}
+
 
 class LNServices {
   
@@ -26,38 +38,24 @@ class LNServices {
     
     // Obtain the path to Application Support
     guard let appSupportPath = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.path else {
-      fatalError("Cannot get Application Support Folder URL")
+      SLLog.fatal("Cannot get Application Support Folder URL")
     }
     directoryPath = appSupportPath + "/lnd"
     
-    // Arguments for LND Start
-    var lndArgs = ""
-    lndArgs += "--bitcoin.active"
-    lndArgs += " "
-    lndArgs += "--bitcoin.testnet"
-    lndArgs += " "
-    lndArgs += "--bitcoin.node=neutrino"
-    lndArgs += " "
-    lndArgs += "--neutrino.connect=\(neutrinoAddress)"
-    lndArgs += " "
-    lndArgs += "--rpclisten=localhost:\(rpcListenPort)"
-    lndArgs += " "
-    lndArgs += "--listen=localhost:\(peerListenPort)"
-    lndArgs += " "
-    lndArgs += "--restlisten=localhost:\(restListenPort)"
-    lndArgs += " "
-//    lndArgs += "--autopilot.active=1"
-//    lngArgs += " "
-//    lndArgs += "--no-macaroons"
-//    lndArgs += " "
+    // Copy lnd.conf to the LND directoryPath
+    guard let lndSourceURL = Bundle.main.url(forResource: "lnd", withExtension: "conf") else {
+      SLLog.fatal("Cannot get in Bundle lnd.conf")
+    }
+    let lndDestinationURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("lnd.conf", isDirectory: false)
     
-//    #if DEBUG
-//    lndArgs += "--debuglevel=debug"
-//    #else
-    lndArgs += "--debuglevel=info"
-//    #endif
-
-    SLLog.verbose("LND Arguments: \(lndArgs)")
+    do {
+      try FileManager.default.copyItem(at: lndSourceURL, to: lndDestinationURL)
+    } catch CocoaError.fileWriteFileExists {
+      SLLog.debug("lnd.conf already exist at Applicaiton Support/lnd")
+    } catch {
+      let nsError = error as NSError
+      SLLog.fatal("Failed to copy lnd.conf from bundle to Application Support/lnd - \(nsError.domain): \(nsError.code)")
+    }
     
     // BTCD can throw SIGPIPEs. Ignoring according to https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/NetworkingOverview/CommonPitfalls/CommonPitfalls.html for now
     signal(SIGPIPE, SIG_IGN)
@@ -66,7 +64,7 @@ class LNServices {
     lndQueue = DispatchQueue(label: "LNDQueue", qos: .background, attributes: .concurrent)
     
     lndQueue!.async {
-      LightningdStartLND(appSupportPath, lndArgs)
+      LndmobileStart(directoryPath, LNDMobileStartCallback())
     }
     
     // For some reason GRPC Core have a very limited Cipher Suite set for SSL connections. This sets the environmental variable so
@@ -558,57 +556,67 @@ class LNServices {
   
   // MARK: Get Info
   
-  static func getInfo(retryCount: Int = LNConstants.defaultRetryCount,
-                      retryDelay: Double = LNConstants.defaultRetryDelay,
-                      completion: @escaping (() throws -> (LNDInfo)) -> Void) {  //TODO: Should return an info struct of sort
+  class GetInfo: NSObject, LndmobileCallbackProtocol {
     
+    private var completion: (() throws -> (LNDInfo)) -> Void
     let retry = SLRetry()
-    let task = { () -> () in
+    
+    init(_ completion: @escaping (() throws -> (LNDInfo)) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
       do {
-        try prepareLightningService()
+        let response = try Lnrpc_GetInfoResponse(serializedData: p0)
+        SLLog.debug("LN Get Info Success!")
         
-        // Unary GRPC
-        _ = try lightningService!.getInfo(Lnrpc_GetInfoRequest()) { (response, result) in
-          if let response = response {
-            SLLog.debug("LN Get Info Success!")
-            
-            let lndInfo = LNDInfo(identityPubkey: response.identityPubkey,
-                                  alias: response.alias,
-                                  numPendingChannels: UInt(response.numPendingChannels),
-                                  numActiveChannels: UInt(response.numActiveChannels),
-                                  numPeers: UInt(response.numPeers),
-                                  blockHeight: response.blockHeight,
-                                  blockHash: response.blockHash,
-                                  syncedToChain: response.syncedToChain,
-                                  testnet: response.testnet,
-                                  chains: response.chains,
-                                  uris: response.uris,
-                                  bestHeaderTimestamp: Int(response.bestHeaderTimestamp))
-            
-            SLLog.verbose(String(describing: lndInfo))
-            
-            // Success! - dereference retry
-            retry.success()
-            completion({ return lndInfo })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            
-            // Error - attempt to retry?
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
+        let lndInfo = LNDInfo(identityPubkey: response.identityPubkey,
+                              alias: response.alias,
+                              numPendingChannels: UInt(response.numPendingChannels),
+                              numActiveChannels: UInt(response.numActiveChannels),
+                              numPeers: UInt(response.numPeers),
+                              blockHeight: response.blockHeight,
+                              blockHash: response.blockHash,
+                              syncedToChain: response.syncedToChain,
+                              testnet: response.testnet,
+                              chains: response.chains,
+                              uris: response.uris,
+                              bestHeaderTimestamp: Int(response.bestHeaderTimestamp))
+        
+        SLLog.verbose(String(describing: lndInfo))
+        
+        // Success! - dereference retry
+        retry.success()
+        completion({ return lndInfo })
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
+  static func getInfo(retryCount: Int = LNConstants.defaultRetryCount,
+                      retryDelay: Double = LNConstants.defaultRetryDelay,
+                      completion: @escaping (() throws -> (LNDInfo)) -> Void) {
+    
+    let lndOp = GetInfo(completion)
+    
+    let task = {
+      do {
+        let request = try Lnrpc_GetInfoRequest().serializedData()
+        LndmobileGetInfo(request, lndOp)
+      } catch {
+        completion({ throw error })
+      }
+    }
+    
     let fail = { (error: Error) -> () in
       SLLog.warning("LN Get Info Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("LN Get Info", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN Get Info", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
@@ -805,91 +813,95 @@ class LNServices {
   
   // MARK: Open Channel
   
+  class OpenChannel: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> ()) -> Void
+    let retry = SLRetry()
+    
+    init(_ completion: @escaping (() throws -> ()) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) { completion({ return }) }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
   static func openChannel(nodePubKey: Data, localFundingAmt: Int, pushSat: Int, targetConf: Int? = nil, satPerByte: Int? = nil,
                           retryCount: Int = LNConstants.defaultRetryCount,
                           retryDelay: Double = LNConstants.defaultRetryDelay,
                           streaming: @escaping (() throws -> (Lnrpc_LightningOpenChannelCall)) -> Void,
                           completion: @escaping (() throws -> ()) -> Void) {
     
-    let retry = SLRetry()
+    let lnOp = OpenChannel(completion)
+    
     let task = { () -> () in
-      do {
-        try prepareLightningService()
-        
-        var request = Lnrpc_OpenChannelRequest()
-        request.nodePubkey = nodePubKey
-        request.localFundingAmount = Int64(localFundingAmt)
-        request.pushSat = Int64(pushSat)
+      
+      var request = Lnrpc_OpenChannelRequest()
+      request.nodePubkey = nodePubKey
+      request.localFundingAmount = Int64(localFundingAmt)
+      request.pushSat = Int64(pushSat)
 
-        if let targetConf = targetConf { request.targetConf = Int32(targetConf) }
-        if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
+      if let targetConf = targetConf { request.targetConf = Int32(targetConf) }
+      if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
+    
+      do {
+        let serializedReq = try request.serializedData()
         
-        // Server Streaming GRPC
-        let call = try lightningService!.openChannel(request) { (result) in
-          if result.success, result.statusCode.rawValue == 0 {
-            SLLog.debug("LN Open Channel Resulted in Success!")
-            completion({ return })
-          }
-          else {
-            let message = result.statusMessage ?? result.description
-            let error = GRPCResultError(code: result.statusCode.rawValue, message: message)
-            SLLog.warning("LN Open Channel Resulted in Error - \(error.localizedDescription)")
-            completion({ throw error })
-          }
-        }
+        // TODO: How do one get a stream back through direct binding????
+        LndmobileOpenChannel(serializedReq, lnOp)
         
-        // Dereference retry
-        retry.success()
-        
-        do {
-          try call.receive { (result) in
-            switch result {
-            case .result(let resultType):
-              guard let update = resultType?.update else {
-                SLLog.warning("LN Open Channel call stream result with no type")
-                streaming({ throw LNError.openChannelStreamNoType })
-                break
-              }
-              
-              switch update {
-              case .chanPending(let pendingUpdate):
-                SLLog.verbose("LN Open Channel Pending Update:")
-                SLLog.verbose(" TXID:          \(pendingUpdate.txid.hexEncodedString(options: .littleEndian))")
-                SLLog.verbose(" Output Index:  \(pendingUpdate.outputIndex)")
-                
-              case .confirmation(let confirmUpdate):
-                SLLog.verbose("LN Open Channel Confirmation Update:")
-                SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
-                SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
-                SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
-                
-              case .chanOpen(let openUpdate):
-                SLLog.verbose("LN Open Channel Open Update:")
-                SLLog.verbose(" TXID:          \(openUpdate.channelPoint.fundingTxidStr)")
-                SLLog.verbose(" Output Index:  \(openUpdate.channelPoint.outputIndex)")
-              }
-              streaming({ return call })
-              
-            case .error(let error):
-              SLLog.warning("LN Open Channel call stream error - \(error.localizedDescription)")
-              streaming({ throw error })
-            }
-          }
-        } catch {
-          SLLog.warning("LNOpen Channel call stream thrown - \(error.localizedDescription)")
-          streaming({ throw error })
-        }
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
+        return
       }
+    
+      // Dereference retry
+      lnOp.retry.success()
+        
+//        do {
+//          try call.receive { (result) in
+//            switch result {
+//            case .result(let resultType):
+//              guard let update = resultType?.update else {
+//                SLLog.warning("LN Open Channel call stream result with no type")
+//                streaming({ throw LNError.openChannelStreamNoType })
+//                break
+//              }
+//
+//              switch update {
+//              case .chanPending(let pendingUpdate):
+//                SLLog.verbose("LN Open Channel Pending Update:")
+//                SLLog.verbose(" TXID:          \(pendingUpdate.txid.hexEncodedString(options: .littleEndian))")
+//                SLLog.verbose(" Output Index:  \(pendingUpdate.outputIndex)")
+//
+//              case .confirmation(let confirmUpdate):
+//                SLLog.verbose("LN Open Channel Confirmation Update:")
+//                SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
+//                SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
+//                SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
+//
+//              case .chanOpen(let openUpdate):
+//                SLLog.verbose("LN Open Channel Open Update:")
+//                SLLog.verbose(" TXID:          \(openUpdate.channelPoint.fundingTxidStr)")
+//                SLLog.verbose(" Output Index:  \(openUpdate.channelPoint.outputIndex)")
+//              }
+//              streaming({ return call })
+//
+//            case .error(let error):
+//              SLLog.warning("LN Open Channel call stream error - \(error.localizedDescription)")
+//              streaming({ throw error })
+//            }
+//          }
+//        } catch {
+//          SLLog.warning("LNOpen Channel call stream thrown - \(error.localizedDescription)")
+//          streaming({ throw error })
+//        }
     }
     let fail = { (error: Error) -> () in
       SLLog.warning("LN Open Channel Failed - \(error.localizedDescription)")
       streaming({ throw error })
     }
     
-    retry.start("LN Open Channel", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lnOp.retry.start("LN Open Channel", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
 
   
