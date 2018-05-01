@@ -14,7 +14,7 @@ import UIKit
 
 enum ChannelConfirm {
   
-  enum RefreshAll {
+  enum Refresh {
     struct Request {
     }
     struct Response<C: Currency> {

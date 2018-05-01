@@ -20,16 +20,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JrJ-k8-KLJ" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="10" y="84" width="355" height="455"/>
+                                <rect key="frame" x="10" y="84" width="355" height="528"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXO-KZ-BEr">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="455"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="528"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPK-QW-GAs" userLabel="Content View">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="455"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="528"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NAp-nW-nxc">
-                                                        <rect key="frame" x="15" y="0.0" width="325" height="455"/>
+                                                        <rect key="frame" x="15" y="0.0" width="325" height="528"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="A48-On-9PT" userLabel="Header Spacer">
                                                                 <rect key="frame" x="0.0" y="0.0" width="325" height="40"/>
@@ -39,72 +39,83 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="3FX-Ie-LUh" userLabel="Top Spacer">
-                                                                <rect key="frame" x="0.0" y="40" width="325" height="8.5"/>
+                                                                <rect key="frame" x="0.0" y="40" width="325" height="7"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
-                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eTJ-5J-Ufj" userLabel="With Initial Payment Of" customClass="SLFormLabelView" customModule="SwiftLightning" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="48.5" width="325" height="60"/>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eTJ-5J-Ufj" userLabel="Send Label View" customClass="SLFormLabelView" customModule="SwiftLightning" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="47" width="325" height="60"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="With Initial Payment of"/>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Send"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="TfC-YI-xt0" userLabel="Main Spacer">
-                                                                <rect key="frame" x="0.0" y="108.5" width="325" height="12"/>
+                                                                <rect key="frame" x="0.0" y="107" width="325" height="12"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="12" id="KmA-BV-Sie"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jJ2-TI-vRz" userLabel="Funding Channel With" customClass="SLFormLabelView" customModule="SwiftLightning" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="120.5" width="325" height="60"/>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jJ2-TI-vRz" userLabel="To Label View" customClass="SLFormLabelView" customModule="SwiftLightning" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="119" width="325" height="60"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Funding Channel with"/>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="To"/>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="labelViewTypeIndex">
                                                                         <integer key="value" value="0"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="AVM-TF-Zsy" userLabel="Spacer">
-                                                                <rect key="frame" x="0.0" y="180.5" width="325" height="12"/>
+                                                                <rect key="frame" x="0.0" y="179" width="325" height="12"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
-                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Gho-GG-GGO" userLabel="Funding Channel With" customClass="SLFormLabelView" customModule="SwiftLightning" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="192.5" width="325" height="60"/>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Gho-GG-GGO" userLabel="Description View" customClass="SLFormLabelView" customModule="SwiftLightning" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="191" width="325" height="60"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Funding Channel with"/>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Description"/>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="labelViewTypeIndex">
                                                                         <integer key="value" value="0"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="K2L-Ui-Ynn" userLabel="Confirmation Spacer">
+                                                                <rect key="frame" x="0.0" y="251" width="325" height="12"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="QBG-nd-3Jx" userLabel="Confirmation Speed" customClass="SLFormLabelView" customModule="SwiftLightning" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="263" width="325" height="60"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Confirmation Speed"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eZU-oz-uRe" userLabel="Before Line Spacer">
-                                                                <rect key="frame" x="0.0" y="252.5" width="325" height="19"/>
+                                                                <rect key="frame" x="0.0" y="323" width="325" height="21.5"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="2Zi-OU-J85" userLabel="Line">
-                                                                <rect key="frame" x="0.0" y="271.5" width="325" height="1"/>
+                                                                <rect key="frame" x="0.0" y="344.5" width="325" height="1"/>
                                                                 <color key="backgroundColor" name="FormLineGray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="EMZ-Fq-wUA"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="zQ0-Pi-Ed0" userLabel="1.2 Spacer">
-                                                                <rect key="frame" x="0.0" y="272.5" width="325" height="14.5"/>
+                                                                <rect key="frame" x="0.0" y="345.5" width="325" height="14.5"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KO7-vG-bap" customClass="SLFormPaySummaryView" customModule="SwiftLightning" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="287" width="325" height="90"/>
+                                                                <rect key="frame" x="0.0" y="360" width="325" height="90"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ZZR-ff-Ate" userLabel="1.5 Spacer">
-                                                                <rect key="frame" x="0.0" y="377" width="325" height="18"/>
+                                                                <rect key="frame" x="0.0" y="450" width="325" height="18"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="55u-hc-FUa">
-                                                                <rect key="frame" x="0.0" y="395" width="325" height="42"/>
+                                                                <rect key="frame" x="0.0" y="468" width="325" height="42"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-Nk-R1C" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="152.5" height="42"/>
@@ -118,6 +129,9 @@
                                                                                 <integer key="value" value="3"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="cancelTapped:" destination="cGp-yS-qLV" eventType="touchUpInside" id="E0w-ZH-lJG"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="LoE-yJ-Dnt" userLabel="Mid Spacer">
                                                                         <rect key="frame" x="152.5" y="0.0" width="20" height="42"/>
@@ -138,6 +152,9 @@
                                                                                 <integer key="value" value="3"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="sendTapped:" destination="cGp-yS-qLV" eventType="touchUpInside" id="lOJ-ir-ZJE"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <constraints>
@@ -145,15 +162,16 @@
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="QxG-o7-f8B" userLabel="Bottom Spacer">
-                                                                <rect key="frame" x="0.0" y="437" width="325" height="18"/>
+                                                                <rect key="frame" x="0.0" y="510" width="325" height="18"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="AVM-TF-Zsy" firstAttribute="height" secondItem="TfC-YI-xt0" secondAttribute="height" id="4h4-Fe-XHs"/>
-                                                            <constraint firstItem="3FX-Ie-LUh" firstAttribute="height" secondItem="TfC-YI-xt0" secondAttribute="height" multiplier="0.7" id="ID6-Dv-EGQ"/>
-                                                            <constraint firstItem="eZU-oz-uRe" firstAttribute="height" secondItem="TfC-YI-xt0" secondAttribute="height" multiplier="1.6" id="QqB-Em-uff"/>
+                                                            <constraint firstItem="3FX-Ie-LUh" firstAttribute="height" secondItem="TfC-YI-xt0" secondAttribute="height" multiplier="0.6" id="ID6-Dv-EGQ"/>
+                                                            <constraint firstItem="eZU-oz-uRe" firstAttribute="height" secondItem="TfC-YI-xt0" secondAttribute="height" multiplier="1.8" id="QqB-Em-uff"/>
                                                             <constraint firstItem="QxG-o7-f8B" firstAttribute="height" secondItem="TfC-YI-xt0" secondAttribute="height" multiplier="1.5" id="gYf-T5-jDG"/>
+                                                            <constraint firstItem="K2L-Ui-Ynn" firstAttribute="height" secondItem="TfC-YI-xt0" secondAttribute="height" id="mTP-rY-xJA"/>
                                                             <constraint firstItem="zQ0-Pi-Ed0" firstAttribute="height" secondItem="TfC-YI-xt0" secondAttribute="height" multiplier="1.2" id="old-77-V59"/>
                                                             <constraint firstItem="ZZR-ff-Ate" firstAttribute="height" secondItem="TfC-YI-xt0" secondAttribute="height" multiplier="1.5" id="qAG-i7-icS"/>
                                                         </constraints>
@@ -206,9 +224,21 @@
                     <navigationItem key="navigationItem" id="P71-Ai-JPK">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="BackArrowLight" id="nRc-nN-OCG">
                             <color key="tintColor" name="NormalText"/>
+                            <connections>
+                                <action selector="backTapped:" destination="cGp-yS-qLV" id="TsL-im-eDi"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="confirmationLabelView" destination="QBG-nd-3Jx" id="YLL-7V-z7f"/>
+                        <outlet property="confirmationSpacer" destination="K2L-Ui-Ynn" id="Z75-BC-xRB"/>
+                        <outlet property="descriptionLabelView" destination="Gho-GG-GGO" id="CW7-L3-E5d"/>
+                        <outlet property="headerView" destination="NDe-ak-OgU" id="Z8K-dU-c5E"/>
+                        <outlet property="paySummaryView" destination="KO7-vG-bap" id="E6i-qL-Yoe"/>
+                        <outlet property="sendLabelView" destination="eTJ-5J-Ufj" id="ZtQ-kh-bhG"/>
+                        <outlet property="toLabelView" destination="jJ2-TI-vRz" id="abw-dE-Vp9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lSt-yu-i5M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

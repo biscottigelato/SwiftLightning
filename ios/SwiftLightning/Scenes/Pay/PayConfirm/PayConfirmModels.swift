@@ -12,20 +12,45 @@
 
 import UIKit
 
-enum PayConfirm
-{
-  // MARK: Use cases
+enum PayConfirm {
   
-  enum Something
-  {
-    struct Request
-    {
+  // MARK: Refresh
+  
+  enum Refresh {
+    struct Request { }
+    struct Response<C: Currency> {
+      // Data Store Values
+      var amount: Bitcoin
+      var address: String
+      var description: String
+      var fee: Bitcoin?
+      var paymentType: BitcoinPaymentType
+      var confSpeed: OnChainConfirmSpeed?
+      
+      // Calculated Values
+      var fiatAmount: Money<C>
+      var fiatFee: Money<C>
+      var totalAmount: Bitcoin
+      var fiatTotalAmt: Money<C>
     }
-    struct Response
-    {
+    struct ViewModel {
+      var amount: String
+      var refAmt: String
+      var address: String
+      var description: String
+      var confSpeed: String?
+      var fee: String
+      var totalAmt: String
+      var paymentType: BitcoinPaymentType
     }
-    struct ViewModel
-    {
-    }
+  }
+  
+  
+  // MARK: Pay Request
+  
+  enum PayRequest {
+    struct Request { }
+    struct Response { }
+    struct ViewModel { }
   }
 }

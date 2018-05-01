@@ -12,20 +12,26 @@
 
 import UIKit
 
-protocol PayConfirmPresentationLogic
-{
-  func presentSomething(response: PayConfirm.Something.Response)
+protocol PayConfirmPresentationLogic {
+  func presentRefresh<C: Currency>(response: PayConfirm.Refresh.Response<C>)
 }
 
-class PayConfirmPresenter: PayConfirmPresentationLogic
-{
+class PayConfirmPresenter: PayConfirmPresentationLogic {
   weak var viewController: PayConfirmDisplayLogic?
   
-  // MARK: Do something
   
-  func presentSomething(response: PayConfirm.Something.Response)
-  {
-    let viewModel = PayConfirm.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+  // MARK: Refresh
+  
+  func presentRefresh<C: Currency>(response: PayConfirm.Refresh.Response<C>) {
+    let viewModel = PayConfirm.Refresh.ViewModel(amount: response.amount.formattedInSatoshis() + " sat",
+                                                 refAmt: "",
+                                                 address: response.address,
+                                                 description: response.description,
+                                                 confSpeed: response.confSpeed?.description,
+                                                 fee: response.fee?.formattedInSatoshis() ?? "auto",
+                                                 totalAmt: response.totalAmount.formattedInSatoshis(),
+                                                 paymentType: response.paymentType)
+    
+    viewController?.displayRefresh(viewModel: viewModel)
   }
 }

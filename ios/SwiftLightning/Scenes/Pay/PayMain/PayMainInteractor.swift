@@ -22,6 +22,7 @@ protocol PayMainDataStore {
   var amount: Bitcoin { get }
   var description: String { get }
   var fee: Bitcoin? { get }
+  var paymentType: BitcoinPaymentType? { get }
 }
 
 
@@ -37,6 +38,7 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
   private var _amount: Bitcoin?
   private var _description: String?
   private var _fee: Bitcoin?
+  private var _paymentType: BitcoinPaymentType?
   
   var address: String {
     guard let returnValue = _address else {
@@ -60,6 +62,10 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
     return _fee
   }
   
+  var paymentType: BitcoinPaymentType? {
+    return _paymentType
+  }
+  
   
   // MARK: Confirm Payment
   
@@ -79,6 +85,7 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
       self._amount = result.revisedAmount ?? amount
       self._description = result.description
       self._fee = result.fee
+      self._paymentType = result.paymentType
       
       // Respond to Presenter
       let response = PayMain.ConfirmPayment.Response(inputAddress: request.rawAddressString,

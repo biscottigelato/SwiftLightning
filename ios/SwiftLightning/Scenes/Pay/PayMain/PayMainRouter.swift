@@ -48,7 +48,11 @@ class PayMainRouter: NSObject, PayMainRoutingLogic, PayMainDataPassing {
   // MARK: Navigation
   
   func navigateToPayConfirm(source: PayMainViewController, destination: PayConfirmViewController) {
-    
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    navigationController.pushViewController(destination, animated: true)
   }
   
   func navigateToWalletMain(source: PayMainViewController) {
@@ -62,6 +66,13 @@ class PayMainRouter: NSObject, PayMainRoutingLogic, PayMainDataPassing {
   
   // MARK: Passing data
 
-  func passDataToPayConfirm(source: PayMainDataStore, destination: inout PayConfirmDataStore) { }
+  func passDataToPayConfirm(source: PayMainDataStore, destination: inout PayConfirmDataStore) {
+    destination.address = source.address
+    destination.amount = source.amount
+    destination.description = source.description
+    destination.fee = source.fee
+    destination.paymentType = source.paymentType
+  }
+  
   func passDataToWalletMain(source: PayMainDataStore, destination: inout WalletMainDataStore) { }
 }

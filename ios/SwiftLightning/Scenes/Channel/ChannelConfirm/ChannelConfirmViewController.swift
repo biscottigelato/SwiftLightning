@@ -14,7 +14,7 @@ import UIKit
 
 protocol ChannelConfirmDisplayLogic: class
 {
-  func displayRefreshAll(viewModel: ChannelConfirm.RefreshAll.ViewModel)
+  func displayRefresh(viewModel: ChannelConfirm.Refresh.ViewModel)
   func displayOpenChannelSubmitted(viewModel: ChannelConfirm.OpenChannel.ViewModel)
   func displayOpenChannelFailure(viewModel: ChannelConfirm.OpenChannel.ErrorVM)
 }
@@ -62,7 +62,7 @@ class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    refreshAll()
+    refresh()
   }
   
   
@@ -75,12 +75,12 @@ class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
   @IBOutlet weak var channelSummaryView: SLFormChSummaryView!
   
   
-  func refreshAll() {
-    let request = ChannelConfirm.RefreshAll.Request()
-    interactor?.refreshAll(request: request)
+  func refresh() {
+    let request = ChannelConfirm.Refresh.Request()
+    interactor?.refresh(request: request)
   }
   
-  func displayRefreshAll(viewModel: ChannelConfirm.RefreshAll.ViewModel) {
+  func displayRefresh(viewModel: ChannelConfirm.Refresh.ViewModel) {
     DispatchQueue.main.async {
       self.fundingLabelView.textLabel.text = viewModel.fundingAmt
       self.fundingLabelView.refAmtLabel.isHidden = true  // TODO: Fiat/Reference Amount

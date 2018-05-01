@@ -84,9 +84,7 @@ class PayMainViewController: UIViewController, PayMainDisplayLogic {
   // MARK: Dismiss
   
   @IBAction func closeCrossTapped(_ sender: UIBarButtonItem) {
-    DispatchQueue.main.async {
-      self.router?.routeToWalletMain()
-    }
+    router?.routeToWalletMain()
   }
   
   
@@ -152,7 +150,7 @@ class PayMainViewController: UIViewController, PayMainDisplayLogic {
       }
     }
   }
-   
+  
   
   // MARK: Error Display
   

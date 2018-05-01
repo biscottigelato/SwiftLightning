@@ -13,7 +13,7 @@
 import UIKit
 
 protocol ChannelConfirmBusinessLogic {
-  func refreshAll(request: ChannelConfirm.RefreshAll.Request)
+  func refresh(request: ChannelConfirm.Refresh.Request)
   func openChannel(request: ChannelConfirm.OpenChannel.Request)
 }
 
@@ -44,7 +44,7 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
   
   // MARK: Refresh Channel Confirmation
 
-  func refreshAll(request: ChannelConfirm.RefreshAll.Request) {
+  func refresh(request: ChannelConfirm.Refresh.Request) {
     
     guard let nodePubKey = nodePubKey, let nodeIP = nodeIP, let nodePort = nodePort,
       let fundingAmt = fundingAmt, let initPayAmt = initPayAmt, let confSpeed = confSpeed else {
@@ -56,21 +56,21 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
     // Calculate Can Pay Amt = Funding Amt - Init Payment - Fee
     let canPayAmt = Bitcoin(fundingAmt - initPayAmt)  // TODO: minus Fees
     
-    let response = ChannelConfirm.RefreshAll.Response<USD>(nodePubKey: nodePubKey,
-                                                           nodeIP: nodeIP,
-                                                           nodePort: nodePort,
-                                                           fundingAmt: fundingAmt,
-                                                           initPayAmt: initPayAmt,
-                                                           confSpeed: confSpeed,
-                                                           fiatFundingAmt: Money<USD>("0.0")!,
-                                                           fiatInitPayAmt: Money<USD>("0.0")!,
-                                                           canPayAmt: canPayAmt,
-                                                           canRcvAmt: initPayAmt,
-                                                           fiatCanPayAmt: Money<USD>("0.0")!,
-                                                           fiatCanRcvAmt: Money<USD>("0.0")!,
-                                                           feeAmt: Bitcoin("0.0")!,
-                                                           fiatFeeAmt: Money<USD>("0.0")!)
-    presenter?.presentRefreshAll(response: response)
+    let response = ChannelConfirm.Refresh.Response<USD>(nodePubKey: nodePubKey,
+                                                        nodeIP: nodeIP,
+                                                        nodePort: nodePort,
+                                                        fundingAmt: fundingAmt,
+                                                        initPayAmt: initPayAmt,
+                                                        confSpeed: confSpeed,
+                                                        fiatFundingAmt: Money<USD>("0.0")!,
+                                                        fiatInitPayAmt: Money<USD>("0.0")!,
+                                                        canPayAmt: canPayAmt,
+                                                        canRcvAmt: initPayAmt,
+                                                        fiatCanPayAmt: Money<USD>("0.0")!,
+                                                        fiatCanRcvAmt: Money<USD>("0.0")!,
+                                                        feeAmt: Bitcoin("0.0")!,
+                                                        fiatFeeAmt: Money<USD>("0.0")!)
+    presenter?.presentRefresh(response: response)
   }
   
   

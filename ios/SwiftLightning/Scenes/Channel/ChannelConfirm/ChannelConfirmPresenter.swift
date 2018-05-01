@@ -13,7 +13,7 @@
 import UIKit
 
 protocol ChannelConfirmPresentationLogic {
-  func presentRefreshAll<C: Currency>(response: ChannelConfirm.RefreshAll.Response<C>)
+  func presentRefresh<C: Currency>(response: ChannelConfirm.Refresh.Response<C>)
   func presentOpenChannel(response: ChannelConfirm.OpenChannel.Response)
 }
 
@@ -24,21 +24,21 @@ class ChannelConfirmPresenter: ChannelConfirmPresentationLogic {
   
   // MARK: Refresh All
   
-  func presentRefreshAll<C: Currency>(response: ChannelConfirm.RefreshAll.Response<C>) {
+  func presentRefresh<C: Currency>(response: ChannelConfirm.Refresh.Response<C>) {
 
-    let viewModel = ChannelConfirm.RefreshAll.ViewModel(fundingAmt: response.fundingAmt.formattedInSatoshis() + " sat",
-                                                        refFundingAmt: "",
-                                                        nodePubKey: response.nodePubKey,
-                                                        nodeIP: response.nodeIP,
-                                                        nodePort: String(response.nodePort),
-                                                        initPayAmt: response.initPayAmt.formattedInSatoshis() + " sat",
-                                                        refInitPayAmt: "",
-                                                        confSpeed: response.confSpeed.description,
-                                                        canPayAmt: response.canPayAmt.formattedInSatoshis() + " s",
-                                                        canRcvAmt: response.canRcvAmt.formattedInSatoshis() + " s",
-                                                        fee: "auto")
+    let viewModel = ChannelConfirm.Refresh.ViewModel(fundingAmt: response.fundingAmt.formattedInSatoshis() + " sat",
+                                                     refFundingAmt: "",
+                                                     nodePubKey: response.nodePubKey,
+                                                     nodeIP: response.nodeIP,
+                                                     nodePort: String(response.nodePort),
+                                                     initPayAmt: response.initPayAmt.formattedInSatoshis() + " sat",
+                                                     refInitPayAmt: "",
+                                                     confSpeed: response.confSpeed.description,
+                                                     canPayAmt: response.canPayAmt.formattedInSatoshis() + " s",
+                                                     canRcvAmt: response.canRcvAmt.formattedInSatoshis() + " s",
+                                                     fee: "auto")
     
-    viewController?.displayRefreshAll(viewModel: viewModel)
+    viewController?.displayRefresh(viewModel: viewModel)
   }
   
   

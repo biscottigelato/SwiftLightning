@@ -12,34 +12,33 @@
 
 import UIKit
 
-protocol PayConfirmDisplayLogic: class
-{
-  func displaySomething(viewModel: PayConfirm.Something.ViewModel)
+protocol PayConfirmDisplayLogic: class {
+  func displayRefresh(viewModel: PayConfirm.Refresh.ViewModel)
 }
 
-class PayConfirmViewController: UIViewController, PayConfirmDisplayLogic
-{
+
+class PayConfirmViewController: UIViewController, PayConfirmDisplayLogic {
+  
   var interactor: PayConfirmBusinessLogic?
   var router: (NSObjectProtocol & PayConfirmRoutingLogic & PayConfirmDataPassing)?
 
+  
   // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     setup()
   }
   
-  required init?(coder aDecoder: NSCoder)
-  {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
   
+  
   // MARK: Setup
   
-  private func setup()
-  {
+  private func setup() {
     let viewController = self
     let interactor = PayConfirmInteractor()
     let presenter = PayConfirmPresenter()
@@ -52,38 +51,87 @@ class PayConfirmViewController: UIViewController, PayConfirmDisplayLogic
     router.dataStore = interactor
   }
   
-  // MARK: Routing
   
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
+  // MARK: View lifecycle
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    refresh()
+  }
+  
+  
+  // MARK: Dismiss
+  
+  @IBAction func backTapped(_ sender: UIBarButtonItem) {
+    router?.routeToPayMain()
+  }
+  
+  @IBAction func cancelTapped(_ sender: SLBarButton) {
+    router?.routeToPayMain()
+  }
+  
+  
+  // MARK: Update Confirm Scene
+  
+  @IBOutlet weak var headerView: SLFormHeaderView!
+  @IBOutlet weak var sendLabelView: SLFormLabelView!
+  @IBOutlet weak var toLabelView: SLFormLabelView!
+  @IBOutlet weak var descriptionLabelView: SLFormLabelView!
+  @IBOutlet weak var confirmationSpacer: UIView!
+  @IBOutlet weak var confirmationLabelView: SLFormLabelView!
+  @IBOutlet weak var paySummaryView: SLFormPaySummaryView!
+  
+  
+  func refresh() {
+    let request = PayConfirm.Refresh.Request()
+    interactor?.refresh(request: request)
+  }
+  
+  func displayRefresh(viewModel: PayConfirm.Refresh.ViewModel) {
+    DispatchQueue.main.async {
+      self.sendLabelView.textLabel.text = viewModel.amount
+      self.toLabelView.textLabel.text = viewModel.address
+      self.descriptionLabelView.textLabel.text = viewModel.description
+      self.paySummaryView.sendAmtLabel.text = viewModel.amount
+      self.paySummaryView.feeAmtLabel.text = viewModel.fee
+      self.paySummaryView.totalAmtLabel.text = viewModel.totalAmt
+      
+      switch viewModel.paymentType {
+      case .lightning:
+        self.headerView.iconImageView.image = UIImage(named: "BoltColored")
+        self.headerView.headerLabel.text = "Confirm Lightning Payment"
+        self.confirmationSpacer.isHidden = true
+        self.confirmationLabelView.isHidden = true
+      case .onChain:
+        self.headerView.iconImageView.image = UIImage(named: "ChainColored")
+        self.headerView.headerLabel.text = "Confirm On-Chain Payment"
+        self.confirmationLabelView.textLabel.text = viewModel.confSpeed
+        self.confirmationLabelView.isHidden = true
+        self.confirmationSpacer.isHidden = true
       }
     }
   }
   
-  // MARK: View lifecycle
   
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
+  // MARK: Send Payment
+  
+  @IBAction func sendTapped(_ sender: SLBarButton) {
   }
-  
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = PayConfirm.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: PayConfirm.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

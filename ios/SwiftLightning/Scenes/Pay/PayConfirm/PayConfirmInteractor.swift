@@ -12,30 +12,57 @@
 
 import UIKit
 
-protocol PayConfirmBusinessLogic
-{
-  func doSomething(request: PayConfirm.Something.Request)
+protocol PayConfirmBusinessLogic {
+  func refresh(request: PayConfirm.Refresh.Request)
 }
 
-protocol PayConfirmDataStore
-{
-  //var name: String { get set }
+
+protocol PayConfirmDataStore {
+  var address: String? { get set }
+  var amount: Bitcoin? { get set }
+  var description: String? { get set }
+  var fee: Bitcoin? { get set }
+  var paymentType: BitcoinPaymentType? { get set }
+  var confSpeed: OnChainConfirmSpeed? { get set }
 }
 
-class PayConfirmInteractor: PayConfirmBusinessLogic, PayConfirmDataStore
-{
+
+class PayConfirmInteractor: PayConfirmBusinessLogic, PayConfirmDataStore {
+  
   var presenter: PayConfirmPresentationLogic?
-  var worker: PayConfirmWorker?
-  //var name: String = ""
   
-  // MARK: Do something
+  // MARK: Data Store
+  var address: String?
+  var amount: Bitcoin?
+  var description: String?
+  var fee: Bitcoin?
+  var paymentType: BitcoinPaymentType?
+  var confSpeed: OnChainConfirmSpeed?
   
-  func doSomething(request: PayConfirm.Something.Request)
-  {
-    worker = PayConfirmWorker()
-    worker?.doSomeWork()
+  // MARK: Refresh
+  
+  func refresh(request: PayConfirm.Refresh.Request) {
+    guard let address = address, let amount = amount, let description = description, let paymentType = paymentType else {
+      SLLog.fatal("1 or more entry in PayConfirmDataStore is nil")
+    }
+
+    // Calculate:
+    var totalAmt = amount
     
-    let response = PayConfirm.Something.Response()
-    presenter?.presentSomething(response: response)
+    if let fee = fee {
+      totalAmt = Bitcoin(amount + fee)
+    }
+    
+    let response = PayConfirm.Refresh.Response(amount: amount,
+                                               address: address,
+                                               description: description,
+                                               fee: fee,
+                                               paymentType: paymentType,
+                                               confSpeed: confSpeed,
+                                               fiatAmount: Money<USD>("0.0")!,
+                                               fiatFee: Money<USD>("0.0")!,
+                                               totalAmount: totalAmt,
+                                               fiatTotalAmt: Money<USD>("0.0")!)
+    presenter?.presentRefresh(response: response)
   }
 }

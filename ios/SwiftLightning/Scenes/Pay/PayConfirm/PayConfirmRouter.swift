@@ -12,49 +12,61 @@
 
 import UIKit
 
-@objc protocol PayConfirmRoutingLogic
-{
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+@objc protocol PayConfirmRoutingLogic {
+  func routeToPayMain()
+  func routeToWalletMain()
 }
 
-protocol PayConfirmDataPassing
-{
+
+protocol PayConfirmDataPassing {
   var dataStore: PayConfirmDataStore? { get }
 }
 
-class PayConfirmRouter: NSObject, PayConfirmRoutingLogic, PayConfirmDataPassing
-{
+
+class PayConfirmRouter: NSObject, PayConfirmRoutingLogic, PayConfirmDataPassing {
+  
   weak var viewController: PayConfirmViewController?
   var dataStore: PayConfirmDataStore?
   
+  
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToPayMain() {
+//    let destinationVC = viewController as! PayMainViewController
+//    var destinationDS = destinationVC.router!.dataStore!
+//    passDataToPayMain(source: dataStore!, destination: &destinationDS)
+    navigateToPayMain(source: viewController!)
+  }
+  
+  func routeToWalletMain() {
+    navigateToWalletMain(source: viewController!)
+  }
 
+  
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: PayConfirmViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func navigateToPayMain(source: PayConfirmViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    navigationController.popViewController(animated: true)
+  }
+  
+  func navigateToWalletMain(source: PayConfirmViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    navigationController.popToRootViewController(animated: true)
+  }
+  
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: PayConfirmDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func passDataToPayMain(source: PayConfirmDataStore, destination: inout PayMainDataStore) {
+  }
+  
+  func passDataToWalletMain(source: PayConfirmDataStore, destination: inout WalletMainDataStore) {
+  }
 }
