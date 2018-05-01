@@ -14,23 +14,62 @@ import UIKit
 
 protocol PayMainPresentationLogic
 {
-  func presentConfirmPayment(response: PayMain.ConfirmPayment.Response)
+  func presentValidate(response: PayMain.Response)
+  func presentConfirmPayment(response: PayMain.Response)
 }
 
 class PayMainPresenter: PayMainPresentationLogic
 {
   weak var viewController: PayMainDisplayLogic?
   
+  // MARK: Validate Address & Amount
+  
+  func presentValidate(response: PayMain.Response) {
+    _ = commonUpdate(validationResult: response.validationResult,
+                     inputAddress: response.inputAddress,
+                     inputAmount: response.inputAmount)
+    
+    if let error = response.validationResult.error {
+      let errorVM = PayMain.ErrorVM(errTitle: "Payment Error", errMsg: error.localizedDescription)
+      viewController?.displayError(viewModel: errorVM)
+    }
+  }
+  
+  
   // MARK: Confirm Payment
   
-  func presentConfirmPayment(response: PayMain.ConfirmPayment.Response) {
+  func presentConfirmPayment(response: PayMain.Response) {
     
+    let valid = commonUpdate(validationResult: response.validationResult,
+                             inputAddress: response.inputAddress,
+                             inputAmount: response.inputAmount)
+    
+    if let error = response.validationResult.error {
+      let errorVM = PayMain.ErrorVM(errTitle: "Payment Error", errMsg: error.localizedDescription)
+      viewController?.displayError(viewModel: errorVM)
+    } else if !valid {
+      let errorVM = PayMain.ErrorVM(errTitle: "Payment Error",
+                                    errMsg: "One or more Payment details is invalid. Please correct and try again")
+      viewController?.displayError(viewModel: errorVM)
+    }
+    
+    if valid {
+      viewController?.displayConfirmPayment()
+    }
+  }
+  
+  
+  // MARK: Common Update
+  
+  private func commonUpdate(validationResult: PayMain.ValidationResult,
+                            inputAddress: String,
+                            inputAmount: Bitcoin?) -> Bool {
+
     var addrInvalid: Bool = false
     var amtInvalid: Bool = false
     var routingInvalid: Bool = false
     
-    let validationResult = response.validationResult
-    let amountToShow = response.inputAmount
+    let amountToShow = inputAmount ?? validationResult.revisedAmount
     let amountExpected = validationResult.revisedAmount
     
     let addressError = validationResult.addressError
@@ -57,22 +96,9 @@ class PayMainPresenter: PayMainPresentationLogic
     viewController?.displayWarning(viewModel: routeErrVM)
     routingInvalid = routeError != nil
     
-    viewController?.updateInvalidity(addr: addrInvalid, amt: amtInvalid, route: routingInvalid)
-    
-    let entryInvalidity = (addrInvalid || amtInvalid || routingInvalid)
-    
-    if let error = validationResult.error {
-      let errorVM = PayMain.ErrorVM(errTitle: "Payment Error", errMsg: error.localizedDescription)
-      viewController?.displayError(viewModel: errorVM)
-    } else if entryInvalidity {
-      let errorVM = PayMain.ErrorVM(errTitle: "Payment Error",
-                                    errMsg: "One or more Payment details is invalid. Please correct and try again")
-      viewController?.displayError(viewModel: errorVM)
-    }
-    
-    var addressToShow = validationResult.revisedAddress ?? response.inputAddress
+    var addressToShow = validationResult.revisedAddress ?? inputAddress
     if validationResult.paymentType == .lightning {
-      addressToShow = response.inputAddress
+      addressToShow = inputAddress
     }
     
     let feeString = "\(validationResult.fee?.formattedInSatoshis() ?? "-")"
@@ -87,12 +113,16 @@ class PayMainPresenter: PayMainPresentationLogic
       }
     }
     
-    let viewModel = PayMain.ConfirmPayment.ViewModel(revisedAddress: addressToShow,
-                                                     revisedAmount: amountToShow?.formattedInSatoshis(),
-                                                     paymentType: validationResult.paymentType,
-                                                     fee: "fee: \(feeString)",
-                                                     balance: balanceString,
-                                                     goToConfirm: !entryInvalidity)
-    viewController?.displayConfirmPayment(viewModel: viewModel)
+    let viewModel = PayMain.UpdateVM(revisedAddress: addressToShow,
+                                     revisedAmount: amountToShow?.formattedInSatoshis(),
+                                     payDescription: validationResult.payDescription,
+                                     paymentType: validationResult.paymentType,
+                                     fee: "fee: \(feeString)",
+                                     balance: balanceString)
+    
+    viewController?.displayUpdate(viewModel: viewModel)
+    viewController?.updateInvalidity(addr: addrInvalid, amt: amtInvalid, route: routingInvalid)
+    
+    return !(addrInvalid || amtInvalid || routingInvalid)
   }
 }

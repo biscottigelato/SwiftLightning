@@ -28,6 +28,7 @@ class PayConfirmPresenter: PayConfirmPresentationLogic {
                                                  address: response.address,
                                                  description: response.description,
                                                  confSpeed: response.confSpeed?.description,
+                                                 amtToSend: response.amount.formattedInSatoshis(),
                                                  fee: response.fee?.formattedInSatoshis() ?? "auto",
                                                  totalAmt: response.totalAmount.formattedInSatoshis(),
                                                  paymentType: response.paymentType)

@@ -142,7 +142,7 @@ class LNManager {
   }
   
   static func determineAddress(inputString: String,
-                                completion: @escaping (String?, Bitcoin?, String?, BitcoinPaymentType?, Bool?) -> ()) {
+                               completion: @escaping (String?, Bitcoin?, String?, BitcoinPaymentType?, Bool?) -> ()) {
     
     var address: String?
     var amount: Bitcoin?
@@ -160,13 +160,12 @@ class LNManager {
           let lnPayReq = try responder()
           address = lnPayReq.destination
           amount = Bitcoin(inSatoshi: lnPayReq.numSatoshis)
-          description = lnPayReq.destination
+          description = lnPayReq.payDescription
           completion(address, amount, description, paymentType, true)
           
         } catch {
           // Can't even decode...
           completion(nil, nil, nil, paymentType, nil)
-          return
         }
       }
       return  // Go no further. Processing is Async from this point on for LN.
@@ -189,6 +188,7 @@ class LNManager {
       } catch {
         // Doesn't look like a valid payment request
         completion(nil, nil, nil, paymentType, false)
+        return
       }
     }
 
@@ -199,6 +199,8 @@ class LNManager {
     if address!.hasPrefix(AddressPrefixes.p2pkh1.rawValue) || address!.hasPrefix(AddressPrefixes.p2pkh2.rawValue) || address!.hasPrefix(AddressPrefixes.p2sh.rawValue) {
       do {
         _ = try Address(address!)
+        completion(address, amount, description, paymentType, true)
+        
       } catch {
         completion(address, amount, description, paymentType, false)
       }

@@ -16,7 +16,7 @@ class LNServices {
   static var rpcListenPort: UInt = 10009
   static var peerListenPort: UInt = 9735
   static var restListenPort: UInt = 8080
-  static var neutrinoAddress: String = "btcd0.lightning.computer:18333"
+  static var neutrinoAddress: String = "faucet.lightning.community"
   static var directoryPath: String = ""
   static var lndQueue: DispatchQueue?
   
@@ -765,7 +765,7 @@ class LNServices {
                                     numSatoshis: Int(payReq.numSatoshis),
                                     timestamp: Int(payReq.timestamp),
                                     expiry: Int(payReq.expiry),
-                                    payDescription: payReq.destination,
+                                    payDescription: payReq.description_p,
                                     descriptionHash: payReq.paymentHash,
                                     fallbackAddr: payReq.fallbackAddr,
                                     cltvExpiry: Int(payReq.cltvExpiry))

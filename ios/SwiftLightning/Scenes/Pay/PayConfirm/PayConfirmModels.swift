@@ -39,6 +39,7 @@ enum PayConfirm {
       var address: String
       var description: String
       var confSpeed: String?
+      var amtToSend: String
       var fee: String
       var totalAmt: String
       var paymentType: BitcoinPaymentType

@@ -117,8 +117,8 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="55u-hc-FUa">
                                                                 <rect key="frame" x="0.0" y="468" width="325" height="42"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-Nk-R1C" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="152.5" height="42"/>
+                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-Nk-R1C" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="152.5" height="30"/>
                                                                         <color key="backgroundColor" name="GenericGray"/>
                                                                         <state key="normal" title="Cancel">
                                                                             <color key="titleColor" name="NormalText"/>
@@ -133,15 +133,15 @@
                                                                             <action selector="cancelTapped:" destination="cGp-yS-qLV" eventType="touchUpInside" id="E0w-ZH-lJG"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="LoE-yJ-Dnt" userLabel="Mid Spacer">
-                                                                        <rect key="frame" x="152.5" y="0.0" width="20" height="42"/>
+                                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LoE-yJ-Dnt" userLabel="Mid Spacer">
+                                                                        <rect key="frame" x="152.5" y="0.0" width="20" height="30"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="20" id="vAR-bl-9OH"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkG-gg-vhY" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                                                        <rect key="frame" x="172.5" y="0.0" width="152.5" height="42"/>
+                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkG-gg-vhY" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                                        <rect key="frame" x="172.5" y="0.0" width="152.5" height="30"/>
                                                                         <color key="backgroundColor" name="MedAquamarine"/>
                                                                         <state key="normal" title="Send">
                                                                             <color key="titleColor" name="NormalText"/>
@@ -193,7 +193,7 @@
                                             <constraint firstItem="KPK-QW-GAs" firstAttribute="top" secondItem="gXO-KZ-BEr" secondAttribute="top" id="Oa0-mU-6o4"/>
                                         </constraints>
                                     </scrollView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NDe-ak-OgU" customClass="SLFormHeaderView" customModule="SwiftLightning" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NDe-ak-OgU" customClass="SLFormHeaderView" customModule="SwiftLightning" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>

@@ -92,7 +92,7 @@ class PayConfirmViewController: UIViewController, PayConfirmDisplayLogic {
       self.sendLabelView.textLabel.text = viewModel.amount
       self.toLabelView.textLabel.text = viewModel.address
       self.descriptionLabelView.textLabel.text = viewModel.description
-      self.paySummaryView.sendAmtLabel.text = viewModel.amount
+      self.paySummaryView.sendAmtLabel.text = viewModel.amtToSend
       self.paySummaryView.feeAmtLabel.text = viewModel.fee
       self.paySummaryView.totalAmtLabel.text = viewModel.totalAmt
       

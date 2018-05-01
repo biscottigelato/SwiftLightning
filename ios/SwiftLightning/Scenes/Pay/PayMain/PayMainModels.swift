@@ -73,7 +73,7 @@ enum PayMain {
     var paymentType: BitcoinPaymentType?
     var revisedAddress: String?
     var revisedAmount: Bitcoin?
-    var description: String?
+    var payDescription: String?
     var fee: Bitcoin?
     var balance: Bitcoin?
     var addressError: PayMain.AddrError?
@@ -84,7 +84,7 @@ enum PayMain {
     init(paymentType: BitcoinPaymentType? = nil,  // nil means can't resolve type
          revisedAddress: String? = nil,  // nil means don't replace
          revisedAmount: Bitcoin? = nil,  // nil means don't replace, payreq amount if error
-         description: String? = nil,  // nil means don't replace
+         payDescription: String? = nil,  // nil means don't replace
          fee: Bitcoin? = nil,  // nil means no fee
          balance: Bitcoin? = nil,
          addressError: PayMain.AddrError? = nil,
@@ -95,7 +95,7 @@ enum PayMain {
       self.paymentType = paymentType
       self.revisedAddress = revisedAddress
       self.revisedAmount = revisedAmount
-      self.description = description
+      self.payDescription = payDescription
       self.fee = fee
       self.balance = balance
       self.addressError = addressError
@@ -111,19 +111,8 @@ enum PayMain {
   enum ValidateAddress {
     struct Request {
       var rawAddressString: String
-      var rawAmountString: String?
+      var rawAmountString: String
     }
-    struct Response {
-      var validationResult: ValidationResult
-    }
-    struct ViewModel {
-      var revisedAddress: String?
-      var revisedAmount: String?
-      var paymentType: BitcoinPaymentType?
-      var fee: String
-      var balance: String
-    }
-
   }
   
   
@@ -133,9 +122,6 @@ enum PayMain {
     struct Request {
       var rawAddressString: String
       var rawAmountString: String
-    }
-    struct Response {
-      var validationResult: ValidationResult
     }
   }
   
@@ -147,21 +133,28 @@ enum PayMain {
       var rawAddressString: String
       var rawAmountString: String
     }
-    struct Response {
-      var inputAddress: String
-      var inputAmount: Bitcoin?
-      var validationResult: ValidationResult
-    }
     struct ViewModel {
-      var revisedAddress: String?
-      var revisedAmount: String?
-      var paymentType: BitcoinPaymentType?
-      var fee: String
-      var balance: String
       var goToConfirm: Bool
     }
   }
   
+  
+  struct Response {
+    var inputAddress: String
+    var inputAmount: Bitcoin?
+    var validationResult: ValidationResult
+  }
+  
+  
+  // MARK: Update View Models
+  struct UpdateVM {
+    var revisedAddress: String?
+    var revisedAmount: String?
+    var payDescription: String?
+    var paymentType: BitcoinPaymentType?
+    var fee: String
+    var balance: String
+  }
   
   // MARK: Error View Models
   
@@ -181,5 +174,4 @@ enum PayMain {
     var errTitle: String
     var errMsg: String
   }
-  
 }

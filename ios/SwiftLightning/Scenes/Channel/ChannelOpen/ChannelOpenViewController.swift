@@ -34,23 +34,23 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, UITe
 
   
   // MARK: Common IBOutlets
+  
   @IBOutlet weak var nodePubKeyEntryView: SLFormEntryView!
   @IBOutlet weak var nodePortIPEntryView: SLFormEntryView!
   @IBOutlet weak var fundingEntryView: SLFormEntryView!
   @IBOutlet weak var initPaymentEntryView: SLFormEntryView!
   @IBOutlet weak var openChannelButton: SLBarButton!
+  @IBOutlet weak var formBottomConstraint: NSLayoutConstraint!
   
   
   // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     setup()
   }
   
-  required init?(coder aDecoder: NSCoder)
-  {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
@@ -58,8 +58,7 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, UITe
   
   // MARK: Setup
   
-  private func setup()
-  {
+  private func setup() {
     let viewController = self
     let interactor = ChannelOpenInteractor()
     let presenter = ChannelOpenPresenter()
@@ -75,10 +74,7 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, UITe
   
   // MARK: View lifecycle
   
-  @IBOutlet weak var formBottomConstraint: NSLayoutConstraint!
-  
-  override func viewDidLoad()
-  {
+  override func viewDidLoad() {
     super.viewDidLoad()
     keyboardConstraint = formBottomConstraint
     keyboardConstraintMargin = formBottomConstraint.constant
@@ -115,7 +111,7 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, UITe
     case initPaymentEntryView.textField:
       if openChannelButton.isEnabled { openChannel() }
     default:
-      break
+      SLLog.assert("Unreognized textfield returned - \(textField)")
     }
     return true
   }
@@ -195,7 +191,7 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, UITe
       interactor?.validateAmounts(request: request)
 
     default:
-      break
+      SLLog.assert("Unreognized textfield returned - \(textField)")
     }
   }
   

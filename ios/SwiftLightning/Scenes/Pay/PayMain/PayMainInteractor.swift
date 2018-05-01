@@ -14,6 +14,8 @@ import UIKit
 
 protocol PayMainBusinessLogic {
   func confirmPayment(request: PayMain.ConfirmPayment.Request)
+  func validateAddress(request: PayMain.ValidateAddress.Request)
+  func validateAmount(request: PayMain.ValidateAmount.Request)
 }
 
 
@@ -67,6 +69,38 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
   }
   
   
+  // MARK: Validate Address
+  
+  func validateAddress(request: PayMain.ValidateAddress.Request) {
+    let amount: Bitcoin? = Bitcoin(inSatoshi: request.rawAmountString)
+    
+    validate(inputAddress: request.rawAddressString, inputAmount: amount) { result in
+      
+      // Respond to Presenter
+      let response = PayMain.Response(inputAddress: request.rawAddressString,
+                                      inputAmount: amount,
+                                      validationResult: result)
+      self.presenter?.presentValidate(response: response)
+    }
+  }
+  
+  
+  // MARK: Validate Amount
+  
+  func validateAmount(request: PayMain.ValidateAmount.Request) {
+    let amount: Bitcoin? = Bitcoin(inSatoshi: request.rawAmountString)
+    
+    validate(inputAddress: request.rawAddressString, inputAmount: amount) { result in
+      
+      // Respond to Presenter
+      let response = PayMain.Response(inputAddress: request.rawAddressString,
+                                      inputAmount: amount,
+                                      validationResult: result)
+      self.presenter?.presentValidate(response: response)
+    }
+  }
+  
+  
   // MARK: Confirm Payment
   
   func confirmPayment(request: PayMain.ConfirmPayment.Request) {
@@ -83,14 +117,14 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
         self._address = result.revisedAddress ?? request.rawAddressString
       }
       self._amount = result.revisedAmount ?? amount
-      self._description = result.description
+      self._description = result.payDescription
       self._fee = result.fee
       self._paymentType = result.paymentType
       
       // Respond to Presenter
-      let response = PayMain.ConfirmPayment.Response(inputAddress: request.rawAddressString,
-                                                     inputAmount: amount,
-                                                     validationResult: result)
+      let response = PayMain.Response(inputAddress: request.rawAddressString,
+                                      inputAmount: amount,
+                                      validationResult: result)
       self.presenter?.presentConfirmPayment(response: response)
     }
   }
@@ -108,7 +142,7 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
       var result = PayMain.ValidationResult(paymentType: network,
                                             revisedAddress: address,
                                             revisedAmount: amount,
-                                            description: description)
+                                            payDescription: description)
       // Error case first
       guard let valid = valid else {
         result.error = PayMain.Err.determineAddr
@@ -209,11 +243,13 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
               return
             }
           }
-        }
+        }  // switch lightning / onChain
+      }  // if let amount = amount ?? inputAmount
+        
+      else {
+        // This is success for all other cases
+        completion(result)
       }
-      
-      // This is success for all other cases
-      completion(result)
     }
   }
 }

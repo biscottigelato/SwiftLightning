@@ -14,28 +14,24 @@ import UIKit
 import SnapKit
 
 
-protocol ReceiveMainDisplayLogic: class
-{
+protocol ReceiveMainDisplayLogic: class {
   func displayOnChainAddress(viewModel: ReceiveMain.GenerateOnChain.ViewModel)
   func displayGenerateOnChainFailure(viewModel: ReceiveMain.GenerateOnChain.ViewModel)
 }
 
 
-class ReceiveMainViewController: UIViewController, ReceiveMainDisplayLogic
-{
+class ReceiveMainViewController: UIViewController, ReceiveMainDisplayLogic {
   var interactor: ReceiveMainBusinessLogic?
   var router: (NSObjectProtocol & ReceiveMainRoutingLogic & ReceiveMainDataPassing)?
 
   // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     setup()
   }
   
-  required init?(coder aDecoder: NSCoder)
-  {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
@@ -43,8 +39,7 @@ class ReceiveMainViewController: UIViewController, ReceiveMainDisplayLogic
   
   // MARK: Setup
   
-  private func setup()
-  {
+  private func setup() {
     let viewController = self
     let interactor = ReceiveMainInteractor()
     let presenter = ReceiveMainPresenter()
@@ -58,27 +53,10 @@ class ReceiveMainViewController: UIViewController, ReceiveMainDisplayLogic
   }
   
   
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
-    }
-  }
-  
-  
   // MARK: View lifecycle
   
-  override func viewDidLoad()
-  {
+  override func viewDidLoad() {
     super.viewDidLoad()
-    
-    // Configure the Navigation Bar
-    
     
     // Generate a new Address everytime on load
     let request = ReceiveMain.GenerateOnChain.Request()
@@ -126,22 +104,30 @@ class ReceiveMainViewController: UIViewController, ReceiveMainDisplayLogic
   @IBAction func shareTapped(_ sender: UIBarButtonItem) {
     
     if let addressText = addressLabel.text {
-      let activityViewController : UIActivityViewController = UIActivityViewController(
-        activityItems: [addressText], applicationActivities: nil)
+      let activityViewController : UIActivityViewController
+      do {
+        let address = try Address(addressText)
+        let paymentURI = try PaymentURI(addr: address) // TODO: Allow for amount and description
+        activityViewController = UIActivityViewController(activityItems: [paymentURI.uri], applicationActivities: nil)
+      } catch {
+        SLLog.warning("Cannot create payment URI - \(error.localizedDescription)")
+        activityViewController = UIActivityViewController(activityItems: [addressText], applicationActivities: nil)
+      }
       
       activityViewController.popoverPresentationController?.barButtonItem = sender
       
       activityViewController.excludedActivityTypes = [
-        UIActivityType.postToWeibo,
-        UIActivityType.print,
+        UIActivityType.openInIBooks,
+        UIActivityType.markupAsPDF,
         UIActivityType.assignToContact,
         UIActivityType.saveToCameraRoll,
         UIActivityType.addToReadingList,
         UIActivityType.postToFlickr,
         UIActivityType.postToVimeo,
-        UIActivityType.postToTencentWeibo,
+
         UIActivityType(rawValue: "com.apple.reminders.RemindersEditorExtension"),
-        UIActivityType(rawValue: "com.apple.mobilenotes.SharingExtension")
+        UIActivityType(rawValue: "com.apple.mobilenotes.SharingExtension"),
+        UIActivityType(rawValue: "com.apple.CloudDocsUI.AddToiCloudDrive")
       ]
       
       present(activityViewController, animated: true, completion: nil)
