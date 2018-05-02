@@ -30,7 +30,7 @@ class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
     LNServices.walletBalance() { (walletResponder) in
       do {
         let onChainBalance = try walletResponder()
-        let onChainBitcoin = Bitcoin(inSatoshi: onChainBalance.confirmed)
+        let onChainBitcoin = Bitcoin(inSatoshi: onChainBalance.total)
         
         LNServices.channelBalance() { (channelResponder) in
           do {
