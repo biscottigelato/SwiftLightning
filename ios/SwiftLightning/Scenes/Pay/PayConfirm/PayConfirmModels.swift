@@ -50,6 +50,16 @@ enum PayConfirm {
   // MARK: SendPayment
   
   enum SendPayment {
+    enum Error: LocalizedError {
+      case lnPayRspErr(String)
+      
+      var localizedDescription: String {
+        switch self {
+        case .lnPayRspErr(let payError):
+          return NSLocalizedString("Lightning Payment Responded with Error - \(payError)", comment: "SendPayemnt.Error enum")
+        }
+      }
+    }
     struct Request {
       // User Data Store values
     }

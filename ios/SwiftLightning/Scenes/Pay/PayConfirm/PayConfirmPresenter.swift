@@ -14,6 +14,7 @@ import UIKit
 
 protocol PayConfirmPresentationLogic {
   func presentRefresh<C: Currency>(response: PayConfirm.Refresh.Response<C>)
+  func presentSendPayment(response: PayConfirm.SendPayment.Response)
 }
 
 class PayConfirmPresenter: PayConfirmPresentationLogic {
@@ -34,5 +35,22 @@ class PayConfirmPresenter: PayConfirmPresentationLogic {
                                                  paymentType: response.paymentType)
     
     viewController?.displayRefresh(viewModel: viewModel)
+  }
+  
+  
+  // MARK: Send Payment
+  
+  func presentSendPayment(response: PayConfirm.SendPayment.Response) {
+    switch response.result {
+    case .success(()):
+      let viewModel = PayConfirm.SendPayment.ViewModel(alertTitle: "Payment Sent",
+                                                       alertMsg: "Payment have been successfully sent!")
+      viewController?.displaySendPaymentSubmitted(viewModel: viewModel)
+      
+    case .failure(let error):
+      let viewModel = PayConfirm.SendPayment.ErrorVM(errTitle: "Payment Error",
+                                                     errMsg: error.localizedDescription)
+      viewController?.displaySendPaymentFailure(viewModel: viewModel)
+    }
   }
 }

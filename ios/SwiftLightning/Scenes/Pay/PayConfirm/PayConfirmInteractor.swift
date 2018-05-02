@@ -79,9 +79,44 @@ class PayConfirmInteractor: PayConfirmBusinessLogic, PayConfirmDataStore {
     
     switch paymentType {
     case .lightning:
-      // SendPayment
+      // For now, we are only doing Pay Req for Lightning Payments
+      LNServices.sendPaymentSync(payReq: address) { (responder) in
+        do {
+          let payRsp = try responder()
+          
+          if payRsp.payError.isEmpty {
+            // TODO: Should really display a confirmation screen on what the final transaction looked like
+            SLLog.info("Payment Sent! Route used - \(payRsp.payRoute)")
+            let response = PayConfirm.SendPayment.Response(result: Result.success(()))
+            self.presenter?.presentSendPayment(response: response)
+            
+          } else {
+            SLLog.warning("Payment Error - \(payRsp.payError)")
+            let error = PayConfirm.SendPayment.Error.lnPayRspErr(payRsp.payError)
+            let response = PayConfirm.SendPayment.Response(result: Result.failure(error))
+            self.presenter?.presentSendPayment(response: response)
+          }
+
+        } catch {
+          let response = PayConfirm.SendPayment.Response(result: Result.failure(error))
+          self.presenter?.presentSendPayment(response: response)
+        }
+      }
+      
     case .onChain:
-      // SendCoins
+      LNServices.sendCoins(address: address,
+                           amount: amount.integerInSatoshis) { (responder) in
+        do {
+          let txid = try responder()
+          SLLog.info("Coins Sent! TXID - \(txid)")
+          
+          let response = PayConfirm.SendPayment.Response(result: Result.success(()))
+          self.presenter?.presentSendPayment(response: response)
+        } catch {
+          let response = PayConfirm.SendPayment.Response(result: Result.failure(error))
+          self.presenter?.presentSendPayment(response: response)
+        }
+      }
     }
   }
 }

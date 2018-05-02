@@ -720,6 +720,70 @@ class LNServices {
   }
   
   
+  // MARK: Send Payment Sync
+  
+  static func sendPaymentSync(dest: Data? = nil, amount: Int? = nil, payHash: Data? = nil, payReq: String? = nil, finalCLTVDelta: Int? = nil,
+                              retryCount: Int = LNConstants.defaultRetryCount,
+                              retryDelay: Double = LNConstants.defaultRetryDelay,
+                              completion: @escaping (() throws -> (payError: String, payPreImage: Data, payRoute: LNRoute)) -> Void) {
+    
+    let retry = SLRetry()
+    let task = { () -> () in
+      do {
+        try prepareLightningService()
+
+        var request = Lnrpc_SendRequest()
+        if let dest = dest { request.dest = dest }
+        if let amount = amount { request.amt = Int64(amount) }
+        if let payHash = payHash { request.paymentHash = payHash }
+        if let payReq = payReq { request.paymentRequest = payReq }
+        if let finalCTLVDelta = finalCLTVDelta { request.finalCltvDelta = Int32(finalCTLVDelta) }
+        
+        // Unary GRPC
+        _ = try lightningService!.sendPaymentSync(request) { (response, result) in
+
+          if let response = response {
+            SLLog.debug("LN Send Payment Sync Success!")
+            
+            var lnHops = [LNHop]()
+            
+            for hop in response.paymentRoute.hops {
+              let lnHop = LNHop(chanID: UInt(hop.chanID),
+                                chanCapacity: Int(hop.chanCapacity),
+                                amtToForward: Int(hop.amtToForward),
+                                fee: Int(hop.fee),
+                                expiry: UInt(hop.expiry))
+              lnHops.append(lnHop)
+            }
+            
+            let lnRoute = LNRoute(totalTimeLock: UInt(response.paymentRoute.totalTimeLock),
+                                  totalFees: Int(response.paymentRoute.totalFees),
+                                  totalAmt: Int(response.paymentRoute.totalAmt),
+                                  hops: lnHops)
+            
+            // Success. Deference retry
+            retry.success()
+            completion({ return (response.paymentError, response.paymentPreimage, lnRoute) })
+            
+          } else {
+            let message = result.statusMessage ?? result.description
+            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
+          }
+        }
+      } catch {
+        // Error - attempt to retry
+        retry.attempt(error: error)
+      }
+    }
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Send Payment Sync Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    retry.start("LN Send Payment Sync", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
+  
+  
   // MARK: QueryRoutes
   
   static func queryRoutes(pubKey: String, amt: Int, numRoutes: Int,
