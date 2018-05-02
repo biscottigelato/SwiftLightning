@@ -14,6 +14,7 @@ import UIKit
 
 protocol PayConfirmBusinessLogic {
   func refresh(request: PayConfirm.Refresh.Request)
+  func sendPayment(request: PayConfirm.SendPayment.Request)
 }
 
 
@@ -64,5 +65,23 @@ class PayConfirmInteractor: PayConfirmBusinessLogic, PayConfirmDataStore {
                                                totalAmount: totalAmt,
                                                fiatTotalAmt: Money<USD>("0.0")!)
     presenter?.presentRefresh(response: response)
+  }
+  
+  
+  // MARK: Send Payment
+  
+  func sendPayment(request: PayConfirm.SendPayment.Request) {
+    
+    // Try to send payment according to payment type
+    guard let address = address, let amount = amount, let paymentType = paymentType else {
+      SLLog.fatal("1 or more entry in PayConfirmDataStore is nil")
+    }
+    
+    switch paymentType {
+    case .lightning:
+      // SendPayment
+    case .onChain:
+      // SendCoins
+    }
   }
 }

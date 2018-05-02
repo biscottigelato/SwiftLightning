@@ -54,20 +54,20 @@ enum ChannelConfirm {
       var errMsg: String
     }
   }
-  
-  enum OpenChannelError: Int, LocalizedError {
-    case peerNotConnected
-    
-    var errorDescription: String? {
-      switch self {
-        
-      case .peerNotConnected:
-        return NSLocalizedString("Unable to establish connection to peer. Peer is not reachable. Please also check your local network settings.", comment: "ChannelConfirm.OpenChannelError Type")
-      }
-    }
-  }
+
   
   enum OpenChannel {
+    enum Error: Int, LocalizedError {
+      case peerNotConnected
+      
+      var errorDescription: String? {
+        switch self {
+          
+        case .peerNotConnected:
+          return NSLocalizedString("Unable to establish connection to peer. Peer is not reachable. Please also check your local network settings.", comment: "ChannelConfirm.OpenChannel.Error Type")
+        }
+      }
+    }
     struct Constants {
       static let lnFindPeerRetry = 5
       static let lnFindPeerDelay = 2.0

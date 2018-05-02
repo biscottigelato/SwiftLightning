@@ -124,7 +124,7 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
                                    streaming: self.openChannelStreaming,
                                    completion: self.openChannelCompletion)
           } else {
-            retry.attempt(error: ChannelConfirm.OpenChannelError.peerNotConnected)
+            retry.attempt(error: ChannelConfirm.OpenChannel.Error.peerNotConnected)
           }
         } catch {
           let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))

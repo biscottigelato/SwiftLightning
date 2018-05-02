@@ -47,11 +47,22 @@ enum PayConfirm {
   }
   
   
-  // MARK: Pay Request
+  // MARK: SendPayment
   
-  enum PayRequest {
-    struct Request { }
-    struct Response { }
-    struct ViewModel { }
+  enum SendPayment {
+    struct Request {
+      // User Data Store values
+    }
+    struct Response {
+      var result: Result<Void>
+    }
+    struct ViewModel {
+      var alertTitle: String
+      var alertMsg: String
+    }
+    struct ErrorVM {
+      var errTitle: String
+      var errMsg: String
+    }
   }
 }

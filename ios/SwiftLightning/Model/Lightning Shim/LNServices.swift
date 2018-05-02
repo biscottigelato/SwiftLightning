@@ -292,11 +292,59 @@ class LNServices {
   }
   
   
+  // MARK: Send Coins
+  
+  static func sendCoins(address: String, amount: Int, targetConf: Int? = nil, satPerByte: Int? = nil,
+                        retryCount: Int = LNConstants.defaultRetryCount,
+                        retryDelay: Double = LNConstants.defaultRetryDelay,
+                        completion: @escaping (() throws -> (String)) -> Void) {
+    
+    let retry = SLRetry()
+    let task = { () -> () in
+      do {
+        try prepareLightningService()
+    
+        var request = Lnrpc_SendCoinsRequest()
+        request.addr = address
+        request.amount = Int64(amount)
+        
+        if let targetConf = targetConf { request.targetConf = Int32(targetConf) }
+        if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
+        
+        // Unary GRPC
+        _ = try lightningService!.sendCoins(request) { (response, result) in
+
+          if let response = response {
+            SLLog.debug("LN Send Coins Success!")
+            
+            // Success. Deference retry
+            retry.success()
+            completion({ response.txid })
+            
+          } else {
+            let message = result.statusMessage ?? result.description
+            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
+          }
+        }
+      } catch {
+        // Error - attempt to retry
+        retry.attempt(error: error)
+      }
+    }
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Send Coins Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    retry.start("LN Send Coins", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
+  
+  
   // MARK: New Address
   
   static func newAddress(retryCount: Int = LNConstants.defaultRetryCount,
                          retryDelay: Double = LNConstants.defaultRetryDelay,
-                        completion: @escaping (() throws -> (String)) -> Void) {
+                         completion: @escaping (() throws -> (String)) -> Void) {
     
     let retry = SLRetry()
     let task = { () -> () in

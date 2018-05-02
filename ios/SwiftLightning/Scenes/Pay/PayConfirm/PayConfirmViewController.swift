@@ -14,6 +14,8 @@ import UIKit
 
 protocol PayConfirmDisplayLogic: class {
   func displayRefresh(viewModel: PayConfirm.Refresh.ViewModel)
+  func displaySendPaymentSubmitted(viewModel: PayConfirm.SendPayment.ViewModel)
+  func displaySendPaymentFailure(viewModel: PayConfirm.SendPayment.ErrorVM)
 }
 
 
@@ -113,11 +115,40 @@ class PayConfirmViewController: UIViewController, PayConfirmDisplayLogic {
   }
   
   
-  // MARK: Send Payment
+  // MARK: Payment Confirmed
+  
+  let activityIndicator = SLSpinnerDialogView()
   
   @IBAction func sendTapped(_ sender: SLBarButton) {
+    activityIndicator.show(on: view)
+    
+    let request = PayConfirm.SendPayment.Request()
+    interactor?.sendPayment(request: request)
   }
 
+  func displaySendPaymentSubmitted(viewModel: PayConfirm.SendPayment.ViewModel) {
+    let alertDialog = UIAlertController(title: viewModel.alertTitle,
+                                        message: viewModel.alertMsg,
+                                        preferredStyle: .alert).addAction(title: "OK", style: .default) { (alert) in
+                                          
+                                          DispatchQueue.main.async { self.router?.routeToWalletMain() }
+    }
+    
+    DispatchQueue.main.async {
+      self.activityIndicator.remove()
+      self.present(alertDialog, animated: true)
+    }
+  }
+  
+  func displaySendPaymentFailure(viewModel: PayConfirm.SendPayment.ErrorVM) {
+    let alertDialog = UIAlertController(title: viewModel.errTitle,
+                                        message: viewModel.errMsg,
+                                        preferredStyle: .alert).addAction(title: "OK", style: .default)
+    DispatchQueue.main.async {
+      self.activityIndicator.remove()
+      self.present(alertDialog, animated: true)
+    }
+  }
 }
 
 
