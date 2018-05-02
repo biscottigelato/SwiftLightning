@@ -194,6 +194,7 @@ class LNManager {
 
     // So we should have something that kinda resembles a Bitcoin address at this point. Validate
     if address == nil { address = inputString }
+    paymentType = BitcoinPaymentType.onChain
     
     // TODO: The following statement needs to be modified to be Mainnet compatible
     if address!.hasPrefix(AddressPrefixes.p2pkh1.rawValue) || address!.hasPrefix(AddressPrefixes.p2pkh2.rawValue) || address!.hasPrefix(AddressPrefixes.p2sh.rawValue) {
@@ -210,6 +211,7 @@ class LNManager {
     else if address!.hasPrefix(AddressPrefixes.bech32.rawValue) {
       do {
         _ = try SegwitAddrCoder.shared.decode(addr: address!)
+        completion(address, amount, description, paymentType, true)
       } catch {
         completion(address, amount, description, paymentType, false)
       }

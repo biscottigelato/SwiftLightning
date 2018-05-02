@@ -14,8 +14,7 @@ import UIKit
 
 protocol PayMainBusinessLogic {
   func confirmPayment(request: PayMain.ConfirmPayment.Request)
-  func validateAddress(request: PayMain.ValidateAddress.Request)
-  func validateAmount(request: PayMain.ValidateAmount.Request)
+  func validate(request: PayMain.Validate.Request)
 }
 
 
@@ -69,9 +68,9 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
   }
   
   
-  // MARK: Validate Address
+  // MARK: Validate Address/Amount
   
-  func validateAddress(request: PayMain.ValidateAddress.Request) {
+  func validate(request: PayMain.Validate.Request) {
     let amount: Bitcoin? = Bitcoin(inSatoshi: request.rawAmountString)
     
     validate(inputAddress: request.rawAddressString, inputAmount: amount) { result in
@@ -83,23 +82,7 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
       self.presenter?.presentValidate(response: response)
     }
   }
-  
-  
-  // MARK: Validate Amount
-  
-  func validateAmount(request: PayMain.ValidateAmount.Request) {
-    let amount: Bitcoin? = Bitcoin(inSatoshi: request.rawAmountString)
-    
-    validate(inputAddress: request.rawAddressString, inputAmount: amount) { result in
-      
-      // Respond to Presenter
-      let response = PayMain.Response(inputAddress: request.rawAddressString,
-                                      inputAmount: amount,
-                                      validationResult: result)
-      self.presenter?.presentValidate(response: response)
-    }
-  }
-  
+
   
   // MARK: Confirm Payment
   
@@ -117,7 +100,7 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
         self._address = result.revisedAddress ?? request.rawAddressString
       }
       self._amount = result.revisedAmount ?? amount
-      self._description = result.payDescription
+      self._description = result.payDescription ?? request.description
       self._fee = result.fee
       self._paymentType = result.paymentType
       

@@ -79,7 +79,7 @@ class PayMainPresenter: PayMainPresentationLogic
     
     if let error = validationResult.amountError {
       if let amountExpected = amountExpected, error == .amtMismatch {
-        let amtErrVM = PayMain.AmountVM(errMsg: "PayReq expects \(amountExpected)")
+        let amtErrVM = PayMain.AmountVM(errMsg: "PayReq expects \(amountExpected.formattedInSatoshis())")
         viewController?.displayAmountWarning(viewModel: amtErrVM)
       } else {
         let amtErrVM = PayMain.AmountVM(errMsg: error.localizedDescription)

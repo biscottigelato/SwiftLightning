@@ -127,15 +127,15 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, UITextFieldD
       
     case addressEntryView.textField:
       addressEntryView.textField.text = addressEntryView.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-      let request = PayMain.ValidateAddress.Request(rawAddressString: addressEntryView.textField.text ?? "",
+      let request = PayMain.Validate.Request(rawAddressString: addressEntryView.textField.text ?? "",
                                                    rawAmountString: amountEntryView.textField.text ?? "")
-      interactor?.validateAddress(request: request)
+      interactor?.validate(request: request)
       
     case amountEntryView.textField:
       amountEntryView.textField.text = amountEntryView.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-      let request = PayMain.ValidateAmount.Request(rawAddressString: addressEntryView.textField.text ?? "",
+      let request = PayMain.Validate.Request(rawAddressString: addressEntryView.textField.text ?? "",
                                                    rawAmountString: amountEntryView.textField.text ?? "")
-      interactor?.validateAmount(request: request)
+      interactor?.validate(request: request)
     
     case descriptionEntryView.textField:
       break
@@ -157,7 +157,8 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, UITextFieldD
     let inputAmountString = amountEntryView.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
     
     let request = PayMain.ConfirmPayment.Request(rawAddressString: inputAddressString ?? "",
-                                                 rawAmountString: inputAmountString ?? "")
+                                                 rawAmountString: inputAmountString ?? "",
+                                                 description: descriptionEntryView.textField.text ?? "")
     interactor?.confirmPayment(request: request)
   }
   

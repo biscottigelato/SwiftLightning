@@ -108,17 +108,7 @@ enum PayMain {
   
   // MARK: Validate Address
   
-  enum ValidateAddress {
-    struct Request {
-      var rawAddressString: String
-      var rawAmountString: String
-    }
-  }
-  
-  
-  // MARK: Validate Amount
-  
-  enum ValidateAmount {
+  enum Validate {
     struct Request {
       var rawAddressString: String
       var rawAmountString: String
@@ -132,6 +122,7 @@ enum PayMain {
     struct Request {
       var rawAddressString: String
       var rawAmountString: String
+      var description: String
     }
     struct ViewModel {
       var goToConfirm: Bool
