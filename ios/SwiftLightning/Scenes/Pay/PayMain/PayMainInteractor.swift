@@ -157,82 +157,73 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
       
       // Nothing for description, we are always going to overwrite the field if available
       
-      // Find route and fee if LN
-      // TODO: Estimate fee for on-Chain
-      if let amount = amount ?? inputAmount {
-        switch type {
-        case .lightning:
-          LNServices.queryRoutes(pubKey: addr,
-                                 amt: amount.integerInSatoshis,
-                                 numRoutes: 1) { (responder) in
-            do {
-              let routes = try responder()
+      switch type {
+      case .lightning:
+        
+        // Get channel balance first regardless
+        LNServices.channelBalance() { (balancer) in
+          do {
+            let balance = try balancer()
+            result.balance = Bitcoin(inSatoshi: balance)
+            
+            // Try to find a route only if there is an amount
+            if let amount = amount ?? inputAmount {
               
-              guard routes.count > 0 else {
-                throw PayMain.Warning.noRouteFound
-              }
-              result.fee = Bitcoin(inSatoshi: routes[0].totalFees)
-              
-              // Check everything against channel balance
-              LNServices.channelBalance() { (balancer) in
+              // Find route and fee for LN
+              LNServices.queryRoutes(pubKey: addr,
+                                     amt: amount.integerInSatoshis,
+                                     numRoutes: 1) { (responder) in
                 do {
-                  let balance = try balancer()
-                  result.balance = Bitcoin(inSatoshi: balance)
+                  let routes = try responder()
                   
-                  guard Bitcoin(inSatoshi: balance) >= Bitcoin(amount + result.fee!) else {
-                    result.amountError = PayMain.AmountError.insufficient
-                    completion(result)
-                    return
+                  guard routes.count > 0 else {
+                    throw PayMain.Warning.noRouteFound
                   }
-                  
-                  // This is finally perfection for LN Payment!
+                  result.fee = Bitcoin(inSatoshi: routes[0].totalFees)
+            
+                  if Bitcoin(inSatoshi: balance) < Bitcoin(amount + result.fee!) {
+                    result.amountError = PayMain.AmountError.insufficient
+                  }
                   completion(result)
-                  return
                   
                 } catch {
-                  result.error = error
+                  result.routeError = error
                   completion(result)
-                  return
                 }
-              }
-            } catch {
-              result.routeError = error
+              }  // LNServices.queryRoutes
+              
+            } else {
               completion(result)
-              return
             }
+            
+          } catch {
+            result.error = error
+            completion(result)
           }
-          
-        case .onChain:
-          
-          // Check everything against wallet balance
-          LNServices.walletBalance() { (balancer) in
-            do {
-              let balance = try balancer()
-              result.balance = Bitcoin(inSatoshi: balance.confirmed)
-              
-              guard Bitcoin(inSatoshi: balance.confirmed) >= amount else {  // TODO: Subtract fee when fee estimation is in place
-                result.amountError = PayMain.AmountError.insufficient
-                completion(result)
-                return
-              }
-              
-              // This is finally perfection for On Chain Payment!
-              completion(result)
-              return
-              
-            } catch {
-              result.error = error
-              completion(result)
-              return
-            }
-          }
-        }  // switch lightning / onChain
-      }  // if let amount = amount ?? inputAmount
+        }  // LNServices.channelBalance
         
-      else {
-        // This is success for all other cases
-        completion(result)
-      }
+      case .onChain:
+          
+        // Check everything against wallet balance
+        LNServices.walletBalance() { (balancer) in
+          do {
+            let balance = try balancer()
+            result.balance = Bitcoin(inSatoshi: balance.confirmed)
+            
+            // Check the amount if there is an amount. All good otherwise
+            if let amount = amount ?? inputAmount {
+              if Bitcoin(inSatoshi: balance.confirmed) < amount {  // TODO: Subtract fee when fee estimation is in place
+                result.amountError = PayMain.AmountError.insufficient
+              }
+            }
+            completion(result)
+            
+          } catch {
+            result.error = error
+            completion(result)
+          }
+        }
+      } // switch lightning / onChain
     }
   }
 }
