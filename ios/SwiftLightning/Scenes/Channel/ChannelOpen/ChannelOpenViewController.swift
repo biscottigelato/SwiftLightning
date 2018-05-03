@@ -27,7 +27,7 @@ protocol ChannelOpenDisplayLogic: class {
 }
 
 
-class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, UITextFieldDelegate {
+class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, CameraReturnDelegate, UITextFieldDelegate {
   
   var interactor: ChannelOpenBusinessLogic?
   var router: (NSObjectProtocol & ChannelOpenRoutingLogic & ChannelOpenDataPassing)?
@@ -283,5 +283,20 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, UITe
   
   @IBAction func closeCrossTapped(_ sender: UIBarButtonItem) {
     router?.routeToWalletMain()
+  }
+  
+  
+  // MARK: Camera
+  
+  @IBAction func cameraTapped(_ sender: UIBarButtonItem) {
+    router?.routeToCameraMain()
+  }
+  
+  func qrCodeScanned(address: String) {
+    if let pubKeyTextField = nodePubKeyEntryView.textField {
+      pubKeyTextField.text = address
+      pubKeyTextField.becomeFirstResponder()
+      pubKeyTextField.delegate?.textFieldDidEndEditing?(pubKeyTextField)
+    }
   }
 }

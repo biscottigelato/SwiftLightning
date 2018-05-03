@@ -199,6 +199,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="CameraLight" id="OJM-P7-q7F">
                             <color key="tintColor" name="NormalText"/>
+                            <connections>
+                                <action selector="cameraTapped:" destination="Mvo-Yz-Rga" id="HLv-rb-0dH"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>

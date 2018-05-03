@@ -116,6 +116,7 @@ class LNManager {
   
   private enum MainnetPayReqPrefixes: String {
     case btcuri = "bitcoin:"
+    case lightning = "lightning:"
     case lnbtc  = "lnbc"
   }
   
@@ -131,6 +132,7 @@ class LNManager {
   
   private enum TestnetPayreqPrefixes: String {
     case btcuri = "bitcoin:"
+    case lightning = "lightning:"
     case lnbtc  = "lntb"
   }
   
@@ -152,10 +154,18 @@ class LNManager {
     // Deal with Payment Requests first
 
     // Lightning Invoice? Processing ends inside if so
-    if inputString.hasPrefix(PayReqPrefixes.lnbtc.rawValue) {
+    if inputString.hasPrefix(PayReqPrefixes.lnbtc.rawValue) || inputString.hasPrefix(PayReqPrefixes.lightning.rawValue) {
       paymentType = BitcoinPaymentType.lightning
       
-      LNServices.decodePayReq(inputString) { (responder) in
+      address = inputString
+      if inputString.hasPrefix(PayReqPrefixes.lightning.rawValue) {
+        address = String(inputString.dropFirst(PayReqPrefixes.lightning.rawValue.count))
+      }
+      
+      // LND barfs if there are differing cases
+      address = address!.lowercased()
+      
+      LNServices.decodePayReq(address!) { (responder) in
         do {
           let lnPayReq = try responder()
           address = lnPayReq.destination

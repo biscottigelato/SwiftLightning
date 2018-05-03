@@ -98,6 +98,13 @@
 		8C36A03420966F20003BEFB6 /* Bech32Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A03320966F20003BEFB6 /* Bech32Test.swift */; };
 		8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */; };
 		8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710FA2077E79C005D7ABC /* LNServices.swift */; };
+		8C68653C209A6E87001E41DA /* CameraMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C686536209A6E87001E41DA /* CameraMainPresenter.swift */; };
+		8C68653D209A6E87001E41DA /* CameraMainWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C686537209A6E87001E41DA /* CameraMainWorker.swift */; };
+		8C68653F209A6E87001E41DA /* CameraMainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C686539209A6E87001E41DA /* CameraMainModels.swift */; };
+		8C686540209A6E87001E41DA /* CameraMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C68653A209A6E87001E41DA /* CameraMainViewController.swift */; };
+		8C686541209A6E87001E41DA /* CameraMainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C68653B209A6E87001E41DA /* CameraMainInteractor.swift */; };
+		8C686543209A6EE2001E41DA /* CameraMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C686542209A6EE2001E41DA /* CameraMain.storyboard */; };
+		8C686545209A923C001E41DA /* CameraMainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C686544209A923C001E41DA /* CameraMainRouter.swift */; };
 		8C6B7541208AF33200B751A2 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B753B208AF33200B751A2 /* RootPresenter.swift */; };
 		8C6B7542208AF33200B751A2 /* RootWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B753C208AF33200B751A2 /* RootWorker.swift */; };
 		8C6B7543208AF33200B751A2 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B753D208AF33200B751A2 /* RootRouter.swift */; };
@@ -307,6 +314,13 @@
 		8C36A03320966F20003BEFB6 /* Bech32Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bech32Test.swift; sourceTree = "<group>"; };
 		8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.grpc.swift; sourceTree = "<group>"; };
 		8C4710FA2077E79C005D7ABC /* LNServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNServices.swift; sourceTree = "<group>"; };
+		8C686536209A6E87001E41DA /* CameraMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMainPresenter.swift; sourceTree = "<group>"; };
+		8C686537209A6E87001E41DA /* CameraMainWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMainWorker.swift; sourceTree = "<group>"; };
+		8C686539209A6E87001E41DA /* CameraMainModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMainModels.swift; sourceTree = "<group>"; };
+		8C68653A209A6E87001E41DA /* CameraMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMainViewController.swift; sourceTree = "<group>"; };
+		8C68653B209A6E87001E41DA /* CameraMainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMainInteractor.swift; sourceTree = "<group>"; };
+		8C686542209A6EE2001E41DA /* CameraMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CameraMain.storyboard; sourceTree = "<group>"; };
+		8C686544209A923C001E41DA /* CameraMainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMainRouter.swift; sourceTree = "<group>"; };
 		8C6B753B208AF33200B751A2 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		8C6B753C208AF33200B751A2 /* RootWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootWorker.swift; sourceTree = "<group>"; };
 		8C6B753D208AF33200B751A2 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
@@ -650,6 +664,28 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		8C686534209A6C04001E41DA /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				8C686535209A6C0C001E41DA /* CameraMain */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		8C686535209A6C0C001E41DA /* CameraMain */ = {
+			isa = PBXGroup;
+			children = (
+				8C686542209A6EE2001E41DA /* CameraMain.storyboard */,
+				8C686536209A6E87001E41DA /* CameraMainPresenter.swift */,
+				8C686544209A923C001E41DA /* CameraMainRouter.swift */,
+				8C686537209A6E87001E41DA /* CameraMainWorker.swift */,
+				8C686539209A6E87001E41DA /* CameraMainModels.swift */,
+				8C68653A209A6E87001E41DA /* CameraMainViewController.swift */,
+				8C68653B209A6E87001E41DA /* CameraMainInteractor.swift */,
+			);
+			path = CameraMain;
+			sourceTree = "<group>";
+		};
 		8C6B753A208AF30800B751A2 /* Root */ = {
 			isa = PBXGroup;
 			children = (
@@ -967,6 +1003,7 @@
 		8CFA16902082EB7300813EA6 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				8C686534209A6C04001E41DA /* Camera */,
 				8CFA16912082EB7E00813EA6 /* Common */,
 				8CFA16922082EB9D00813EA6 /* Setup */,
 				8C090E072088185B009B8B8D /* Unlock */,
@@ -1250,6 +1287,7 @@
 				8C7EC53920950593001C8FD6 /* PayMain.storyboard in Resources */,
 				8C6B7564208B17CB00B751A2 /* WalletNavigation.storyboard in Resources */,
 				8C18828720868545002E2835 /* Montserrat-ExtraBold.ttf in Resources */,
+				8C686543209A6EE2001E41DA /* CameraMain.storyboard in Resources */,
 				8C82760820912A750029BE7E /* SLFormPaySummaryView.xib in Resources */,
 				8C090E2520885C84009B8B8D /* OpenSans-Italic.ttf in Resources */,
 				8C18828C20868545002E2835 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
@@ -1349,6 +1387,7 @@
 			files = (
 				8C8275B8208EA1B30029BE7E /* ChannelOpenPresenter.swift in Sources */,
 				8C8275B9208EA1B30029BE7E /* ChannelOpenWorker.swift in Sources */,
+				8C686541209A6E87001E41DA /* CameraMainInteractor.swift in Sources */,
 				8C82760A20912A890029BE7E /* SLFormPaySummaryView.swift in Sources */,
 				8C090E012087DEAA009B8B8D /* MnemonicExplainViewController.swift in Sources */,
 				8C70EC13208E511900D658DC /* SLRetry.swift in Sources */,
@@ -1404,6 +1443,7 @@
 				8CFA16A42082EF3A00813EA6 /* CreateRecoverModels.swift in Sources */,
 				8C8275BA208EA1B30029BE7E /* ChannelOpenRouter.swift in Sources */,
 				8C8275DC208FF1CF0029BE7E /* Bitcoin.swift in Sources */,
+				8C68653D209A6E87001E41DA /* CameraMainWorker.swift in Sources */,
 				8C18829F20868EBE002E2835 /* PasswordCreateRouter.swift in Sources */,
 				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
 				8C8275FC209118250029BE7E /* SLFormLabelView.swift in Sources */,
@@ -1414,7 +1454,9 @@
 				8C8275F020910FA40029BE7E /* ChannelConfirmWorker.swift in Sources */,
 				8C8275F320910FA40029BE7E /* ChannelConfirmViewController.swift in Sources */,
 				8CD063AB209563BC00D2B66B /* PayConfirmInteractor.swift in Sources */,
+				8C68653F209A6E87001E41DA /* CameraMainModels.swift in Sources */,
 				8C090E2020885772009B8B8D /* URL+Extension.swift in Sources */,
+				8C68653C209A6E87001E41DA /* CameraMainPresenter.swift in Sources */,
 				8C090E5020895CA9009B8B8D /* SLRandValues.swift in Sources */,
 				8C1882B220869699002E2835 /* SLPasswordField.swift in Sources */,
 				8C6B7545208AF33200B751A2 /* RootViewController.swift in Sources */,
@@ -1435,6 +1477,7 @@
 				8C18829E20868EBE002E2835 /* PasswordCreateWorker.swift in Sources */,
 				8C090DFD2087DEAA009B8B8D /* MnemonicExplainPresenter.swift in Sources */,
 				8C7EC53420950449001C8FD6 /* PayMainRouter.swift in Sources */,
+				8C686545209A923C001E41DA /* CameraMainRouter.swift in Sources */,
 				8C1AE3732095A57700A4D9BF /* Address.swift in Sources */,
 				8C8275F420910FA40029BE7E /* ChannelConfirmInteractor.swift in Sources */,
 				8C7EC53520950449001C8FD6 /* PayMainModels.swift in Sources */,
@@ -1454,6 +1497,7 @@
 				8C8275BD208EA1B30029BE7E /* ChannelOpenInteractor.swift in Sources */,
 				8C18829D20868EBE002E2835 /* PasswordCreatePresenter.swift in Sources */,
 				8C090DFF2087DEAA009B8B8D /* MnemonicExplainRouter.swift in Sources */,
+				8C686540209A6E87001E41DA /* CameraMainViewController.swift in Sources */,
 				8C8275E0208FF8770029BE7E /* Currency.swift in Sources */,
 				8C090E372088612B009B8B8D /* MnemonicDisplayInteractor.swift in Sources */,
 				8CD063A9209563BC00D2B66B /* PayConfirmModels.swift in Sources */,

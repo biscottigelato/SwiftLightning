@@ -13,7 +13,6 @@
 import UIKit
 
 protocol PayMainDisplayLogic: class {
-  
   func updateInvalidity(addr: Bool?, amt: Bool?, route: Bool?)
   func displayConfirmPayment()
   func displayUpdate(viewModel: PayMain.UpdateVM)
@@ -24,7 +23,7 @@ protocol PayMainDisplayLogic: class {
 }
 
 
-class PayMainViewController: SLViewController, PayMainDisplayLogic, UITextFieldDelegate {
+class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturnDelegate, UITextFieldDelegate {
   var interactor: PayMainBusinessLogic?
   var router: (NSObjectProtocol & PayMainRoutingLogic & PayMainDataPassing)?
   
@@ -128,13 +127,13 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, UITextFieldD
     case addressEntryView.textField:
       addressEntryView.textField.text = addressEntryView.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
       let request = PayMain.Validate.Request(rawAddressString: addressEntryView.textField.text ?? "",
-                                                   rawAmountString: amountEntryView.textField.text ?? "")
+                                             rawAmountString: amountEntryView.textField.text ?? "")
       interactor?.validate(request: request)
       
     case amountEntryView.textField:
       amountEntryView.textField.text = amountEntryView.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
       let request = PayMain.Validate.Request(rawAddressString: addressEntryView.textField.text ?? "",
-                                                   rawAmountString: amountEntryView.textField.text ?? "")
+                                             rawAmountString: amountEntryView.textField.text ?? "")
       interactor?.validate(request: request)
     
     case descriptionEntryView.textField:
@@ -272,4 +271,18 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, UITextFieldD
     router?.routeToWalletMain()
   }
   
+  
+  // MARK: Camera
+  
+  @IBAction func cameraTapped(_ sender: UIBarButtonItem) {
+    router?.routeToCameraMain()
+  }
+  
+  func qrCodeScanned(address: String) {
+    if let addrTextField = addressEntryView.textField {
+      addrTextField.text = address
+      addrTextField.becomeFirstResponder()
+      addrTextField.delegate?.textFieldDidEndEditing?(addrTextField)
+    }
+  }
 }

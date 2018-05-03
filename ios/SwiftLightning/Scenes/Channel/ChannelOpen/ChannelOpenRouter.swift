@@ -15,6 +15,7 @@ import UIKit
 @objc protocol ChannelOpenRoutingLogic {
   func routeToChannelConfirm()
   func routeToWalletMain()
+  func routeToCameraMain()
 }
 
 
@@ -39,13 +40,21 @@ class ChannelOpenRouter: NSObject, ChannelOpenRoutingLogic, ChannelOpenDataPassi
     navigateToChannelConfirm(source: viewController!, destination: destinationVC)
   }
   
+  func routeToCameraMain() {
+    let storyboard = UIStoryboard(name: "CameraMain", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "CameraMainViewController") as! CameraMainViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToCameraMain(source: dataStore!, destination: &destinationDS)
+    navigateToCameraMain(source: viewController!, destination: destinationVC)
+  }
+  
   func routeToWalletMain() {
 //    let destinationVC = viewController! as! WalletMainViewController
 //    var destinationDS = destinationVC.router!.dataStore!
 //    passDataToWalletMain(source: dataStore!, destination: &destinationDS)
     navigateToWalletMain(source: viewController!)
   }
-
+  
   
   // MARK: Navigation
   
@@ -54,6 +63,15 @@ class ChannelOpenRouter: NSObject, ChannelOpenRoutingLogic, ChannelOpenDataPassi
       SLLog.assert("\(type(of: source)).navigationController = nil")
       return
     }
+    navigationController.pushViewController(destination, animated: true)
+  }
+  
+  func navigateToCameraMain(source: ChannelOpenViewController, destination: CameraMainViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    destination.delegate = source
     navigationController.pushViewController(destination, animated: true)
   }
   
@@ -77,6 +95,9 @@ class ChannelOpenRouter: NSObject, ChannelOpenRoutingLogic, ChannelOpenDataPassi
     destination.confSpeed = source.confSpeed
   }
   
-  func passDataToWalletMain(source: ChannelOpenDataStore, destination: inout WalletMainDataStore) {
+  func passDataToCameraMain(source: ChannelOpenDataStore, destination: inout CameraMainDataStore) {
+    destination.cameraMode = .channel
   }
+  
+  func passDataToWalletMain(source: ChannelOpenDataStore, destination: inout WalletMainDataStore) { }
 }

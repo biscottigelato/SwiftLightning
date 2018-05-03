@@ -36,6 +36,15 @@ extension UIView {
     }
   }
   
+//  @IBInspectable var cornerRadius: CGFloat {
+//    get {
+//      return layer.cornerRadius
+//    }
+//    set {
+//      layer.cornerRadius = newValue
+//    }
+//  }
+  
   @IBInspectable var shadowColor: UIColor? {
     get {
       if let color = layer.shadowColor {

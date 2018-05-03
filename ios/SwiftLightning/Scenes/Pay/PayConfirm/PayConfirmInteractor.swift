@@ -73,13 +73,20 @@ class PayConfirmInteractor: PayConfirmBusinessLogic, PayConfirmDataStore {
   func sendPayment(request: PayConfirm.SendPayment.Request) {
     
     // Try to send payment according to payment type
-    guard let address = address, let amount = amount, let paymentType = paymentType else {
+    guard var address = address, let amount = amount, let paymentType = paymentType else {
       SLLog.fatal("1 or more entry in PayConfirmDataStore is nil")
     }
     
     switch paymentType {
     case .lightning:
       // For now, we are only doing Pay Req for Lightning Payments
+      
+      // Note sometimes people have werid prefixes, drop it before proceeding
+      address = address.lowercased()
+      if address.hasPrefix("lightning:") {
+        address = String(address.dropFirst("lightning:".count))
+      }
+      
       LNServices.sendPaymentSync(payReq: address) { (responder) in
         do {
           let payRsp = try responder()
