@@ -82,9 +82,17 @@ class CameraMainViewController: UIViewController, CameraMainDisplayLogic {
   // MARK: Appearance Configurations
   
   private func configAppearance() {
+    let navBarHeight = (self.navigationController?.navigationBar.frame.height ?? 0.0)
     let topBarHeight = UIApplication.shared.statusBarFrame.size.height
-      // + (self.navigationController?.navigationBar.frame.height ?? 0.0)
-    toolbarHeightConstraint.constant = topBarHeight
+    
+    if navBarHeight != topBarHeight {
+      toolbarHeightConstraint.constant = topBarHeight + navBarHeight
+    } else {
+      toolbarHeightConstraint.constant = navBarHeight
+    }
+    
+    self.navigationItem.hidesBackButton = true
+    
     qrDialogView.layer.cornerRadius = SLDesign.Constants.defaultCornerRadius
     qrDialogView.clipsToBounds = true
     
@@ -124,10 +132,12 @@ class CameraMainViewController: UIViewController, CameraMainDisplayLogic {
   
   private func startQRCaptureSession() {
     // Get the back-facing camera for capturing videos
-    let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
+    let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back)
     
     guard let captureDevice = deviceDiscoverySession.devices.first else {
       SLLog.warning("Failed to get the camera device")
+      let viewModel = CameraMain.Update.ErrorVM(errTitle: "Camera Error", errLabel: "Failed to get the camera device")
+      displayUpdateError(viewModel: viewModel)
       return
     }
     
