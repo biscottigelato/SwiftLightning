@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WalletPageView" customModule="SwiftLightning" customModuleProvider="target">
+            <connections>
+                <outlet property="chHdrButton" destination="6NM-ZE-MmR" id="A3s-qk-auK"/>
+                <outlet property="leftButton" destination="ocE-LA-cbH" id="kLe-6i-16X"/>
+                <outlet property="rightButton" destination="P2d-l6-lTQ" id="MQP-tB-RFY"/>
+                <outlet property="tableView" destination="bq8-xN-zWm" id="m0K-Hp-hZj"/>
+                <outlet property="txnHdrButton" destination="WMS-lK-Bzo" id="lxv-ff-gr4"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="389"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37m-y2-L8B" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
+                    <rect key="frame" x="10" y="12" width="355" height="311"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pdp-xN-EJs">
+                            <rect key="frame" x="0.0" y="0.0" width="355" height="311"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="joO-cO-J8N" userLabel="Header Background">
+                                    <rect key="frame" x="0.0" y="0.0" width="355" height="40"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="rJq-xo-BOq">
+                                            <rect key="frame" x="0.0" y="0.0" width="355" height="40"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WMS-lK-Bzo" userLabel="Transactions">
+                                                    <rect key="frame" x="0.0" y="0.0" width="177.5" height="40"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                                                    <inset key="titleEdgeInsets" minX="5" minY="1" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" title="Transactions">
+                                                        <color key="titleColor" name="LightTextGray"/>
+                                                    </state>
+                                                    <state key="disabled">
+                                                        <color key="titleColor" name="LightAzureBlue"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" name="LightAzureBlue"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6NM-ZE-MmR" userLabel="Channels">
+                                                    <rect key="frame" x="177.5" y="0.0" width="177.5" height="40"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                                                    <inset key="titleEdgeInsets" minX="0.0" minY="1" maxX="5" maxY="0.0"/>
+                                                    <state key="normal" title="Channels">
+                                                        <color key="titleColor" name="LightTextGray"/>
+                                                    </state>
+                                                    <state key="disabled">
+                                                        <color key="titleColor" name="LightAzureBlue"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" name="LightAzureBlue"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <color key="backgroundColor" name="FormHeaderGray"/>
+                                    <constraints>
+                                        <constraint firstItem="rJq-xo-BOq" firstAttribute="top" secondItem="joO-cO-J8N" secondAttribute="top" id="7Am-NV-Gh3"/>
+                                        <constraint firstAttribute="height" constant="40" id="FXg-fg-ari"/>
+                                        <constraint firstAttribute="bottom" secondItem="rJq-xo-BOq" secondAttribute="bottom" id="RsY-g6-JoO"/>
+                                        <constraint firstAttribute="trailing" secondItem="rJq-xo-BOq" secondAttribute="trailing" id="YOe-a7-ln9"/>
+                                        <constraint firstItem="rJq-xo-BOq" firstAttribute="leading" secondItem="joO-cO-J8N" secondAttribute="leading" id="bLS-ZM-wGU"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UXy-NI-luc" userLabel="Line">
+                                    <rect key="frame" x="0.0" y="40" width="355" height="1"/>
+                                    <color key="backgroundColor" name="FormLineGray"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="SiL-F9-nVw"/>
+                                    </constraints>
+                                </view>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bq8-xN-zWm">
+                                    <rect key="frame" x="0.0" y="41" width="355" height="270"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <inset key="separatorInset" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
+                                </tableView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="Pdp-xN-EJs" secondAttribute="bottom" id="7hp-An-lEK"/>
+                        <constraint firstItem="Pdp-xN-EJs" firstAttribute="top" secondItem="37m-y2-L8B" secondAttribute="top" id="B4t-Zx-CIg"/>
+                        <constraint firstItem="Pdp-xN-EJs" firstAttribute="leading" secondItem="37m-y2-L8B" secondAttribute="leading" id="JHP-06-waq"/>
+                        <constraint firstAttribute="trailing" secondItem="Pdp-xN-EJs" secondAttribute="trailing" id="U1P-3c-y9H"/>
+                    </constraints>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BjO-yC-lVd" userLabel="Bottom Buttons Stack">
+                    <rect key="frame" x="0.0" y="335" width="375" height="42"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="6Bi-eS-jU7" userLabel="Left Spacer">
+                            <rect key="frame" x="0.0" y="0.0" width="10" height="42"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ocE-LA-cbH" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                            <rect key="frame" x="10" y="0.0" width="172.5" height="42"/>
+                            <color key="backgroundColor" name="LightAzureBlue"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="Pay">
+                                <color key="titleColor" name="NormalText"/>
+                                <color key="titleShadowColor" name="LightAzureBlueShadow"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <view contentMode="scaleToFill" verticalHuggingPriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="4eF-L7-a5x" userLabel="Main Spacer">
+                            <rect key="frame" x="182.5" y="0.0" width="10" height="42"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="10" id="qJ7-N4-sZM"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2d-l6-lTQ" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                            <rect key="frame" x="192.5" y="0.0" width="172.5" height="42"/>
+                            <color key="backgroundColor" name="MedAquamarine"/>
+                            <state key="normal" title="Receive">
+                                <color key="titleColor" name="NormalText"/>
+                                <color key="titleShadowColor" name="MedAquamarineShadow"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <view contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="paa-4J-V0A" userLabel="Right Spacer">
+                            <rect key="frame" x="365" y="0.0" width="10" height="42"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="P2d-l6-lTQ" firstAttribute="width" secondItem="ocE-LA-cbH" secondAttribute="width" id="831-Fx-UP3"/>
+                        <constraint firstItem="6Bi-eS-jU7" firstAttribute="width" secondItem="4eF-L7-a5x" secondAttribute="width" id="d31-Ks-8I4"/>
+                        <constraint firstItem="4eF-L7-a5x" firstAttribute="width" secondItem="paa-4J-V0A" secondAttribute="width" id="eXt-ts-us2"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="2az-aa-GJa"/>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="37m-y2-L8B" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="1lo-bq-WP4"/>
+                <constraint firstItem="37m-y2-L8B" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="72E-ns-e6r"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="37m-y2-L8B" secondAttribute="trailing" constant="10" id="9PE-la-Oxb"/>
+                <constraint firstItem="BjO-yC-lVd" firstAttribute="top" secondItem="37m-y2-L8B" secondAttribute="bottom" constant="12" id="B1N-JQ-ISO"/>
+                <constraint firstItem="BjO-yC-lVd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="GWA-0V-K1v"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BjO-yC-lVd" secondAttribute="trailing" id="KYc-HL-SeZ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="BjO-yC-lVd" secondAttribute="bottom" constant="12" id="SY5-HQ-e3a"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-205" y="21"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="FormHeaderGray">
+            <color red="0.97254901960784312" green="0.96862745098039216" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="FormLineGray">
+            <color red="0.8666666666666667" green="0.86274509803921573" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="LightAzureBlue">
+            <color red="0.4823529411764706" green="0.71372549019607845" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="LightAzureBlue">
+            <color red="0.4823529411764706" green="0.71372549019607845" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="LightAzureBlueShadow">
+            <color red="0.26274509800000001" green="0.38431372549999998" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="LightTextGray">
+            <color red="0.66666666666666663" green="0.66274509803921566" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="MedAquamarine">
+            <color red="0.50588235290000005" green="0.83921568629999999" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="MedAquamarineShadow">
+            <color red="0.30588235289999999" green="0.50588235290000005" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="NormalText">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

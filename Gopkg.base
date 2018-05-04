@@ -4,5 +4,5 @@ required = ["github.com/lightningnetwork/lnd"]
   name = "github.com/lightningnetwork/lnd"
 #  version = "v0.4.1-beta"
 
-  branch = "master"
+  revision = "4ab2bba5c7bad9f1b1b7d7c9855e0e82194cab6a"
 #  source = "https://github.com/biscottigelato/lnd.git"

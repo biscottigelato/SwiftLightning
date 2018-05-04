@@ -142,6 +142,8 @@
 		8C70EC10208DBCDF00D658DC /* SLTextDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EC0F208DBCDF00D658DC /* SLTextDialogView.swift */; };
 		8C70EC13208E511900D658DC /* SLRetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EC12208E511900D658DC /* SLRetry.swift */; };
 		8C70EC15208E51A700D658DC /* HttpStatusCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EC14208E51A700D658DC /* HttpStatusCodes.swift */; };
+		8C77459C209BD6BC004EBA69 /* WalletPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C77459B209BD6BC004EBA69 /* WalletPageView.xib */; };
+		8C7745A3209BD6FD004EBA69 /* WalletPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745A2209BD6FD004EBA69 /* WalletPageView.swift */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SLLog.swift */; };
 		8C7EC53220950449001C8FD6 /* PayMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */; };
@@ -358,6 +360,8 @@
 		8C70EC0F208DBCDF00D658DC /* SLTextDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLTextDialogView.swift; sourceTree = "<group>"; };
 		8C70EC12208E511900D658DC /* SLRetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLRetry.swift; sourceTree = "<group>"; };
 		8C70EC14208E51A700D658DC /* HttpStatusCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpStatusCodes.swift; sourceTree = "<group>"; };
+		8C77459B209BD6BC004EBA69 /* WalletPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletPageView.xib; sourceTree = "<group>"; };
+		8C7745A2209BD6FD004EBA69 /* WalletPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPageView.swift; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLog.swift; sourceTree = "<group>"; };
 		8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainPresenter.swift; sourceTree = "<group>"; };
@@ -717,6 +721,7 @@
 		8C6B7556208B17A700B751A2 /* WalletNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				8C77459A209BD6A2004EBA69 /* WalletPages */,
 				8C6B7563208B17CB00B751A2 /* WalletNavigation.storyboard */,
 				8C70EC01208D6F9D00D658DC /* WalletNavigationController.swift */,
 				8C6B7557208B17BD00B751A2 /* WalletMainPresenter.swift */,
@@ -769,6 +774,15 @@
 			path = SLBriefDialog;
 			sourceTree = "<group>";
 		};
+		8C77459A209BD6A2004EBA69 /* WalletPages */ = {
+			isa = PBXGroup;
+			children = (
+				8C77459B209BD6BC004EBA69 /* WalletPageView.xib */,
+				8C7745A2209BD6FD004EBA69 /* WalletPageView.swift */,
+			);
+			path = WalletPages;
+			sourceTree = "<group>";
+		};
 		8C7D30FE207542090068F2BD /* Protobuf */ = {
 			isa = PBXGroup;
 			children = (
@@ -800,7 +814,7 @@
 				8C1882AB20869313002E2835 /* SLPasswordField */,
 				8C090E4A20894A65009B8B8D /* SLSeedField */,
 				8C70EC0C208DBC3B00D658DC /* SLBriefDialog */,
-				8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialogView */,
+				8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialog */,
 			);
 			path = "View Elements";
 			sourceTree = "<group>";
@@ -968,13 +982,13 @@
 			path = SwiftLightningTests;
 			sourceTree = "<group>";
 		};
-		8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialogView */ = {
+		8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialog */ = {
 			isa = PBXGroup;
 			children = (
 				8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */,
 				8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */,
 			);
-			path = SLSpinnerDialogView;
+			path = SLSpinnerDialog;
 			sourceTree = "<group>";
 		};
 		8CD0639D2095638300D2B66B /* PayConfirm */ = {
@@ -1273,6 +1287,7 @@
 				8C8275FA2091181A0029BE7E /* SLFormLabelView.xib in Resources */,
 				8C6B7568208BBBBF00B751A2 /* UnlockApp.storyboard in Resources */,
 				8C18829520868545002E2835 /* Montserrat-Black.ttf in Resources */,
+				8C77459C209BD6BC004EBA69 /* WalletPageView.xib in Resources */,
 				8CFA16E620856E9800813EA6 /* CreateRecover.storyboard in Resources */,
 				8C18828A20868545002E2835 /* Montserrat-SemiBoldItalic.ttf in Resources */,
 				8C1882B4208696A8002E2835 /* SLPasswordField.xib in Resources */,
@@ -1386,6 +1401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C8275B8208EA1B30029BE7E /* ChannelOpenPresenter.swift in Sources */,
+				8C7745A3209BD6FD004EBA69 /* WalletPageView.swift in Sources */,
 				8C8275B9208EA1B30029BE7E /* ChannelOpenWorker.swift in Sources */,
 				8C686541209A6E87001E41DA /* CameraMainInteractor.swift in Sources */,
 				8C82760A20912A890029BE7E /* SLFormPaySummaryView.swift in Sources */,

@@ -18,11 +18,12 @@ protocol WalletMainDisplayLogic: class {
 }
 
 
-class WalletMainViewController: UIViewController, WalletMainDisplayLogic
-{
+class WalletMainViewController: UIViewController, WalletMainDisplayLogic {
+  
   var interactor: WalletMainBusinessLogic?
   var router: (NSObjectProtocol & WalletMainRoutingLogic & WalletMainDataPassing)?
 
+  
   // MARK: Object lifecycle
   
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -40,12 +41,14 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic
   
   @IBOutlet weak var totalBalanceLabel: UILabel!
   @IBOutlet weak var channelBalanceLabel: UILabel!
+  @IBOutlet weak var pagingScrollView: UIScrollView!
+  @IBOutlet weak var transactionView: WalletPageView!
+  @IBOutlet weak var channelView: WalletPageView!
   
   
   // MARK: Setup
   
-  private func setup()
-  {
+  private func setup() {
     let viewController = self
     let interactor = WalletMainInteractor()
     let presenter = WalletMainPresenter()
@@ -63,6 +66,15 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    // Paging buttons target assignment
+    transactionView.chHdrButton.addTarget(self, action: #selector(channelTapped), for: .touchUpInside)
+    channelView.txnHdrButton.addTarget(self, action: #selector(transactionTapped), for: .touchUpInside)
+    
+    // Bottom buttons target assignment
+    transactionView.leftButton.addTarget(self, action: #selector(payTapped), for: .touchUpInside)
+    transactionView.rightButton.addTarget(self, action:#selector(receiveTapped), for: .touchUpInside)
+    channelView.leftButton.addTarget(self, action: #selector(openChannelTapped), for: .touchUpInside)
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -71,23 +83,43 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic
   }
   
   
+  // MARK: Paging control
+  
+  @objc private func channelTapped(_ sender: UIButton) {
+    pagingScrollView.setContentOffset(CGPoint(x: transactionView.bounds.width, y: 0.0), animated: true)
+  }
+  
+  @objc private func transactionTapped(_ sender: UIButton) {
+    pagingScrollView.setContentOffset(CGPoint(x: 0.0, y: 0.0), animated: true)
+  }
+  
+  
   // MARK: Pay
   
-  @IBAction func payTapped(_ sender: SLBarButton) {
+  @objc private func payTapped(_ sender: SLBarButton) {
     router?.routeToPayMain()
   }
   
   
   // MARK: Receive
   
-  @IBAction func receiveTapped(_ sender: SLBarButton) {
+  @objc private func receiveTapped(_ sender: SLBarButton) {
     router?.routeToReceiveMain()
+  }
+  
+  
+  // MARK: Open Channel
+  
+  @objc private func openChannelTapped(_ sender: SLBarButton) {
+    let storyboard = UIStoryboard(name: "ChannelOpen", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChannelOpenViewController") as! ChannelOpenViewController
+    navigationController?.pushViewController(destinationVC, animated: true)
   }
   
   
   // MARK: Update Balance - This is Temporary
   
-  @IBAction func updateBalanceTapped(_ sender: SLBarButton) {
+  private func updateBalanceTapped(_ sender: SLBarButton) {
     updateBalances()
   }
   
@@ -109,14 +141,6 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic
     DispatchQueue.main.async {
       self.present(alertDialog, animated: true, completion: nil)
     }
-  }
-  
-  // MARK: Open Channel - This is Temporary.
-  
-  @IBAction func openChannel(_ sender: SLBarButton) {
-    let storyboard = UIStoryboard(name: "ChannelOpen", bundle: nil)
-    let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChannelOpenViewController") as! ChannelOpenViewController
-    navigationController?.pushViewController(destinationVC, animated: true)
   }
   
 }
