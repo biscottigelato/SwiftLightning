@@ -37,14 +37,29 @@ enum WalletMain
     struct Request {
       // TODO: Filters & Sorts
     }
+    struct Transactions {
+      var btcTransactions: [BTCTransaction]
+      var lnPayments: [LNPayment]
+    }
     struct Response {
-      
+      var result: Result<Transactions>
+    }
+    struct Transaction {
+      var date: Date
+      var paymentType: BitcoinPaymentType
+      var address: String
+      var statusText: String
+      var statusColor: UIColor
+      var dateText: String
+      var amountText: String
+      var feeText: String
     }
     struct ViewModel {
-      
+      var transactions: [Transaction]
     }
     struct ErrorVM {
-      
+      var errTitle: String
+      var errMsg: String
     }
   }
   

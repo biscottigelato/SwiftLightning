@@ -16,6 +16,7 @@ protocol WalletMainPresentationLogic
 {
   func presentUpdatedBalances(response: WalletMain.UpdateBalances.Response)
   func presentUpdatedChannels(response: WalletMain.UpdateChannels.Response)
+  func presentUpdatedTransactions(response: WalletMain.UpdateTransactions.Response)
 }
 
 class WalletMainPresenter: WalletMainPresentationLogic {
@@ -39,6 +40,125 @@ class WalletMainPresenter: WalletMainPresentationLogic {
                                                         channelBalanceString: channelString)
     viewController?.displayBalances(viewModel: viewModel)
   }
+  
+  
+  // MARK: Update Transactions
+  func presentUpdatedTransactions(response: WalletMain.UpdateTransactions.Response) {
+    switch response.result {
+    case .success(let result):
+      
+      typealias Transaction = WalletMain.UpdateTransactions.Transaction
+      
+      var transactions = [Transaction]()
+      var statusText: String
+      var statusColor: UIColor
+      var dateText: String
+      let dateFormatter = DateFormatter()
+      dateFormatter.locale = Locale.current
+      dateFormatter.setLocalizedDateFormatFromTemplate("MMM d yyyy, h:mm a")
+      
+      for btcTransaction in result.btcTransactions {
+        guard btcTransaction.destAddresses.count > 0 else {
+          SLLog.warning("No destination addresses in btcTransaction")
+          continue
+        }
+
+        // Amounts & Fee
+        let amount = Bitcoin(inSatoshi: btcTransaction.amount)
+        let fee = Bitcoin(inSatoshi: btcTransaction.totalFees)
+        
+        // Determine date
+        let date = Date(timeIntervalSince1970: TimeInterval(btcTransaction.timeStamp))
+        
+        if btcTransaction.amount < 0 {
+          dateText = "Sent on \(dateFormatter.string(from: date))"
+        } else {
+          dateText = "Received on \(dateFormatter.string(from: date))"
+        }
+        
+        // The only thing that can affect the status label is # of confirmations?
+        statusText = "\(btcTransaction.numConfirmations) confs"
+        switch btcTransaction.numConfirmations {
+        case 6...Int.max:
+          statusText = "6+ confs"
+          statusColor = UIColor.medAquamarine
+        case 3..<6:
+          statusColor = UIColor.medAquamarine
+        case 2..<3:
+          statusColor = UIColor.mediumTextGray
+        case 1:
+          statusText = "1 conf"
+          statusColor = UIColor.mediumTextGray
+        case 0:
+          statusColor = UIColor.sandyOrange
+        default:
+          statusText = "Error"
+          statusColor = UIColor.jellyBeanRed
+        }
+        
+        let transaction = Transaction(date: date,
+                                      paymentType: .onChain,
+                                      address: btcTransaction.destAddresses[0],
+                                      statusText: statusText,
+                                      statusColor: statusColor,
+                                      dateText: dateText,
+                                      amountText: amount.formattedInSatoshis(),
+                                      feeText: fee.formattedInSatoshis())
+        
+        transactions.append(transaction)
+      }
+      
+      for lnPayment in result.lnPayments {
+        
+        guard lnPayment.path.count > 0, let address = lnPayment.path.last else {
+          SLLog.assert("0 paths in LN Payment")
+          continue
+        }
+        
+        // Amount & fee
+        let amount = Bitcoin(inSatoshi: lnPayment.value)
+        let fee = Bitcoin(inSatoshi: lnPayment.fee)
+        
+        // Determine date
+        let date = Date(timeIntervalSince1970: TimeInterval(lnPayment.creationDate))
+        dateText = "Sent on \(dateFormatter.string(from: date))"
+        
+        // What status is there to report but hops?
+        let hops = lnPayment.path.count - 1
+        if hops == 1 {
+          statusText = "\(hops) hop"
+        } else {
+          statusText = "\(hops) hops"
+        }
+        statusColor = UIColor.mediumTextGray
+        
+        let transaction = Transaction(date: date,
+                                      paymentType: .lightning,
+                                      address: address,
+                                      statusText: statusText,
+                                      statusColor: statusColor,
+                                      dateText: dateText,
+                                      amountText: amount.formattedInSatoshis(),
+                                      feeText: fee.formattedInSatoshis())
+        
+        transactions.append(transaction)
+      }
+      
+      // TODO: Filter
+      
+      // Sort by status, then capacity, for now
+      transactions.sort { $0.date > $1.date }
+      
+      let viewModel = WalletMain.UpdateTransactions.ViewModel(transactions: transactions)
+      viewController?.updateTransactions(viewModel: viewModel)
+      
+    case .failure(let error):
+      let viewModel = WalletMain.UpdateTransactions.ErrorVM(errTitle: "Transactions Error",
+                                                            errMsg: error.localizedDescription)
+      viewController?.displayTransactionsError(viewModel: viewModel)
+    }
+  }
+  
   
   
   // MARK: Update Channels

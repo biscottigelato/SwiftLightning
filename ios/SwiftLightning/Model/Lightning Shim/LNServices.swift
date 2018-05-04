@@ -292,6 +292,64 @@ class LNServices {
   }
   
   
+  // MARK: Get Transactions
+  
+  static func getTransactions(retryCount: Int = LNConstants.defaultRetryCount,
+                             retryDelay: Double = LNConstants.defaultRetryDelay,
+                             completion: @escaping (() throws -> ([BTCTransaction])) -> Void) {
+    let retry = SLRetry()
+    let task = { () -> () in
+      do {
+        try prepareLightningService()
+        
+        // Unary GRPC
+        _ = try lightningService!.getTransactions(Lnrpc_GetTransactionsRequest()) { (response, result) in
+          if let response = response {
+            SLLog.debug("Get Bitcoin Transactions Success!")
+            var btcTransactions = [BTCTransaction]()
+            
+            for (index, transaction) in response.transactions.enumerated() {
+              let btcTransaction = BTCTransaction(txHash: transaction.txHash,
+                                                  amount: Int(transaction.amount),
+                                                  numConfirmations: Int(transaction.numConfirmations),
+                                                  blockHash: transaction.blockHash,
+                                                  blockHeight: Int(transaction.blockHeight),
+                                                  timeStamp: Int(transaction.timeStamp),
+                                                  totalFees: Int(transaction.totalFees),
+                                                  destAddresses: transaction.destAddresses)
+              
+              btcTransactions.append(btcTransaction)
+              
+              SLLog.verbose("")
+              SLLog.verbose("Bitcoin Transaction #\(index)")
+              SLLog.verbose(String(describing: btcTransaction))
+            }
+            
+            // Success! - dereference retry
+            retry.success()
+            completion({ return btcTransactions })
+            
+          } else {
+            let message = result.statusMessage ?? result.description
+            
+            // Error - attempt to retry?
+            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
+          }
+        }
+      } catch {
+        // Error - attempt to retry
+        retry.attempt(error: error)
+      }
+    }
+    let fail = { (error: Error) -> () in
+      SLLog.warning("Get Bitcoin Transactions Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    retry.start("Get Bitcoin Transactions", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
+  
+  
   // MARK: Send Coins
   
   static func sendCoins(address: String, amount: Int, targetConf: Int? = nil, satPerByte: Int? = nil,
@@ -1022,6 +1080,62 @@ class LNServices {
     }
     
     retry.start("LN Decode Pay Req", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
+  
+  
+  // MARK: List Payments
+  
+  static func listPayments(retryCount: Int = LNConstants.defaultRetryCount,
+                           retryDelay: Double = LNConstants.defaultRetryDelay,
+                           completion: @escaping (() throws -> ([LNPayment])) -> Void) {
+    let retry = SLRetry()
+    let task = { () -> () in
+      do {
+        try prepareLightningService()
+        
+        // Unary GRPC
+        _ = try lightningService!.listPayments(Lnrpc_ListPaymentsRequest()) { (response, result) in
+          if let response = response {
+            SLLog.debug("List LN Payments Success!")
+            var lnPayments = [LNPayment]()
+            
+            for (index, payment) in response.payments.enumerated() {
+              let lnPayment = LNPayment(paymentHash: payment.paymentHash,
+                                        value: Int(payment.value),
+                                        creationDate: Int(payment.creationDate),
+                                        path: payment.path,
+                                        fee: Int(payment.fee),
+                                        paymentPreimage: payment.paymentPreimage)
+              
+              lnPayments.append(lnPayment)
+              
+              SLLog.verbose("")
+              SLLog.verbose("Lightning Payment #\(index)")
+              SLLog.verbose(String(describing: lnPayment))
+            }
+            
+            // Success! - dereference retry
+            retry.success()
+            completion({ return lnPayments })
+            
+          } else {
+            let message = result.statusMessage ?? result.description
+            
+            // Error - attempt to retry?
+            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
+          }
+        }
+      } catch {
+        // Error - attempt to retry
+        retry.attempt(error: error)
+      }
+    }
+    let fail = { (error: Error) -> () in
+      SLLog.warning("List LN Payments Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    retry.start("List LN Payments", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   

@@ -15,6 +15,7 @@ import UIKit
 protocol WalletMainBusinessLogic {
   func updateBalances(request: WalletMain.UpdateBalances.Request)
   func updateChannels(request: WalletMain.UpdateChannels.Request)
+  func updateTransactions(request: WalletMain.UpdateTransactions.Request)
 }
 
 protocol WalletMainDataStore { }
@@ -49,6 +50,40 @@ class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
       } catch {
         let response = WalletMain.UpdateBalances.Response(onChainBalance: nil, channelBalance: nil)
         self.presenter?.presentUpdatedBalances(response: response)
+      }
+    }
+  }
+  
+  
+  // MARK: Update Transactions
+  
+  func updateTransactions(request: WalletMain.UpdateTransactions.Request) {
+    
+    LNServices.getTransactions { (btcResponder) in
+      do {
+        let btcTransactions = try btcResponder()
+        
+        LNServices.listPayments { (lnResponder) in
+          do {
+            let lnPayments = try lnResponder()
+            let transactions = WalletMain.UpdateTransactions.Transactions(btcTransactions: btcTransactions,
+                                                                          lnPayments: lnPayments)
+            
+            let result = Result<WalletMain.UpdateTransactions.Transactions>.success(transactions)
+            let response = WalletMain.UpdateTransactions.Response(result: result)
+            self.presenter?.presentUpdatedTransactions(response: response)
+            
+          } catch {
+            let result = Result<WalletMain.UpdateTransactions.Transactions>.failure(error)
+            let response = WalletMain.UpdateTransactions.Response(result: result)
+            self.presenter?.presentUpdatedTransactions(response: response)
+          }
+        }
+        
+      } catch {
+        let result = Result<WalletMain.UpdateTransactions.Transactions>.failure(error)
+        let response = WalletMain.UpdateTransactions.Response(result: result)
+        self.presenter?.presentUpdatedTransactions(response: response)
       }
     }
   }

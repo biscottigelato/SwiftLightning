@@ -273,13 +273,51 @@ struct LNPendingForceCloseChannel: CustomStringConvertible {
 }
 
 
-struct LNTransaction {
+struct LNPayment {
+  var paymentHash: String
+  var value: Int
+  var creationDate: Int
+  var path: [String]
+  var fee: Int
+  var paymentPreimage: String
   
+  var description: String {
+    return """
+      Lightning Payment detail -
+        paymentHash: \(paymentHash)
+        value: \(value)
+        creationDate: \(creationDate)
+        path: \(path.joined(separator: ", "))
+        fee: \(fee)
+        paymentPreimage: \(paymentPreimage)
+    """
+  }
 }
 
 
-struct BTCTransactions {
+struct BTCTransaction {
+  var txHash: String
+  var amount: Int
+  var numConfirmations: Int
+  var blockHash: String
+  var blockHeight: Int
+  var timeStamp: Int
+  var totalFees: Int
+  var destAddresses: [String]
   
+  var description: String {
+    return """
+      Bitcoin Transaction detail -
+        txHash: \(txHash)
+        amount: \(amount)
+        numConfirmations: \(numConfirmations)
+        blockHash: \(blockHash)
+        blockHeight: \(blockHeight)
+        timeStamp: \(timeStamp)
+        totalFees: \(totalFees)
+        destAddresses: \(destAddresses)
+    """
+  }
 }
 
 

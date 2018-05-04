@@ -17,6 +17,8 @@ protocol WalletMainDisplayLogic: class {
   func displayBalancesError(viewModel: WalletMain.UpdateBalances.ErrorVM)
   func updateChannels(viewModel: WalletMain.UpdateChannels.ViewModel)
   func displayChannelsError(viewModel: WalletMain.UpdateChannels.ErrorVM)
+  func updateTransactions(viewModel: WalletMain.UpdateTransactions.ViewModel)
+  func displayTransactionsError(viewModel: WalletMain.UpdateTransactions.ErrorVM)
 }
 
 
@@ -94,6 +96,7 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     updateBalances()
+    fetchTransactions()
     fetchChannels()
   }
   
@@ -128,7 +131,7 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch tableView {
     case transactionView.tableView:
-      return 0  // TODO:
+      return transactions.count
 
     case channelView.tableView:
       return channels.count
@@ -155,6 +158,8 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
   
   // MARK: Transactions Table View
   
+  var transactions = [WalletMain.UpdateTransactions.Transaction]()
+  
   private func setupTransactionTableView() {
     let nib = UINib(nibName: "TxnTableViewCell", bundle: nil)
     transactionView.tableView.register(nib, forCellReuseIdentifier: Constants.txnCellReuseID)
@@ -164,8 +169,47 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
   }
   
   private func transactionTableView(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = transactionView.tableView.dequeueReusableCell(withIdentifier: Constants.txnCellReuseID, for: indexPath)
+    guard let cell = transactionView.tableView.dequeueReusableCell(withIdentifier: Constants.txnCellReuseID, for: indexPath) as? TxnTableViewCell else {
+      SLLog.fatal("Dequeued cell with identifier \(Constants.txnCellReuseID) not of TxnTableViewCell type")
+    }
+    
+    switch transactions[indexPath.row].paymentType {
+    case .lightning:
+      cell.payTypeImageView.image = UIImage(named: "BoltColored")
+    case .onChain:
+      cell.payTypeImageView.image = UIImage(named: "ChainColored")
+    }
+    
+    cell.addressLabel.text = transactions[indexPath.row].address
+    cell.statusLabel.text = transactions[indexPath.row].statusText
+    cell.statusLabel.textColor = transactions[indexPath.row].statusColor
+    cell.dateLabel.text = transactions[indexPath.row].dateText
+    cell.amountLabel.text = transactions[indexPath.row].amountText
+    cell.feeLabel.text = transactions[indexPath.row].feeText
+    
     return cell
+  }
+  
+  private func fetchTransactions() {
+    let request = WalletMain.UpdateTransactions.Request()
+    interactor?.updateTransactions(request: request)
+  }
+  
+  func updateTransactions(viewModel: WalletMain.UpdateTransactions.ViewModel) {
+    transactions = viewModel.transactions
+    
+    DispatchQueue.main.async {
+      self.transactionView.tableView.reloadData()
+    }
+  }
+  
+  func displayTransactionsError(viewModel: WalletMain.UpdateTransactions.ErrorVM) {
+    let alertDialog = UIAlertController(title: viewModel.errTitle,
+                                        message: viewModel.errMsg,
+                                        preferredStyle: .alert).addAction(title: "OK", style: .default, handler: nil)
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true, completion: nil)
+    }
   }
   
   
@@ -211,7 +255,6 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
     let alertDialog = UIAlertController(title: viewModel.errTitle,
                                         message: viewModel.errMsg,
                                         preferredStyle: .alert).addAction(title: "OK", style: .default, handler: nil)
-    
     DispatchQueue.main.async {
       self.present(alertDialog, animated: true, completion: nil)
     }
