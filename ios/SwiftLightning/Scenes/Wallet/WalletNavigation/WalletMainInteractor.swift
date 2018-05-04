@@ -14,6 +14,7 @@ import UIKit
 
 protocol WalletMainBusinessLogic {
   func updateBalances(request: WalletMain.UpdateBalances.Request)
+  func updateChannels(request: WalletMain.UpdateChannels.Request)
 }
 
 protocol WalletMainDataStore { }
@@ -26,7 +27,6 @@ class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
   // MARK: Update Balances
   
   func updateBalances(request: WalletMain.UpdateBalances.Request) {
-    
     LNServices.walletBalance() { (walletResponder) in
       do {
         let onChainBalance = try walletResponder()
@@ -51,6 +51,43 @@ class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
         self.presenter?.presentUpdatedBalances(response: response)
       }
     }
+  }
+  
+  
+  // MARK: Update Channels
+  
+  func updateChannels(request: WalletMain.UpdateChannels.Request) {
+    
+    // Get list of normal channels
+    LNServices.listChannels { (listResponder) in
+      do {
+        let lists = try listResponder()
 
+        // Get list of pending channels
+        LNServices.pendingChannels { (pendingResponder) in
+          do {
+            let pendings = try pendingResponder()
+            let channels = WalletMain.UpdateChannels.Channels(openedChannels: lists,
+                                                              pendingOpenChannels: pendings.pendingOpen,
+                                                              pendingCloseChannels: pendings.pendingClose,
+                                                              pendingForceCloseChannels: pendings.pendingForceClose)
+            
+            let result = Result<WalletMain.UpdateChannels.Channels>.success(channels)
+            let response = WalletMain.UpdateChannels.Response(result: result)
+            self.presenter?.presentUpdatedChannels(response: response)
+            
+          } catch {
+            let result = Result<WalletMain.UpdateChannels.Channels>.failure(error)
+            let response = WalletMain.UpdateChannels.Response(result: result)
+            self.presenter?.presentUpdatedChannels(response: response)
+          }
+        }
+      
+      } catch {
+        let result = Result<WalletMain.UpdateChannels.Channels>.failure(error)
+        let response = WalletMain.UpdateChannels.Response(result: result)
+        self.presenter?.presentUpdatedChannels(response: response)
+      }
+    }
   }
 }

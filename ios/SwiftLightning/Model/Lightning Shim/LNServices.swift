@@ -554,6 +554,121 @@ class LNServices {
   }
   
   
+  // MARK: Pending Channels
+  
+  static func pendingChannels(retryCount: Int = LNConstants.defaultRetryCount,
+                              retryDelay: Double = LNConstants.defaultRetryDelay,
+                              completion: @escaping (() throws -> (pendingOpen: [LNPendingOpenChannel],
+                                                                   pendingClose: [LNPendingCloseChannel],
+                                                                   pendingForceClose: [LNPendingForceCloseChannel])) -> Void) {
+    let retry = SLRetry()
+    let task = { () -> () in
+      do {
+        try prepareLightningService()
+        
+        // Unary GRPC
+        _ = try lightningService!.pendingChannels(Lnrpc_PendingChannelsRequest()) { (response, result) in
+          if let response = response {
+            SLLog.debug("LN Pending Channels Success!")
+            
+            var lnPendingOpenChannels = [LNPendingOpenChannel]()
+            for (index, pendingOpenChannel) in response.pendingOpenChannels.enumerated() {
+              
+              let lnPendingChannel = LNPendingChannel(remoteNodePub: pendingOpenChannel.channel.remoteNodePub,
+                                                      channelPoint: pendingOpenChannel.channel.channelPoint,
+                                                      capacity: Int(pendingOpenChannel.channel.capacity),
+                                                      localBalance: Int(pendingOpenChannel.channel.localBalance),
+                                                      remoteBalance: Int(pendingOpenChannel.channel.remoteBalance))
+              
+              let lnPendingOpenChannel = LNPendingOpenChannel(channel: lnPendingChannel,
+                                                              confirmationHeight: UInt(pendingOpenChannel.confirmationHeight),
+                                                              commitFee: Int(pendingOpenChannel.commitFee),
+                                                              commitWeight: Int(pendingOpenChannel.commitWeight),
+                                                              feePerKw: Int(pendingOpenChannel.feePerKw))
+              
+              lnPendingOpenChannels.append(lnPendingOpenChannel)
+              
+              SLLog.verbose("")
+              SLLog.verbose("Pending Open Channel #\(index)")
+              SLLog.verbose(String(describing: lnPendingOpenChannel))
+            }
+              
+            var lnPendingCloseChannels = [LNPendingCloseChannel]()
+            for (index, pendingCloseChannel) in response.pendingClosingChannels.enumerated() {
+              
+              let lnPendingChannel = LNPendingChannel(remoteNodePub: pendingCloseChannel.channel.remoteNodePub,
+                                                      channelPoint: pendingCloseChannel.channel.channelPoint,
+                                                      capacity: Int(pendingCloseChannel.channel.capacity),
+                                                      localBalance: Int(pendingCloseChannel.channel.localBalance),
+                                                      remoteBalance: Int(pendingCloseChannel.channel.remoteBalance))
+              
+              let lnPendingCloseChannel = LNPendingCloseChannel(channel: lnPendingChannel, closingTxID: pendingCloseChannel.closingTxid)
+              lnPendingCloseChannels.append(lnPendingCloseChannel)
+              
+              SLLog.verbose("")
+              SLLog.verbose("Pending Close Channel #\(index)")
+              SLLog.verbose(String(describing: lnPendingCloseChannel))
+            }
+            
+            var lnPendingForceCloseChannels = [LNPendingForceCloseChannel]()
+            for (index, pendingForceCloseChannel) in response.pendingForceClosingChannels.enumerated() {
+              
+              let lnPendingChannel = LNPendingChannel(remoteNodePub: pendingForceCloseChannel.channel.remoteNodePub,
+                                                      channelPoint: pendingForceCloseChannel.channel.channelPoint,
+                                                      capacity: Int(pendingForceCloseChannel.channel.capacity),
+                                                      localBalance: Int(pendingForceCloseChannel.channel.localBalance),
+                                                      remoteBalance: Int(pendingForceCloseChannel.channel.remoteBalance))
+              
+              var lnPendingHTLCs = [LNPendingHTLC]()
+              for pendingHTLC in pendingForceCloseChannel.pendingHtlcs {
+                let lnPendingHTLC = LNPendingHTLC(incoming: pendingHTLC.incoming,
+                                                  amount: Int(pendingHTLC.amount),
+                                                  outpoint: pendingHTLC.outpoint,
+                                                  maturityHeight: UInt(pendingHTLC.maturityHeight),
+                                                  blocksTilMaturity: Int(pendingHTLC.blocksTilMaturity),
+                                                  stage: UInt(pendingHTLC.stage))
+                lnPendingHTLCs.append(lnPendingHTLC)
+              }
+              
+              let lnPendingForceCloseChannel = LNPendingForceCloseChannel(channel: lnPendingChannel,
+                                                                          closingTxID: pendingForceCloseChannel.closingTxid,
+                                                                          limboBalance: Int(pendingForceCloseChannel.limboBalance),
+                                                                          maturityHeight: UInt(pendingForceCloseChannel.maturityHeight),
+                                                                          blocksTilMaturity: Int(pendingForceCloseChannel.blocksTilMaturity),
+                                                                          recoveredBalance: Int(pendingForceCloseChannel.recoveredBalance),
+                                                                          pendingHTLCs: lnPendingHTLCs)
+              lnPendingForceCloseChannels.append(lnPendingForceCloseChannel)
+              
+              SLLog.verbose("")
+              SLLog.verbose("Pending Force Close Channel #\(index)")
+              SLLog.verbose(String(describing: lnPendingForceCloseChannel))
+            }
+            
+            // Success! - dereference retry
+            retry.success()
+            completion({ return (lnPendingOpenChannels, lnPendingCloseChannels, lnPendingForceCloseChannels) })
+            
+          } else {
+            let message = result.statusMessage ?? result.description
+            
+            // Error - attempt to retry?
+            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
+          }
+        }
+      } catch {
+        // Error - attempt to retry
+        retry.attempt(error: error)
+      }
+    }
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Pending Channels Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    retry.start("LN Pending Channels", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
+  
+  
   // MARK: List Channels
   
   static func listChannels(retryCount: Int = LNConstants.defaultRetryCount,

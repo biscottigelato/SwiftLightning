@@ -15,14 +15,33 @@ import UIKit
 protocol WalletMainDisplayLogic: class {
   func displayBalances(viewModel: WalletMain.UpdateBalances.ViewModel)
   func displayBalancesError(viewModel: WalletMain.UpdateBalances.ErrorVM)
+  func updateChannels(viewModel: WalletMain.UpdateChannels.ViewModel)
+  func displayChannelsError(viewModel: WalletMain.UpdateChannels.ErrorVM)
 }
 
 
-class WalletMainViewController: UIViewController, WalletMainDisplayLogic {
+class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITableViewDelegate, UITableViewDataSource {
   
   var interactor: WalletMainBusinessLogic?
   var router: (NSObjectProtocol & WalletMainRoutingLogic & WalletMainDataPassing)?
 
+  
+  // MARK: Local Constants
+  
+  struct Constants {
+    static let txnCellReuseID = "TransactionCell"
+    static let chCellReuseID = "ChannelCell"
+  }
+  
+  
+  // MARK: IBOutlets
+  
+  @IBOutlet weak var totalBalanceLabel: UILabel!
+  @IBOutlet weak var channelBalanceLabel: UILabel!
+  @IBOutlet weak var pagingScrollView: UIScrollView!
+  @IBOutlet weak var transactionView: WalletPageView!
+  @IBOutlet weak var channelView: WalletPageView!
+  
   
   // MARK: Object lifecycle
   
@@ -35,15 +54,6 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic {
     super.init(coder: aDecoder)
     setup()
   }
-  
-  
-  // MARK: IBOutlets
-  
-  @IBOutlet weak var totalBalanceLabel: UILabel!
-  @IBOutlet weak var channelBalanceLabel: UILabel!
-  @IBOutlet weak var pagingScrollView: UIScrollView!
-  @IBOutlet weak var transactionView: WalletPageView!
-  @IBOutlet weak var channelView: WalletPageView!
   
   
   // MARK: Setup
@@ -75,11 +85,16 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic {
     transactionView.leftButton.addTarget(self, action: #selector(payTapped), for: .touchUpInside)
     transactionView.rightButton.addTarget(self, action:#selector(receiveTapped), for: .touchUpInside)
     channelView.leftButton.addTarget(self, action: #selector(openChannelTapped), for: .touchUpInside)
+    
+    // Setup Table Views
+    setupTransactionTableView()
+    setupChannelTableView()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     updateBalances()
+    fetchChannels()
   }
   
   
@@ -91,6 +106,115 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic {
   
   @objc private func transactionTapped(_ sender: UIButton) {
     pagingScrollView.setContentOffset(CGPoint(x: 0.0, y: 0.0), animated: true)
+  }
+  
+  
+  // MARK: Table View Delegates
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    switch tableView {
+    case transactionView.tableView:
+      return TxnTableViewCell.Constants.preferredHeight
+      
+    case channelView.tableView:
+      return ChTableViewCell.Constants.preferredHeight
+    
+    default:
+      SLLog.fatal("Unrecognized Tableview - \(tableView)")
+    }
+  }
+  
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    switch tableView {
+    case transactionView.tableView:
+      return 0  // TODO:
+
+    case channelView.tableView:
+      return channels.count
+
+    default:
+      SLLog.fatal("Unrecognized Tableview - \(tableView)")
+    }
+  }
+  
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    switch tableView {
+    case transactionView.tableView:
+      return transactionTableView(cellForRowAt: indexPath)
+      
+    case channelView.tableView:
+      return channelTableView(cellForRowAt: indexPath)
+      
+    default:
+      SLLog.fatal("Unrecognized Tableview - \(tableView)")
+    }
+  }
+  
+  
+  // MARK: Transactions Table View
+  
+  private func setupTransactionTableView() {
+    let nib = UINib(nibName: "TxnTableViewCell", bundle: nil)
+    transactionView.tableView.register(nib, forCellReuseIdentifier: Constants.txnCellReuseID)
+    transactionView.tableView.delegate = self
+    transactionView.tableView.dataSource = self
+    transactionView.tableView.allowsSelection = false // TODO: Select to do more later
+  }
+  
+  private func transactionTableView(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = transactionView.tableView.dequeueReusableCell(withIdentifier: Constants.txnCellReuseID, for: indexPath)
+    return cell
+  }
+  
+  
+  // MARK: Channels Table View
+  
+  var channels = [WalletMain.UpdateChannels.Channel]()
+  
+  private func setupChannelTableView() {
+    let nib = UINib(nibName: "ChTableViewCell", bundle: nil)
+    channelView.tableView.register(nib, forCellReuseIdentifier: Constants.chCellReuseID)
+    channelView.tableView.delegate = self
+    channelView.tableView.dataSource = self
+    channelView.tableView.allowsSelection = false // TODO: Select to do more later
+  }
+  
+  private func channelTableView(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = channelView.tableView.dequeueReusableCell(withIdentifier: Constants.chCellReuseID, for: indexPath) as? ChTableViewCell else {
+      SLLog.fatal("Dequeued cell with identifier \(Constants.chCellReuseID) not of ChTableViewCell type")
+    }
+    cell.canPayAmountLabel.text = channels[indexPath.row].canPayAmt
+    cell.canRcvAmountLabel.text = channels[indexPath.row].canRcvAmt
+    cell.nodePubKeyLabel.text = channels[indexPath.row].nodePubKey
+    cell.statusLabel.text = channels[indexPath.row].statusText
+    cell.statusLabel.textColor = channels[indexPath.row].statusColor
+    
+    return cell
+  }
+  
+  private func fetchChannels() {
+    let request = WalletMain.UpdateChannels.Request()
+    interactor?.updateChannels(request: request)
+  }
+  
+  func updateChannels(viewModel: WalletMain.UpdateChannels.ViewModel) {
+    channels = viewModel.channels
+    
+    DispatchQueue.main.async {
+      self.channelView.tableView.reloadData()
+    }
+  }
+  
+  func displayChannelsError(viewModel: WalletMain.UpdateChannels.ErrorVM) {
+    let alertDialog = UIAlertController(title: viewModel.errTitle,
+                                        message: viewModel.errMsg,
+                                        preferredStyle: .alert).addAction(title: "OK", style: .default, handler: nil)
+    
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true, completion: nil)
+    }
   }
   
   

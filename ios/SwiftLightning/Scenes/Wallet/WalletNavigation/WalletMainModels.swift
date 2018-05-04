@@ -15,11 +15,8 @@ import UIKit
 enum WalletMain
 {
   // MARK: Update Balances
-  
   enum UpdateBalances {
-    
-    struct Request {
-    }
+    struct Request { }
     struct Response {
       var onChainBalance: Bitcoin?
       var channelBalance: Bitcoin?
@@ -27,6 +24,65 @@ enum WalletMain
     struct ViewModel {
       var totalBalanceString: String
       var channelBalanceString: String
+    }
+    struct ErrorVM {
+      var errTitle: String
+      var errMsg: String
+    }
+  }
+  
+  
+  // MARK: Update Transactions
+  enum UpdateTransactions {
+    struct Request {
+      // TODO: Filters & Sorts
+    }
+    struct Response {
+      
+    }
+    struct ViewModel {
+      
+    }
+    struct ErrorVM {
+      
+    }
+  }
+  
+  
+  // MARK: Update Channels
+  enum UpdateChannels {
+    struct Request {
+      // TODO: Filters & Sorts
+    }
+    struct Channels {
+      var openedChannels: [LNChannel]
+      var pendingOpenChannels: [LNPendingOpenChannel]
+      var pendingCloseChannels: [LNPendingCloseChannel]
+      var pendingForceCloseChannels: [LNPendingForceCloseChannel]
+    }
+    struct Response {
+      var result: Result<Channels>
+    }
+    struct Channel {
+      enum State: Int {  // Order here determines default sort. Smaller the higher up the list
+        case error = 0
+        case pendingForceClose
+        case pendingClose
+        case pendingOpen
+        case connected
+        case disconnected
+      }
+      var canPayAmt: String  // TODO: Ref Amount
+      var canRcvAmt: String
+      var capacity: Bitcoin
+      var nodePubKey: String
+      var channelPoint: String
+      var state: State
+      var statusText: String
+      var statusColor: UIColor
+    }
+    struct ViewModel {
+      var channels: [Channel]
     }
     struct ErrorVM {
       var errTitle: String

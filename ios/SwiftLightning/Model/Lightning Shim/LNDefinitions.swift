@@ -98,6 +98,13 @@ struct LNPeer: CustomStringConvertible {
 
 
 struct LNChannel: CustomStringConvertible {
+  enum State {
+    case opened
+    case pendingOpen
+    case closed
+    case pendingClose
+  }
+
   var isActive: Bool
   var remotePubKey: String
   var channelPoint: String
@@ -159,6 +166,109 @@ struct LNHTLC: CustomStringConvertible {
         hashLock:         \(hashLock)
         expirationHeight: \(expirationHeight)
       """
+  }
+}
+
+
+struct LNPendingChannel: CustomStringConvertible {
+  var remoteNodePub: String
+  var channelPoint: String
+  var capacity: Int
+  var localBalance: Int
+  var remoteBalance: Int
+  
+  var description: String {
+    return """
+      Pending Channel details -
+        remoteNodePub: \(remoteNodePub)
+        channelPoint: \(channelPoint)
+        capacity: \(capacity)
+        localBalance: \(localBalance)
+        remoteBalance: \(remoteBalance)
+    """
+  }
+}
+
+
+struct LNPendingHTLC: CustomStringConvertible {
+  var incoming: Bool
+  var amount: Int
+  var outpoint: String
+  var maturityHeight: UInt
+  var blocksTilMaturity: Int
+  var stage: UInt
+
+  var description: String {
+    return """
+      Pending HTLC details -
+        incoming: \(incoming)
+        amount: \(amount)
+        outpoint: \(outpoint)
+        maturityHeight: \(maturityHeight)
+        blocksTilMaturity: \(blocksTilMaturity)
+        stage: \(stage)
+    """
+  }
+}
+
+struct LNPendingOpenChannel: CustomStringConvertible {
+  var channel: LNPendingChannel
+  var confirmationHeight: UInt
+  var commitFee: Int
+  var commitWeight: Int
+  var feePerKw: Int
+  
+  var description: String {
+    return """
+      Pending Open Channel details -
+        \(channel)
+        confirmationHeight: \(confirmationHeight)
+        commitFee: \(commitFee)
+        commitWeight: \(commitWeight)
+        feePerKw: \(feePerKw)
+    """
+  }
+}
+
+
+struct LNPendingCloseChannel: CustomStringConvertible {
+  var channel: LNPendingChannel
+  var closingTxID: String
+  
+  var description: String {
+    return """
+      Pending Close Channel details -
+        \(channel)
+        closingTxID: \(closingTxID)
+    """
+  }
+}
+
+
+struct LNPendingForceCloseChannel: CustomStringConvertible {
+  var channel: LNPendingChannel
+  var closingTxID: String
+  var limboBalance: Int
+  var maturityHeight: UInt
+  var blocksTilMaturity: Int
+  var recoveredBalance: Int
+  var pendingHTLCs: [LNPendingHTLC]
+  
+  var description: String {
+    var descriptiveString = """
+      Pending Force Close Channel details -
+        \(channel)
+        closingTxID: \(closingTxID)
+        limboBalance: \(limboBalance)
+        maturityHeight: \(maturityHeight)
+        blocksTilMaturity: \(blocksTilMaturity)
+        recoveredBalance: \(recoveredBalance)
+    """
+    
+    for (index, pendingHTLCs) in pendingHTLCs.enumerated() {
+      descriptiveString += "\nHTLC #\(index)\n\(pendingHTLCs)"
+    }
+    return descriptiveString
   }
 }
 

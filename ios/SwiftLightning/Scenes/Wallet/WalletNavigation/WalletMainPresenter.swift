@@ -15,6 +15,7 @@ import UIKit
 protocol WalletMainPresentationLogic
 {
   func presentUpdatedBalances(response: WalletMain.UpdateBalances.Response)
+  func presentUpdatedChannels(response: WalletMain.UpdateChannels.Response)
 }
 
 class WalletMainPresenter: WalletMainPresentationLogic {
@@ -37,5 +38,121 @@ class WalletMainPresenter: WalletMainPresentationLogic {
     let viewModel = WalletMain.UpdateBalances.ViewModel(totalBalanceString: totalString,
                                                         channelBalanceString: channelString)
     viewController?.displayBalances(viewModel: viewModel)
+  }
+  
+  
+  // MARK: Update Channels
+  
+  func presentUpdatedChannels(response: WalletMain.UpdateChannels.Response) {
+    switch response.result {
+    case .success(let result):
+      
+      typealias Channel = WalletMain.UpdateChannels.Channel
+      var channels = [Channel]()
+      var state: WalletMain.UpdateChannels.Channel.State
+      var statusText: String
+      var statusColor: UIColor
+      
+      for openedChannel in result.openedChannels {
+        if openedChannel.isActive {
+          state = .connected
+          statusText = "Connected"
+          statusColor = UIColor.medAquamarine
+        } else {
+          state = .disconnected
+          statusText = "Disconnected"
+          statusColor = UIColor.lightTextGray
+        }
+        
+        let canPayAmt = Bitcoin(inSatoshi: openedChannel.localBalance)
+        let canRcvAmt = Bitcoin(inSatoshi: openedChannel.remoteBalance)
+        
+        let channel = Channel(canPayAmt: canPayAmt.formattedInSatoshis(),
+                              canRcvAmt: canRcvAmt.formattedInSatoshis(),
+                              capacity: Bitcoin(inSatoshi: openedChannel.capacity),
+                              nodePubKey: openedChannel.remotePubKey,
+                              channelPoint: openedChannel.channelPoint,
+                              state: state,
+                              statusText: statusText,
+                              statusColor: statusColor)
+        
+        channels.append(channel)
+      }
+      
+      for pendingOpenChannel in result.pendingOpenChannels {
+        statusText = "Pending Open"
+        statusColor = UIColor.sandyOrange
+        
+        let canPayAmt = Bitcoin(inSatoshi: pendingOpenChannel.channel.localBalance)
+        let canRcvAmt = Bitcoin(inSatoshi: pendingOpenChannel.channel.remoteBalance)
+        
+        let channel = Channel(canPayAmt: canPayAmt.formattedInSatoshis(),
+                              canRcvAmt: canRcvAmt.formattedInSatoshis(),
+                              capacity: Bitcoin(inSatoshi: pendingOpenChannel.channel.capacity),
+                              nodePubKey: pendingOpenChannel.channel.remoteNodePub,
+                              channelPoint: pendingOpenChannel.channel.channelPoint,
+                              state: WalletMain.UpdateChannels.Channel.State.pendingOpen,
+                              statusText: statusText,
+                              statusColor: statusColor)
+        
+        channels.append(channel)
+      }
+      
+      for pendingCloseChannel in result.pendingCloseChannels {
+        statusText = "Pending Close"
+        statusColor = UIColor.sandyOrange
+        
+        let canPayAmt = Bitcoin(inSatoshi: pendingCloseChannel.channel.localBalance)
+        let canRcvAmt = Bitcoin(inSatoshi: pendingCloseChannel.channel.remoteBalance)
+        
+        let channel = Channel(canPayAmt: canPayAmt.formattedInSatoshis(),
+                              canRcvAmt: canRcvAmt.formattedInSatoshis(),
+                              capacity: Bitcoin(inSatoshi: pendingCloseChannel.channel.capacity),
+                              nodePubKey: pendingCloseChannel.channel.remoteNodePub,
+                              channelPoint: pendingCloseChannel.closingTxID,
+                              state: WalletMain.UpdateChannels.Channel.State.pendingClose,
+                              statusText: statusText,
+                              statusColor: statusColor)
+        
+        channels.append(channel)
+      }
+      
+      for pendingForceCloseChannel in result.pendingForceCloseChannels {
+        statusText = "Pending Force Close"
+        statusColor = UIColor.jellyBeanRed
+        
+        let canPayAmt = Bitcoin(inSatoshi: pendingForceCloseChannel.channel.localBalance)
+        let canRcvAmt = Bitcoin(inSatoshi: pendingForceCloseChannel.channel.remoteBalance)
+        
+        let channel = Channel(canPayAmt: canPayAmt.formattedInSatoshis(),
+                              canRcvAmt: canRcvAmt.formattedInSatoshis(),
+                              capacity: Bitcoin(inSatoshi: pendingForceCloseChannel.channel.capacity),
+                              nodePubKey: pendingForceCloseChannel.channel.remoteNodePub,
+                              channelPoint: pendingForceCloseChannel.closingTxID,
+                              state: WalletMain.UpdateChannels.Channel.State.pendingForceClose,
+                              statusText: statusText,
+                              statusColor: statusColor)
+        
+        channels.append(channel)
+      }
+      
+      // TODO: Filter
+      
+      // Sort by status, then capacity, for now
+      channels.sort {
+        guard $0.state.rawValue != $1.state.rawValue else {
+          return $0.capacity > $1.capacity
+        }
+        return $0.state.rawValue < $1.state.rawValue
+      }
+        
+      let viewModel = WalletMain.UpdateChannels.ViewModel(channels: channels)
+      viewController?.updateChannels(viewModel: viewModel)
+      
+    case .failure(let error):
+      let viewModel = WalletMain.UpdateChannels.ErrorVM(errTitle: "Channels Error",
+                                                        errMsg: error.localizedDescription)
+      viewController?.displayChannelsError(viewModel: viewModel)
+    }
   }
 }

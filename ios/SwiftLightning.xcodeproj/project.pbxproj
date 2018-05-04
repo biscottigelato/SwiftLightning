@@ -144,6 +144,10 @@
 		8C70EC15208E51A700D658DC /* HttpStatusCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EC14208E51A700D658DC /* HttpStatusCodes.swift */; };
 		8C77459C209BD6BC004EBA69 /* WalletPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C77459B209BD6BC004EBA69 /* WalletPageView.xib */; };
 		8C7745A3209BD6FD004EBA69 /* WalletPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745A2209BD6FD004EBA69 /* WalletPageView.swift */; };
+		8C7745AF209BF839004EBA69 /* TxnTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745AD209BF839004EBA69 /* TxnTableViewCell.swift */; };
+		8C7745B0209BF839004EBA69 /* TxnTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C7745AE209BF839004EBA69 /* TxnTableViewCell.xib */; };
+		8C7745B3209BF846004EBA69 /* ChTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745B1209BF846004EBA69 /* ChTableViewCell.swift */; };
+		8C7745B4209BF846004EBA69 /* ChTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C7745B2209BF846004EBA69 /* ChTableViewCell.xib */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SLLog.swift */; };
 		8C7EC53220950449001C8FD6 /* PayMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */; };
@@ -362,6 +366,10 @@
 		8C70EC14208E51A700D658DC /* HttpStatusCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpStatusCodes.swift; sourceTree = "<group>"; };
 		8C77459B209BD6BC004EBA69 /* WalletPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletPageView.xib; sourceTree = "<group>"; };
 		8C7745A2209BD6FD004EBA69 /* WalletPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPageView.swift; sourceTree = "<group>"; };
+		8C7745AD209BF839004EBA69 /* TxnTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxnTableViewCell.swift; sourceTree = "<group>"; };
+		8C7745AE209BF839004EBA69 /* TxnTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxnTableViewCell.xib; sourceTree = "<group>"; };
+		8C7745B1209BF846004EBA69 /* ChTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChTableViewCell.swift; sourceTree = "<group>"; };
+		8C7745B2209BF846004EBA69 /* ChTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChTableViewCell.xib; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLog.swift; sourceTree = "<group>"; };
 		8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainPresenter.swift; sourceTree = "<group>"; };
@@ -634,7 +642,7 @@
 				8C7D310220755A050068F2BD /* Support Files */,
 				8C4710FC20783DEB005D7ABC /* Extensions */,
 				8C090E082088197D009B8B8D /* Shared */,
-				8C7D310420755AE30068F2BD /* View Elements */,
+				8C7D310420755AE30068F2BD /* Common Views */,
 				8C090DEF20870AD3009B8B8D /* Model */,
 				8CFA16902082EB7300813EA6 /* Scenes */,
 				8C090E7120899D71009B8B8D /* Playground */,
@@ -722,6 +730,7 @@
 			isa = PBXGroup;
 			children = (
 				8C77459A209BD6A2004EBA69 /* WalletPages */,
+				8C7745A4209BF78A004EBA69 /* TableCells */,
 				8C6B7563208B17CB00B751A2 /* WalletNavigation.storyboard */,
 				8C70EC01208D6F9D00D658DC /* WalletNavigationController.swift */,
 				8C6B7557208B17BD00B751A2 /* WalletMainPresenter.swift */,
@@ -783,6 +792,33 @@
 			path = WalletPages;
 			sourceTree = "<group>";
 		};
+		8C7745A4209BF78A004EBA69 /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				8C7745A5209BF79B004EBA69 /* TransactionCell */,
+				8C7745A6209BF7A5004EBA69 /* ChannelCell */,
+			);
+			path = TableCells;
+			sourceTree = "<group>";
+		};
+		8C7745A5209BF79B004EBA69 /* TransactionCell */ = {
+			isa = PBXGroup;
+			children = (
+				8C7745AE209BF839004EBA69 /* TxnTableViewCell.xib */,
+				8C7745AD209BF839004EBA69 /* TxnTableViewCell.swift */,
+			);
+			path = TransactionCell;
+			sourceTree = "<group>";
+		};
+		8C7745A6209BF7A5004EBA69 /* ChannelCell */ = {
+			isa = PBXGroup;
+			children = (
+				8C7745B2209BF846004EBA69 /* ChTableViewCell.xib */,
+				8C7745B1209BF846004EBA69 /* ChTableViewCell.swift */,
+			);
+			path = ChannelCell;
+			sourceTree = "<group>";
+		};
 		8C7D30FE207542090068F2BD /* Protobuf */ = {
 			isa = PBXGroup;
 			children = (
@@ -802,7 +838,7 @@
 			path = "Support Files";
 			sourceTree = "<group>";
 		};
-		8C7D310420755AE30068F2BD /* View Elements */ = {
+		8C7D310420755AE30068F2BD /* Common Views */ = {
 			isa = PBXGroup;
 			children = (
 				8C70EC0A208D934200D658DC /* SLDesign.swift */,
@@ -816,7 +852,7 @@
 				8C70EC0C208DBC3B00D658DC /* SLBriefDialog */,
 				8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialog */,
 			);
-			path = "View Elements";
+			path = "Common Views";
 			sourceTree = "<group>";
 		};
 		8C7D310620755AF00068F2BD /* Assets */ = {
@@ -1274,6 +1310,7 @@
 				8C18829120868545002E2835 /* Montserrat-Thin.ttf in Resources */,
 				8C18828F20868545002E2835 /* Montserrat-Italic.ttf in Resources */,
 				8C090E2720885C84009B8B8D /* OpenSans-LightItalic.ttf in Resources */,
+				8C7745B0209BF839004EBA69 /* TxnTableViewCell.xib in Resources */,
 				8C8275C6208EA62C0029BE7E /* SLFormEntryView.xib in Resources */,
 				8C090E1220882552009B8B8D /* MnemonicExplain.storyboard in Resources */,
 				8C090E2820885C84009B8B8D /* OpenSans-Regular.ttf in Resources */,
@@ -1284,6 +1321,7 @@
 				8CFA16E32085510600813EA6 /* Colors.xcassets in Resources */,
 				8C18829320868545002E2835 /* Montserrat-Regular.ttf in Resources */,
 				8C090E4920894817009B8B8D /* MnemonicConfirm.storyboard in Resources */,
+				8C7745B4209BF846004EBA69 /* ChTableViewCell.xib in Resources */,
 				8C8275FA2091181A0029BE7E /* SLFormLabelView.xib in Resources */,
 				8C6B7568208BBBBF00B751A2 /* UnlockApp.storyboard in Resources */,
 				8C18829520868545002E2835 /* Montserrat-Black.ttf in Resources */,
@@ -1422,6 +1460,7 @@
 				8C090E4220894801009B8B8D /* MnemonicConfirmPresenter.swift in Sources */,
 				8C090E4720894801009B8B8D /* MnemonicConfirmInteractor.swift in Sources */,
 				8C6B7542208AF33200B751A2 /* RootWorker.swift in Sources */,
+				8C7745AF209BF839004EBA69 /* TxnTableViewCell.swift in Sources */,
 				8C1882A020868EBE002E2835 /* PasswordCreateModels.swift in Sources */,
 				8CE3AE612086AF3F007D1065 /* SLUnboxedHeading.swift in Sources */,
 				8C090E1020881DAB009B8B8D /* UIAlertController+Extension.swift in Sources */,
@@ -1458,6 +1497,7 @@
 				8C090E4E20894A94009B8B8D /* SLSeedField.swift in Sources */,
 				8CFA16A42082EF3A00813EA6 /* CreateRecoverModels.swift in Sources */,
 				8C8275BA208EA1B30029BE7E /* ChannelOpenRouter.swift in Sources */,
+				8C7745B3209BF846004EBA69 /* ChTableViewCell.swift in Sources */,
 				8C8275DC208FF1CF0029BE7E /* Bitcoin.swift in Sources */,
 				8C68653D209A6E87001E41DA /* CameraMainWorker.swift in Sources */,
 				8C18829F20868EBE002E2835 /* PasswordCreateRouter.swift in Sources */,
