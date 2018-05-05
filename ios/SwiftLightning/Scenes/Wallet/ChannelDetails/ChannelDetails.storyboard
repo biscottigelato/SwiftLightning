@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Channel Details View Controller-->
+        <scene sceneID="aV8-tP-hAO">
+            <objects>
+                <viewController storyboardIdentifier="ChannelDetailsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FIF-dK-J34" customClass="ChannelDetailsViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9VC-5L-EfZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oa1-dl-XVn" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
+                                <rect key="frame" x="10" y="84" width="355" height="413"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PEy-5n-9yT">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="413"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="osA-II-Ruv" userLabel="ContentView">
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="413"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lfh-2V-0ef">
+                                                        <rect key="frame" x="15" y="0.0" width="325" height="413"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="d9T-Oe-DYG" userLabel="Header Spacer">
+                                                                <rect key="frame" x="0.0" y="0.0" width="325" height="40"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="qhQ-Go-YQA"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="XwR-fm-Oqv" userLabel="Top Spacer">
+                                                                <rect key="frame" x="0.0" y="40" width="325" height="8"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="8" id="Gil-mb-ikD"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="GG0-iZ-18L" userLabel="Against Node" customClass="SLFormNodeView" customModule="SwiftLightning" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="48" width="325" height="120"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="titleText" value="Lightning Node"/>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="hideAliasStack">
+                                                                        <integer key="value" value="0"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="DC1-me-OL6" userLabel="Main Spacer">
+                                                                <rect key="frame" x="0.0" y="168" width="325" height="15"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="15" id="lH2-ia-XXE"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Fa6-K9-1Op" userLabel="Confirmation Speed" customClass="SLFormLabelView" customModule="SwiftLightning" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="183" width="325" height="60"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Channel Point"/>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="labelViewTypeIndex">
+                                                                        <integer key="value" value="0"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Zhp-gA-0ut" userLabel="Spacer">
+                                                                <rect key="frame" x="0.0" y="243" width="325" height="20"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="20" id="z4X-aW-EMx"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="mwy-gk-kbz" customClass="SLFormChSummaryView" customModule="SwiftLightning" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="263" width="325" height="70"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="titleText" value="Channel Capacity"/>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="hideFeeStack">
+                                                                        <integer key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="uwj-Mo-gPB" userLabel="Spacer">
+                                                                <rect key="frame" x="0.0" y="333" width="325" height="18"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="18" id="Zpz-Kj-tVW"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="2Q5-2u-fiX">
+                                                                <rect key="frame" x="0.0" y="351" width="325" height="42"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hkv-b5-Z4W" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="152.5" height="42"/>
+                                                                        <color key="backgroundColor" name="GenericGray"/>
+                                                                        <state key="normal" title="Cancel">
+                                                                            <color key="titleColor" name="NormalText"/>
+                                                                            <color key="titleShadowColor" name="GenericGrayShadow"/>
+                                                                        </state>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
+                                                                                <integer key="value" value="3"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="uB7-x9-zHg">
+                                                                        <rect key="frame" x="42" y="-43" width="240" height="128"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
+                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GoC-CJ-aK8" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                                        <rect key="frame" x="172.5" y="0.0" width="152.5" height="42"/>
+                                                                        <color key="backgroundColor" name="MedAquamarine"/>
+                                                                        <state key="normal" title="Confirm">
+                                                                            <color key="titleColor" name="NormalText"/>
+                                                                            <color key="titleShadowColor" name="MedAquamarineShadow"/>
+                                                                        </state>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
+                                                                                <integer key="value" value="3"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </button>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="DIu-8R-mD4" userLabel="Bottom Spacer">
+                                                                <rect key="frame" x="0.0" y="393" width="325" height="20"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="20" id="xuB-cR-ioU"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="lfh-2V-0ef" firstAttribute="leading" secondItem="osA-II-Ruv" secondAttribute="leading" constant="15" id="5MF-Cq-v5B"/>
+                                                    <constraint firstAttribute="bottom" secondItem="lfh-2V-0ef" secondAttribute="bottom" id="JOR-di-eSV"/>
+                                                    <constraint firstAttribute="trailing" secondItem="lfh-2V-0ef" secondAttribute="trailing" constant="15" id="Kve-6x-hAP"/>
+                                                    <constraint firstItem="lfh-2V-0ef" firstAttribute="top" secondItem="osA-II-Ruv" secondAttribute="top" id="cXD-Vp-JQg"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="osA-II-Ruv" firstAttribute="leading" secondItem="PEy-5n-9yT" secondAttribute="leading" id="Ih5-ro-cnj"/>
+                                            <constraint firstItem="osA-II-Ruv" firstAttribute="top" secondItem="PEy-5n-9yT" secondAttribute="top" id="LRn-Ap-ggD"/>
+                                            <constraint firstAttribute="trailing" secondItem="osA-II-Ruv" secondAttribute="trailing" id="Mei-wr-FrK"/>
+                                            <constraint firstAttribute="bottom" secondItem="osA-II-Ruv" secondAttribute="bottom" id="NE5-QG-TmC"/>
+                                        </constraints>
+                                    </scrollView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IUv-sn-EB3" customClass="SLFormHeaderView" customModule="SwiftLightning" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="PEy-5n-9yT" firstAttribute="leading" secondItem="oa1-dl-XVn" secondAttribute="leading" id="FvD-Zv-VM5"/>
+                                    <constraint firstItem="PEy-5n-9yT" firstAttribute="top" secondItem="oa1-dl-XVn" secondAttribute="top" id="LNF-N5-tlX"/>
+                                    <constraint firstAttribute="trailing" secondItem="PEy-5n-9yT" secondAttribute="trailing" id="ONi-f0-fsZ"/>
+                                    <constraint firstItem="IUv-sn-EB3" firstAttribute="leading" secondItem="oa1-dl-XVn" secondAttribute="leading" id="PUL-RM-Smc"/>
+                                    <constraint firstItem="osA-II-Ruv" firstAttribute="width" secondItem="oa1-dl-XVn" secondAttribute="width" id="cNK-tC-8fy"/>
+                                    <constraint firstItem="osA-II-Ruv" firstAttribute="height" secondItem="oa1-dl-XVn" secondAttribute="height" priority="800" id="f2M-nO-1xo"/>
+                                    <constraint firstAttribute="trailing" secondItem="IUv-sn-EB3" secondAttribute="trailing" id="meq-20-MQH"/>
+                                    <constraint firstItem="IUv-sn-EB3" firstAttribute="top" secondItem="oa1-dl-XVn" secondAttribute="top" id="qS3-Hb-MA6"/>
+                                    <constraint firstAttribute="bottom" secondItem="PEy-5n-9yT" secondAttribute="bottom" id="yE9-M8-mxJ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="oa1-dl-XVn" firstAttribute="top" secondItem="79j-cx-TNs" secondAttribute="top" constant="20" id="Mzi-Xe-cGR"/>
+                            <constraint firstItem="79j-cx-TNs" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="oa1-dl-XVn" secondAttribute="bottom" constant="20" id="VPU-RE-Vcl"/>
+                            <constraint firstItem="79j-cx-TNs" firstAttribute="trailing" secondItem="oa1-dl-XVn" secondAttribute="trailing" constant="10" id="fhl-0A-g0J"/>
+                            <constraint firstItem="oa1-dl-XVn" firstAttribute="leading" secondItem="79j-cx-TNs" secondAttribute="leading" constant="10" id="qgu-Az-PUF"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="79j-cx-TNs"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LUB-tB-RHw">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="CloseCrossLight" id="udZ-oI-gSI">
+                            <color key="tintColor" name="NormalText"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wnc-fh-teb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="860" y="110.19490254872565"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="CloseCrossLight" width="30" height="30"/>
+        <namedColor name="GenericGray">
+            <color red="0.66666666669999997" green="0.66274509800000003" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="GenericGrayShadow">
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.20000000300000001" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="MedAquamarine">
+            <color red="0.50588235290000005" green="0.83921568629999999" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="MedAquamarineShadow">
+            <color red="0.30588235289999999" green="0.50588235290000005" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="NormalText">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

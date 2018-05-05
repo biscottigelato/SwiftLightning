@@ -62,6 +62,12 @@
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="MNV-1e-xnn" userLabel="Against Node" customClass="SLFormNodeView" customModule="SwiftLightning" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="118" width="325" height="90"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="titleText" value="Against Node"/>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="hideAliasStack">
+                                                                        <integer key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1f3-dK-QDi" userLabel="Spacer">
                                                                 <rect key="frame" x="0.0" y="208" width="325" height="12"/>
@@ -103,12 +109,18 @@
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Dsw-ib-CPr" customClass="SLFormChSummaryView" customModule="SwiftLightning" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="383" width="325" height="100"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="titleText" value="Resulting Channel"/>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="hideFeeStack">
+                                                                        <integer key="value" value="0"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ImI-z9-Di7" userLabel="Spacer">
                                                                 <rect key="frame" x="0.0" y="483" width="325" height="12"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="enS-uY-4A7">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="enS-uY-4A7">
                                                                 <rect key="frame" x="0.0" y="495" width="325" height="42"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ss4-bH-oT4" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
@@ -127,13 +139,6 @@
                                                                             <action selector="cancelTapped:" destination="EYM-mG-JG3" eventType="touchUpInside" id="rmz-x8-q1A"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="Dka-zT-DzI" userLabel="Mid Spacer">
-                                                                        <rect key="frame" x="152.5" y="0.0" width="20" height="42"/>
-                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" constant="20" id="kZc-Dx-IP2"/>
-                                                                        </constraints>
-                                                                    </view>
                                                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yks-VS-TKn" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
                                                                         <rect key="frame" x="172.5" y="0.0" width="152.5" height="42"/>
                                                                         <color key="backgroundColor" name="MedAquamarine"/>

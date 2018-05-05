@@ -55,7 +55,7 @@ class WalletMainPresenter: WalletMainPresentationLogic {
       var dateText: String
       let dateFormatter = DateFormatter()
       dateFormatter.locale = Locale.current
-      dateFormatter.setLocalizedDateFormatFromTemplate("MMM d yyyy, h:mm a")
+      dateFormatter.setLocalizedDateFormatFromTemplate("MMM d, h:mm a")
       
       for btcTransaction in result.btcTransactions {
         guard btcTransaction.destAddresses.count > 0 else {

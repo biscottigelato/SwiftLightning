@@ -17,33 +17,36 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SLFormNodeView" customModule="SwiftLightning" customModuleProvider="target">
             <connections>
+                <outlet property="aliasNameLabel" destination="azZ-qq-CE0" id="pA6-CM-KVq"/>
+                <outlet property="aliasStackView" destination="BF3-PZ-CDl" id="dNg-bc-Prs"/>
                 <outlet property="ipAddressLabel" destination="wTf-4m-4C3" id="KfJ-HM-hIU"/>
                 <outlet property="nodePubKeyLabel" destination="6SN-dz-tkR" id="pzR-Ak-HTl"/>
                 <outlet property="portNumberLabel" destination="ss3-7Z-3A9" id="iPt-xE-B60"/>
                 <outlet property="singleLabelHeight" destination="TZM-za-bUa" id="HZi-D2-VBN"/>
+                <outlet property="titleLabel" destination="dKS-CU-vqn" id="gXv-pi-Mol"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="552" height="175"/>
+            <rect key="frame" x="0.0" y="0.0" width="358" height="175"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UBl-dR-JQc">
-                    <rect key="frame" x="0.0" y="42.5" width="552" height="90"/>
+                    <rect key="frame" x="0.0" y="28" width="358" height="120"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" verticalHuggingPriority="500" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="qAx-xO-thv">
-                            <rect key="frame" x="0.0" y="0.0" width="552" height="30"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" verticalHuggingPriority="500" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="qAx-xO-thv" userLabel="Title Stack">
+                            <rect key="frame" x="0.0" y="0.0" width="358" height="30"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Against Node" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKS-CU-vqn" userLabel="Title Label">
-                                    <rect key="frame" x="0.0" y="8" width="552" height="22"/>
+                                    <rect key="frame" x="0.0" y="8" width="358" height="22"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                     <color key="textColor" name="LightTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tJP-7e-b10">
-                            <rect key="frame" x="0.0" y="30" width="552" height="30"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tJP-7e-b10" userLabel="Pub Key Stack">
+                            <rect key="frame" x="0.0" y="30" width="358" height="30"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" text="Pub Key" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vb3-nJ-mgy" userLabel="Pub Key">
                                     <rect key="frame" x="0.0" y="12" width="49" height="18"/>
@@ -52,7 +55,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Node Pub Key Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SN-dz-tkR">
-                                    <rect key="frame" x="59" y="9.5" width="493" height="20.5"/>
+                                    <rect key="frame" x="59" y="9.5" width="299" height="20.5"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                     <color key="textColor" name="DarkTextBlue"/>
                                     <nil key="highlightedColor"/>
@@ -62,11 +65,28 @@
                                 <constraint firstAttribute="height" constant="30" id="TZM-za-bUa"/>
                             </constraints>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="atb-zQ-kIo">
-                            <rect key="frame" x="0.0" y="60" width="552" height="30"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="BF3-PZ-CDl" userLabel="Alias Stack">
+                            <rect key="frame" x="0.0" y="60" width="358" height="30"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" text="Alias" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTN-Vx-10a" userLabel="Pub Key">
+                                    <rect key="frame" x="0.0" y="12" width="28.5" height="18"/>
+                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                                    <color key="textColor" name="LightTextGray"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Some Node Alias Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azZ-qq-CE0">
+                                    <rect key="frame" x="38.5" y="9.5" width="319.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                    <color key="textColor" name="DarkTextBlue"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="atb-zQ-kIo" userLabel="Address Stack">
+                            <rect key="frame" x="0.0" y="90" width="358" height="30"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pCK-gl-rU0">
-                                    <rect key="frame" x="0.0" y="9.5" width="249.5" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="9.5" width="162" height="20.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" text="IP" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hx6-qP-zTs" userLabel="IP">
                                             <rect key="frame" x="0.0" y="0.0" width="11.5" height="20.5"/>
@@ -75,7 +95,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wTf-4m-4C3" userLabel="Address">
-                                            <rect key="frame" x="21.5" y="0.0" width="228" height="20.5"/>
+                                            <rect key="frame" x="21.5" y="0.0" width="140.5" height="20.5"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                             <color key="textColor" name="DarkTextBlue"/>
                                             <nil key="highlightedColor"/>
@@ -83,7 +103,7 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6NU-fV-pgO">
-                                    <rect key="frame" x="249.5" y="9.5" width="302.5" height="20.5"/>
+                                    <rect key="frame" x="162" y="9.5" width="196" height="20.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" text="Port" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZw-UX-k98" userLabel="Port">
                                             <rect key="frame" x="0.0" y="0.0" width="26" height="20.5"/>
@@ -92,7 +112,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ss3-7Z-3A9" userLabel="Number">
-                                            <rect key="frame" x="36" y="0.0" width="266.5" height="20.5"/>
+                                            <rect key="frame" x="36" y="0.0" width="160" height="20.5"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                             <color key="textColor" name="DarkTextBlue"/>
                                             <nil key="highlightedColor"/>
@@ -104,6 +124,7 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="qAx-xO-thv" firstAttribute="height" secondItem="tJP-7e-b10" secondAttribute="height" id="1qk-6g-z5m"/>
+                        <constraint firstItem="BF3-PZ-CDl" firstAttribute="height" secondItem="tJP-7e-b10" secondAttribute="height" priority="900" id="h4A-dG-iDE"/>
                         <constraint firstItem="atb-zQ-kIo" firstAttribute="height" secondItem="tJP-7e-b10" secondAttribute="height" id="lZ1-hS-CL0"/>
                     </constraints>
                 </stackView>
@@ -116,12 +137,18 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="109" y="514.5"/>
+            <point key="canvasLocation" x="12" y="514.5"/>
         </view>
     </objects>
     <resources>
         <namedColor name="DarkTextBlue">
             <color red="0.20000000000000001" green="0.2470588235" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="DarkTextBlue">
+            <color red="0.20000000000000001" green="0.2470588235" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="LightTextGray">
+            <color red="0.66666666669999997" green="0.66274509800000003" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="LightTextGray">
             <color red="0.66666666666666663" green="0.66274509803921566" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

@@ -98,13 +98,6 @@ struct LNPeer: CustomStringConvertible {
 
 
 struct LNChannel: CustomStringConvertible {
-  enum State {
-    case opened
-    case pendingOpen
-    case closed
-    case pendingClose
-  }
-
   var isActive: Bool
   var remotePubKey: String
   var channelPoint: String

@@ -23,7 +23,9 @@
                 <outlet property="canPayAmtLabel" destination="0lJ-Gh-Lr3" id="8qf-fJ-81j"/>
                 <outlet property="canRcvAmtLabel" destination="2fB-Fu-Ljz" id="mLV-s5-hg0"/>
                 <outlet property="feeAmtLabel" destination="jAX-E3-atb" id="1m5-ra-d31"/>
+                <outlet property="feeStackView" destination="YBG-qY-YQd" id="wW2-wS-xI0"/>
                 <outlet property="middleStackHeight" destination="LxP-qY-F9o" id="x2s-Z7-h7B"/>
+                <outlet property="titleLabel" destination="g9b-ym-qA9" id="342-9h-XRD"/>
                 <outlet property="topBottomStackHeight" destination="uJB-bX-BFR" id="lTp-NO-oHa"/>
             </connections>
         </placeholder>
@@ -38,7 +40,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u2K-VL-j21">
                             <rect key="frame" x="0.0" y="0.0" width="421" height="30"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Resulting Channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9b-ym-qA9" userLabel="Title Label">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Resulting Channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9b-ym-qA9" userLabel="Title Label">
                                     <rect key="frame" x="0.0" y="0.0" width="421" height="30"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                     <color key="textColor" name="LightTextGray"/>
@@ -110,7 +112,7 @@
                         </stackView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="YBG-qY-YQd" firstAttribute="height" secondItem="u2K-VL-j21" secondAttribute="height" id="L3O-t7-HNC"/>
+                        <constraint firstItem="YBG-qY-YQd" firstAttribute="height" secondItem="u2K-VL-j21" secondAttribute="height" priority="900" id="L3O-t7-HNC"/>
                     </constraints>
                 </stackView>
             </subviews>

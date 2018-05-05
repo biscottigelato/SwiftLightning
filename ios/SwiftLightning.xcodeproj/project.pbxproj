@@ -148,6 +148,14 @@
 		8C7745B0209BF839004EBA69 /* TxnTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C7745AE209BF839004EBA69 /* TxnTableViewCell.xib */; };
 		8C7745B3209BF846004EBA69 /* ChTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745B1209BF846004EBA69 /* ChTableViewCell.swift */; };
 		8C7745B4209BF846004EBA69 /* ChTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C7745B2209BF846004EBA69 /* ChTableViewCell.xib */; };
+		8C7745B9209D3258004EBA69 /* Listener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745B8209D3258004EBA69 /* Listener.swift */; };
+		8C7745BE209D3E20004EBA69 /* ChannelDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C7745BD209D3E20004EBA69 /* ChannelDetails.storyboard */; };
+		8C7745C5209D3E39004EBA69 /* ChannelDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745BF209D3E39004EBA69 /* ChannelDetailsPresenter.swift */; };
+		8C7745C6209D3E39004EBA69 /* ChannelDetailsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745C0209D3E39004EBA69 /* ChannelDetailsWorker.swift */; };
+		8C7745C7209D3E39004EBA69 /* ChannelDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745C1209D3E39004EBA69 /* ChannelDetailsRouter.swift */; };
+		8C7745C8209D3E39004EBA69 /* ChannelDetailsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745C2209D3E39004EBA69 /* ChannelDetailsModels.swift */; };
+		8C7745C9209D3E39004EBA69 /* ChannelDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745C3209D3E39004EBA69 /* ChannelDetailsViewController.swift */; };
+		8C7745CA209D3E39004EBA69 /* ChannelDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745C4209D3E39004EBA69 /* ChannelDetailsInteractor.swift */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SLLog.swift */; };
 		8C7EC53220950449001C8FD6 /* PayMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */; };
@@ -370,6 +378,14 @@
 		8C7745AE209BF839004EBA69 /* TxnTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxnTableViewCell.xib; sourceTree = "<group>"; };
 		8C7745B1209BF846004EBA69 /* ChTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChTableViewCell.swift; sourceTree = "<group>"; };
 		8C7745B2209BF846004EBA69 /* ChTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChTableViewCell.xib; sourceTree = "<group>"; };
+		8C7745B8209D3258004EBA69 /* Listener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listener.swift; sourceTree = "<group>"; };
+		8C7745BD209D3E20004EBA69 /* ChannelDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChannelDetails.storyboard; sourceTree = "<group>"; };
+		8C7745BF209D3E39004EBA69 /* ChannelDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelDetailsPresenter.swift; sourceTree = "<group>"; };
+		8C7745C0209D3E39004EBA69 /* ChannelDetailsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelDetailsWorker.swift; sourceTree = "<group>"; };
+		8C7745C1209D3E39004EBA69 /* ChannelDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelDetailsRouter.swift; sourceTree = "<group>"; };
+		8C7745C2209D3E39004EBA69 /* ChannelDetailsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelDetailsModels.swift; sourceTree = "<group>"; };
+		8C7745C3209D3E39004EBA69 /* ChannelDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelDetailsViewController.swift; sourceTree = "<group>"; };
+		8C7745C4209D3E39004EBA69 /* ChannelDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelDetailsInteractor.swift; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLog.swift; sourceTree = "<group>"; };
 		8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainPresenter.swift; sourceTree = "<group>"; };
@@ -479,6 +495,7 @@
 				8C1AE3712095A55800A4D9BF /* BitcoinKit */,
 				8C8275DA208FF1AD0029BE7E /* Money */,
 				8C7745B7209D30B2004EBA69 /* Listener */,
+				8C7745BA209D3288004EBA69 /* MetaTracker */,
 				8C090DF020870AE7009B8B8D /* Lightning Shim */,
 			);
 			path = Model;
@@ -536,6 +553,7 @@
 			isa = PBXGroup;
 			children = (
 				8C6B7556208B17A700B751A2 /* WalletNavigation */,
+				8C7745BB209D3DDE004EBA69 /* ChannelDetails */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -823,8 +841,30 @@
 		8C7745B7209D30B2004EBA69 /* Listener */ = {
 			isa = PBXGroup;
 			children = (
+				8C7745B8209D3258004EBA69 /* Listener.swift */,
 			);
 			path = Listener;
+			sourceTree = "<group>";
+		};
+		8C7745BA209D3288004EBA69 /* MetaTracker */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MetaTracker;
+			sourceTree = "<group>";
+		};
+		8C7745BB209D3DDE004EBA69 /* ChannelDetails */ = {
+			isa = PBXGroup;
+			children = (
+				8C7745BD209D3E20004EBA69 /* ChannelDetails.storyboard */,
+				8C7745BF209D3E39004EBA69 /* ChannelDetailsPresenter.swift */,
+				8C7745C0209D3E39004EBA69 /* ChannelDetailsWorker.swift */,
+				8C7745C1209D3E39004EBA69 /* ChannelDetailsRouter.swift */,
+				8C7745C2209D3E39004EBA69 /* ChannelDetailsModels.swift */,
+				8C7745C3209D3E39004EBA69 /* ChannelDetailsViewController.swift */,
+				8C7745C4209D3E39004EBA69 /* ChannelDetailsInteractor.swift */,
+			);
+			path = ChannelDetails;
 			sourceTree = "<group>";
 		};
 		8C7D30FE207542090068F2BD /* Protobuf */ = {
@@ -1338,6 +1378,7 @@
 				8C18828A20868545002E2835 /* Montserrat-SemiBoldItalic.ttf in Resources */,
 				8C1882B4208696A8002E2835 /* SLPasswordField.xib in Resources */,
 				8C18828820868545002E2835 /* Montserrat-Medium.ttf in Resources */,
+				8C7745BE209D3E20004EBA69 /* ChannelDetails.storyboard in Resources */,
 				8C82760420912A4F0029BE7E /* SLFormChSummaryView.xib in Resources */,
 				8C18828E20868545002E2835 /* Montserrat-MediumItalic.ttf in Resources */,
 				8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */,
@@ -1454,6 +1495,7 @@
 				8C090E012087DEAA009B8B8D /* MnemonicExplainViewController.swift in Sources */,
 				8C70EC13208E511900D658DC /* SLRetry.swift in Sources */,
 				8C8275BC208EA1B30029BE7E /* ChannelOpenViewController.swift in Sources */,
+				8C7745C8209D3E39004EBA69 /* ChannelDetailsModels.swift in Sources */,
 				8C70EBCE208C345B00D658DC /* ReceiveMainWorker.swift in Sources */,
 				8C090E4620894801009B8B8D /* MnemonicConfirmViewController.swift in Sources */,
 				8C82760620912A5C0029BE7E /* SLFormChSummaryView.swift in Sources */,
@@ -1464,6 +1506,7 @@
 				8C8E4E67208C0C240017BAB2 /* SLSpinnerDialogView.swift in Sources */,
 				8C70EC0B208D934200D658DC /* SLDesign.swift in Sources */,
 				8C090E342088612B009B8B8D /* MnemonicDisplayRouter.swift in Sources */,
+				8C7745CA209D3E39004EBA69 /* ChannelDetailsInteractor.swift in Sources */,
 				8C090DF420870DB9009B8B8D /* LNDefinitions.swift in Sources */,
 				8C090E4220894801009B8B8D /* MnemonicConfirmPresenter.swift in Sources */,
 				8C090E4720894801009B8B8D /* MnemonicConfirmInteractor.swift in Sources */,
@@ -1506,9 +1549,11 @@
 				8CFA16A42082EF3A00813EA6 /* CreateRecoverModels.swift in Sources */,
 				8C8275BA208EA1B30029BE7E /* ChannelOpenRouter.swift in Sources */,
 				8C7745B3209BF846004EBA69 /* ChTableViewCell.swift in Sources */,
+				8C7745C6209D3E39004EBA69 /* ChannelDetailsWorker.swift in Sources */,
 				8C8275DC208FF1CF0029BE7E /* Bitcoin.swift in Sources */,
 				8C68653D209A6E87001E41DA /* CameraMainWorker.swift in Sources */,
 				8C18829F20868EBE002E2835 /* PasswordCreateRouter.swift in Sources */,
+				8C7745B9209D3258004EBA69 /* Listener.swift in Sources */,
 				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
 				8C8275FC209118250029BE7E /* SLFormLabelView.swift in Sources */,
 				8C7EC53320950449001C8FD6 /* PayMainWorker.swift in Sources */,
@@ -1548,6 +1593,7 @@
 				8C6B755D208B17BD00B751A2 /* WalletMainPresenter.swift in Sources */,
 				8C6B755E208B17BD00B751A2 /* WalletMainWorker.swift in Sources */,
 				8C6B7541208AF33200B751A2 /* RootPresenter.swift in Sources */,
+				8C7745C7209D3E39004EBA69 /* ChannelDetailsRouter.swift in Sources */,
 				8C8275C8208EA63D0029BE7E /* SLFormEntryView.swift in Sources */,
 				8C8275EF20910FA40029BE7E /* ChannelConfirmPresenter.swift in Sources */,
 				8C8275F220910FA40029BE7E /* ChannelConfirmModels.swift in Sources */,
@@ -1560,6 +1606,7 @@
 				8C6B7551208AFEC800B751A2 /* UnlockAppModels.swift in Sources */,
 				8C8275BD208EA1B30029BE7E /* ChannelOpenInteractor.swift in Sources */,
 				8C18829D20868EBE002E2835 /* PasswordCreatePresenter.swift in Sources */,
+				8C7745C5209D3E39004EBA69 /* ChannelDetailsPresenter.swift in Sources */,
 				8C090DFF2087DEAA009B8B8D /* MnemonicExplainRouter.swift in Sources */,
 				8C686540209A6E87001E41DA /* CameraMainViewController.swift in Sources */,
 				8C8275E0208FF8770029BE7E /* Currency.swift in Sources */,
@@ -1568,6 +1615,7 @@
 				8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */,
 				8C090E4320894801009B8B8D /* MnemonicConfirmWorker.swift in Sources */,
 				8C090E022087DEAA009B8B8D /* MnemonicExplainInteractor.swift in Sources */,
+				8C7745C9209D3E39004EBA69 /* ChannelDetailsViewController.swift in Sources */,
 				8CFA16A62082EF3A00813EA6 /* CreateRecoverInteractor.swift in Sources */,
 				8C6B754F208AFEC800B751A2 /* UnlockAppWorker.swift in Sources */,
 				8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */,
