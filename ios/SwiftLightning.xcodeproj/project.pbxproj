@@ -557,7 +557,6 @@
 			isa = PBXGroup;
 			children = (
 				8C6B7556208B17A700B751A2 /* WalletNavigation */,
-				8C7745BB209D3DDE004EBA69 /* ChannelDetails */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -946,6 +945,7 @@
 			children = (
 				8C8275A3208EA1650029BE7E /* ChannelOpen */,
 				8C8275E820910F810029BE7E /* ChannelConfirm */,
+				8C7745BB209D3DDE004EBA69 /* ChannelDetails */,
 			);
 			path = Channel;
 			sourceTree = "<group>";

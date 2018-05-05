@@ -183,25 +183,6 @@ class LNServices {
   }
   
   
-  // MARK: Lightning Service
-  
-  static var lightningService: Lnrpc_LightningServiceClient?
-  
-  static private func prepareLightningService() throws {
-    if lightningService == nil {
-      let tlsCertURL = URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("tls.cert")
-      let tlsCert = try String(contentsOf: tlsCertURL)  // TODO: Error Handling
-      
-      let macaroonURL = URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("admin.macaroon")
-      let macaroonBinary = try Data(contentsOf: macaroonURL)  // TODO: Error Handling
-      let macaroonHexString = macaroonBinary.hexEncodedString()
-      
-      lightningService = Lnrpc_LightningServiceClient(address: "localhost:\(LNServices.rpcListenPort)", certificates: tlsCert, host: nil)
-      lightningService!.metadata.add(key: "macaroon", value: macaroonHexString)
-    }
-  }
-  
-  
   // MARK: Wallet Balance
   
   class WalletBalance: NSObject, LndmobileCallbackProtocol {
@@ -486,17 +467,11 @@ class LNServices {
     }
     
     func onResponse(_ p0: Data!) {
-      // We won't retry anymore after getting here. Deference retry
-      retry.success()
+      //!!! Connect Peer does not return any data
+      SLLog.debug("LN Connect Peer Success!")
       
-      do {
-        _ = try Lnrpc_ConnectPeerResponse(serializedData: p0)
-        SLLog.debug("LN Connect Peer Success!")
-        
-        completion({ return })
-      } catch {
-        completion({ throw error })
-      }
+      retry.success()
+      completion({ return })
     }
     
     func onError(_ p0: Error!) {
@@ -1352,7 +1327,11 @@ class LNServices {
     
     func onResponse(_ p0: Data!) {
       do {
-        _ = try Lnrpc_StopResponse(serializedData: p0)
+        if let p0 = p0 {
+          _ = try Lnrpc_StopResponse(serializedData: p0)
+        } else {
+          SLLog.warning("Stop Daemon response does not return any data!!!")
+        }
         SLLog.debug("Stop Daemon Success!")
         completion({ return })
       } catch {

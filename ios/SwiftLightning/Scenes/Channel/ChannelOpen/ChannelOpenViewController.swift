@@ -152,13 +152,10 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, Came
         let splitKey = LNManager.splitKeyAddressString(nodePubKey.trimmingCharacters(in: .whitespacesAndNewlines))
         
         if let ipPort = splitKey.addr {
-          if let ipPortText = nodePortIPEntryView.textField.text, ipPortText != "" {
-            // Don't overwrite. There's already text
-          } else {
-            nodePortIPEntryView.textField.text = ipPort
-            nodePortIPEntryView.textField.delegate?.textFieldDidEndEditing?(nodePortIPEntryView.textField)
-            nodePubKeyEntryView.textField.text = splitKey.key
-          }
+          // Hmm... just overwrite
+          nodePortIPEntryView.textField.text = ipPort
+          nodePortIPEntryView.textField.delegate?.textFieldDidEndEditing?(nodePortIPEntryView.textField)
+          nodePubKeyEntryView.textField.text = splitKey.key
         }
         
         let request = ChannelOpen.ValidateNodePubKey.Request(nodePubKey: splitKey.key)
