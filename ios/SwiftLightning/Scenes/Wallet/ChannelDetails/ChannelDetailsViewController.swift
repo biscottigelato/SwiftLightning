@@ -14,6 +14,8 @@ import UIKit
 
 protocol ChannelDetailsDisplayLogic: class {
   func displayRefresh(viewModel: ChannelDetails.Refresh.ViewModel)
+  func displayConnected(viewModel: ChannelDetails.Connect.ViewModel)
+  func displayClosed(viewModel: ChannelDetails.Close.ViewModel)
   func displayError(viewModel: ChannelDetails.ErrorVM)
 }
 
@@ -100,18 +102,79 @@ class ChannelDetailsViewController: UIViewController, ChannelDetailsDisplayLogic
     }
   }
   
-
+  
+  let activityIndicator = SLSpinnerDialogView()
+  
   // MARK: Connect Channel
   
   @IBAction func connectTapped(_ sender: SLBarButton) {
+    activityIndicator.show(on: view)
+    
+    let request = ChannelDetails.Connect.Request()
+    interactor?.connect(request: request)
+  }
+  
+  func displayConnected(viewModel: ChannelDetails.Connect.ViewModel) {
+    
+//    let alertDialog = UIAlertController(title: "Connect Submitted",
+//                                        message: "Are you now connected? If not, the remote node might not be currently online",
+//                                        preferredStyle: .alert).addAction(title: "OK", style: .default) { action in
+//
+//      self.refreshView()  // Refresh again for good measures
+//    }
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+      self.refreshView()
+      self.activityIndicator.remove()
+      // self.present(alertDialog, animated: true, completion: nil)
+    }
   }
   
   
-  // MARK: Close Channel
+  // MARK: (Force) Close Channel
   
-  @IBAction func closeChannel(_ sender: SLBarButton) {
+  @IBAction func closeTapped(_ sender: SLBarButton) {
+    let alertDialog = UIAlertController(title: "Close Channel?",
+                                        message: "Are you sure you want to close this channel?",
+                                        preferredStyle: .alert)
+    
+    _ = alertDialog.addAction(title: "Cancel", style: .cancel)
+    _ = alertDialog.addAction(title: "Yes", style: .destructive) { (action) in
+      self.activityIndicator.show(on: self.view)
+      let request = ChannelDetails.Close.Request(force: false)
+      self.interactor?.close(request: request)
+    }
+
+    present(alertDialog, animated: true, completion: nil)
   }
   
+  @IBAction func closeLongPressed(_ sender: UILongPressGestureRecognizer) {
+    let alertDialog = UIAlertController(title: "Force Close?",
+                                        message: "Are you sure you want to 'Force Close' this channel?",
+                                        preferredStyle: .alert)
+    
+    _ = alertDialog.addAction(title: "Cancel", style: .cancel)
+    _ = alertDialog.addAction(title: "Force", style: .destructive) { (action) in
+      self.activityIndicator.show(on: self.view)
+      let request = ChannelDetails.Close.Request(force: true)
+      self.interactor?.close(request: request)
+    }
+    
+    present(alertDialog, animated: true, completion: nil)
+  }
+  
+  func displayClosed(viewModel: ChannelDetails.Close.ViewModel) {
+    let alertDialog = UIAlertController(title: "Close Submitted",
+                                        message: "Note it will take several confirmations before you will see funds back on-chain",
+                                        preferredStyle: .alert).addAction(title: "OK", style: .default) { (action) in
+                                          self.router?.routeToWalletMain()
+    }
+    
+    DispatchQueue.main.async {
+      self.activityIndicator.remove()
+      self.present(alertDialog, animated: true, completion: nil)
+    }
+  }
   
   // MARK: Error Display
   
@@ -120,6 +183,7 @@ class ChannelDetailsViewController: UIViewController, ChannelDetailsDisplayLogic
                                         message: viewModel.errMsg, preferredStyle: .alert).addAction(title: "OK", style: .default)
     DispatchQueue.main.async {
       self.present(alertDialog, animated: true, completion: nil)
+      self.activityIndicator.remove()
     }
   }
   

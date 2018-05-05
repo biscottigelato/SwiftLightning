@@ -14,6 +14,8 @@ import UIKit
 
 protocol ChannelDetailsPresentationLogic {
   func presentRefresh(response: ChannelDetails.Refresh.Response)
+  func presentConnect(response: ChannelDetails.Connect.Response)
+  func presentClose(response: ChannelDetails.Close.Response)
 }
 
 class ChannelDetailsPresenter: ChannelDetailsPresentationLogic {
@@ -47,6 +49,36 @@ class ChannelDetailsPresenter: ChannelDetailsPresentationLogic {
       
     case .failure(let error):
       let viewModel = ChannelDetails.ErrorVM(errTitle: "Node Info Error",
+                                             errMsg: error.localizedDescription)
+      viewController?.displayError(viewModel: viewModel)
+    }
+  }
+  
+  
+  // MARK: Connect
+  
+  func presentConnect(response: ChannelDetails.Connect.Response) {
+    switch response.result {
+    case .success(()):
+      let viewModel = ChannelDetails.Connect.ViewModel()
+      viewController?.displayConnected(viewModel: viewModel)
+    case .failure(let error):
+      let viewModel = ChannelDetails.ErrorVM(errTitle: "Connect Error",
+                                             errMsg: error.localizedDescription)
+      viewController?.displayError(viewModel: viewModel)
+    }
+  }
+  
+  
+  // MARK: Close
+  
+  func presentClose(response: ChannelDetails.Close.Response) {
+    switch response.result {
+    case .success(()):
+      let viewModel = ChannelDetails.Close.ViewModel()
+      viewController?.displayClosed(viewModel: viewModel)
+    case .failure(let error):
+      let viewModel = ChannelDetails.ErrorVM(errTitle: "Close Error",
                                              errMsg: error.localizedDescription)
       viewController?.displayError(viewModel: viewModel)
     }

@@ -891,6 +891,100 @@ class LNServices {
     
     retry.start("LN Open Channel", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
+
+  
+  // MARK: Open Channel
+  
+  static func closeChannel(fundingTxIDStr: String, outputIndex: UInt, force: Bool,
+                           targetConf: Int? = nil, satPerByte: Int? = nil,
+                           retryCount: Int = LNConstants.defaultRetryCount,
+                           retryDelay: Double = LNConstants.defaultRetryDelay,
+                           streaming: @escaping (() throws -> (Lnrpc_LightningCloseChannelCall)) -> Void,
+                           completion: @escaping (() throws -> ()) -> Void) {
+    
+    let retry = SLRetry()
+    let task = { () -> () in
+      do {
+        try prepareLightningService()
+        
+        var channelPoint = Lnrpc_ChannelPoint()
+        channelPoint.fundingTxidStr = fundingTxIDStr
+        channelPoint.outputIndex = UInt32(outputIndex)
+        
+        var request = Lnrpc_CloseChannelRequest()
+        request.channelPoint = channelPoint
+        request.force = force
+        
+        if let targetConf = targetConf { request.targetConf = Int32(targetConf) }
+        if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
+        
+        // Server Streaming GRPC
+        let call = try lightningService!.closeChannel(request) { (result) in
+          if result.success, result.statusCode.rawValue == 0 {
+            SLLog.debug("LN Close Channel Resulted in Success!")
+            completion({ return })
+          }
+          else {
+            let message = result.statusMessage ?? result.description
+            let error = GRPCResultError(code: result.statusCode.rawValue, message: message)
+            SLLog.warning("LN Close Channel Resulted in Error - \(error.localizedDescription)")
+            completion({ throw error })
+          }
+        }
+        
+        // Dereference retry
+        retry.success()
+        
+        do {
+          try call.receive { (result) in
+            switch result {
+            case .result(let resultType):
+              guard let update = resultType?.update else {
+                SLLog.warning("LN Close Channel call stream result with no type")
+                streaming({ throw LNError.closeChannelStreamNoType })
+                break
+              }
+              
+              switch update {
+              case .closePending(let pendingUpdate):
+                SLLog.verbose("LN Close Channel Pending Update:")
+                SLLog.verbose(" TXID:          \(pendingUpdate.txid.hexEncodedString(options: .littleEndian))")
+                SLLog.verbose(" Output Index:  \(pendingUpdate.outputIndex)")
+                
+              case .confirmation(let confirmUpdate):
+                SLLog.verbose("LN Close Channel Confirmation Update:")
+                SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
+                SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
+                SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
+                
+              case .chanClose(let closeUpdate):
+                SLLog.verbose("LN Close Channel Update:")
+                SLLog.verbose(" Closing TxID:  \(closeUpdate.closingTxid.hexEncodedString())")
+                SLLog.verbose(" Success:       \(closeUpdate.success)")
+              }
+              streaming({ return call })
+              
+            case .error(let error):
+              SLLog.warning("LN Close Channel call stream error - \(error.localizedDescription)")
+              streaming({ throw error })
+            }
+          }
+        } catch {
+          SLLog.warning("LN Close Channel call stream thrown - \(error.localizedDescription)")
+          streaming({ throw error })
+        }
+      } catch {
+        // Error - attempt to retry
+        retry.attempt(error: error)
+      }
+    }
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Close Channel Failed - \(error.localizedDescription)")
+      streaming({ throw error })
+    }
+    
+    retry.start("LN Close Channel", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
   
   
   // MARK: Send Payment Sync

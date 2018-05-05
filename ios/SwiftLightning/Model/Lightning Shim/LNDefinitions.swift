@@ -452,7 +452,7 @@ enum LNError: Int, LocalizedError {
   case unlockWalletInvalidPassword
   
   case openChannelStreamNoType
-  
+  case closeChannelStreamNoType
   
   // Computed Properties
   var code: Int { return self.rawValue }
@@ -470,6 +470,8 @@ enum LNError: Int, LocalizedError {
     
     case .openChannelStreamNoType:
       return NSLocalizedString("OpenChannel Stream Call result has no type", comment: "LN Error Type")
+    case .closeChannelStreamNoType:
+      return NSLocalizedString("CloseChannel Stream Call result has no type", comment: "LN Error Type")
     }
   }
 }

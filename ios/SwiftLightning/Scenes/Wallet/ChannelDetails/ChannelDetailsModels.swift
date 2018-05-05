@@ -13,17 +13,25 @@
 import UIKit
 
 enum ChannelDetails {
-  enum Refresh {
-    enum Error: LocalizedError {
-      case noChannelInfo
-      
-      var localizedDescription: String {
-        switch self {
-        case .noChannelInfo:
-          return NSLocalizedString("No Channel Info Supplied", comment: "ChannelDetails.Refresh.Error enum")
-        }
+  
+  enum Error: LocalizedError {
+    case noChannelInfo
+    case noIPPort
+    case invalidChannelPoint
+    
+    var localizedDescription: String {
+      switch self {
+      case .noChannelInfo:
+        return NSLocalizedString("No Channel Info Supplied", comment: "ChannelDetails.Error enum")
+      case .noIPPort:
+        return NSLocalizedString("No Port IP information", comment: "ChannelDetails.Error enum")
+      case .invalidChannelPoint:
+        return NSLocalizedString("Channel Point information invalid", comment: "ChannelDetails.Error enum")
       }
     }
+  }
+  
+  enum Refresh {
     struct Request { }
     struct Response {
       var result: Result<ChannelVM>
@@ -35,8 +43,28 @@ enum ChannelDetails {
     }
   }
   
+  enum Connect {
+    struct Request { }
+    struct Response {
+      var result: Result<Void>
+    }
+    struct ViewModel { }
+  }
+  
+  enum Close {
+    struct Request {
+      var force: Bool
+    }
+    struct Response {
+      var result: Result<Void>
+    }
+    struct ViewModel { }
+  }
+  
   struct ErrorVM {
     var errTitle: String
     var errMsg: String
   }
+  
+
 }

@@ -149,6 +149,7 @@
                                                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="150" placeholderIntrinsicHeight="42" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GoC-CJ-aK8" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
                                                                                 <rect key="frame" x="170" y="0.0" width="150" height="42"/>
                                                                                 <color key="backgroundColor" name="SandyOrange"/>
+                                                                                <gestureRecognizers/>
                                                                                 <state key="normal" title="Close Channel">
                                                                                     <color key="titleColor" name="NormalText"/>
                                                                                     <color key="titleShadowColor" name="SandyOrangeShadow"/>
@@ -159,7 +160,8 @@
                                                                                     </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
                                                                                 <connections>
-                                                                                    <action selector="closeChannel:" destination="FIF-dK-J34" eventType="touchUpInside" id="bVs-Yt-pz6"/>
+                                                                                    <action selector="closeTapped:" destination="FIF-dK-J34" eventType="touchUpInside" id="L4n-KI-J2A"/>
+                                                                                    <outletCollection property="gestureRecognizers" destination="t3y-Nn-x6s" appends="YES" id="vay-Mw-FMw"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -245,6 +247,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wnc-fh-teb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="t3y-Nn-x6s">
+                    <connections>
+                        <action selector="closeLongPressed:" destination="FIF-dK-J34" id="c90-a9-o3e"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="860" y="110.19490254872565"/>
         </scene>
