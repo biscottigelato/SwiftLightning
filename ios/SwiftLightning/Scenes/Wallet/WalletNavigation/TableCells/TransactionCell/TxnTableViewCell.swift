@@ -21,7 +21,7 @@ class TxnTableViewCell: UITableViewCell {
   
   
   struct Constants {
-    static let preferredHeight: CGFloat = 70.0
+    static let preferredHeight: CGFloat = 64.0
   }
   
   override func awakeFromNib() {

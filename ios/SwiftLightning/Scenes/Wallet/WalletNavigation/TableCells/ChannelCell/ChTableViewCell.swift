@@ -19,7 +19,7 @@ class ChTableViewCell: UITableViewCell {
   
   
   struct Constants {
-    static let preferredHeight: CGFloat = 80.0
+    static let preferredHeight: CGFloat = 70.0
   }
   
   override func awakeFromNib() {

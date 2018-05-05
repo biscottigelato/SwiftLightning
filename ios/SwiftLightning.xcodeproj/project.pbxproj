@@ -478,6 +478,7 @@
 			children = (
 				8C1AE3712095A55800A4D9BF /* BitcoinKit */,
 				8C8275DA208FF1AD0029BE7E /* Money */,
+				8C7745B7209D30B2004EBA69 /* Listener */,
 				8C090DF020870AE7009B8B8D /* Lightning Shim */,
 			);
 			path = Model;
@@ -817,6 +818,13 @@
 				8C7745B1209BF846004EBA69 /* ChTableViewCell.swift */,
 			);
 			path = ChannelCell;
+			sourceTree = "<group>";
+		};
+		8C7745B7209D30B2004EBA69 /* Listener */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Listener;
 			sourceTree = "<group>";
 		};
 		8C7D30FE207542090068F2BD /* Protobuf */ = {

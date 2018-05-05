@@ -15,8 +15,10 @@ import UIKit
 protocol WalletMainDisplayLogic: class {
   func displayBalances(viewModel: WalletMain.UpdateBalances.ViewModel)
   func displayBalancesError(viewModel: WalletMain.UpdateBalances.ErrorVM)
+  
   func updateChannels(viewModel: WalletMain.UpdateChannels.ViewModel)
   func displayChannelsError(viewModel: WalletMain.UpdateChannels.ErrorVM)
+  
   func updateTransactions(viewModel: WalletMain.UpdateTransactions.ViewModel)
   func displayTransactionsError(viewModel: WalletMain.UpdateTransactions.ErrorVM)
 }
@@ -166,6 +168,12 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
     transactionView.tableView.delegate = self
     transactionView.tableView.dataSource = self
     transactionView.tableView.allowsSelection = false // TODO: Select to do more later
+    
+    // Add refresh control
+    let refreshControl = UIRefreshControl()
+    refreshControl.addTarget(self, action: #selector(fetchTransactions), for: .valueChanged)
+    refreshControl.tintColor = UIColor.spaceCadetBlue
+    transactionView.tableView.refreshControl = refreshControl
   }
   
   private func transactionTableView(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -190,7 +198,7 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
     return cell
   }
   
-  private func fetchTransactions() {
+  @objc private func fetchTransactions() {
     let request = WalletMain.UpdateTransactions.Request()
     interactor?.updateTransactions(request: request)
   }
@@ -200,6 +208,9 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
     
     DispatchQueue.main.async {
       self.transactionView.tableView.reloadData()
+      if let refreshControl = self.transactionView.tableView.refreshControl, refreshControl.isRefreshing {
+        refreshControl.perform(#selector(UIRefreshControl.endRefreshing), with: nil, afterDelay: 0.0)
+      }
     }
   }
   
@@ -208,6 +219,9 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
                                         message: viewModel.errMsg,
                                         preferredStyle: .alert).addAction(title: "OK", style: .default, handler: nil)
     DispatchQueue.main.async {
+      if let refreshControl = self.transactionView.tableView.refreshControl, refreshControl.isRefreshing {
+        refreshControl.endRefreshing()
+      }
       self.present(alertDialog, animated: true, completion: nil)
     }
   }
@@ -223,6 +237,12 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
     channelView.tableView.delegate = self
     channelView.tableView.dataSource = self
     channelView.tableView.allowsSelection = false // TODO: Select to do more later
+    
+    // Add refresh control
+    let refreshControl = UIRefreshControl()
+    refreshControl.addTarget(self, action: #selector(fetchChannels), for: .valueChanged)
+    refreshControl.tintColor = UIColor.spaceCadetBlue
+    channelView.tableView.refreshControl = refreshControl
   }
   
   private func channelTableView(cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -238,7 +258,7 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
     return cell
   }
   
-  private func fetchChannels() {
+  @objc private func fetchChannels() {
     let request = WalletMain.UpdateChannels.Request()
     interactor?.updateChannels(request: request)
   }
@@ -248,6 +268,10 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
     
     DispatchQueue.main.async {
       self.channelView.tableView.reloadData()
+      
+      if let refreshControl = self.channelView.tableView.refreshControl, refreshControl.isRefreshing {
+        refreshControl.perform(#selector(UIRefreshControl.endRefreshing), with: nil, afterDelay: 0.0)
+      }
     }
   }
   
@@ -256,6 +280,9 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
                                         message: viewModel.errMsg,
                                         preferredStyle: .alert).addAction(title: "OK", style: .default, handler: nil)
     DispatchQueue.main.async {
+      if let refreshControl = self.channelView.tableView.refreshControl, refreshControl.isRefreshing {
+        refreshControl.endRefreshing()
+      }
       self.present(alertDialog, animated: true, completion: nil)
     }
   }

@@ -103,7 +103,7 @@ class WalletMainPresenter: WalletMainPresentationLogic {
                                       statusColor: statusColor,
                                       dateText: dateText,
                                       amountText: amount.formattedInSatoshis(),
-                                      feeText: fee.formattedInSatoshis())
+                                      feeText: "fee: \(fee.formattedInSatoshis())")
         
         transactions.append(transaction)
       }
@@ -139,7 +139,7 @@ class WalletMainPresenter: WalletMainPresentationLogic {
                                       statusColor: statusColor,
                                       dateText: dateText,
                                       amountText: amount.formattedInSatoshis(),
-                                      feeText: fee.formattedInSatoshis())
+                                      feeText: "fee: \(fee.formattedInSatoshis())")
         
         transactions.append(transaction)
       }
