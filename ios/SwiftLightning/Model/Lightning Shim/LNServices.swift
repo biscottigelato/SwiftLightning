@@ -203,90 +203,106 @@ class LNServices {
   
   // MARK: Wallet Balance
   
+  class WalletBalance: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> (total: Int, confirmed: Int, unconfirmed: Int)) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> (total: Int, confirmed: Int, unconfirmed: Int)) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let response = try Lnrpc_WalletBalanceResponse(serializedData: p0)
+        SLLog.debug("LN Wallet Balance Success!")
+        
+        let totalBalance = Int(response.totalBalance)
+        let confirmedBalance = Int(response.confirmedBalance)
+        let unconfirmedBalance = Int(response.unconfirmedBalance)
+        
+        SLLog.verbose("Total Balance: \(response.totalBalance)")
+        SLLog.verbose("Confirmed Balance: \(response.confirmedBalance)")
+        SLLog.verbose("Unconfirmed Balance: \(response.unconfirmedBalance)")
+        
+        // Success! - dereference retry
+        retry.success()
+        completion({ return (totalBalance, confirmedBalance, unconfirmedBalance) })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
+  
   static func walletBalance(retryCount: Int = LNConstants.defaultRetryCount,
                             retryDelay: Double = LNConstants.defaultRetryDelay,
                             completion: @escaping (() throws -> (total: Int, confirmed: Int, unconfirmed: Int)) -> Void) {
-    let retry = SLRetry()
-    let task = { () -> () in
+    
+    let lndOp = WalletBalance(completion)
+    
+    let task = {
       do {
-        try prepareLightningService()
-        
-        // Unary GRPC
-        _ = try lightningService!.walletBalance(Lnrpc_WalletBalanceRequest()) { (response, result) in
-          if let response = response {
-            SLLog.debug("LN Wallet Balance Success!")
-            
-            let totalBalance = Int(response.totalBalance)
-            let confirmedBalance = Int(response.confirmedBalance)
-            let unconfirmedBalance = Int(response.unconfirmedBalance)
-            
-            SLLog.verbose("Total Balance: \(response.totalBalance)")
-            SLLog.verbose("Confirmed Balance: \(response.confirmedBalance)")
-            SLLog.verbose("Unconfirmed Balance: \(response.unconfirmedBalance)")
-            
-            // Success! - dereference retry
-            retry.success()
-            completion({ return (totalBalance, confirmedBalance, unconfirmedBalance) })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            
-            // Error - attempt to retry?
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
+        let request = try Lnrpc_WalletBalanceRequest().serializedData()
+        LndmobileWalletBalance(request, lndOp)
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
     let fail = { (error: Error) -> () in
       SLLog.warning("LN Wallet Balance Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("LN Wallet Balance", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN Wallet Balance", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
   // MARK: Channel Balance
   
+  class ChannelBalance: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> (Int)) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> (Int)) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let response = try Lnrpc_ChannelBalanceResponse(serializedData: p0)
+        SLLog.debug("LN Channel Balance Success!")
+        SLLog.verbose("Channel Balance: \(response.balance)")
+        
+        // Success! - dereference retry
+        retry.success()
+        completion({ return Int(response.balance) })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
   static func channelBalance(retryCount: Int = LNConstants.defaultRetryCount,
                             retryDelay: Double = LNConstants.defaultRetryDelay,
                             completion: @escaping (() throws -> (Int)) -> Void) {
-    let retry = SLRetry()
-    let task = { () -> () in
+    let lndOp = ChannelBalance(completion)
+    
+    let task = {
       do {
-        try prepareLightningService()
-        
-        // Unary GRPC
-        _ = try lightningService!.channelBalance(Lnrpc_ChannelBalanceRequest()) { (response, result) in
-          if let response = response {
-            SLLog.debug("LN Channel Balance Success!")
-            SLLog.verbose("Channel Balance: \(response.balance)")
-            
-            // Success! - dereference retry
-            retry.success()
-            completion({ return Int(response.balance) })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            
-            // Error - attempt to retry?
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
+        let request = try Lnrpc_WalletBalanceRequest().serializedData()
+        LndmobileChannelBalance(request, lndOp)
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
     let fail = { (error: Error) -> () in
       SLLog.warning("LN Channel Balance Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("LN Channel Balance", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN Channel Balance", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
