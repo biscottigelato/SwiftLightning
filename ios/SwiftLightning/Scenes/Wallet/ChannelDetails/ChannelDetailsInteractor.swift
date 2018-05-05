@@ -135,7 +135,6 @@ class ChannelDetailsInteractor: ChannelDetailsBusinessLogic, ChannelDetailsDataS
     LNServices.closeChannel(fundingTxIDStr: fundingTxIDStr,
                             outputIndex: outputIndex,
                             force: request.force,
-                            streaming: closeChannelStreaming,
                             completion: closeChannelCompletion)
   }
   
@@ -156,6 +155,9 @@ class ChannelDetailsInteractor: ChannelDetailsBusinessLogic, ChannelDetailsDataS
     do {
       try responder()
       // TODO: Do direct trigger into Event Center
+      
+      let response = ChannelDetails.Close.Response(result: Result<Void>.success(()))
+      presenter?.presentClose(response: response)
     } catch {
       
       // This is the nay path if the Close Channel Scene still exists

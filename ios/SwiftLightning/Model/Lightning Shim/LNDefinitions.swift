@@ -213,25 +213,6 @@ struct LNPendingOpenChannel: CustomStringConvertible {
   
   var description: String {
     return """
-      Pending Open Channel details -
-        \(channel)
-        confirmationHeight: \(confirmationHeight)
-        commitFee: \(commitFee)
-        commitWeight: \(commitWeight)
-        feePerKw: \(feePerKw)
-    """
-  }
-}
-
-struct LNPendingOpenChannel: CustomStringConvertible {
-  var channel: LNPendingChannel
-  var confirmationHeight: UInt
-  var commitFee: Int
-  var commitWeight: Int
-  var feePerKw: Int
-  
-  var description: String {
-    return """
     Pending Open Channel details -
     \(channel)
     confirmationHeight: \(confirmationHeight)

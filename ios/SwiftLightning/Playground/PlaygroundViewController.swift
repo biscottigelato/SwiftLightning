@@ -146,7 +146,6 @@ class PlaygroundViewController: SLViewController {
                            localFundingAmt: Bitcoin(totalBalance/10).integerInSatoshis,
                            pushSat: 0,
                            targetConf: 1,
-                           streaming: openChannelStreaming,
                            completion: openChannelCompletion)
   }
   

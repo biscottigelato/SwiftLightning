@@ -121,7 +121,6 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
                                    localFundingAmt: fundingAmt.integerInSatoshis,
                                    pushSat: initPayAmt.integerInSatoshis,
                                    targetConf: LNConstants.defaultChannelConfirmation,
-                                   streaming: self.openChannelStreaming,
                                    completion: self.openChannelCompletion)
           } else {
             retry.attempt(error: ChannelConfirm.OpenChannel.Error.peerNotConnected)
@@ -165,6 +164,9 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
     do {
       try responder()
       // TODO: Do direct trigger into Event Center
+      
+      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.success(()))
+      presenter?.presentOpenChannel(response: response)
     } catch {
       
       // This is the nay path if the Open Channel Scene still exists

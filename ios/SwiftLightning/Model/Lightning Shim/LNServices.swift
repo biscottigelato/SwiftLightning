@@ -48,10 +48,11 @@ class LNServices {
     }
     let lndDestinationURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("lnd.conf", isDirectory: false)
     
+    // See if the file already exists, if so, just kill it. Aka. overwriting
+    try? FileManager.default.removeItem(at: lndDestinationURL)
+    
     do {
       try FileManager.default.copyItem(at: lndSourceURL, to: lndDestinationURL)
-    } catch CocoaError.fileWriteFileExists {
-      SLLog.debug("lnd.conf already exist at Applicaiton Support/lnd")
     } catch {
       let nsError = error as NSError
       SLLog.fatal("Failed to copy lnd.conf from bundle to Application Support/lnd - \(nsError.domain): \(nsError.code)")
@@ -303,6 +304,71 @@ class LNServices {
     }
     
     lndOp.retry.start("LN Channel Balance", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
+  
+  
+  // MARK: Get Transactions
+  
+  class GetTransactions: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> ([BTCTransaction])) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> ([BTCTransaction])) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let response = try Lnrpc_TransactionDetails(serializedData: p0)
+        SLLog.debug("Get Bitcoin Transactions Success!")
+        var btcTransactions = [BTCTransaction]()
+        
+        for (index, transaction) in response.transactions.enumerated() {
+          let btcTransaction = BTCTransaction(txHash: transaction.txHash,
+                                              amount: Int(transaction.amount),
+                                              numConfirmations: Int(transaction.numConfirmations),
+                                              blockHash: transaction.blockHash,
+                                              blockHeight: Int(transaction.blockHeight),
+                                              timeStamp: Int(transaction.timeStamp),
+                                              totalFees: Int(transaction.totalFees),
+                                              destAddresses: transaction.destAddresses)
+          
+          btcTransactions.append(btcTransaction)
+          
+          SLLog.verbose("")
+          SLLog.verbose("Bitcoin Transaction #\(index)")
+          SLLog.verbose(String(describing: btcTransaction))
+        }
+        
+        // Success! - dereference retry
+        retry.success()
+        completion({ return btcTransactions })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
+  static func getTransactions(retryCount: Int = LNConstants.defaultRetryCount,
+                              retryDelay: Double = LNConstants.defaultRetryDelay,
+                              completion: @escaping (() throws -> ([BTCTransaction])) -> Void) {
+    let lndOp = GetTransactions(completion)
+    
+    let task = {
+      do {
+        let request = try Lnrpc_GetTransactionsRequest().serializedData()
+        LndmobileGetTransactions(request, lndOp)
+      } catch {
+        completion({ throw error })
+      }
+    }
+    
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Get Transactions Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    lndOp.retry.start("LN Get Transactions", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
@@ -845,7 +911,6 @@ class LNServices {
   static func openChannel(nodePubKey: Data, localFundingAmt: Int, pushSat: Int, targetConf: Int? = nil, satPerByte: Int? = nil,
                           retryCount: Int = LNConstants.defaultRetryCount,
                           retryDelay: Double = LNConstants.defaultRetryDelay,
-                          streaming: @escaping (() throws -> (Lnrpc_LightningOpenChannelCall)) -> Void,
                           completion: @escaping (() throws -> ()) -> Void) {
     
     let lndOp = OpenChannel(completion)
