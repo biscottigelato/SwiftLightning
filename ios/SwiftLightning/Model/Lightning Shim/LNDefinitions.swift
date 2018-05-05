@@ -80,19 +80,19 @@ struct LNPeer: CustomStringConvertible {
   var satRecv: Int
   var inbound: Bool
   var pingTime: Int
-
+  
   var description: String {
     return """
-      LN Peer details -
-        pubKey:    \(pubKey)
-        address:   \(address)
-        bytesSent: \(bytesSent)
-        bytesRecv: \(bytesRecv)
-        satSent:   \(satSent)
-        satRecv:   \(satRecv)
-        inbound:   \(inbound)
-        pingTime:  \(pingTime)
-      """
+    LN Peer details -
+    pubKey:    \(pubKey)
+    address:   \(address)
+    bytesSent: \(bytesSent)
+    bytesRecv: \(bytesRecv)
+    satSent:   \(satSent)
+    satRecv:   \(satRecv)
+    inbound:   \(inbound)
+    pingTime:  \(pingTime)
+    """
   }
 }
 
@@ -118,24 +118,24 @@ struct LNChannel: CustomStringConvertible {
   
   var description: String {
     var descriptiveString = """
-      LN Channel details -
-        active:           \(isActive)
-        remotePubKey:     \(remotePubKey)
-        channelPoint:     \(channelPoint)
-        chanID:           \(chanID)
-        capacity:         \(capacity)
-        localBalance:     \(localBalance)
-        remoteBalance:    \(remoteBalance)
-        commitFee:        \(commitFee)
-        commitWeight:     \(commitWeight)
-        feePerKw:         \(feePerKw)
-        unsettledBalance: \(unsettledBalance)
-        satoshisSent:     \(totalSatoshisSent)
-        satoshisReceived: \(totalSatoshisReceived)
-        numUpdates:       \(numUpdates)
-        csvDelay:         \(csvDelay)
-        private:          \(isPrivate)
-      """
+    LN Channel details -
+    active:           \(isActive)
+    remotePubKey:     \(remotePubKey)
+    channelPoint:     \(channelPoint)
+    chanID:           \(chanID)
+    capacity:         \(capacity)
+    localBalance:     \(localBalance)
+    remoteBalance:    \(remoteBalance)
+    commitFee:        \(commitFee)
+    commitWeight:     \(commitWeight)
+    feePerKw:         \(feePerKw)
+    unsettledBalance: \(unsettledBalance)
+    satoshisSent:     \(totalSatoshisSent)
+    satoshisReceived: \(totalSatoshisReceived)
+    numUpdates:       \(numUpdates)
+    csvDelay:         \(csvDelay)
+    private:          \(isPrivate)
+    """
     
     for (index, htlc) in pendingHTLCs.enumerated() {
       descriptiveString += "\nHTLC #\(index)\n\(htlc)"
@@ -153,12 +153,12 @@ struct LNHTLC: CustomStringConvertible {
   
   var description: String {
     return """
-      HTLC details -
-        incoming:         \(incoming)
-        amount:           \(amount)
-        hashLock:         \(hashLock)
-        expirationHeight: \(expirationHeight)
-      """
+    HTLC details -
+    incoming:         \(incoming)
+    amount:           \(amount)
+    hashLock:         \(hashLock)
+    expirationHeight: \(expirationHeight)
+    """
   }
 }
 
@@ -223,6 +223,24 @@ struct LNPendingOpenChannel: CustomStringConvertible {
   }
 }
 
+struct LNPendingOpenChannel: CustomStringConvertible {
+  var channel: LNPendingChannel
+  var confirmationHeight: UInt
+  var commitFee: Int
+  var commitWeight: Int
+  var feePerKw: Int
+  
+  var description: String {
+    return """
+    Pending Open Channel details -
+    \(channel)
+    confirmationHeight: \(confirmationHeight)
+    commitFee: \(commitFee)
+    commitWeight: \(commitWeight)
+    feePerKw: \(feePerKw)
+    """
+  }
+}
 
 struct LNPendingCloseChannel: CustomStringConvertible {
   var channel: LNPendingChannel
@@ -330,19 +348,19 @@ struct LNDInfo: CustomStringConvertible {
   
   var description: String {
     return """
-      LND Information -
-        Identity Pubkey:       \(identityPubkey)
-        Alias:                 \(alias)
-        Num Pending Channels:  \(numPendingChannels)
-        Num Active Channels :  \(numActiveChannels)
-        Number of Peers:       \(numPeers)
-        Block Height:          \(blockHeight)
-        Block Hash:            \(blockHash)")
-        Synced to Chain:       \(syncedToChain)
-        Testnet:               \(testnet)
-        Chains:                \(chains.joined(separator: ", "))
-        URIs:                  \(uris.joined(separator: ", "))
-        Best Header Timestamp: \(bestHeaderTimestamp)
+    LND Information -
+    Identity Pubkey:       \(identityPubkey)
+    Alias:                 \(alias)
+    Num Pending Channels:  \(numPendingChannels)
+    Num Active Channels :  \(numActiveChannels)
+    Number of Peers:       \(numPeers)
+    Block Height:          \(blockHeight)
+    Block Hash:            \(blockHash)")
+    Synced to Chain:       \(syncedToChain)
+    Testnet:               \(testnet)
+    Chains:                \(chains.joined(separator: ", "))
+    URIs:                  \(uris.joined(separator: ", "))
+    Best Header Timestamp: \(bestHeaderTimestamp)
     """
   }
 }
@@ -361,16 +379,16 @@ struct LNPayReq: CustomStringConvertible {
   
   var description: String {
     return """
-      LN Payment Request -
-        Destination:      \(destination)
-        Payment Hash:     \(paymentHash)
-        Num Satoshis:     \(numSatoshis)
-        Timestamp:        \(timestamp)
-        Expiry:           \(expiry)
-        Description:      \(payDescription)
-        Description Hash: \(descriptionHash)
-        Fallback Address: \(fallbackAddr)
-        CLTV Expiry:      \(cltvExpiry)
+    LN Payment Request -
+    Destination:      \(destination)
+    Payment Hash:     \(paymentHash)
+    Num Satoshis:     \(numSatoshis)
+    Timestamp:        \(timestamp)
+    Expiry:           \(expiry)
+    Description:      \(payDescription)
+    Description Hash: \(descriptionHash)
+    Fallback Address: \(fallbackAddr)
+    CLTV Expiry:      \(cltvExpiry)
     """
   }
 }
@@ -467,7 +485,7 @@ enum LNError: Int, LocalizedError {
       
     case .unlockWalletInvalidPassword:
       return NSLocalizedString("Password invalid when unlocking wallet", comment: "LNError Type")
-    
+      
     case .openChannelStreamNoType:
       return NSLocalizedString("OpenChannel Stream Call result has no type", comment: "LN Error Type")
     case .closeChannelStreamNoType:

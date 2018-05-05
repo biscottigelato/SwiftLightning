@@ -238,18 +238,15 @@ class PlaygroundViewController: SLViewController {
   
   
   @IBAction func stopLND(_ sender: UIButton) {
-    do {
-      try LNServices.stopDaemon { (result) in
-        do {
-          try result()
-        } catch {
-          SLLog.warning(error.localizedDescription)
-        }
+    LNServices.stopDaemon { (response) in
+      do {
+        _ = try response()
+      } catch {
+        SLLog.warning(error.localizedDescription)
       }
-    } catch {
-      SLLog.warning(error.localizedDescription)
     }
   }
+  
   
   @IBAction func deleteLNDFiles(_ sender: UIButton) {
     do {

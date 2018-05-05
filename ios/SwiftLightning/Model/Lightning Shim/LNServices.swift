@@ -306,76 +306,39 @@ class LNServices {
   }
   
   
-  // MARK: Get Transactions
+  // MARK: Send Coins
   
-  static func getTransactions(retryCount: Int = LNConstants.defaultRetryCount,
-                             retryDelay: Double = LNConstants.defaultRetryDelay,
-                             completion: @escaping (() throws -> ([BTCTransaction])) -> Void) {
+  class SendCoins: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> (String)) -> Void
     let retry = SLRetry()
-    let task = { () -> () in
-      do {
-        try prepareLightningService()
-        
-        // Unary GRPC
-        _ = try lightningService!.getTransactions(Lnrpc_GetTransactionsRequest()) { (response, result) in
-          if let response = response {
-            SLLog.debug("Get Bitcoin Transactions Success!")
-            var btcTransactions = [BTCTransaction]()
-            
-            for (index, transaction) in response.transactions.enumerated() {
-              let btcTransaction = BTCTransaction(txHash: transaction.txHash,
-                                                  amount: Int(transaction.amount),
-                                                  numConfirmations: Int(transaction.numConfirmations),
-                                                  blockHash: transaction.blockHash,
-                                                  blockHeight: Int(transaction.blockHeight),
-                                                  timeStamp: Int(transaction.timeStamp),
-                                                  totalFees: Int(transaction.totalFees),
-                                                  destAddresses: transaction.destAddresses)
-              
-              btcTransactions.append(btcTransaction)
-              
-              SLLog.verbose("")
-              SLLog.verbose("Bitcoin Transaction #\(index)")
-              SLLog.verbose(String(describing: btcTransaction))
-            }
-            
-            // Success! - dereference retry
-            retry.success()
-            completion({ return btcTransactions })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            
-            // Error - attempt to retry?
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
-      } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
-      }
-    }
-    let fail = { (error: Error) -> () in
-      SLLog.warning("Get Bitcoin Transactions Failed - \(error.localizedDescription)")
-      completion({ throw error })
+    init(_ completion: @escaping (() throws -> (String)) -> Void) {
+      self.completion = completion
     }
     
-    retry.start("Get Bitcoin Transactions", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    func onResponse(_ p0: Data!) {
+      do {
+        let response = try Lnrpc_SendCoinsResponse(serializedData: p0)
+        SLLog.debug("LN Send Coins Success!")
+        
+        // Success. Deference retry
+        retry.success()
+        completion({ response.txid })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
   }
-  
-  
-  // MARK: Send Coins
   
   static func sendCoins(address: String, amount: Int, targetConf: Int? = nil, satPerByte: Int? = nil,
                         retryCount: Int = LNConstants.defaultRetryCount,
                         retryDelay: Double = LNConstants.defaultRetryDelay,
                         completion: @escaping (() throws -> (String)) -> Void) {
     
-    let retry = SLRetry()
-    let task = { () -> () in
-      do {
-        try prepareLightningService()
+    let lndOp = SendCoins(completion)
     
+    let task = {
+      do {
         var request = Lnrpc_SendCoinsRequest()
         request.addr = address
         request.amount = Int64(amount)
@@ -383,92 +346,115 @@ class LNServices {
         if let targetConf = targetConf { request.targetConf = Int32(targetConf) }
         if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
         
-        // Unary GRPC
-        _ = try lightningService!.sendCoins(request) { (response, result) in
-
-          if let response = response {
-            SLLog.debug("LN Send Coins Success!")
-            
-            // Success. Deference retry
-            retry.success()
-            completion({ response.txid })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
+        let serialReq = try request.serializedData()
+        LndmobileSendCoins(serialReq, lndOp)
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
     let fail = { (error: Error) -> () in
       SLLog.warning("LN Send Coins Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("LN Send Coins", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN Send Coins", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
   // MARK: New Address
   
+  class NewAddress: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> (String)) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> (String)) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let response = try Lnrpc_NewAddressResponse(serializedData: p0)
+        SLLog.debug("LN New Address Success!")
+        
+        // Success! - dereference retry
+        retry.success()
+        completion({ return response.address })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
   static func newAddress(retryCount: Int = LNConstants.defaultRetryCount,
                          retryDelay: Double = LNConstants.defaultRetryDelay,
                          completion: @escaping (() throws -> (String)) -> Void) {
     
-    let retry = SLRetry()
-    let task = { () -> () in
-      do {
-        try prepareLightningService()
-        
-        var newAddressRequest = Lnrpc_NewAddressRequest()
-        newAddressRequest.type = .nestedPubkeyHash
+    let lndOp = NewAddress(completion)
     
-        // Unary GRPC
-        _ = try lightningService!.newAddress(newAddressRequest) { (response, result) in
-          
-          if let response = response {
-            SLLog.debug("LN New Address Success!")
-            
-            // Success! - dereference retry
-            retry.success()
-            completion({ return response.address })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            
-            // Error - attempt to retry?
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
+    let task = {
+      do {
+        let request = try Lnrpc_NewAddressRequest().serializedData()
+        LndmobileNewAddress(request, lndOp)
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
     let fail = { (error: Error) -> () in
       SLLog.warning("LN New Address Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("LN New Address Failed", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN New Address", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
   // MARK: Connect Peer
+  
+  class ConnectPeer: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> ()) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> ()) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      // We won't retry anymore after getting here. Deference retry
+      retry.success()
+      
+      do {
+        _ = try Lnrpc_ConnectPeerResponse(serializedData: p0)
+        SLLog.debug("LN Connect Peer Success!")
+        
+        completion({ return })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    
+    func onError(_ p0: Error!) {
+      if p0.localizedDescription.contains("already connected") {  // TODO: Hack: Is there a better way?
+        // We won't retry anymore after getting here. Deference retry
+        retry.success()
+        
+        SLLog.warning(p0.localizedDescription)
+        completion({ return })
+      } else {
+        retry.attempt(error: p0)
+      }
+    }
+  }
   
   static func connectPeer(pubKey: String, hostAddr: String, hostPort: Int,
                           retryCount: Int = LNConstants.defaultRetryCount,
                           retryDelay: Double = LNConstants.defaultRetryDelay,
                           completion: @escaping (() throws -> ()) -> Void) {
     
-    let retry = SLRetry()
-    let task = { () -> () in
+    let lndOp = ConnectPeer(completion)
+    
+    let task = {
       do {
-        try prepareLightningService()
-        
         var addr = Lnrpc_LightningAddress()
         addr.pubkey = pubKey
         addr.host = "\(hostAddr):\(hostPort)"
@@ -477,96 +463,85 @@ class LNServices {
         request.addr = addr
         request.perm = true
         
-        // Unary GRPC
-        _ = try lightningService!.connectPeer(request) { (response, result) in
-          
-          // We won't retry anymore after getting here. Deference retry
-          retry.success()
-          
-          if response != nil {
-            SLLog.debug("LN Connect Peer Success!")
-            completion({ return })
-          } else {
-            let message = result.statusMessage ?? result.description
-            if message.contains("already connected") {  // TODO: Hack: Is there a better way?
-              SLLog.warning(message)
-              completion({ return })
-            } else {
-              completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
-            }
-          }
-        }
-        
+        let serialReq = try request.serializedData()
+        LndmobileConnectPeer(serialReq, lndOp)
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
     let fail = { (error: Error) -> () in
       SLLog.warning("LN Connect Peer Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("LN Connect Peer", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN Connect peer", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
   // MARK: List Peers
   
+  class ListPeers: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> ([LNPeer])) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> ([LNPeer])) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let response = try Lnrpc_ListPeersResponse(serializedData: p0)
+        SLLog.debug("LN List Peers Success!")
+        
+        var lnPeers = [LNPeer]()
+        for (index, peer) in response.peers.enumerated() {
+          
+          let lnPeer = LNPeer(pubKey: peer.pubKey,
+                              address: peer.address,
+                              bytesSent: UInt(peer.bytesSent),
+                              bytesRecv: UInt(peer.bytesRecv),
+                              satSent: Int(peer.satSent),
+                              satRecv: Int(peer.satRecv),
+                              inbound: peer.inbound,
+                              pingTime: Int(peer.pingTime))
+          
+          lnPeers.append(lnPeer)
+          
+          SLLog.verbose("")
+          SLLog.verbose("Peer #\(index)")
+          SLLog.verbose(String(describing: lnPeer))
+        }
+        
+        // Success! - dereference retry
+        retry.success()
+        completion({ return lnPeers })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
   static func listPeers(retryCount: Int = LNConstants.defaultRetryCount,
                         retryDelay: Double = LNConstants.defaultRetryDelay,
                         completion: @escaping (() throws -> ([LNPeer])) -> Void) {
-    let retry = SLRetry()
-    let task = { () -> () in
+    let lndOp = ListPeers(completion)
+    
+    let task = {
       do {
-        try prepareLightningService()
-        
-        // Unary GRPC
-        _ = try lightningService!.listPeers(Lnrpc_ListPeersRequest()) { (response, result) in
-          if let response = response {
-            SLLog.debug("LN List Peers Success!")
-            
-            var lnPeers = [LNPeer]()
-            for (index, peer) in response.peers.enumerated() {
-              
-              let lnPeer = LNPeer(pubKey: peer.pubKey,
-                                  address: peer.address,
-                                  bytesSent: UInt(peer.bytesSent),
-                                  bytesRecv: UInt(peer.bytesRecv),
-                                  satSent: Int(peer.satSent),
-                                  satRecv: Int(peer.satRecv),
-                                  inbound: peer.inbound,
-                                  pingTime: Int(peer.pingTime))
-              
-              lnPeers.append(lnPeer)
-              
-              SLLog.verbose("")
-              SLLog.verbose("Peer #\(index)")
-              SLLog.verbose(String(describing: lnPeer))
-            }
-            
-            // Success! - dereference retry
-            retry.success()
-            completion({ return lnPeers })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            
-            // Error - attempt to retry?
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
+        let request = try Lnrpc_ListPeersRequest().serializedData()
+        LndmobileListPeers(request, lndOp)
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
     let fail = { (error: Error) -> () in
       SLLog.warning("LN List Peers Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("LN List Peers", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN List Peers", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
@@ -638,192 +613,207 @@ class LNServices {
   
   // MARK: Pending Channels
   
+  class PendingChannels: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> (pendingOpen: [LNPendingOpenChannel], pendingClose: [LNPendingCloseChannel], pendingForceClose: [LNPendingForceCloseChannel])) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> (pendingOpen: [LNPendingOpenChannel], pendingClose: [LNPendingCloseChannel], pendingForceClose: [LNPendingForceCloseChannel])) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let response = try Lnrpc_PendingChannelsResponse(serializedData: p0)
+        SLLog.debug("LN Pending Channels Success!")
+        
+        var lnPendingOpenChannels = [LNPendingOpenChannel]()
+        for (index, pendingOpenChannel) in response.pendingOpenChannels.enumerated() {
+          
+          let lnPendingChannel = LNPendingChannel(remoteNodePub: pendingOpenChannel.channel.remoteNodePub,
+                                                  channelPoint: pendingOpenChannel.channel.channelPoint,
+                                                  capacity: Int(pendingOpenChannel.channel.capacity),
+                                                  localBalance: Int(pendingOpenChannel.channel.localBalance),
+                                                  remoteBalance: Int(pendingOpenChannel.channel.remoteBalance))
+          
+          let lnPendingOpenChannel = LNPendingOpenChannel(channel: lnPendingChannel,
+                                                          confirmationHeight: UInt(pendingOpenChannel.confirmationHeight),
+                                                          commitFee: Int(pendingOpenChannel.commitFee),
+                                                          commitWeight: Int(pendingOpenChannel.commitWeight),
+                                                          feePerKw: Int(pendingOpenChannel.feePerKw))
+          
+          lnPendingOpenChannels.append(lnPendingOpenChannel)
+          
+          SLLog.verbose("")
+          SLLog.verbose("Pending Open Channel #\(index)")
+          SLLog.verbose(String(describing: lnPendingOpenChannel))
+        }
+        
+        var lnPendingCloseChannels = [LNPendingCloseChannel]()
+        for (index, pendingCloseChannel) in response.pendingClosingChannels.enumerated() {
+          
+          let lnPendingChannel = LNPendingChannel(remoteNodePub: pendingCloseChannel.channel.remoteNodePub,
+                                                  channelPoint: pendingCloseChannel.channel.channelPoint,
+                                                  capacity: Int(pendingCloseChannel.channel.capacity),
+                                                  localBalance: Int(pendingCloseChannel.channel.localBalance),
+                                                  remoteBalance: Int(pendingCloseChannel.channel.remoteBalance))
+          
+          let lnPendingCloseChannel = LNPendingCloseChannel(channel: lnPendingChannel, closingTxID: pendingCloseChannel.closingTxid)
+          lnPendingCloseChannels.append(lnPendingCloseChannel)
+          
+          SLLog.verbose("")
+          SLLog.verbose("Pending Close Channel #\(index)")
+          SLLog.verbose(String(describing: lnPendingCloseChannel))
+        }
+        
+        var lnPendingForceCloseChannels = [LNPendingForceCloseChannel]()
+        for (index, pendingForceCloseChannel) in response.pendingForceClosingChannels.enumerated() {
+          
+          let lnPendingChannel = LNPendingChannel(remoteNodePub: pendingForceCloseChannel.channel.remoteNodePub,
+                                                  channelPoint: pendingForceCloseChannel.channel.channelPoint,
+                                                  capacity: Int(pendingForceCloseChannel.channel.capacity),
+                                                  localBalance: Int(pendingForceCloseChannel.channel.localBalance),
+                                                  remoteBalance: Int(pendingForceCloseChannel.channel.remoteBalance))
+          
+          var lnPendingHTLCs = [LNPendingHTLC]()
+          for pendingHTLC in pendingForceCloseChannel.pendingHtlcs {
+            let lnPendingHTLC = LNPendingHTLC(incoming: pendingHTLC.incoming,
+                                              amount: Int(pendingHTLC.amount),
+                                              outpoint: pendingHTLC.outpoint,
+                                              maturityHeight: UInt(pendingHTLC.maturityHeight),
+                                              blocksTilMaturity: Int(pendingHTLC.blocksTilMaturity),
+                                              stage: UInt(pendingHTLC.stage))
+            lnPendingHTLCs.append(lnPendingHTLC)
+          }
+          
+          let lnPendingForceCloseChannel = LNPendingForceCloseChannel(channel: lnPendingChannel,
+                                                                      closingTxID: pendingForceCloseChannel.closingTxid,
+                                                                      limboBalance: Int(pendingForceCloseChannel.limboBalance),
+                                                                      maturityHeight: UInt(pendingForceCloseChannel.maturityHeight),
+                                                                      blocksTilMaturity: Int(pendingForceCloseChannel.blocksTilMaturity),
+                                                                      recoveredBalance: Int(pendingForceCloseChannel.recoveredBalance),
+                                                                      pendingHTLCs: lnPendingHTLCs)
+          lnPendingForceCloseChannels.append(lnPendingForceCloseChannel)
+          
+          SLLog.verbose("")
+          SLLog.verbose("Pending Force Close Channel #\(index)")
+          SLLog.verbose(String(describing: lnPendingForceCloseChannel))
+        }
+        
+        // Success! - dereference retry
+        retry.success()
+        completion({ return (lnPendingOpenChannels, lnPendingCloseChannels, lnPendingForceCloseChannels) })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
   static func pendingChannels(retryCount: Int = LNConstants.defaultRetryCount,
                               retryDelay: Double = LNConstants.defaultRetryDelay,
                               completion: @escaping (() throws -> (pendingOpen: [LNPendingOpenChannel],
                                                                    pendingClose: [LNPendingCloseChannel],
                                                                    pendingForceClose: [LNPendingForceCloseChannel])) -> Void) {
-    let retry = SLRetry()
-    let task = { () -> () in
+    
+    let lndOp = PendingChannels(completion)
+    
+    let task = {
       do {
-        try prepareLightningService()
-        
-        // Unary GRPC
-        _ = try lightningService!.pendingChannels(Lnrpc_PendingChannelsRequest()) { (response, result) in
-          if let response = response {
-            SLLog.debug("LN Pending Channels Success!")
-            
-            var lnPendingOpenChannels = [LNPendingOpenChannel]()
-            for (index, pendingOpenChannel) in response.pendingOpenChannels.enumerated() {
-              
-              let lnPendingChannel = LNPendingChannel(remoteNodePub: pendingOpenChannel.channel.remoteNodePub,
-                                                      channelPoint: pendingOpenChannel.channel.channelPoint,
-                                                      capacity: Int(pendingOpenChannel.channel.capacity),
-                                                      localBalance: Int(pendingOpenChannel.channel.localBalance),
-                                                      remoteBalance: Int(pendingOpenChannel.channel.remoteBalance))
-              
-              let lnPendingOpenChannel = LNPendingOpenChannel(channel: lnPendingChannel,
-                                                              confirmationHeight: UInt(pendingOpenChannel.confirmationHeight),
-                                                              commitFee: Int(pendingOpenChannel.commitFee),
-                                                              commitWeight: Int(pendingOpenChannel.commitWeight),
-                                                              feePerKw: Int(pendingOpenChannel.feePerKw))
-              
-              lnPendingOpenChannels.append(lnPendingOpenChannel)
-              
-              SLLog.verbose("")
-              SLLog.verbose("Pending Open Channel #\(index)")
-              SLLog.verbose(String(describing: lnPendingOpenChannel))
-            }
-              
-            var lnPendingCloseChannels = [LNPendingCloseChannel]()
-            for (index, pendingCloseChannel) in response.pendingClosingChannels.enumerated() {
-              
-              let lnPendingChannel = LNPendingChannel(remoteNodePub: pendingCloseChannel.channel.remoteNodePub,
-                                                      channelPoint: pendingCloseChannel.channel.channelPoint,
-                                                      capacity: Int(pendingCloseChannel.channel.capacity),
-                                                      localBalance: Int(pendingCloseChannel.channel.localBalance),
-                                                      remoteBalance: Int(pendingCloseChannel.channel.remoteBalance))
-              
-              let lnPendingCloseChannel = LNPendingCloseChannel(channel: lnPendingChannel, closingTxID: pendingCloseChannel.closingTxid)
-              lnPendingCloseChannels.append(lnPendingCloseChannel)
-              
-              SLLog.verbose("")
-              SLLog.verbose("Pending Close Channel #\(index)")
-              SLLog.verbose(String(describing: lnPendingCloseChannel))
-            }
-            
-            var lnPendingForceCloseChannels = [LNPendingForceCloseChannel]()
-            for (index, pendingForceCloseChannel) in response.pendingForceClosingChannels.enumerated() {
-              
-              let lnPendingChannel = LNPendingChannel(remoteNodePub: pendingForceCloseChannel.channel.remoteNodePub,
-                                                      channelPoint: pendingForceCloseChannel.channel.channelPoint,
-                                                      capacity: Int(pendingForceCloseChannel.channel.capacity),
-                                                      localBalance: Int(pendingForceCloseChannel.channel.localBalance),
-                                                      remoteBalance: Int(pendingForceCloseChannel.channel.remoteBalance))
-              
-              var lnPendingHTLCs = [LNPendingHTLC]()
-              for pendingHTLC in pendingForceCloseChannel.pendingHtlcs {
-                let lnPendingHTLC = LNPendingHTLC(incoming: pendingHTLC.incoming,
-                                                  amount: Int(pendingHTLC.amount),
-                                                  outpoint: pendingHTLC.outpoint,
-                                                  maturityHeight: UInt(pendingHTLC.maturityHeight),
-                                                  blocksTilMaturity: Int(pendingHTLC.blocksTilMaturity),
-                                                  stage: UInt(pendingHTLC.stage))
-                lnPendingHTLCs.append(lnPendingHTLC)
-              }
-              
-              let lnPendingForceCloseChannel = LNPendingForceCloseChannel(channel: lnPendingChannel,
-                                                                          closingTxID: pendingForceCloseChannel.closingTxid,
-                                                                          limboBalance: Int(pendingForceCloseChannel.limboBalance),
-                                                                          maturityHeight: UInt(pendingForceCloseChannel.maturityHeight),
-                                                                          blocksTilMaturity: Int(pendingForceCloseChannel.blocksTilMaturity),
-                                                                          recoveredBalance: Int(pendingForceCloseChannel.recoveredBalance),
-                                                                          pendingHTLCs: lnPendingHTLCs)
-              lnPendingForceCloseChannels.append(lnPendingForceCloseChannel)
-              
-              SLLog.verbose("")
-              SLLog.verbose("Pending Force Close Channel #\(index)")
-              SLLog.verbose(String(describing: lnPendingForceCloseChannel))
-            }
-            
-            // Success! - dereference retry
-            retry.success()
-            completion({ return (lnPendingOpenChannels, lnPendingCloseChannels, lnPendingForceCloseChannels) })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            
-            // Error - attempt to retry?
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
+        let request = try Lnrpc_PendingChannelsRequest().serializedData()
+        LndmobilePendingChannels(request, lndOp)
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
     let fail = { (error: Error) -> () in
       SLLog.warning("LN Pending Channels Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("LN Pending Channels", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN Pending Channels", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
   // MARK: List Channels
   
+  class ListChannels: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> ([LNChannel])) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> ([LNChannel])) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let response = try Lnrpc_ListChannelsResponse(serializedData: p0)
+        SLLog.debug("LN List Channels Success!")
+        
+        var lnChannels = [LNChannel]()
+        for (index, channel) in response.channels.enumerated() {
+          
+          var lnHTLCs = [LNHTLC]()
+          for htlc in channel.pendingHtlcs {
+            let lnHTLC = LNHTLC(incoming: htlc.incoming,
+                                amount: Int(htlc.amount),
+                                hashLock: htlc.hashLock,
+                                expirationHeight: UInt(htlc.expirationHeight))
+            lnHTLCs.append(lnHTLC)
+          }
+          
+          let lnChannel = LNChannel(isActive: channel.active,
+                                    remotePubKey: channel.remotePubkey,
+                                    channelPoint: channel.channelPoint,
+                                    chanID: UInt(channel.chanID),
+                                    capacity: Int(channel.capacity),
+                                    localBalance: Int(channel.localBalance),
+                                    remoteBalance: Int(channel.remoteBalance),
+                                    commitFee: Int(channel.commitFee),
+                                    commitWeight: Int(channel.commitWeight),
+                                    feePerKw: Int(channel.feePerKw),
+                                    unsettledBalance: Int(channel.unsettledBalance),
+                                    totalSatoshisSent: Int(channel.totalSatoshisSent),
+                                    totalSatoshisReceived: Int(channel.totalSatoshisReceived),
+                                    numUpdates: UInt(channel.numUpdates),
+                                    pendingHTLCs: lnHTLCs,
+                                    csvDelay: UInt(channel.csvDelay),
+                                    isPrivate: channel.private)
+          lnChannels.append(lnChannel)
+          
+          SLLog.verbose("")
+          SLLog.verbose("Channel #\(index)")
+          SLLog.verbose(String(describing: lnChannel))
+        }
+        
+        // Success! - dereference retry
+        retry.success()
+        completion({ return lnChannels })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
   static func listChannels(retryCount: Int = LNConstants.defaultRetryCount,
                            retryDelay: Double = LNConstants.defaultRetryDelay,
                            completion: @escaping (() throws -> ([LNChannel])) -> Void) {
-    let retry = SLRetry()
-    let task = { () -> () in
+    let lndOp = ListChannels(completion)
+    
+    let task = {
       do {
-        try prepareLightningService()
-        
-        // Unary GRPC
-        _ = try lightningService!.listChannels(Lnrpc_ListChannelsRequest()) { (response, result) in
-          if let response = response {
-            SLLog.debug("LN List Channels Success!")
-            
-            var lnChannels = [LNChannel]()
-            for (index, channel) in response.channels.enumerated() {
-              
-              var lnHTLCs = [LNHTLC]()
-              for htlc in channel.pendingHtlcs {
-                let lnHTLC = LNHTLC(incoming: htlc.incoming,
-                                    amount: Int(htlc.amount),
-                                    hashLock: htlc.hashLock,
-                                    expirationHeight: UInt(htlc.expirationHeight))
-                lnHTLCs.append(lnHTLC)
-              }
-              
-              let lnChannel = LNChannel(isActive: channel.active,
-                                        remotePubKey: channel.remotePubkey,
-                                        channelPoint: channel.channelPoint,
-                                        chanID: UInt(channel.chanID),
-                                        capacity: Int(channel.capacity),
-                                        localBalance: Int(channel.localBalance),
-                                        remoteBalance: Int(channel.remoteBalance),
-                                        commitFee: Int(channel.commitFee),
-                                        commitWeight: Int(channel.commitWeight),
-                                        feePerKw: Int(channel.feePerKw),
-                                        unsettledBalance: Int(channel.unsettledBalance),
-                                        totalSatoshisSent: Int(channel.totalSatoshisSent),
-                                        totalSatoshisReceived: Int(channel.totalSatoshisReceived),
-                                        numUpdates: UInt(channel.numUpdates),
-                                        pendingHTLCs: lnHTLCs,
-                                        csvDelay: UInt(channel.csvDelay),
-                                        isPrivate: channel.private)
-              lnChannels.append(lnChannel)
-              
-              SLLog.verbose("")
-              SLLog.verbose("Channel #\(index)")
-              SLLog.verbose(String(describing: lnChannel))
-            }
-            
-            // Success! - dereference retry
-            retry.success()
-            completion({ return lnChannels })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            
-            // Error - attempt to retry?
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
+        let request = try Lnrpc_ListChannelsRequest().serializedData()
+        LndmobileListChannels(request, lndOp)
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
     let fail = { (error: Error) -> () in
       SLLog.warning("LN List Channels Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("LN List Channels", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN List Channels", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
@@ -923,6 +913,8 @@ class LNServices {
   
   // MARK: Open Channel
   
+  // MARK: Close Channel
+  
   static func closeChannel(fundingTxIDStr: String, outputIndex: UInt, force: Bool,
                            targetConf: Int? = nil, satPerByte: Int? = nil,
                            retryCount: Int = LNConstants.defaultRetryCount,
@@ -1017,16 +1009,53 @@ class LNServices {
   
   // MARK: Send Payment Sync
   
+  class SendPaymentSync: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> (payError: String, payPreImage: Data, payRoute: LNRoute)) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> (payError: String, payPreImage: Data, payRoute: LNRoute)) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let response = try Lnrpc_SendResponse(serializedData: p0)
+        SLLog.debug("LN Send Payment Sync Success!")
+        
+        var lnHops = [LNHop]()
+        
+        for hop in response.paymentRoute.hops {
+          let lnHop = LNHop(chanID: UInt(hop.chanID),
+                            chanCapacity: Int(hop.chanCapacity),
+                            amtToForward: Int(hop.amtToForward),
+                            fee: Int(hop.fee),
+                            expiry: UInt(hop.expiry))
+          lnHops.append(lnHop)
+        }
+        
+        let lnRoute = LNRoute(totalTimeLock: UInt(response.paymentRoute.totalTimeLock),
+                              totalFees: Int(response.paymentRoute.totalFees),
+                              totalAmt: Int(response.paymentRoute.totalAmt),
+                              hops: lnHops)
+        
+        // Success. Deference retry
+        retry.success()
+        completion({ return (response.paymentError, response.paymentPreimage, lnRoute) })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
   static func sendPaymentSync(dest: Data? = nil, amount: Int? = nil, payHash: Data? = nil, payReq: String? = nil, finalCLTVDelta: Int? = nil,
                               retryCount: Int = LNConstants.defaultRetryCount,
                               retryDelay: Double = LNConstants.defaultRetryDelay,
                               completion: @escaping (() throws -> (payError: String, payPreImage: Data, payRoute: LNRoute)) -> Void) {
     
-    let retry = SLRetry()
-    let task = { () -> () in
+    let lndOp = SendPaymentSync(completion)
+    
+    let task = {
       do {
-        try prepareLightningService()
-
         var request = Lnrpc_SendRequest()
         if let dest = dest { request.dest = dest }
         if let amount = amount { request.amt = Int64(amount) }
@@ -1034,304 +1063,327 @@ class LNServices {
         if let payReq = payReq { request.paymentRequest = payReq }
         if let finalCTLVDelta = finalCLTVDelta { request.finalCltvDelta = Int32(finalCTLVDelta) }
         
-        // Unary GRPC
-        _ = try lightningService!.sendPaymentSync(request) { (response, result) in
-
-          if let response = response {
-            SLLog.debug("LN Send Payment Sync Success!")
-            
-            var lnHops = [LNHop]()
-            
-            for hop in response.paymentRoute.hops {
-              let lnHop = LNHop(chanID: UInt(hop.chanID),
-                                chanCapacity: Int(hop.chanCapacity),
-                                amtToForward: Int(hop.amtToForward),
-                                fee: Int(hop.fee),
-                                expiry: UInt(hop.expiry))
-              lnHops.append(lnHop)
-            }
-            
-            let lnRoute = LNRoute(totalTimeLock: UInt(response.paymentRoute.totalTimeLock),
-                                  totalFees: Int(response.paymentRoute.totalFees),
-                                  totalAmt: Int(response.paymentRoute.totalAmt),
-                                  hops: lnHops)
-            
-            // Success. Deference retry
-            retry.success()
-            completion({ return (response.paymentError, response.paymentPreimage, lnRoute) })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
+        let serialReq = try request.serializedData()
+        LndmobileSendPaymentSync(serialReq, lndOp)
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
     let fail = { (error: Error) -> () in
       SLLog.warning("LN Send Payment Sync Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("LN Send Payment Sync", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN Send Payment Sync", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
   // MARK: Get Node Info
   
+  class GetNodeInfo: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> (LNNode)) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> (LNNode)) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let response = try Lnrpc_NodeInfo(serializedData: p0)
+        SLLog.debug("LN Get Node Info Success!")
+        
+        let lnNode = LNNode(lastUpdate: UInt(response.node.lastUpdate),
+                            pubKey: response.node.pubKey,
+                            alias: response.node.alias,
+                            network: response.node.addresses.map { $0.network },
+                            address: response.node.addresses.map { $0.addr },
+                            color: response.node.color,
+                            numChannels: UInt(response.numChannels),
+                            totalCapacity: Int(response.totalCapacity))
+        
+        SLLog.verbose(String(describing: lnNode))
+        
+        // Success! - dereference retry
+        retry.success()
+        completion({ return lnNode })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
   static func getNodeInfo(pubKey: String,
                           retryCount: Int = LNConstants.defaultRetryCount,
                           retryDelay: Double = LNConstants.defaultRetryDelay,
                           completion: @escaping (() throws -> (LNNode)) -> Void) {
-    let retry = SLRetry()
-    let task = { () -> () in
+    let lndOp = GetNodeInfo(completion)
+    
+    let task = {
       do {
-        try prepareLightningService()
-        
         var request = Lnrpc_NodeInfoRequest()
         request.pubKey = pubKey
         
-        // Unary GRPC
-        _ = try lightningService!.getNodeInfo(request) { (nodeInfo, result) in
-          if let nodeInfo = nodeInfo {
-            SLLog.debug("LN Get Node Info Success!")
-    
-            let lnNode = LNNode(lastUpdate: UInt(nodeInfo.node.lastUpdate),
-                                pubKey: nodeInfo.node.pubKey,
-                                alias: nodeInfo.node.alias,
-                                network: nodeInfo.node.addresses.map { $0.network },
-                                address: nodeInfo.node.addresses.map { $0.addr },
-                                color: nodeInfo.node.color,
-                                numChannels: UInt(nodeInfo.numChannels),
-                                totalCapacity: Int(nodeInfo.totalCapacity))
-            
-            SLLog.verbose(String(describing: lnNode))
-            
-            // Success! - dereference retry
-            retry.success()
-            completion({ return lnNode })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            
-            // Error - attempt to retry?
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
+        let serialReq = try request.serializedData()
+        LndmobileGetNodeInfo(serialReq, lndOp)
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
     let fail = { (error: Error) -> () in
       SLLog.warning("LN Get Node Info Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("LN Get Node Info", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN Get Node Info", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
   // MARK: QueryRoutes
+  
+  class QueryRoutes: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> ([LNRoute])) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> ([LNRoute])) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let response = try Lnrpc_QueryRoutesResponse(serializedData: p0)
+        SLLog.debug("LN Query Routes Success!")
+        
+        var lnRoutes = [LNRoute]()
+        for route in response.routes {
+          
+          var lnHops = [LNHop]()
+          for hop in route.hops {
+            lnHops.append(LNHop(chanID: UInt(hop.chanID),
+                                chanCapacity: Int(hop.chanCapacity),
+                                amtToForward: Int(hop.amtToForward),
+                                fee: Int(hop.fee),
+                                expiry: UInt(hop.expiry)))
+          }
+          
+          lnRoutes.append(LNRoute(totalTimeLock: UInt(route.totalTimeLock),
+                                  totalFees: Int(route.totalFees),
+                                  totalAmt: Int(route.totalAmt),
+                                  hops: lnHops))
+        }
+        
+        SLLog.verbose("")
+        SLLog.verbose(String(describing: lnRoutes))
+        
+        // Success! - dereference retry
+        retry.success()
+        completion({ return lnRoutes })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
   
   static func queryRoutes(pubKey: String, amt: Int, numRoutes: Int,
                           retryCount: Int = LNConstants.defaultRetryCount,
                           retryDelay: Double = LNConstants.defaultRetryDelay,
                           completion: @escaping (() throws -> ([LNRoute])) -> Void) {
     
-    let retry = SLRetry()
-    let task = { () -> () in
+    let lndOp = QueryRoutes(completion)
+    
+    let task = {
       do {
-        try prepareLightningService()
-        
         var request = Lnrpc_QueryRoutesRequest()
         request.pubKey = pubKey
         request.amt = Int64(amt)
         request.numRoutes = Int32(numRoutes)
         
-        _ = try lightningService!.queryRoutes(request) { (response, result) in
-          
-          if let response = response {
-            SLLog.debug("LN Query Routes Success!")
-            
-            var lnRoutes = [LNRoute]()
-            for route in response.routes {
-              
-              var lnHops = [LNHop]()
-              for hop in route.hops {
-                lnHops.append(LNHop(chanID: UInt(hop.chanID),
-                                    chanCapacity: Int(hop.chanCapacity),
-                                    amtToForward: Int(hop.amtToForward),
-                                    fee: Int(hop.fee),
-                                    expiry: UInt(hop.expiry)))
-              }
-              
-              lnRoutes.append(LNRoute(totalTimeLock: UInt(route.totalTimeLock),
-                                      totalFees: Int(route.totalFees),
-                                      totalAmt: Int(route.totalAmt),
-                                      hops: lnHops))
-            }
-            
-            SLLog.verbose("")
-            SLLog.verbose(String(describing: lnRoutes))
-            
-            // Success! - dereference retry
-            retry.success()
-            completion({ return lnRoutes })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            
-            // Error - attempt to retry?
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
+        let serialReq = try request.serializedData()
+        LndmobileQueryRoutes(serialReq, lndOp)
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
     let fail = { (error: Error) -> () in
       SLLog.warning("LN Query Routes Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("LN Query Routes", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN Query Routes", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
   // MARK: DecodePayReq
   
+  class DecodePayReq: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> (LNPayReq)) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> (LNPayReq)) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let payReq = try Lnrpc_PayReq(serializedData: p0)
+        SLLog.debug("LN Decode Pay Req Success!")
+        
+        let lnPayReq = LNPayReq(destination: payReq.destination,
+                                paymentHash: payReq.paymentHash,
+                                numSatoshis: Int(payReq.numSatoshis),
+                                timestamp: Int(payReq.timestamp),
+                                expiry: Int(payReq.expiry),
+                                payDescription: payReq.description_p,
+                                descriptionHash: payReq.paymentHash,
+                                fallbackAddr: payReq.fallbackAddr,
+                                cltvExpiry: Int(payReq.cltvExpiry))
+        
+        SLLog.verbose("")
+        SLLog.verbose(String(describing: lnPayReq))
+        
+        // Success! - dereference retry
+        retry.success()
+        completion({ return lnPayReq })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
   static func decodePayReq(_ payReqInput: String,
                            retryCount: Int = LNConstants.defaultRetryCount,
                            retryDelay: Double = LNConstants.defaultRetryDelay,
                            completion: @escaping (() throws -> (LNPayReq)) -> Void) {
-    let retry = SLRetry()
-    let task = { () -> () in
+    let lndOp = DecodePayReq(completion)
+    
+    let task = {
       do {
-        try prepareLightningService()
-        
         var payReqString = Lnrpc_PayReqString()
         payReqString.payReq = payReqInput
         
-        // Unary GRPC
-        _ = try lightningService!.decodePayReq(payReqString) { (payReq, result) in
-          
-          if let payReq = payReq {
-            SLLog.debug("LN Decode Pay Req Success!")
-            
-            let lnPayReq = LNPayReq(destination: payReq.destination,
-                                    paymentHash: payReq.paymentHash,
-                                    numSatoshis: Int(payReq.numSatoshis),
-                                    timestamp: Int(payReq.timestamp),
-                                    expiry: Int(payReq.expiry),
-                                    payDescription: payReq.description_p,
-                                    descriptionHash: payReq.paymentHash,
-                                    fallbackAddr: payReq.fallbackAddr,
-                                    cltvExpiry: Int(payReq.cltvExpiry))
-          
-            SLLog.verbose("")
-            SLLog.verbose(String(describing: lnPayReq))
-            
-            // Success! - dereference retry
-            retry.success()
-            completion({ return lnPayReq })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            
-            // Error - attempt to retry?
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
+        let request = try payReqString.serializedData()
+        LndmobileDecodePayReq(request, lndOp)
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
     let fail = { (error: Error) -> () in
       SLLog.warning("LN Decode Pay Req Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("LN Decode Pay Req", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN Decode Pay Req", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
   // MARK: List Payments
   
+  class ListPayments: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> ([LNPayment])) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> ([LNPayment])) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let response = try Lnrpc_ListPaymentsResponse(serializedData: p0)
+        SLLog.debug("List LN Payments Success!")
+        var lnPayments = [LNPayment]()
+        
+        for (index, payment) in response.payments.enumerated() {
+          let lnPayment = LNPayment(paymentHash: payment.paymentHash,
+                                    value: Int(payment.value),
+                                    creationDate: Int(payment.creationDate),
+                                    path: payment.path,
+                                    fee: Int(payment.fee),
+                                    paymentPreimage: payment.paymentPreimage)
+          
+          lnPayments.append(lnPayment)
+          
+          SLLog.verbose("")
+          SLLog.verbose("Lightning Payment #\(index)")
+          SLLog.verbose(String(describing: lnPayment))
+        }
+        
+        // Success! - dereference retry
+        retry.success()
+        completion({ return lnPayments })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
   static func listPayments(retryCount: Int = LNConstants.defaultRetryCount,
                            retryDelay: Double = LNConstants.defaultRetryDelay,
                            completion: @escaping (() throws -> ([LNPayment])) -> Void) {
-    let retry = SLRetry()
-    let task = { () -> () in
+    let lndOp = ListPayments(completion)
+    
+    let task = {
       do {
-        try prepareLightningService()
-        
-        // Unary GRPC
-        _ = try lightningService!.listPayments(Lnrpc_ListPaymentsRequest()) { (response, result) in
-          if let response = response {
-            SLLog.debug("List LN Payments Success!")
-            var lnPayments = [LNPayment]()
-            
-            for (index, payment) in response.payments.enumerated() {
-              let lnPayment = LNPayment(paymentHash: payment.paymentHash,
-                                        value: Int(payment.value),
-                                        creationDate: Int(payment.creationDate),
-                                        path: payment.path,
-                                        fee: Int(payment.fee),
-                                        paymentPreimage: payment.paymentPreimage)
-              
-              lnPayments.append(lnPayment)
-              
-              SLLog.verbose("")
-              SLLog.verbose("Lightning Payment #\(index)")
-              SLLog.verbose(String(describing: lnPayment))
-            }
-            
-            // Success! - dereference retry
-            retry.success()
-            completion({ return lnPayments })
-            
-          } else {
-            let message = result.statusMessage ?? result.description
-            
-            // Error - attempt to retry?
-            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
-          }
-        }
+        let request = try Lnrpc_ListPaymentsResponse().serializedData()
+        LndmobileListPayments(request, lndOp)
       } catch {
-        // Error - attempt to retry
-        retry.attempt(error: error)
+        completion({ throw error })
       }
     }
+    
     let fail = { (error: Error) -> () in
-      SLLog.warning("List LN Payments Failed - \(error.localizedDescription)")
+      SLLog.warning("LN List Payments Failed - \(error.localizedDescription)")
       completion({ throw error })
     }
     
-    retry.start("List LN Payments", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+    lndOp.retry.start("LN List Payments", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
   // MARK: Stop Daemon
   
-  static func stopDaemon(completion: @escaping (() throws -> ()) -> Void) throws {
-    try prepareLightningService()
+  class StopDaemon: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> ()) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> ()) -> Void) {
+      self.completion = completion
+    }
     
-    // Unary GRPC
-    _ = try lightningService!.stopDaemon(Lnrpc_StopRequest()) { (response, result) in
-      if response != nil {
+    func onResponse(_ p0: Data!) {
+      do {
+        _ = try Lnrpc_StopResponse(serializedData: p0)
         SLLog.debug("Stop Daemon Success!")
         completion({ return })
-      } else {
-        let message = result.statusMessage ?? result.description
-        SLLog.warning("Stop Daemon Failed - \(message)")
-        completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
+      } catch {
+        completion({ throw error })
       }
     }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
   }
   
+  static func stopDaemon(retryCount: Int = LNConstants.defaultRetryCount,
+                         retryDelay: Double = LNConstants.defaultRetryDelay,
+                         completion: @escaping (() throws -> ()) -> Void) {
+    
+    let lndOp = StopDaemon(completion)
+    
+    let task = {
+      do {
+        let request = try Lnrpc_StopRequest().serializedData()
+        LndmobileStopDaemon(request, lndOp)
+      } catch {
+        completion({ throw error })
+      }
+    }
+    
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Stop Daemon Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    lndOp.retry.start("LN Stop Daemon", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
 }
