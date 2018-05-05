@@ -27,7 +27,7 @@ protocol WalletMainDisplayLogic: class {
 class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITableViewDelegate, UITableViewDataSource {
   
   var interactor: WalletMainBusinessLogic?
-  var router: (NSObjectProtocol & WalletMainRoutingLogic & WalletMainDataPassing)?
+  var router: (WalletMainRoutingLogic & WalletMainDataPassing)?
 
   
   // MARK: Local Constants
@@ -158,6 +158,18 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
   }
   
   
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    switch tableView {
+    case transactionView.tableView:
+      SLLog.info("TransactionView.TableView row select tapped")
+    case channelView.tableView:
+      router?.routeToChannelDetails(channelVM: channels[indexPath.row])
+    default:
+      SLLog.fatal("Unrecognized Tableview - \(tableView)")
+    }
+  }
+  
+  
   // MARK: Transactions Table View
   
   var transactions = [WalletMain.UpdateTransactions.Transaction]()
@@ -229,14 +241,13 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
   
   // MARK: Channels Table View
   
-  var channels = [WalletMain.UpdateChannels.Channel]()
+  var channels = [ChannelVM]()
   
   private func setupChannelTableView() {
     let nib = UINib(nibName: "ChTableViewCell", bundle: nil)
     channelView.tableView.register(nib, forCellReuseIdentifier: Constants.chCellReuseID)
     channelView.tableView.delegate = self
     channelView.tableView.dataSource = self
-    channelView.tableView.allowsSelection = false // TODO: Select to do more later
     
     // Add refresh control
     let refreshControl = UIRefreshControl()

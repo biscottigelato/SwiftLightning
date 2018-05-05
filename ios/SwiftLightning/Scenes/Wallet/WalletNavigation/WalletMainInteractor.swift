@@ -18,12 +18,13 @@ protocol WalletMainBusinessLogic {
   func updateTransactions(request: WalletMain.UpdateTransactions.Request)
 }
 
-protocol WalletMainDataStore { }
+protocol WalletMainDataStore {
+}
 
 
 class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
-  
   var presenter: WalletMainPresentationLogic?
+  
   
   // MARK: Update Balances
   

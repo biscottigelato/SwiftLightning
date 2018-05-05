@@ -12,16 +12,17 @@
 
 import UIKit
 
-@objc protocol WalletMainRoutingLogic {
+protocol WalletMainRoutingLogic {
   func routeToPayMain()
   func routeToReceiveMain()
+  func routeToChannelDetails(channelVM: ChannelVM)
 }
 
 protocol WalletMainDataPassing {
   var dataStore: WalletMainDataStore? { get }
 }
 
-class WalletMainRouter: NSObject, WalletMainRoutingLogic, WalletMainDataPassing {
+class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
   weak var viewController: WalletMainViewController?
   var dataStore: WalletMainDataStore?
   
@@ -44,6 +45,14 @@ class WalletMainRouter: NSObject, WalletMainRoutingLogic, WalletMainDataPassing 
     navigateToReceiveMain(source: viewController!, destination: destinationVC)
   }
 
+  func routeToChannelDetails(channelVM: ChannelVM) {
+    let storyboard = UIStoryboard(name: "ChannelDetails", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChannelDetailsViewController") as! ChannelDetailsViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToChannelDetails(channelVM: channelVM, destination: &destinationDS)
+    navigateToChannelDetails(source: viewController!, destination: destinationVC)
+  }
+  
   
   // MARK: Navigation
   
@@ -63,6 +72,14 @@ class WalletMainRouter: NSObject, WalletMainRoutingLogic, WalletMainDataPassing 
     navigationController.pushViewController(destination, animated: true)
   }
   
+  func navigateToChannelDetails(source: WalletMainViewController, destination: ChannelDetailsViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    navigationController.pushViewController(destination, animated: true)
+  }
+  
   
   // MARK: Passing data
   
@@ -72,5 +89,9 @@ class WalletMainRouter: NSObject, WalletMainRoutingLogic, WalletMainDataPassing 
   
   func passDataToReceiveMain(source: WalletMainDataStore, destination: inout ReceiveMainDataStore) {
     // destination.name = source.name
+  }
+  
+  func passDataToChannelDetails(channelVM: ChannelVM, destination: inout ChannelDetailsDataStore) {
+    destination.channelVM = channelVM
   }
 }

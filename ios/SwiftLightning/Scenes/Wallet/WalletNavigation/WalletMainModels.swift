@@ -78,26 +78,8 @@ enum WalletMain
     struct Response {
       var result: Result<Channels>
     }
-    struct Channel {
-      enum State: Int {  // Order here determines default sort. Smaller the higher up the list
-        case error = 0
-        case pendingForceClose
-        case pendingClose
-        case pendingOpen
-        case connected
-        case disconnected
-      }
-      var canPayAmt: String  // TODO: Ref Amount
-      var canRcvAmt: String
-      var capacity: Bitcoin
-      var nodePubKey: String
-      var channelPoint: String
-      var state: State
-      var statusText: String
-      var statusColor: UIColor
-    }
     struct ViewModel {
-      var channels: [Channel]
+      var channels: [ChannelVM]
     }
     struct ErrorVM {
       var errTitle: String

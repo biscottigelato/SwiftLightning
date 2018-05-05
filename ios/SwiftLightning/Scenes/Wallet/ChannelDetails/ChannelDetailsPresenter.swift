@@ -12,20 +12,43 @@
 
 import UIKit
 
-protocol ChannelDetailsPresentationLogic
-{
-  func presentSomething(response: ChannelDetails.Something.Response)
+protocol ChannelDetailsPresentationLogic {
+  func presentRefresh(response: ChannelDetails.Refresh.Response)
 }
 
-class ChannelDetailsPresenter: ChannelDetailsPresentationLogic
-{
+class ChannelDetailsPresenter: ChannelDetailsPresentationLogic {
   weak var viewController: ChannelDetailsDisplayLogic?
   
-  // MARK: Do something
+  // MARK: Refresh
   
-  func presentSomething(response: ChannelDetails.Something.Response)
-  {
-    let viewModel = ChannelDetails.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+  func presentRefresh(response: ChannelDetails.Refresh.Response) {
+    switch response.result {
+    case .success(let channelVM):
+      
+      switch channelVM.state {
+      case .disconnected:
+        let viewModel = ChannelDetails.Refresh.ViewModel(channelVM: channelVM,
+                                                         leftButtonHidden: false,
+                                                         rightButtonHidden: false)
+        viewController?.displayRefresh(viewModel: viewModel)
+        
+      case .pendingClose, .pendingOpen, .pendingForceClose:
+        let viewModel = ChannelDetails.Refresh.ViewModel(channelVM: channelVM,
+                                                         leftButtonHidden: true,
+                                                         rightButtonHidden: true)
+        viewController?.displayRefresh(viewModel: viewModel)
+        
+      default:
+        let viewModel = ChannelDetails.Refresh.ViewModel(channelVM: channelVM,
+                                                         leftButtonHidden: true,
+                                                         rightButtonHidden: false)
+        viewController?.displayRefresh(viewModel: viewModel)
+      }
+      
+    case .failure(let error):
+      let viewModel = ChannelDetails.ErrorVM(errTitle: "Node Info Error",
+                                             errMsg: error.localizedDescription)
+      viewController?.displayError(viewModel: viewModel)
+    }
   }
 }

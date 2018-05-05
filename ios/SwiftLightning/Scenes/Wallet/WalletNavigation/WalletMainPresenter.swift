@@ -167,9 +167,8 @@ class WalletMainPresenter: WalletMainPresentationLogic {
     switch response.result {
     case .success(let result):
       
-      typealias Channel = WalletMain.UpdateChannels.Channel
-      var channels = [Channel]()
-      var state: WalletMain.UpdateChannels.Channel.State
+      var channels = [ChannelVM]()
+      var state: ChannelVM.State
       var statusText: String
       var statusColor: UIColor
       
@@ -187,14 +186,18 @@ class WalletMainPresenter: WalletMainPresentationLogic {
         let canPayAmt = Bitcoin(inSatoshi: openedChannel.localBalance)
         let canRcvAmt = Bitcoin(inSatoshi: openedChannel.remoteBalance)
         
-        let channel = Channel(canPayAmt: canPayAmt.formattedInSatoshis(),
+        let channel = ChannelVM(canPayAmt: canPayAmt.formattedInSatoshis(),
                               canRcvAmt: canRcvAmt.formattedInSatoshis(),
                               capacity: Bitcoin(inSatoshi: openedChannel.capacity),
                               nodePubKey: openedChannel.remotePubKey,
                               channelPoint: openedChannel.channelPoint,
                               state: state,
                               statusText: statusText,
-                              statusColor: statusColor)
+                              statusColor: statusColor,
+                              ipAddress: nil,
+                              port: nil,
+                              alias: nil,
+                              errMsg: nil)
         
         channels.append(channel)
       }
@@ -206,14 +209,18 @@ class WalletMainPresenter: WalletMainPresentationLogic {
         let canPayAmt = Bitcoin(inSatoshi: pendingOpenChannel.channel.localBalance)
         let canRcvAmt = Bitcoin(inSatoshi: pendingOpenChannel.channel.remoteBalance)
         
-        let channel = Channel(canPayAmt: canPayAmt.formattedInSatoshis(),
+        let channel = ChannelVM(canPayAmt: canPayAmt.formattedInSatoshis(),
                               canRcvAmt: canRcvAmt.formattedInSatoshis(),
                               capacity: Bitcoin(inSatoshi: pendingOpenChannel.channel.capacity),
                               nodePubKey: pendingOpenChannel.channel.remoteNodePub,
                               channelPoint: pendingOpenChannel.channel.channelPoint,
-                              state: WalletMain.UpdateChannels.Channel.State.pendingOpen,
+                              state: ChannelVM.State.pendingOpen,
                               statusText: statusText,
-                              statusColor: statusColor)
+                              statusColor: statusColor,
+                              ipAddress: nil,
+                              port: nil,
+                              alias: nil,
+                              errMsg: nil)
         
         channels.append(channel)
       }
@@ -225,14 +232,18 @@ class WalletMainPresenter: WalletMainPresentationLogic {
         let canPayAmt = Bitcoin(inSatoshi: pendingCloseChannel.channel.localBalance)
         let canRcvAmt = Bitcoin(inSatoshi: pendingCloseChannel.channel.remoteBalance)
         
-        let channel = Channel(canPayAmt: canPayAmt.formattedInSatoshis(),
+        let channel = ChannelVM(canPayAmt: canPayAmt.formattedInSatoshis(),
                               canRcvAmt: canRcvAmt.formattedInSatoshis(),
                               capacity: Bitcoin(inSatoshi: pendingCloseChannel.channel.capacity),
                               nodePubKey: pendingCloseChannel.channel.remoteNodePub,
                               channelPoint: pendingCloseChannel.closingTxID,
-                              state: WalletMain.UpdateChannels.Channel.State.pendingClose,
+                              state: ChannelVM.State.pendingClose,
                               statusText: statusText,
-                              statusColor: statusColor)
+                              statusColor: statusColor,
+                              ipAddress: nil,
+                              port: nil,
+                              alias: nil,
+                              errMsg: nil)
         
         channels.append(channel)
       }
@@ -244,14 +255,18 @@ class WalletMainPresenter: WalletMainPresentationLogic {
         let canPayAmt = Bitcoin(inSatoshi: pendingForceCloseChannel.channel.localBalance)
         let canRcvAmt = Bitcoin(inSatoshi: pendingForceCloseChannel.channel.remoteBalance)
         
-        let channel = Channel(canPayAmt: canPayAmt.formattedInSatoshis(),
+        let channel = ChannelVM(canPayAmt: canPayAmt.formattedInSatoshis(),
                               canRcvAmt: canRcvAmt.formattedInSatoshis(),
                               capacity: Bitcoin(inSatoshi: pendingForceCloseChannel.channel.capacity),
                               nodePubKey: pendingForceCloseChannel.channel.remoteNodePub,
                               channelPoint: pendingForceCloseChannel.closingTxID,
-                              state: WalletMain.UpdateChannels.Channel.State.pendingForceClose,
+                              state: ChannelVM.State.pendingForceClose,
                               statusText: statusText,
-                              statusColor: statusColor)
+                              statusColor: statusColor,
+                              ipAddress: nil,
+                              port: nil,
+                              alias: nil,
+                              errMsg: nil)
         
         channels.append(channel)
       }

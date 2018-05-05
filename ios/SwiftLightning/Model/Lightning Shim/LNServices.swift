@@ -957,6 +957,61 @@ class LNServices {
   }
   
   
+  // MARK: Get Node Info
+  
+  static func getNodeInfo(pubKey: String,
+                          retryCount: Int = LNConstants.defaultRetryCount,
+                          retryDelay: Double = LNConstants.defaultRetryDelay,
+                          completion: @escaping (() throws -> (LNNode)) -> Void) {
+    let retry = SLRetry()
+    let task = { () -> () in
+      do {
+        try prepareLightningService()
+        
+        var request = Lnrpc_NodeInfoRequest()
+        request.pubKey = pubKey
+        
+        // Unary GRPC
+        _ = try lightningService!.getNodeInfo(request) { (nodeInfo, result) in
+          if let nodeInfo = nodeInfo {
+            SLLog.debug("LN Get Node Info Success!")
+    
+            let lnNode = LNNode(lastUpdate: UInt(nodeInfo.node.lastUpdate),
+                                pubKey: nodeInfo.node.pubKey,
+                                alias: nodeInfo.node.alias,
+                                network: nodeInfo.node.addresses.map { $0.network },
+                                address: nodeInfo.node.addresses.map { $0.addr },
+                                color: nodeInfo.node.color,
+                                numChannels: UInt(nodeInfo.numChannels),
+                                totalCapacity: Int(nodeInfo.totalCapacity))
+            
+            SLLog.verbose(String(describing: lnNode))
+            
+            // Success! - dereference retry
+            retry.success()
+            completion({ return lnNode })
+            
+          } else {
+            let message = result.statusMessage ?? result.description
+            
+            // Error - attempt to retry?
+            retry.attempt(error: GRPCResultError(code: result.statusCode.rawValue, message: message))
+          }
+        }
+      } catch {
+        // Error - attempt to retry
+        retry.attempt(error: error)
+      }
+    }
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Get Node Info Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    retry.start("LN Get Node Info", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
+  
+  
   // MARK: QueryRoutes
   
   static func queryRoutes(pubKey: String, amt: Int, numRoutes: Int,

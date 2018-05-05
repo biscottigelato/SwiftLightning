@@ -35,8 +35,8 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g8W-1p-cNZ">
-                                    <rect key="frame" x="0.0" y="9.5" width="375" height="20.5"/>
-                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                    <rect key="frame" x="0.0" y="8" width="375" height="22"/>
+                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                     <color key="textColor" name="LightTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>

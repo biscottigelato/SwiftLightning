@@ -144,14 +144,8 @@
         <namedColor name="DarkTextBlue">
             <color red="0.20000000000000001" green="0.2470588235" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="DarkTextBlue">
-            <color red="0.20000000000000001" green="0.2470588235" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <namedColor name="LightTextGray">
             <color red="0.66666666669999997" green="0.66274509800000003" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="LightTextGray">
-            <color red="0.66666666666666663" green="0.66274509803921566" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

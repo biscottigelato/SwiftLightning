@@ -12,20 +12,31 @@
 
 import UIKit
 
-enum ChannelDetails
-{
-  // MARK: Use cases
+enum ChannelDetails {
+  enum Refresh {
+    enum Error: LocalizedError {
+      case noChannelInfo
+      
+      var localizedDescription: String {
+        switch self {
+        case .noChannelInfo:
+          return NSLocalizedString("No Channel Info Supplied", comment: "ChannelDetails.Refresh.Error enum")
+        }
+      }
+    }
+    struct Request { }
+    struct Response {
+      var result: Result<ChannelVM>
+    }
+    struct ViewModel {
+      var channelVM: ChannelVM
+      var leftButtonHidden: Bool
+      var rightButtonHidden: Bool
+    }
+  }
   
-  enum Something
-  {
-    struct Request
-    {
-    }
-    struct Response
-    {
-    }
-    struct ViewModel
-    {
-    }
+  struct ErrorVM {
+    var errTitle: String
+    var errMsg: String
   }
 }

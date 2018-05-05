@@ -384,10 +384,10 @@ struct LNRoute: CustomStringConvertible {
   
   var description: String {
     var descriptiveString = """
-    LN Route details -
-    totalTimeLock: \(totalTimeLock)
-    totalFees:     \(totalFees)
-    totalAmt:      \(totalAmt)
+      LN Route details -
+        totalTimeLock: \(totalTimeLock)
+        totalFees:     \(totalFees)
+        totalAmt:      \(totalAmt)
     """
     
     for (index, hop) in hops.enumerated() {
@@ -407,15 +407,40 @@ struct LNHop: CustomStringConvertible {
   
   var description: String {
     return """
-    Hop details -
-    chanID:       \(chanID)
-    chanCapacity: \(chanCapacity)
-    amtToForward: \(amtToForward)
-    expiry:       \(expiry)
+      Hop details -
+        chanID:       \(chanID)
+        chanCapacity: \(chanCapacity)
+        amtToForward: \(amtToForward)
+        expiry:       \(expiry)
     """
   }
 }
 
+
+struct LNNode: CustomStringConvertible {
+  var lastUpdate: UInt
+  var pubKey: String
+  var alias: String
+  var network: [String]
+  var address: [String]
+  var color: String
+  var numChannels: UInt
+  var totalCapacity: Int
+  
+  var description: String {
+    return """
+      Lightning Node details -
+        lastUpdate: \(lastUpdate)
+        pubKey: \(pubKey)
+        alias: \(alias)
+        network: \(network.joined(separator: ", "))
+        address: \(address.joined(separator: ", "))
+        color: \(color)
+        numChannels: \(numChannels)
+        totalCapacity: \(totalCapacity)
+    """
+  }
+}
 
 // MARK: Errors
 

@@ -30,10 +30,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37m-y2-L8B" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
-                    <rect key="frame" x="10" y="12" width="355" height="311"/>
+                    <rect key="frame" x="10" y="12" width="355" height="323"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pdp-xN-EJs">
-                            <rect key="frame" x="0.0" y="0.0" width="355" height="311"/>
+                            <rect key="frame" x="0.0" y="0.0" width="355" height="323"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="joO-cO-J8N" userLabel="Header Background">
                                     <rect key="frame" x="0.0" y="0.0" width="355" height="40"/>
@@ -89,7 +89,7 @@
                                     </constraints>
                                 </view>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bq8-xN-zWm">
-                                    <rect key="frame" x="0.0" y="41" width="355" height="270"/>
+                                    <rect key="frame" x="0.0" y="41" width="355" height="282"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 </tableView>
@@ -105,14 +105,14 @@
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BjO-yC-lVd" userLabel="Bottom Buttons Stack">
-                    <rect key="frame" x="0.0" y="335" width="375" height="42"/>
+                    <rect key="frame" x="0.0" y="347" width="375" height="30"/>
                     <subviews>
                         <view contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="6Bi-eS-jU7" userLabel="Left Spacer">
-                            <rect key="frame" x="0.0" y="0.0" width="10" height="42"/>
+                            <rect key="frame" x="0.0" y="0.0" width="10" height="30"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ocE-LA-cbH" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                            <rect key="frame" x="10" y="0.0" width="172.5" height="42"/>
+                            <rect key="frame" x="10" y="0.0" width="172.5" height="30"/>
                             <color key="backgroundColor" name="LightAzureBlue"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="Pay">
@@ -126,14 +126,14 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <view contentMode="scaleToFill" verticalHuggingPriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="4eF-L7-a5x" userLabel="Main Spacer">
-                            <rect key="frame" x="182.5" y="0.0" width="10" height="42"/>
+                            <rect key="frame" x="182.5" y="0.0" width="10" height="30"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="10" id="qJ7-N4-sZM"/>
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2d-l6-lTQ" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                            <rect key="frame" x="192.5" y="0.0" width="172.5" height="42"/>
+                            <rect key="frame" x="192.5" y="0.0" width="172.5" height="30"/>
                             <color key="backgroundColor" name="MedAquamarine"/>
                             <state key="normal" title="Receive">
                                 <color key="titleColor" name="NormalText"/>
@@ -146,7 +146,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <view contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="paa-4J-V0A" userLabel="Right Spacer">
-                            <rect key="frame" x="365" y="0.0" width="10" height="42"/>
+                            <rect key="frame" x="365" y="0.0" width="10" height="30"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                     </subviews>
@@ -179,9 +179,6 @@
         </namedColor>
         <namedColor name="FormLineGray">
             <color red="0.8666666666666667" green="0.86274509803921573" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="LightAzureBlue">
-            <color red="0.4823529411764706" green="0.71372549019607845" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="LightAzureBlue">
             <color red="0.4823529411764706" green="0.71372549019607845" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

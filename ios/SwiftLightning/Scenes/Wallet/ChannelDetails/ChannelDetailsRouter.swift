@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol ChannelDetailsRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+  func routeToWalletMain()
 }
 
 protocol ChannelDetailsDataPassing
@@ -29,32 +29,25 @@ class ChannelDetailsRouter: NSObject, ChannelDetailsRoutingLogic, ChannelDetails
   
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToWalletMain() {
+    //    let destinationVC = viewController! as! WalletMainViewController
+    //    var destinationDS = destinationVC.router!.dataStore!
+    //    passDataToWalletMain(source: dataStore!, destination: &destinationDS)
+    navigateToWalletMain(source: viewController!)
+  }
+  
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: ChannelDetailsViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func navigateToWalletMain(source: ChannelDetailsViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    navigationController.popViewController(animated: true)
+  }
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: ChannelDetailsDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func passDataToWalletMain(source: ChannelOpenDataStore, destination: inout WalletMainDataStore) { }
 }

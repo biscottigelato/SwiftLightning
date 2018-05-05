@@ -50,13 +50,13 @@
                             <rect key="frame" x="0.0" y="8" width="612" height="30"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" text="Field Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjh-EZ-r1q">
-                                    <rect key="frame" x="0.0" y="5" width="66.5" height="20.5"/>
-                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                    <rect key="frame" x="0.0" y="4" width="71" height="22"/>
+                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                     <color key="textColor" name="LightTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xce-b4-Klc" userLabel="Error Label">
-                                    <rect key="frame" x="66.5" y="0.0" width="545.5" height="30"/>
+                                    <rect key="frame" x="71" y="0.0" width="541" height="30"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                                     <color key="textColor" name="JellyBeanRed"/>
                                     <nil key="highlightedColor"/>

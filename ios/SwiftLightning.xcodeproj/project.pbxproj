@@ -195,6 +195,7 @@
 		8C82761D20916FA40029BE7E /* BitcoinTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82761C20916FA40029BE7E /* BitcoinTest.swift */; };
 		8C8E4E65208C0C040017BAB2 /* SLSpinnerDialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */; };
 		8C8E4E67208C0C240017BAB2 /* SLSpinnerDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */; };
+		8C90C94A209D70ED00D6E7A8 /* ChannelVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */; };
 		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
 		8CD0639F209563A700D2B66B /* PayConfirm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CD0639E209563A600D2B66B /* PayConfirm.storyboard */; };
 		8CD063A6209563BC00D2B66B /* PayConfirmPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD063A0209563BC00D2B66B /* PayConfirmPresenter.swift */; };
@@ -427,6 +428,7 @@
 		8C82761C20916FA40029BE7E /* BitcoinTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinTest.swift; sourceTree = "<group>"; };
 		8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLSpinnerDialogView.xib; sourceTree = "<group>"; };
 		8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSpinnerDialogView.swift; sourceTree = "<group>"; };
+		8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVM.swift; sourceTree = "<group>"; };
 		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		8CD0639E209563A600D2B66B /* PayConfirm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PayConfirm.storyboard; sourceTree = "<group>"; };
 		8CD063A0209563BC00D2B66B /* PayConfirmPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayConfirmPresenter.swift; sourceTree = "<group>"; };
@@ -662,6 +664,7 @@
 				8C4710FC20783DEB005D7ABC /* Extensions */,
 				8C090E082088197D009B8B8D /* Shared */,
 				8C7D310420755AE30068F2BD /* Common Views */,
+				8C90C948209D70BE00D6E7A8 /* Common View Models */,
 				8C090DEF20870AD3009B8B8D /* Model */,
 				8CFA16902082EB7300813EA6 /* Scenes */,
 				8C090E7120899D71009B8B8D /* Playground */,
@@ -1073,6 +1076,14 @@
 				8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */,
 			);
 			path = SLSpinnerDialog;
+			sourceTree = "<group>";
+		};
+		8C90C948209D70BE00D6E7A8 /* Common View Models */ = {
+			isa = PBXGroup;
+			children = (
+				8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */,
+			);
+			path = "Common View Models";
 			sourceTree = "<group>";
 		};
 		8CD0639D2095638300D2B66B /* PayConfirm */ = {
@@ -1575,6 +1586,7 @@
 				8CD063A7209563BC00D2B66B /* PayConfirmWorker.swift in Sources */,
 				8C6B7552208AFEC800B751A2 /* UnlockAppViewController.swift in Sources */,
 				8CD063AA209563BC00D2B66B /* PayConfirmViewController.swift in Sources */,
+				8C90C94A209D70ED00D6E7A8 /* ChannelVM.swift in Sources */,
 				8C6B755F208B17BD00B751A2 /* WalletMainRouter.swift in Sources */,
 				8CD063A8209563BC00D2B66B /* PayConfirmRouter.swift in Sources */,
 				8C70EBCD208C345B00D658DC /* ReceiveMainPresenter.swift in Sources */,

@@ -22,7 +22,6 @@ protocol ChannelOpenBusinessLogic {
 }
 
 protocol ChannelOpenDataStore {
-  
   var nodePubKey: String { get }
   var nodeIP: String { get }
   var nodePort: Int { get }

@@ -12,30 +12,54 @@
 
 import UIKit
 
-protocol ChannelDetailsBusinessLogic
-{
-  func doSomething(request: ChannelDetails.Something.Request)
+protocol ChannelDetailsBusinessLogic {
+  func refresh(request: ChannelDetails.Refresh.Request)
 }
 
-protocol ChannelDetailsDataStore
-{
-  //var name: String { get set }
+protocol ChannelDetailsDataStore {
+  var channelVM: ChannelVM? { get set }
 }
 
 class ChannelDetailsInteractor: ChannelDetailsBusinessLogic, ChannelDetailsDataStore
 {
   var presenter: ChannelDetailsPresentationLogic?
-  var worker: ChannelDetailsWorker?
-  //var name: String = ""
   
-  // MARK: Do something
+  // MARK: Data Store
   
-  func doSomething(request: ChannelDetails.Something.Request)
-  {
-    worker = ChannelDetailsWorker()
-    worker?.doSomeWork()
+  var channelVM: ChannelVM?
+  
+  
+  // MARK: Refresh
+  
+  func refresh(request: ChannelDetails.Refresh.Request) {
+    guard var channelVM = channelVM else {
+      SLLog.assert("channelVM = nil in ChannelDetails interactor")
+      let result = Result<ChannelVM>.failure(ChannelDetails.Refresh.Error.noChannelInfo)
+      let response = ChannelDetails.Refresh.Response(result: result)
+      self.presenter?.presentRefresh(response: response)
+      return
+    }
     
-    let response = ChannelDetails.Something.Response()
-    presenter?.presentSomething(response: response)
+    // Try to grab additional node details
+    LNServices.getNodeInfo(pubKey: channelVM.nodePubKey) { (responder) in
+      do {
+        let nodeInfo = try responder()
+        
+        let ipPort = nodeInfo.address[0].split(separator: ":")
+
+        channelVM.ipAddress = String(ipPort[0])
+        channelVM.port = String(ipPort[1])
+        channelVM.alias = nodeInfo.alias
+        
+        let result = Result<ChannelVM>.success(channelVM)
+        let response = ChannelDetails.Refresh.Response(result: result)
+        self.presenter?.presentRefresh(response: response)
+        
+      } catch {
+        let result = Result<ChannelVM>.failure(error)
+        let response = ChannelDetails.Refresh.Response(result: result)
+        self.presenter?.presentRefresh(response: response)
+      }
+    }
   }
 }
