@@ -74,6 +74,7 @@ enum WalletMain
       var pendingOpenChannels: [LNPendingOpenChannel]
       var pendingCloseChannels: [LNPendingCloseChannel]
       var pendingForceCloseChannels: [LNPendingForceCloseChannel]
+      var waitingCloseChannels: [LNWaitingCloseChannel]
     }
     struct Response {
       var result: Result<Channels>

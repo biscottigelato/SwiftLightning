@@ -12,9 +12,10 @@ struct ChannelVM {
   
   enum State: Int {  // Order here determines default sort. Smaller the higher up the list
     case error = 0
-    case pendingForceClose
-    case pendingClose
     case pendingOpen
+    case pendingForceClose
+    case waitingClose
+    case pendingClose
     case connected
     case disconnected
   }

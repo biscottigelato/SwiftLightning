@@ -107,9 +107,9 @@ class PayMainPresenter: PayMainPresentationLogic
     if let balance = validationResult.balance, let paymentType = validationResult.paymentType {
       switch paymentType {
       case .lightning:
-        balanceString = "lightning balance: \(balance.formattedInSatoshis())"
+        balanceString = "lightning confirmed balance: \(balance.formattedInSatoshis())"
       case .onChain:
-        balanceString = "on-chain balance: \(balance.formattedInSatoshis())"
+        balanceString = "on-chain confirmed balance: \(balance.formattedInSatoshis())"
       }
     }
     

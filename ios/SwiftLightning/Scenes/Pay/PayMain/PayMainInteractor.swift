@@ -164,7 +164,7 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
         LNServices.channelBalance() { (balancer) in
           do {
             let balance = try balancer()
-            result.balance = Bitcoin(inSatoshi: balance)
+            result.balance = Bitcoin(inSatoshi: balance.confirmed)
             
             // Try to find a route only if there is an amount
             if let amount = amount ?? inputAmount {
@@ -181,7 +181,7 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
                   }
                   result.fee = Bitcoin(inSatoshi: routes[0].totalFees)
             
-                  if Bitcoin(inSatoshi: balance) < Bitcoin(amount + result.fee!) {
+                  if Bitcoin(inSatoshi: balance.confirmed) < Bitcoin(amount + result.fee!) {
                     result.amountError = PayMain.AmountError.insufficient
                   }
                   completion(result)

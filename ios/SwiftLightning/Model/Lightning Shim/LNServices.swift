@@ -243,9 +243,9 @@ class LNServices {
   // MARK: Channel Balance
   
   class ChannelBalance: NSObject, LndmobileCallbackProtocol {
-    private var completion: (() throws -> (Int)) -> Void
+    private var completion: (() throws -> (confirmed: Int, pendingOpen: Int)) -> Void
     let retry = SLRetry()
-    init(_ completion: @escaping (() throws -> (Int)) -> Void) {
+    init(_ completion: @escaping (() throws -> (confirmed: Int, pendingOpen: Int)) -> Void) {
       self.completion = completion
     }
     
@@ -257,7 +257,7 @@ class LNServices {
         
         // Success! - dereference retry
         retry.success()
-        completion({ return Int(response.balance) })
+        completion({ return (Int(response.balance), Int(response.pendingOpenBalance)) })
       } catch {
         completion({ throw error })
       }
@@ -267,7 +267,7 @@ class LNServices {
   
   static func channelBalance(retryCount: Int = LNConstants.defaultRetryCount,
                             retryDelay: Double = LNConstants.defaultRetryDelay,
-                            completion: @escaping (() throws -> (Int)) -> Void) {
+                            completion: @escaping (() throws -> (confirmed: Int, pendingOpen: Int)) -> Void) {
     let lndOp = ChannelBalance(completion)
     
     let task = {
@@ -613,7 +613,8 @@ class LNServices {
                               testnet: response.testnet,
                               chains: response.chains,
                               uris: response.uris,
-                              bestHeaderTimestamp: Int(response.bestHeaderTimestamp))
+                              bestHeaderTimestamp: Int(response.bestHeaderTimestamp),
+                              version: response.version)
         
         SLLog.verbose(String(describing: lndInfo))
         
@@ -655,9 +656,9 @@ class LNServices {
   // MARK: Pending Channels
   
   class PendingChannels: NSObject, LndmobileCallbackProtocol {
-    private var completion: (() throws -> (pendingOpen: [LNPendingOpenChannel], pendingClose: [LNPendingCloseChannel], pendingForceClose: [LNPendingForceCloseChannel])) -> Void
+    private var completion: (() throws -> (pendingOpen: [LNPendingOpenChannel], pendingClose: [LNPendingCloseChannel], pendingForceClose: [LNPendingForceCloseChannel], waitingClose: [LNWaitingCloseChannel])) -> Void
     let retry = SLRetry()
-    init(_ completion: @escaping (() throws -> (pendingOpen: [LNPendingOpenChannel], pendingClose: [LNPendingCloseChannel], pendingForceClose: [LNPendingForceCloseChannel])) -> Void) {
+    init(_ completion: @escaping (() throws -> (pendingOpen: [LNPendingOpenChannel], pendingClose: [LNPendingCloseChannel], pendingForceClose: [LNPendingForceCloseChannel], waitingClose: [LNWaitingCloseChannel])) -> Void) {
       self.completion = completion
     }
     
@@ -739,9 +740,28 @@ class LNServices {
           SLLog.verbose(String(describing: lnPendingForceCloseChannel))
         }
         
+        var lnWaitingCloseChannels = [LNWaitingCloseChannel]()
+        for (index, waitingCloseChannel) in response.waitingCloseChannels.enumerated() {
+          
+          let lnPendingChannel = LNPendingChannel(remoteNodePub: waitingCloseChannel.channel.remoteNodePub,
+                                                  channelPoint: waitingCloseChannel.channel.channelPoint,
+                                                  capacity: Int(waitingCloseChannel.channel.capacity),
+                                                  localBalance: Int(waitingCloseChannel.channel.localBalance),
+                                                  remoteBalance: Int(waitingCloseChannel.channel.remoteBalance))
+          
+          let lnWaitingCloseChannel = LNWaitingCloseChannel(channel: lnPendingChannel,
+                                                            hasChannel: waitingCloseChannel.hasChannel,
+                                                            limboBalance: Int(waitingCloseChannel.limboBalance))
+          lnWaitingCloseChannels.append(lnWaitingCloseChannel)
+          
+          SLLog.verbose("")
+          SLLog.verbose("Waiting Close Channel #\(index)")
+          SLLog.verbose(String(describing: lnWaitingCloseChannel))
+        }
+        
         // Success! - dereference retry
         retry.success()
-        completion({ return (lnPendingOpenChannels, lnPendingCloseChannels, lnPendingForceCloseChannels) })
+        completion({ return (lnPendingOpenChannels, lnPendingCloseChannels, lnPendingForceCloseChannels, lnWaitingCloseChannels) })
       } catch {
         completion({ throw error })
       }
@@ -753,7 +773,8 @@ class LNServices {
                               retryDelay: Double = LNConstants.defaultRetryDelay,
                               completion: @escaping (() throws -> (pendingOpen: [LNPendingOpenChannel],
                                                                    pendingClose: [LNPendingCloseChannel],
-                                                                   pendingForceClose: [LNPendingForceCloseChannel])) -> Void) {
+                                                                   pendingForceClose: [LNPendingForceCloseChannel],
+                                                                   waitingClose: [LNWaitingCloseChannel])) -> Void) {
     
     let lndOp = PendingChannels(completion)
     
@@ -869,16 +890,42 @@ class LNServices {
     }
     
     func onResponse(_ p0: Data!) {
-      do {
-        _ = try Lnrpc_OpenStatusUpdate(serializedData: p0)
-        SLLog.debug("response is OpenStatusUpdate")
-      } catch {
-        SLLog.debug("response is not OpenStatusUpdate")
-      }
-        
-      // Success! - dereference retry
+      // Dereference as will no longer retry
       retry.success()
-      completion({ return })
+      
+      do {
+        let response = try Lnrpc_OpenStatusUpdate(serializedData: p0)
+        SLLog.debug("Open Channel Status Update")
+        
+        guard let update = response.update else {
+          SLLog.warning("LN Open Channel call stream result with no type")
+          completion({ throw LNError.openChannelStreamNoType })
+          return
+        }
+        
+        switch update {
+        case .chanPending(let pendingUpdate):
+          SLLog.verbose("LN Open Channel Pending Update:")
+          SLLog.verbose(" TXID:          \(pendingUpdate.txid.hexEncodedString(options: .littleEndian))")
+          SLLog.verbose(" Output Index:  \(pendingUpdate.outputIndex)")
+          
+        case .confirmation(let confirmUpdate):
+          SLLog.verbose("LN Open Channel Confirmation Update:")
+          SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
+          SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
+          SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
+          
+        case .chanOpen(let openUpdate):
+          SLLog.verbose("LN Open Channel Open Update:")
+          SLLog.verbose(" TXID:          \(openUpdate.channelPoint.fundingTxidStr)")
+          SLLog.verbose(" Output Index:  \(openUpdate.channelPoint.outputIndex)")
+        }
+        completion({ return })
+        
+      } catch {
+        SLLog.warning("Open channel response is not OpenStatusUpdate?")
+        completion({ throw error })
+      }
     }
     func onError(_ p0: Error!) { retry.attempt(error: p0) }
   }
@@ -929,16 +976,42 @@ class LNServices {
     }
     
     func onResponse(_ p0: Data!) {
-      do {
-        _ = try Lnrpc_CloseStatusUpdate(serializedData: p0)
-        SLLog.debug("response is CloseStatusUpdate")
-      } catch {
-        SLLog.debug("response is not CloseStatusUpdate")
-      }
-      
-      // Success! - dereference retry
+      // Dereference as will no longer retry
       retry.success()
-      completion({ return })
+      
+      do {
+        let response = try Lnrpc_CloseStatusUpdate(serializedData: p0)
+        SLLog.debug("Close Channel Status Update")
+        
+        guard let update = response.update else {
+          SLLog.warning("LN Close Channel call stream result with no type")
+          completion({ throw LNError.closeChannelStreamNoType })
+          return
+        }
+        
+        switch update {
+        case .closePending(let pendingUpdate):
+          SLLog.verbose("LN Close Channel Pending Update:")
+          SLLog.verbose(" TXID:          \(pendingUpdate.txid.hexEncodedString(options: .littleEndian))")
+          SLLog.verbose(" Output Index:  \(pendingUpdate.outputIndex)")
+          
+        case .confirmation(let confirmUpdate):
+          SLLog.verbose("LN Close Channel Confirmation Update:")
+          SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
+          SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
+          SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
+          
+        case .chanClose(let closeUpdate):
+          SLLog.verbose("LN Close Channel Open Update:")
+          SLLog.verbose(" Close TxID:          \(closeUpdate.closingTxid.hexEncodedString())")
+          SLLog.verbose(" Success:  \(closeUpdate.success)")
+        }
+        completion({ return })
+        
+      } catch {
+        SLLog.warning("Close channel response is not CloseStatusUpdate?")
+        completion({ throw error })
+      }
     }
     func onError(_ p0: Error!) { retry.attempt(error: p0) }
   }
@@ -1001,14 +1074,18 @@ class LNServices {
                             chanCapacity: Int(hop.chanCapacity),
                             amtToForward: Int(hop.amtToForward),
                             fee: Int(hop.fee),
-                            expiry: UInt(hop.expiry))
+                            expiry: UInt(hop.expiry),
+                            amtToForwardMsat: Int(hop.amtToForwardMsat),
+                            feeMsat: Int(hop.feeMsat))
           lnHops.append(lnHop)
         }
         
         let lnRoute = LNRoute(totalTimeLock: UInt(response.paymentRoute.totalTimeLock),
                               totalFees: Int(response.paymentRoute.totalFees),
                               totalAmt: Int(response.paymentRoute.totalAmt),
-                              hops: lnHops)
+                              hops: lnHops,
+                              totalFeesMsat: Int(response.paymentRoute.totalFeesMsat),
+                              totalAmtMsat: Int(response.paymentRoute.totalAmtMsat))
         
         // Success. Deference retry
         retry.success()
@@ -1137,13 +1214,17 @@ class LNServices {
                                 chanCapacity: Int(hop.chanCapacity),
                                 amtToForward: Int(hop.amtToForward),
                                 fee: Int(hop.fee),
-                                expiry: UInt(hop.expiry)))
+                                expiry: UInt(hop.expiry),
+                                amtToForwardMsat: Int(hop.amtToForwardMsat),
+                                feeMsat: Int(hop.feeMsat)))
           }
           
           lnRoutes.append(LNRoute(totalTimeLock: UInt(route.totalTimeLock),
                                   totalFees: Int(route.totalFees),
                                   totalAmt: Int(route.totalAmt),
-                                  hops: lnHops))
+                                  hops: lnHops,
+                                  totalFeesMsat: Int(route.totalFeesMsat),
+                                  totalAmtMsat: Int(route.totalAmtMsat)))
         }
         
         SLLog.verbose("")

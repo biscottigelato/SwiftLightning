@@ -265,6 +265,22 @@ struct LNPendingForceCloseChannel: CustomStringConvertible {
 }
 
 
+struct LNWaitingCloseChannel: CustomStringConvertible {
+  var channel: LNPendingChannel
+  var hasChannel: Bool
+  var limboBalance: Int
+  
+  var description: String {
+    return """
+      Waiting Close Channel
+        \(channel)
+        hasChannel: \(hasChannel)
+        limboBalance: \(limboBalance)
+    """
+  }
+}
+
+
 struct LNPayment {
   var paymentHash: String
   var value: Int
@@ -326,6 +342,7 @@ struct LNDInfo: CustomStringConvertible {
   var chains: [String]
   var uris: [String]
   var bestHeaderTimestamp: Int
+  var version: String
   
   var description: String {
     return """
@@ -342,6 +359,7 @@ struct LNDInfo: CustomStringConvertible {
     Chains:                \(chains.joined(separator: ", "))
     URIs:                  \(uris.joined(separator: ", "))
     Best Header Timestamp: \(bestHeaderTimestamp)
+    Version:               \(version)
     """
   }
 }
@@ -380,6 +398,8 @@ struct LNRoute: CustomStringConvertible {
   var totalFees: Int
   var totalAmt: Int
   var hops: [LNHop]
+  var totalFeesMsat: Int
+  var totalAmtMsat: Int
   
   var description: String {
     var descriptiveString = """
@@ -387,6 +407,8 @@ struct LNRoute: CustomStringConvertible {
         totalTimeLock: \(totalTimeLock)
         totalFees:     \(totalFees)
         totalAmt:      \(totalAmt)
+        totalFeesMsat: \(totalFeesMsat)
+        totalAmtMsat:  \(totalAmtMsat)
     """
     
     for (index, hop) in hops.enumerated() {
@@ -403,14 +425,18 @@ struct LNHop: CustomStringConvertible {
   var amtToForward: Int
   var fee: Int
   var expiry: UInt
+  var amtToForwardMsat: Int
+  var feeMsat: Int
   
   var description: String {
     return """
       Hop details -
-        chanID:       \(chanID)
-        chanCapacity: \(chanCapacity)
-        amtToForward: \(amtToForward)
-        expiry:       \(expiry)
+        chanID:        \(chanID)
+        chanCapacity:  \(chanCapacity)
+        amtToForward:  \(amtToForward)
+        expiry:        \(expiry)
+        amtToForwardMsat: \(amtToForwardMsat)
+        feeMsat:  \(feeMsat)
     """
   }
 }

@@ -37,8 +37,8 @@ class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
         LNServices.channelBalance() { (channelResponder) in
           do {
             let channelBalance = try channelResponder()
-            let channelBitcoin = Bitcoin(inSatoshi: channelBalance)
-            
+            let channelBitcoin = Bitcoin(inSatoshi: channelBalance.confirmed + channelBalance.pendingOpen)
+
             let response = WalletMain.UpdateBalances.Response(onChainBalance: onChainBitcoin, channelBalance: channelBitcoin)
             self.presenter?.presentUpdatedBalances(response: response)
 
@@ -106,7 +106,8 @@ class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
             let channels = WalletMain.UpdateChannels.Channels(openedChannels: lists,
                                                               pendingOpenChannels: pendings.pendingOpen,
                                                               pendingCloseChannels: pendings.pendingClose,
-                                                              pendingForceCloseChannels: pendings.pendingForceClose)
+                                                              pendingForceCloseChannels: pendings.pendingForceClose,
+                                                              waitingCloseChannels: pendings.waitingClose)
             
             let result = Result<WalletMain.UpdateChannels.Channels>.success(channels)
             let response = WalletMain.UpdateChannels.Response(result: result)

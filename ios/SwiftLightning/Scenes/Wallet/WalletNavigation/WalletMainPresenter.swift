@@ -271,6 +271,29 @@ class WalletMainPresenter: WalletMainPresentationLogic {
         channels.append(channel)
       }
       
+      for waitingCloseChannel in result.waitingCloseChannels {
+        statusText = "Waiting for Close"
+        statusColor = UIColor.sandyOrange
+        
+        let canPayAmt = Bitcoin(inSatoshi: waitingCloseChannel.channel.localBalance)
+        let canRcvAmt = Bitcoin(inSatoshi: waitingCloseChannel.channel.remoteBalance)
+        
+        let channel = ChannelVM(canPayAmt: canPayAmt.formattedInSatoshis(),
+                                canRcvAmt: canRcvAmt.formattedInSatoshis(),
+                                capacity: Bitcoin(inSatoshi: waitingCloseChannel.channel.capacity),
+                                nodePubKey: waitingCloseChannel.channel.remoteNodePub,
+                                channelPoint: waitingCloseChannel.channel.channelPoint,
+                                state: ChannelVM.State.waitingClose,
+                                statusText: statusText,
+                                statusColor: statusColor,
+                                ipAddress: nil,
+                                port: nil,
+                                alias: nil,
+                                errMsg: nil)
+        channels.append(channel)
+      }
+      
+      
       // TODO: Filter
       
       // Sort by status, then capacity, for now
