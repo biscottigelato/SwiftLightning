@@ -71,6 +71,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func applicationWillTerminate(_ application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     SLLog.verbose("applicationWillTerminate")
+    
+    LNServices.stopDaemon { _ in SLLog.debug("LND Terminating...") }
+    SLLog.debug("Pending Termination Clean-up for 1s")
+    sleep(1)
+    SLLog.debug("Ready for Termination")
   }
 
 

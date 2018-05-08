@@ -237,13 +237,15 @@ class PlaygroundViewController: SLViewController {
   
   
   @IBAction func stopLND(_ sender: UIButton) {
-    LNServices.stopDaemon { (response) in
-      do {
-        _ = try response()
-      } catch {
-        SLLog.warning(error.localizedDescription)
-      }
-    }
+//    LNServices.stopDaemon { (response) in
+//      do {
+//        _ = try response()
+//      } catch {
+//        SLLog.warning(error.localizedDescription)
+//      }
+//    }
+    
+    UIApplication.shared.delegate?.applicationWillTerminate?(UIApplication.shared)
   }
   
   
@@ -297,6 +299,16 @@ class PlaygroundViewController: SLViewController {
     // GRPC Core will expand the Cipher Suite set
     setenv("GRPC_SSL_CIPHER_SUITES", "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384", 1)
     
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
+      try! LNServices.unlockWallet(walletPassword: "qwertyui") { _ in }
+    }
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 120.0) {
+      LNServices.stopDaemon { _ in }
+    }
   }
 
   override func didReceiveMemoryWarning() {

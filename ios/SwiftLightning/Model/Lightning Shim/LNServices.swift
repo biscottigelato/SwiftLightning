@@ -49,7 +49,18 @@ class LNServices {
     let lndDestinationURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("lnd.conf", isDirectory: false)
     
     // See if the file already exists, if so, just kill it. Aka. overwriting
-    try? FileManager.default.removeItem(at: lndDestinationURL)
+    do {
+      try FileManager.default.removeItem(at: lndDestinationURL)
+    } catch {
+      SLLog.warning("Remove item if needed - \(error)")
+    }
+    
+    // See if the directories are in place. If not, make them
+    do {
+      try FileManager.default.createDirectory(atPath: directoryPath, withIntermediateDirectories: true)
+    } catch {
+      SLLog.warning("Create directory if needed - \(error)")
+    }
     
     do {
       try FileManager.default.copyItem(at: lndSourceURL, to: lndDestinationURL)
@@ -97,16 +108,6 @@ class LNServices {
     _ = try walletUnlockerService!.genSeed(Lnrpc_GenSeedRequest()) { (response, result) in
       if let response = response {
         SLLog.debug("LN Generate Seed Success!")
-        
-        #if DEBUG  // CAUTION: Make double sure this only gets logged on Debug
-        var ciperSeedMnemonicDisplayString = "Generated Mnemonic: "
-        for mnemonicWord in response.cipherSeedMnemonic {
-          ciperSeedMnemonicDisplayString += mnemonicWord
-          ciperSeedMnemonicDisplayString += " "
-        }
-        SLLog.verbose(ciperSeedMnemonicDisplayString)
-        #endif
-        
         completion({ return response.cipherSeedMnemonic })
         
       } else {
@@ -193,10 +194,19 @@ class LNServices {
     }
     
     func onResponse(_ p0: Data!) {
+      SLLog.debug("LN Wallet Balance Success!")
+      
+      // Dereference retry
+      retry.success()
+      
+      guard let data = p0 else {
+        SLLog.warning("Data p0 = nil")
+        completion({ return (0 , 0, 0) })
+        return
+      }
+      
       do {
-        let response = try Lnrpc_WalletBalanceResponse(serializedData: p0)
-        SLLog.debug("LN Wallet Balance Success!")
-        
+        let response = try Lnrpc_WalletBalanceResponse(serializedData: data)
         let totalBalance = Int(response.totalBalance)
         let confirmedBalance = Int(response.confirmedBalance)
         let unconfirmedBalance = Int(response.unconfirmedBalance)
@@ -205,8 +215,6 @@ class LNServices {
         SLLog.verbose("Confirmed Balance: \(response.confirmedBalance)")
         SLLog.verbose("Unconfirmed Balance: \(response.unconfirmedBalance)")
         
-        // Success! - dereference retry
-        retry.success()
         completion({ return (totalBalance, confirmedBalance, unconfirmedBalance) })
       } catch {
         completion({ throw error })
@@ -250,13 +258,20 @@ class LNServices {
     }
     
     func onResponse(_ p0: Data!) {
+      SLLog.debug("LN Channel Balance Success!")
+      
+      // Dereference retry
+      retry.success()
+      
+      guard let data = p0 else {
+        SLLog.warning("Data p0 = nil")
+        completion({ return (0 , 0) })
+        return
+      }
+      
       do {
-        let response = try Lnrpc_ChannelBalanceResponse(serializedData: p0)
-        SLLog.debug("LN Channel Balance Success!")
+        let response = try Lnrpc_ChannelBalanceResponse(serializedData: data)
         SLLog.verbose("Channel Balance: \(response.balance)")
-        
-        // Success! - dereference retry
-        retry.success()
         completion({ return (Int(response.balance), Int(response.pendingOpenBalance)) })
       } catch {
         completion({ throw error })
@@ -298,10 +313,20 @@ class LNServices {
     }
     
     func onResponse(_ p0: Data!) {
+      SLLog.debug("Get Bitcoin Transactions Success!")
+      
+      // Dereference retry
+      retry.success()
+      var btcTransactions = [BTCTransaction]()
+      
+      guard let data = p0 else {
+        SLLog.warning("Data p0 = nil")
+        completion({ return btcTransactions })
+        return
+      }
+      
       do {
-        let response = try Lnrpc_TransactionDetails(serializedData: p0)
-        SLLog.debug("Get Bitcoin Transactions Success!")
-        var btcTransactions = [BTCTransaction]()
+        let response = try Lnrpc_TransactionDetails(serializedData: data)
         
         for (index, transaction) in response.transactions.enumerated() {
           let btcTransaction = BTCTransaction(txHash: transaction.txHash,
@@ -320,8 +345,6 @@ class LNServices {
           SLLog.verbose(String(describing: btcTransaction))
         }
         
-        // Success! - dereference retry
-        retry.success()
         completion({ return btcTransactions })
       } catch {
         completion({ throw error })
@@ -530,13 +553,22 @@ class LNServices {
     }
     
     func onResponse(_ p0: Data!) {
+      SLLog.debug("LN List Peers Success!")
+      
+      // Success! - dereference retry
+      retry.success()
+      var lnPeers = [LNPeer]()
+      
+      guard let data = p0 else {
+        SLLog.warning("Data p0 = nil")
+        completion({ return lnPeers })
+        return
+      }
+      
       do {
-        let response = try Lnrpc_ListPeersResponse(serializedData: p0)
-        SLLog.debug("LN List Peers Success!")
-        
-        var lnPeers = [LNPeer]()
+        let response = try Lnrpc_ListPeersResponse(serializedData: data)
+
         for (index, peer) in response.peers.enumerated() {
-          
           let lnPeer = LNPeer(pubKey: peer.pubKey,
                               address: peer.address,
                               bytesSent: UInt(peer.bytesSent),
@@ -553,8 +585,6 @@ class LNServices {
           SLLog.verbose(String(describing: lnPeer))
         }
         
-        // Success! - dereference retry
-        retry.success()
         completion({ return lnPeers })
       } catch {
         completion({ throw error })
@@ -663,11 +693,24 @@ class LNServices {
     }
     
     func onResponse(_ p0: Data!) {
+      SLLog.debug("LN Pending Channels Success!")
+      
+      // Dereference retry
+      retry.success()
+      var lnPendingOpenChannels = [LNPendingOpenChannel]()
+      var lnPendingCloseChannels = [LNPendingCloseChannel]()
+      var lnPendingForceCloseChannels = [LNPendingForceCloseChannel]()
+      var lnWaitingCloseChannels = [LNWaitingCloseChannel]()
+      
+      guard let data = p0 else {
+        SLLog.warning("Data p0 = nil")
+        completion({ return (lnPendingOpenChannels, lnPendingCloseChannels, lnPendingForceCloseChannels, lnWaitingCloseChannels) })
+        return
+      }
+      
       do {
-        let response = try Lnrpc_PendingChannelsResponse(serializedData: p0)
-        SLLog.debug("LN Pending Channels Success!")
+        let response = try Lnrpc_PendingChannelsResponse(serializedData: data)
         
-        var lnPendingOpenChannels = [LNPendingOpenChannel]()
         for (index, pendingOpenChannel) in response.pendingOpenChannels.enumerated() {
           
           let lnPendingChannel = LNPendingChannel(remoteNodePub: pendingOpenChannel.channel.remoteNodePub,
@@ -689,7 +732,6 @@ class LNServices {
           SLLog.verbose(String(describing: lnPendingOpenChannel))
         }
         
-        var lnPendingCloseChannels = [LNPendingCloseChannel]()
         for (index, pendingCloseChannel) in response.pendingClosingChannels.enumerated() {
           
           let lnPendingChannel = LNPendingChannel(remoteNodePub: pendingCloseChannel.channel.remoteNodePub,
@@ -706,7 +748,6 @@ class LNServices {
           SLLog.verbose(String(describing: lnPendingCloseChannel))
         }
         
-        var lnPendingForceCloseChannels = [LNPendingForceCloseChannel]()
         for (index, pendingForceCloseChannel) in response.pendingForceClosingChannels.enumerated() {
           
           let lnPendingChannel = LNPendingChannel(remoteNodePub: pendingForceCloseChannel.channel.remoteNodePub,
@@ -740,7 +781,6 @@ class LNServices {
           SLLog.verbose(String(describing: lnPendingForceCloseChannel))
         }
         
-        var lnWaitingCloseChannels = [LNWaitingCloseChannel]()
         for (index, waitingCloseChannel) in response.waitingCloseChannels.enumerated() {
           
           let lnPendingChannel = LNPendingChannel(remoteNodePub: waitingCloseChannel.channel.remoteNodePub,
@@ -758,9 +798,7 @@ class LNServices {
           SLLog.verbose("Waiting Close Channel #\(index)")
           SLLog.verbose(String(describing: lnWaitingCloseChannel))
         }
-        
-        // Success! - dereference retry
-        retry.success()
+
         completion({ return (lnPendingOpenChannels, lnPendingCloseChannels, lnPendingForceCloseChannels, lnWaitingCloseChannels) })
       } catch {
         completion({ throw error })
@@ -806,13 +844,22 @@ class LNServices {
     }
     
     func onResponse(_ p0: Data!) {
+      SLLog.debug("LN List Channels Success!")
+      
+      // Dereference retry
+      retry.success()
+      var lnChannels = [LNChannel]()
+      
+      guard let data = p0 else {
+        SLLog.warning("Data p0 = nil")
+        completion({ return lnChannels })
+        return
+      }
+      
       do {
-        let response = try Lnrpc_ListChannelsResponse(serializedData: p0)
-        SLLog.debug("LN List Channels Success!")
+        let response = try Lnrpc_ListChannelsResponse(serializedData: data)
         
-        var lnChannels = [LNChannel]()
         for (index, channel) in response.channels.enumerated() {
-          
           var lnHTLCs = [LNHTLC]()
           for htlc in channel.pendingHtlcs {
             let lnHTLC = LNHTLC(incoming: htlc.incoming,
@@ -845,9 +892,7 @@ class LNServices {
           SLLog.verbose("Channel #\(index)")
           SLLog.verbose(String(describing: lnChannel))
         }
-        
-        // Success! - dereference retry
-        retry.success()
+
         completion({ return lnChannels })
       } catch {
         completion({ throw error })
@@ -927,7 +972,11 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    func onError(_ p0: Error!) {
+      if p0.localizedDescription != "EOF" {
+        retry.attempt(error: p0)
+      }
+    }
   }
   
   static func openChannel(nodePubKey: Data, localFundingAmt: Int, pushSat: Int, targetConf: Int? = nil, satPerByte: Int? = nil,
@@ -1013,7 +1062,11 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    func onError(_ p0: Error!) {
+      if p0.localizedDescription != "EOF" {
+        retry.attempt(error: p0)
+      }
+    }
   }
   
   static func closeChannel(fundingTxIDStr: String, outputIndex: UInt, force: Bool,
@@ -1201,11 +1254,20 @@ class LNServices {
     }
     
     func onResponse(_ p0: Data!) {
+      SLLog.debug("LN Query Routes Success!")
+      
+      // Success! - dereference retry
+      retry.success()
+      var lnRoutes = [LNRoute]()
+      
+      guard let data = p0 else {
+        SLLog.warning("Data p0 = nil")
+        completion({ return lnRoutes })
+        return
+      }
+      
       do {
-        let response = try Lnrpc_QueryRoutesResponse(serializedData: p0)
-        SLLog.debug("LN Query Routes Success!")
-        
-        var lnRoutes = [LNRoute]()
+        let response = try Lnrpc_QueryRoutesResponse(serializedData: data)
         for route in response.routes {
           
           var lnHops = [LNHop]()
@@ -1229,9 +1291,7 @@ class LNServices {
         
         SLLog.verbose("")
         SLLog.verbose(String(describing: lnRoutes))
-        
-        // Success! - dereference retry
-        retry.success()
+
         completion({ return lnRoutes })
       } catch {
         completion({ throw error })
@@ -1344,11 +1404,21 @@ class LNServices {
     }
     
     func onResponse(_ p0: Data!) {
+      SLLog.debug("List LN Payments Success!")
+      
+      // Success! - dereference retry
+      retry.success()
+      var lnPayments = [LNPayment]()
+      
+      guard let data = p0 else {
+        SLLog.warning("Data p0 = nil")
+        completion({ return lnPayments })
+        return
+      }
+      
       do {
-        let response = try Lnrpc_ListPaymentsResponse(serializedData: p0)
-        SLLog.debug("List LN Payments Success!")
-        var lnPayments = [LNPayment]()
-        
+        let response = try Lnrpc_ListPaymentsResponse(serializedData: data)
+
         for (index, payment) in response.payments.enumerated() {
           let lnPayment = LNPayment(paymentHash: payment.paymentHash,
                                     value: Int(payment.value),
@@ -1363,9 +1433,7 @@ class LNServices {
           SLLog.verbose("Lightning Payment #\(index)")
           SLLog.verbose(String(describing: lnPayment))
         }
-        
-        // Success! - dereference retry
-        retry.success()
+
         completion({ return lnPayments })
       } catch {
         completion({ throw error })

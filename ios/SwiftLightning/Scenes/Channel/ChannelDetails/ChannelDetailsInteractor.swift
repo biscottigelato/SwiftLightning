@@ -138,18 +138,18 @@ class ChannelDetailsInteractor: ChannelDetailsBusinessLogic, ChannelDetailsDataS
                             completion: closeChannelCompletion)
   }
   
-  private func closeChannelStreaming(callHandle: () throws -> (Lnrpc_LightningCloseChannelCall)) {
-    do {
-      let _ = try callHandle()
-      
-      // TODO: Pass to Stream Handler module for receive handling after the first stream
-      
-      let response = ChannelDetails.Close.Response(result: Result<Void>.success(()))
-      presenter?.presentClose(response: response)
-    } catch {
-      // Counting on failures to come thru the Completion path instead of the Streaming path
-    }
-  }
+//  private func closeChannelStreaming(callHandle: () throws -> (Lnrpc_LightningCloseChannelCall)) {
+//    do {
+//      let _ = try callHandle()
+//      
+//      // TODO: Pass to Stream Handler module for receive handling after the first stream
+//      
+//      let response = ChannelDetails.Close.Response(result: Result<Void>.success(()))
+//      presenter?.presentClose(response: response)
+//    } catch {
+//      // Counting on failures to come thru the Completion path instead of the Streaming path
+//    }
+//  }
   
   private func closeChannelCompletion(responder: () throws -> ()) {
     do {

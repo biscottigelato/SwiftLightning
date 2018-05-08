@@ -143,21 +143,20 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
   }
   
   
-  
-  private func openChannelStreaming(callHandle: () throws -> (Lnrpc_LightningOpenChannelCall)) {
-    do {
-      let _ = try callHandle()
-      
-      // TODO: Pass to Stream Handler module for receive handling after the first stream
-
-      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.success(()))
-      presenter?.presentOpenChannel(response: response)
-    } catch {
-      // Counting on failures to come thru the Completion path instead of the Streaming path
-//      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
+//  private func openChannelStreaming(callHandle: () throws -> (Lnrpc_LightningOpenChannelCall)) {
+//    do {
+//      let _ = try callHandle()
+//
+//      // TODO: Pass to Stream Handler module for receive handling after the first stream
+//
+//      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.success(()))
 //      presenter?.presentOpenChannel(response: response)
-    }
-  }
+//    } catch {
+//      // Counting on failures to come thru the Completion path instead of the Streaming path
+////      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
+////      presenter?.presentOpenChannel(response: response)
+//    }
+//  }
   
   
   private func openChannelCompletion(responder: () throws -> ()) {
