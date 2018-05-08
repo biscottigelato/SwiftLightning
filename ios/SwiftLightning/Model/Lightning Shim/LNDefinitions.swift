@@ -35,6 +35,13 @@ enum BitcoinPubKeyHexPrefix: String {
 }
 
 
+enum OnChainAddressType : Int {
+  case p2wkh = 0
+  case np2wkh = 1
+  case p2pkh = 2
+}
+
+
 enum OnChainConfirmSpeed {
   case economy
   case normal
@@ -69,7 +76,19 @@ enum OnChainConfirmSpeed {
 }
 
 
-// MARK: Lightning - Blockchain Entities
+// MARK: Ligning Entities
+
+enum LNOpenChannelUpdateType {
+  case pending
+  case confirmation
+  case opened
+}
+
+enum LNCloseChannelUpdateType {
+  case pending
+  case confirmation
+  case closed
+}
 
 struct LNPeer: CustomStringConvertible {
   var pubKey: String
@@ -335,7 +354,7 @@ struct LNDInfo: CustomStringConvertible {
   var numPendingChannels: UInt
   var numActiveChannels: UInt
   var numPeers: UInt
-  var blockHeight: UInt32
+  var blockHeight: UInt
   var blockHash: String
   var syncedToChain: Bool
   var testnet: Bool
@@ -479,6 +498,8 @@ enum LNError: Int, LocalizedError {
   case openChannelStreamNoType
   case closeChannelStreamNoType
   
+  case addressTypeUnsupported
+  
   // Computed Properties
   var code: Int { return self.rawValue }
   
@@ -497,6 +518,9 @@ enum LNError: Int, LocalizedError {
       return NSLocalizedString("OpenChannel Stream Call result has no type", comment: "LN Error Type")
     case .closeChannelStreamNoType:
       return NSLocalizedString("CloseChannel Stream Call result has no type", comment: "LN Error Type")
+
+    case .addressTypeUnsupported:
+      return NSLocalizedString("New address generation must be of Segwit types", comment: "LN Error Type")
     }
   }
 }

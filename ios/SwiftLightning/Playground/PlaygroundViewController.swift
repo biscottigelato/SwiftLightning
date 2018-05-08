@@ -112,7 +112,7 @@ class PlaygroundViewController: SLViewController {
   
   
   @IBAction func newAddress(_ sender: UIButton) {
-    LNServices.newAddress { (response) in
+    LNServices.newAddress(type: .np2wkh) { (response) in
       do {
         let newAddress = try response()
         SLLog.info("New Address: \(newAddress)")
@@ -160,9 +160,9 @@ class PlaygroundViewController: SLViewController {
   }
   
   
-  private func openChannelCompletion(response: () throws -> ()) {
+  private func openChannelCompletion(response: () throws -> (LNOpenChannelUpdateType)) {
     do {
-      try response()
+      _ = try response()
     } catch {
       SLLog.warning("Open Channel Result in Failure - \(error.localizedDescription)")
     }
@@ -306,9 +306,9 @@ class PlaygroundViewController: SLViewController {
     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
       try! LNServices.unlockWallet(walletPassword: "qwertyui") { _ in }
     }
-    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 120.0) {
-      LNServices.stopDaemon { _ in }
-    }
+//    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 120.0) {
+//      LNServices.stopDaemon { _ in }
+//    }
   }
 
   override func didReceiveMemoryWarning() {

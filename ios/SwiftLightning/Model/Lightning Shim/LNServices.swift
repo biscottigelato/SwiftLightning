@@ -186,7 +186,7 @@ class LNServices {
   
   // MARK: Wallet Balance
   
-  class WalletBalance: NSObject, LndmobileCallbackProtocol {
+  private class WalletBalance: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> (total: Int, confirmed: Int, unconfirmed: Int)) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> (total: Int, confirmed: Int, unconfirmed: Int)) -> Void) {
@@ -250,7 +250,7 @@ class LNServices {
   
   // MARK: Channel Balance
   
-  class ChannelBalance: NSObject, LndmobileCallbackProtocol {
+  private class ChannelBalance: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> (confirmed: Int, pendingOpen: Int)) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> (confirmed: Int, pendingOpen: Int)) -> Void) {
@@ -305,7 +305,7 @@ class LNServices {
   
   // MARK: Get Transactions
   
-  class GetTransactions: NSObject, LndmobileCallbackProtocol {
+  private class GetTransactions: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> ([BTCTransaction])) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> ([BTCTransaction])) -> Void) {
@@ -378,7 +378,7 @@ class LNServices {
   
   // MARK: Send Coins
   
-  class SendCoins: NSObject, LndmobileCallbackProtocol {
+  private class SendCoins: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> (String)) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> (String)) -> Void) {
@@ -432,9 +432,55 @@ class LNServices {
   }
   
   
+  // MARK: Subscribe Transactions
+  
+  private class SubscribeTransactions: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> (BTCTransaction)) -> Void
+    
+    init(_ completion: @escaping (() throws -> (BTCTransaction)) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let transaction = try Lnrpc_Transaction(serializedData: p0)
+        SLLog.debug("LN Transaction Broadcasted")
+        
+        let btcTransaction = BTCTransaction(txHash: transaction.txHash,
+                                            amount: Int(transaction.amount),
+                                            numConfirmations: Int(transaction.numConfirmations),
+                                            blockHash: transaction.blockHash,
+                                            blockHeight: Int(transaction.blockHeight),
+                                            timeStamp: Int(transaction.timeStamp),
+                                            totalFees: Int(transaction.totalFees),
+                                            destAddresses: transaction.destAddresses)
+        
+        SLLog.verbose(String(describing: btcTransaction))
+        completion({ return btcTransaction })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    
+    func onError(_ p0: Error!) {
+      if p0.localizedDescription != "EOF" {
+        completion({ throw p0 })
+      }
+    }
+  }
+  
+  static func subscribeTransactions(retryCount: Int = LNConstants.defaultRetryCount,
+                                    retryDelay: Double = LNConstants.defaultRetryDelay,
+                                    completion: @escaping (() throws -> (BTCTransaction)) -> Void) {
+    
+    let lndOp = SubscribeTransactions(completion)
+    LndmobileSubscribeTransactions(nil, lndOp)
+  }
+  
+  
   // MARK: New Address
   
-  class NewAddress: NSObject, LndmobileCallbackProtocol {
+  private class NewAddress: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> (String)) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> (String)) -> Void) {
@@ -456,7 +502,8 @@ class LNServices {
     func onError(_ p0: Error!) { retry.attempt(error: p0) }
   }
   
-  static func newAddress(retryCount: Int = LNConstants.defaultRetryCount,
+  static func newAddress(type addressType: OnChainAddressType,
+                         retryCount: Int = LNConstants.defaultRetryCount,
                          retryDelay: Double = LNConstants.defaultRetryDelay,
                          completion: @escaping (() throws -> (String)) -> Void) {
     
@@ -464,8 +511,19 @@ class LNServices {
     
     let task = {
       do {
-        let request = try Lnrpc_NewAddressRequest().serializedData()
-        LndmobileNewAddress(request, lndOp)
+        var request = Lnrpc_NewAddressRequest()
+        
+        switch addressType {
+        case .p2wkh:
+          request.type = .witnessPubkeyHash
+        case .np2wkh:
+          request.type = .nestedPubkeyHash
+        default:
+          throw LNError.addressTypeUnsupported
+        }
+        
+        let serialReq = try request.serializedData()
+        LndmobileNewAddress(serialReq, lndOp)
       } catch {
         completion({ throw error })
       }
@@ -482,7 +540,7 @@ class LNServices {
   
   // MARK: Connect Peer
   
-  class ConnectPeer: NSObject, LndmobileCallbackProtocol {
+  private class ConnectPeer: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> ()) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> ()) -> Void) {
@@ -545,7 +603,7 @@ class LNServices {
   
   // MARK: List Peers
   
-  class ListPeers: NSObject, LndmobileCallbackProtocol {
+  private class ListPeers: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> ([LNPeer])) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> ([LNPeer])) -> Void) {
@@ -618,7 +676,7 @@ class LNServices {
   
   // MARK: Get Info
   
-  class GetInfo: NSObject, LndmobileCallbackProtocol {
+  private class GetInfo: NSObject, LndmobileCallbackProtocol {
     
     private var completion: (() throws -> (LNDInfo)) -> Void
     let retry = SLRetry()
@@ -637,7 +695,7 @@ class LNServices {
                               numPendingChannels: UInt(response.numPendingChannels),
                               numActiveChannels: UInt(response.numActiveChannels),
                               numPeers: UInt(response.numPeers),
-                              blockHeight: response.blockHeight,
+                              blockHeight: UInt(response.blockHeight),
                               blockHash: response.blockHash,
                               syncedToChain: response.syncedToChain,
                               testnet: response.testnet,
@@ -685,7 +743,7 @@ class LNServices {
   
   // MARK: Pending Channels
   
-  class PendingChannels: NSObject, LndmobileCallbackProtocol {
+  private class PendingChannels: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> (pendingOpen: [LNPendingOpenChannel], pendingClose: [LNPendingCloseChannel], pendingForceClose: [LNPendingForceCloseChannel], waitingClose: [LNWaitingCloseChannel])) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> (pendingOpen: [LNPendingOpenChannel], pendingClose: [LNPendingCloseChannel], pendingForceClose: [LNPendingForceCloseChannel], waitingClose: [LNWaitingCloseChannel])) -> Void) {
@@ -836,7 +894,7 @@ class LNServices {
   
   // MARK: List Channels
   
-  class ListChannels: NSObject, LndmobileCallbackProtocol {
+  private class ListChannels: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> ([LNChannel])) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> ([LNChannel])) -> Void) {
@@ -926,11 +984,11 @@ class LNServices {
   
   // MARK: Open Channel
   
-  class OpenChannel: NSObject, LndmobileCallbackProtocol {
-    private var completion: (() throws -> ()) -> Void
+  private class OpenChannel: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> (LNOpenChannelUpdateType)) -> Void
     let retry = SLRetry()
     
-    init(_ completion: @escaping (() throws -> ()) -> Void) {
+    init(_ completion: @escaping (() throws -> (LNOpenChannelUpdateType)) -> Void) {
       self.completion = completion
     }
     
@@ -953,19 +1011,21 @@ class LNServices {
           SLLog.verbose("LN Open Channel Pending Update:")
           SLLog.verbose(" TXID:          \(pendingUpdate.txid.hexEncodedString(options: .littleEndian))")
           SLLog.verbose(" Output Index:  \(pendingUpdate.outputIndex)")
+          completion({ return LNOpenChannelUpdateType.pending })
           
         case .confirmation(let confirmUpdate):
           SLLog.verbose("LN Open Channel Confirmation Update:")
           SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
           SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
           SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
+          completion({ return LNOpenChannelUpdateType.confirmation })
           
         case .chanOpen(let openUpdate):
           SLLog.verbose("LN Open Channel Open Update:")
           SLLog.verbose(" TXID:          \(openUpdate.channelPoint.fundingTxidStr)")
           SLLog.verbose(" Output Index:  \(openUpdate.channelPoint.outputIndex)")
+          completion({ return LNOpenChannelUpdateType.opened })
         }
-        completion({ return })
         
       } catch {
         SLLog.warning("Open channel response is not OpenStatusUpdate?")
@@ -982,7 +1042,7 @@ class LNServices {
   static func openChannel(nodePubKey: Data, localFundingAmt: Int, pushSat: Int, targetConf: Int? = nil, satPerByte: Int? = nil,
                           retryCount: Int = LNConstants.defaultRetryCount,
                           retryDelay: Double = LNConstants.defaultRetryDelay,
-                          completion: @escaping (() throws -> ()) -> Void) {
+                          completion: @escaping (() throws -> (LNOpenChannelUpdateType)) -> Void) {
     
     let lndOp = OpenChannel(completion)
     
@@ -1011,16 +1071,14 @@ class LNServices {
     lndOp.retry.start("LN Open Channel", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
 
-  
-  // MARK: Open Channel
-  
+
   // MARK: Close Channel
   
-  class CloseChannel: NSObject, LndmobileCallbackProtocol {
-    private var completion: (() throws -> ()) -> Void
+  private class CloseChannel: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> (LNCloseChannelUpdateType)) -> Void
     let retry = SLRetry()
     
-    init(_ completion: @escaping (() throws -> ()) -> Void) {
+    init(_ completion: @escaping (() throws -> (LNCloseChannelUpdateType)) -> Void) {
       self.completion = completion
     }
     
@@ -1043,19 +1101,21 @@ class LNServices {
           SLLog.verbose("LN Close Channel Pending Update:")
           SLLog.verbose(" TXID:          \(pendingUpdate.txid.hexEncodedString(options: .littleEndian))")
           SLLog.verbose(" Output Index:  \(pendingUpdate.outputIndex)")
+          completion({ return LNCloseChannelUpdateType.pending })
           
         case .confirmation(let confirmUpdate):
           SLLog.verbose("LN Close Channel Confirmation Update:")
           SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
           SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
           SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
+          completion({ return LNCloseChannelUpdateType.confirmation })
           
         case .chanClose(let closeUpdate):
           SLLog.verbose("LN Close Channel Open Update:")
           SLLog.verbose(" Close TxID:          \(closeUpdate.closingTxid.hexEncodedString())")
           SLLog.verbose(" Success:  \(closeUpdate.success)")
+          completion({ return LNCloseChannelUpdateType.closed })
         }
-        completion({ return })
         
       } catch {
         SLLog.warning("Close channel response is not CloseStatusUpdate?")
@@ -1073,7 +1133,7 @@ class LNServices {
                            targetConf: Int? = nil, satPerByte: Int? = nil,
                            retryCount: Int = LNConstants.defaultRetryCount,
                            retryDelay: Double = LNConstants.defaultRetryDelay,
-                           completion: @escaping (() throws -> ()) -> Void) {
+                           completion: @escaping (() throws -> (LNCloseChannelUpdateType)) -> Void) {
     
     let lndOp = CloseChannel(completion)
     
@@ -1108,7 +1168,7 @@ class LNServices {
   
   // MARK: Send Payment Sync
   
-  class SendPaymentSync: NSObject, LndmobileCallbackProtocol {
+  private class SendPaymentSync: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> (payError: String, payPreImage: Data, payRoute: LNRoute)) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> (payError: String, payPreImage: Data, payRoute: LNRoute)) -> Void) {
@@ -1184,7 +1244,7 @@ class LNServices {
   
   // MARK: Get Node Info
   
-  class GetNodeInfo: NSObject, LndmobileCallbackProtocol {
+  private class GetNodeInfo: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> (LNNode)) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> (LNNode)) -> Void) {
@@ -1246,7 +1306,7 @@ class LNServices {
   
   // MARK: QueryRoutes
   
-  class QueryRoutes: NSObject, LndmobileCallbackProtocol {
+  private class QueryRoutes: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> ([LNRoute])) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> ([LNRoute])) -> Void) {
@@ -1332,7 +1392,7 @@ class LNServices {
   
   // MARK: DecodePayReq
   
-  class DecodePayReq: NSObject, LndmobileCallbackProtocol {
+  private class DecodePayReq: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> (LNPayReq)) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> (LNPayReq)) -> Void) {
@@ -1396,7 +1456,7 @@ class LNServices {
   
   // MARK: List Payments
   
-  class ListPayments: NSObject, LndmobileCallbackProtocol {
+  private class ListPayments: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> ([LNPayment])) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> ([LNPayment])) -> Void) {
@@ -1467,7 +1527,7 @@ class LNServices {
   
   // MARK: Stop Daemon
   
-  class StopDaemon: NSObject, LndmobileCallbackProtocol {
+  private class StopDaemon: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> ()) -> Void
     let retry = SLRetry()
     init(_ completion: @escaping (() throws -> ()) -> Void) {

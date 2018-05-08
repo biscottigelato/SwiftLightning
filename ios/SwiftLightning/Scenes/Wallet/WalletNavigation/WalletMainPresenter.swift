@@ -71,9 +71,9 @@ class WalletMainPresenter: WalletMainPresentationLogic {
         let date = Date(timeIntervalSince1970: TimeInterval(btcTransaction.timeStamp))
         
         if btcTransaction.amount < 0 {
-          dateText = "Sent on \(dateFormatter.string(from: date))"
+          dateText = "Sent \(dateFormatter.string(from: date))"
         } else {
-          dateText = "Received on \(dateFormatter.string(from: date))"
+          dateText = "Rcvd \(dateFormatter.string(from: date))"
         }
         
         // The only thing that can affect the status label is # of confirmations?
@@ -121,7 +121,7 @@ class WalletMainPresenter: WalletMainPresentationLogic {
         
         // Determine date
         let date = Date(timeIntervalSince1970: TimeInterval(lnPayment.creationDate))
-        dateText = "Sent on \(dateFormatter.string(from: date))"
+        dateText = "Sent \(dateFormatter.string(from: date))"
         
         // What status is there to report but hops?
         let hops = lnPayment.path.count - 1

@@ -47,10 +47,11 @@ class ChannelDetailsInteractor: ChannelDetailsBusinessLogic, ChannelDetailsDataS
       do {
         let nodeInfo = try responder()
         
-        let ipPort = nodeInfo.address[0].split(separator: ":")
-
-        channelVM.ipAddress = String(ipPort[0])
-        channelVM.port = String(ipPort[1])
+        if nodeInfo.address.count > 0 {
+          let ipPort = nodeInfo.address[0].split(separator: ":")
+          channelVM.ipAddress = String(ipPort[0])
+          channelVM.port = String(ipPort[1])
+        }
         channelVM.alias = nodeInfo.alias
         self.channelVM = channelVM  // Save a copy back to own data store
         
@@ -141,9 +142,9 @@ class ChannelDetailsInteractor: ChannelDetailsBusinessLogic, ChannelDetailsDataS
 //  private func closeChannelStreaming(callHandle: () throws -> (Lnrpc_LightningCloseChannelCall)) {
 //    do {
 //      let _ = try callHandle()
-//      
+//
 //      // TODO: Pass to Stream Handler module for receive handling after the first stream
-//      
+//
 //      let response = ChannelDetails.Close.Response(result: Result<Void>.success(()))
 //      presenter?.presentClose(response: response)
 //    } catch {
@@ -151,22 +152,27 @@ class ChannelDetailsInteractor: ChannelDetailsBusinessLogic, ChannelDetailsDataS
 //    }
 //  }
   
-  private func closeChannelCompletion(responder: () throws -> ()) {
+  private func closeChannelCompletion(responder: () throws -> (LNCloseChannelUpdateType)) {
     do {
-      try responder()
-      // TODO: Do direct trigger into Event Center
+      let updateType = try responder()
       
-      let response = ChannelDetails.Close.Response(result: Result<Void>.success(()))
-      presenter?.presentClose(response: response)
+      switch updateType {
+      case .pending:
+        let response = ChannelDetails.Close.Response(result: Result<Void>.success(()))
+        presenter?.presentClose(response: response)
+        
+      default:
+        // Hit the Event Center with this
+        EventCentral.shared.channelCloseNotify()
+      }
+      
     } catch {
+      // No idea what's going on, hit the Event Central anyways
+      EventCentral.shared.channelCloseNotify()
       
       // This is the nay path if the Close Channel Scene still exists
       let response = ChannelDetails.Close.Response(result: Result<Void>.failure(error))
       presenter?.presentClose(response: response)
-      
-      // If the Scene dun exist, route to Event Center instead
-      // TODO: Do direct trigger into Event Cetner
     }
   }
-  
 }

@@ -159,21 +159,25 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
 //  }
   
   
-  private func openChannelCompletion(responder: () throws -> ()) {
+  private func openChannelCompletion(responder: () throws -> (LNOpenChannelUpdateType)) {
     do {
-      try responder()
-      // TODO: Do direct trigger into Event Center
+      let updateType = try responder()
       
-      let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.success(()))
-      presenter?.presentOpenChannel(response: response)
+      switch updateType {
+      case .pending:
+        let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.success(()))
+        presenter?.presentOpenChannel(response: response)
+      default:
+        // Do direct trigger into Event Center
+        EventCentral.shared.channelOpenNotify()
+      }      
     } catch {
+      // No clue what's going on, hit the Event Center anyways
+      EventCentral.shared.channelOpenNotify()
       
       // This is the nay path if the Open Channel Scene still exists
       let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
       presenter?.presentOpenChannel(response: response)
-      
-      // If the Scene dun exist, route to Event Center instead
-      // TODO: Do direct trigger into Event Cetner
     }
   }
 }

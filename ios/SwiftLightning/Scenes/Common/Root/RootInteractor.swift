@@ -45,8 +45,19 @@ class RootInteractor: RootBusinessLogic, RootDataStore
     LNServices.getInfo(retryCount: 20, retryDelay: 0.5) { (completion) in
       do {
         _ = try completion()
-        let response = Root.ConfirmWalletUnlock.Response(isWalletUnlocked: true)
-        self.presenter?.presentConfirmWalletUnlock(response: response)
+        
+        // Start Wallet Event Central
+        EventCentral.shared.start { (result) in
+          switch result {
+          case .success(()):
+            let response = Root.ConfirmWalletUnlock.Response(isWalletUnlocked: true)
+            self.presenter?.presentConfirmWalletUnlock(response: response)
+          case .failure(let error):
+            SLLog.assert("Cannot start Wallet Event Central - \(error.localizedDescription)")
+            let response = Root.ConfirmWalletUnlock.Response(isWalletUnlocked: false)
+            self.presenter?.presentConfirmWalletUnlock(response: response)
+          }
+        }
       } catch {
         let response = Root.ConfirmWalletUnlock.Response(isWalletUnlocked: false)
         self.presenter?.presentConfirmWalletUnlock(response: response)

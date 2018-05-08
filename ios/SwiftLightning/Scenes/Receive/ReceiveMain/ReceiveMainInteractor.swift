@@ -29,7 +29,7 @@ class ReceiveMainInteractor: ReceiveMainBusinessLogic, ReceiveMainDataStore
   // MARK: Generate On Chain
   
   func generateOnChain(request: ReceiveMain.GenerateOnChain.Request) {
-    LNServices.newAddress { (responder) in
+    LNServices.newAddress(type: .np2wkh) { (responder) in
       do {
         let onChainAddress = try responder()
         let result = Result<String>.success(onChainAddress)

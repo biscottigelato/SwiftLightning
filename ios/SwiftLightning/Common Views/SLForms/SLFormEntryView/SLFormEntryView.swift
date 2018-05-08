@@ -129,6 +129,7 @@ import UIKit
       feeBalanceStack.isHidden = true
       
       button.isEnabled = false  // TODO: Allow for reference currency display swapping
+      button.alpha = 0.6
       button.setTitle("sat", for: .normal)
       
     case .moneyFeeBalance:
@@ -145,6 +146,7 @@ import UIKit
       feeBalanceStack.isHidden = false
       
       button.isEnabled = false  // TODO: Allow for reference currency display swapping
+      button.alpha = 0.6
       button.setTitle("sat", for: .normal)
       
     case .numberIPPort:

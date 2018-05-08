@@ -127,6 +127,7 @@
 		8C6B7564208B17CB00B751A2 /* WalletNavigation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6B7563208B17CB00B751A2 /* WalletNavigation.storyboard */; };
 		8C6B7566208BB9D000B751A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6B7565208BB9CF00B751A2 /* LaunchScreen.storyboard */; };
 		8C6B7568208BBBBF00B751A2 /* UnlockApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6B7567208BBA6E00B751A2 /* UnlockApp.storyboard */; };
+		8C6D039820A170ED00C31F7F /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6D039720A170ED00C31F7F /* Date+Extension.swift */; };
 		8C70EBCD208C345B00D658DC /* ReceiveMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EBC7208C345B00D658DC /* ReceiveMainPresenter.swift */; };
 		8C70EBCE208C345B00D658DC /* ReceiveMainWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EBC8208C345B00D658DC /* ReceiveMainWorker.swift */; };
 		8C70EBCF208C345B00D658DC /* ReceiveMainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70EBC9208C345B00D658DC /* ReceiveMainRouter.swift */; };
@@ -149,7 +150,7 @@
 		8C7745B0209BF839004EBA69 /* TxnTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C7745AE209BF839004EBA69 /* TxnTableViewCell.xib */; };
 		8C7745B3209BF846004EBA69 /* ChTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745B1209BF846004EBA69 /* ChTableViewCell.swift */; };
 		8C7745B4209BF846004EBA69 /* ChTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C7745B2209BF846004EBA69 /* ChTableViewCell.xib */; };
-		8C7745B9209D3258004EBA69 /* Listener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745B8209D3258004EBA69 /* Listener.swift */; };
+		8C7745B9209D3258004EBA69 /* EventCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745B8209D3258004EBA69 /* EventCentral.swift */; };
 		8C7745BE209D3E20004EBA69 /* ChannelDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C7745BD209D3E20004EBA69 /* ChannelDetails.storyboard */; };
 		8C7745C5209D3E39004EBA69 /* ChannelDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745BF209D3E39004EBA69 /* ChannelDetailsPresenter.swift */; };
 		8C7745C6209D3E39004EBA69 /* ChannelDetailsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745C0209D3E39004EBA69 /* ChannelDetailsWorker.swift */; };
@@ -359,6 +360,7 @@
 		8C6B7563208B17CB00B751A2 /* WalletNavigation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WalletNavigation.storyboard; sourceTree = "<group>"; };
 		8C6B7565208BB9CF00B751A2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C6B7567208BBA6E00B751A2 /* UnlockApp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UnlockApp.storyboard; path = /Users/biscottigelato/gocode/src/github.com/biscottigelato/SwiftLightning/ios/SwiftLightning/Scenes/Unlock/UnlockApp/UnlockApp.storyboard; sourceTree = "<absolute>"; };
+		8C6D039720A170ED00C31F7F /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		8C70EBC7208C345B00D658DC /* ReceiveMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveMainPresenter.swift; sourceTree = "<group>"; };
 		8C70EBC8208C345B00D658DC /* ReceiveMainWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveMainWorker.swift; sourceTree = "<group>"; };
 		8C70EBC9208C345B00D658DC /* ReceiveMainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveMainRouter.swift; sourceTree = "<group>"; };
@@ -381,7 +383,7 @@
 		8C7745AE209BF839004EBA69 /* TxnTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxnTableViewCell.xib; sourceTree = "<group>"; };
 		8C7745B1209BF846004EBA69 /* ChTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChTableViewCell.swift; sourceTree = "<group>"; };
 		8C7745B2209BF846004EBA69 /* ChTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChTableViewCell.xib; sourceTree = "<group>"; };
-		8C7745B8209D3258004EBA69 /* Listener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listener.swift; sourceTree = "<group>"; };
+		8C7745B8209D3258004EBA69 /* EventCentral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCentral.swift; sourceTree = "<group>"; };
 		8C7745BD209D3E20004EBA69 /* ChannelDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChannelDetails.storyboard; sourceTree = "<group>"; };
 		8C7745BF209D3E39004EBA69 /* ChannelDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelDetailsPresenter.swift; sourceTree = "<group>"; };
 		8C7745C0209D3E39004EBA69 /* ChannelDetailsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelDetailsWorker.swift; sourceTree = "<group>"; };
@@ -498,7 +500,7 @@
 			children = (
 				8C1AE3712095A55800A4D9BF /* BitcoinKit */,
 				8C8275DA208FF1AD0029BE7E /* Money */,
-				8C7745B7209D30B2004EBA69 /* Listener */,
+				8C7745B7209D30B2004EBA69 /* StateCentral */,
 				8C7745BA209D3288004EBA69 /* MetaTracker */,
 				8C090DF020870AE7009B8B8D /* Lightning Shim */,
 			);
@@ -704,6 +706,7 @@
 				8CE3AE642086DA9E007D1065 /* UIColor+Extension.swift */,
 				8C090DEA2086F92A009B8B8D /* UITextField+Extension.swift */,
 				8C090E0F20881DAB009B8B8D /* UIAlertController+Extension.swift */,
+				8C6D039720A170ED00C31F7F /* Date+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -851,12 +854,12 @@
 			path = ChannelCell;
 			sourceTree = "<group>";
 		};
-		8C7745B7209D30B2004EBA69 /* Listener */ = {
+		8C7745B7209D30B2004EBA69 /* StateCentral */ = {
 			isa = PBXGroup;
 			children = (
-				8C7745B8209D3258004EBA69 /* Listener.swift */,
+				8C7745B8209D3258004EBA69 /* EventCentral.swift */,
 			);
-			path = Listener;
+			path = StateCentral;
 			sourceTree = "<group>";
 		};
 		8C7745BA209D3288004EBA69 /* MetaTracker */ = {
@@ -1123,8 +1126,8 @@
 		8CFA16902082EB7300813EA6 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				8C686534209A6C04001E41DA /* Camera */,
 				8CFA16912082EB7E00813EA6 /* Common */,
+				8C686534209A6C04001E41DA /* Camera */,
 				8CFA16922082EB9D00813EA6 /* Setup */,
 				8C090E072088185B009B8B8D /* Unlock */,
 				8C090E6420896BB5009B8B8D /* Wallet */,
@@ -1563,6 +1566,7 @@
 				8C6B7560208B17BD00B751A2 /* WalletMainModels.swift in Sources */,
 				8C8275DE208FF8640029BE7E /* Money.swift in Sources */,
 				8C090DEB2086F92A009B8B8D /* UITextField+Extension.swift in Sources */,
+				8C6D039820A170ED00C31F7F /* Date+Extension.swift in Sources */,
 				8C70EBD1208C345B00D658DC /* ReceiveMainViewController.swift in Sources */,
 				8C1882A120868EBE002E2835 /* PasswordCreateViewController.swift in Sources */,
 				8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */,
@@ -1576,7 +1580,7 @@
 				8C8275DC208FF1CF0029BE7E /* Bitcoin.swift in Sources */,
 				8C68653D209A6E87001E41DA /* CameraMainWorker.swift in Sources */,
 				8C18829F20868EBE002E2835 /* PasswordCreateRouter.swift in Sources */,
-				8C7745B9209D3258004EBA69 /* Listener.swift in Sources */,
+				8C7745B9209D3258004EBA69 /* EventCentral.swift in Sources */,
 				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
 				8C8275FC209118250029BE7E /* SLFormLabelView.swift in Sources */,
 				8C7EC53320950449001C8FD6 /* PayMainWorker.swift in Sources */,
