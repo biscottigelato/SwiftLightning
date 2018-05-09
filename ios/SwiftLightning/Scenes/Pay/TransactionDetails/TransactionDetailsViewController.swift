@@ -155,8 +155,6 @@ class TransactionDetailsViewController: UIViewController, TransactionDetailsDisp
         self.destPathLabels.append(destPathLabel)
       }
       self.stackView.addArrangedSubview(self.bottomSpacer)
-      self.view.setNeedsLayout()
-      self.view.layoutIfNeeded()
     }
   }
   

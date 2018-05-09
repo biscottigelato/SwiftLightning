@@ -12,11 +12,11 @@ import Lndmobile
 
 class LNDMobileStartCallback: NSObject, LndmobileCallbackProtocol {
   func onError(_ p0: Error!) {
-    SLLog.verbose("LND Start calledback with Error \(p0.localizedDescription)")
+    SLLog.verbose("LND Start called back with Error \(p0.localizedDescription)")
   }
   
   func onResponse(_ p0: Data!) {
-    SLLog.verbose("LND Start calledback with Data")
+    SLLog.verbose("LND Start called back with Data")
   }
 }
 
@@ -28,7 +28,7 @@ class LNServices {
   static var rpcListenPort: UInt = 10009
   static var peerListenPort: UInt = 9735
   static var restListenPort: UInt = 8080
-  static var neutrinoAddress: String = "faucet.lightning.community"
+
   static var directoryPath: String = ""
   static var lndQueue: DispatchQueue?
   
@@ -106,6 +106,8 @@ class LNServices {
   static func generateSeed(completion: @escaping (() throws -> ([String])) -> Void) throws {
     try prepareWalletUnlockerService()
     
+    SLLog.debug("LN Generate Seed thru GRPC")
+    
     // Unary GRPC
     _ = try walletUnlockerService!.genSeed(Lnrpc_GenSeedRequest()) { (response, result) in
       if let response = response {
@@ -143,6 +145,8 @@ class LNServices {
     request.cipherSeedMnemonic = cipherSeedMnemonic
     request.walletPassword = passwordData
     
+    SLLog.debug("LN Create Wallet thru GRPC")
+    
     // Unary GRPC
     _ = try walletUnlockerService!.initWallet(request) { (response, result) in
       if response != nil {
@@ -168,6 +172,8 @@ class LNServices {
     }
     
     try prepareWalletUnlockerService()
+    
+    SLLog.debug("LN Unlock Wallet thru GRPC")
     
     var request = Lnrpc_UnlockWalletRequest()
     request.walletPassword = passwordData
@@ -234,6 +240,7 @@ class LNServices {
     
     let task = {
       do {
+        SLLog.debug("LN Wallet Balance Request")
         let request = try Lnrpc_WalletBalanceRequest().serializedData()
         LndmobileWalletBalance(request, lndOp)
       } catch {
@@ -289,6 +296,7 @@ class LNServices {
     
     let task = {
       do {
+        SLLog.debug("LN Channel Balance Request")
         let request = try Lnrpc_WalletBalanceRequest().serializedData()
         LndmobileChannelBalance(request, lndOp)
       } catch {
@@ -362,6 +370,7 @@ class LNServices {
     
     let task = {
       do {
+        SLLog.debug("LN Get Transactions Request")
         let request = try Lnrpc_GetTransactionsRequest().serializedData()
         LndmobileGetTransactions(request, lndOp)
       } catch {
@@ -418,6 +427,7 @@ class LNServices {
         if let targetConf = targetConf { request.targetConf = Int32(targetConf) }
         if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
         
+        SLLog.debug("LN Send Coins Request to \(request.addr.prefix(10))...")
         let serialReq = try request.serializedData()
         LndmobileSendCoins(serialReq, lndOp)
       } catch {
@@ -476,6 +486,7 @@ class LNServices {
                                     completion: @escaping (() throws -> (BTCTransaction)) -> Void) {
     
     let lndOp = SubscribeTransactions(completion)
+    SLLog.debug("LN Subscribe Transactions Request")
     LndmobileSubscribeTransactions(nil, lndOp)
   }
   
@@ -524,6 +535,7 @@ class LNServices {
           throw LNError.addressTypeUnsupported
         }
         
+        SLLog.debug("LN New Address Request")
         let serialReq = try request.serializedData()
         LndmobileNewAddress(serialReq, lndOp)
       } catch {
@@ -587,6 +599,7 @@ class LNServices {
         request.addr = addr
         request.perm = true
         
+        SLLog.debug("LN Connect Peer Request - PubKey: \(pubKey.prefix(10))..., Addr: \(hostAddr):\(hostPort)")
         let serialReq = try request.serializedData()
         LndmobileConnectPeer(serialReq, lndOp)
       } catch {
@@ -660,6 +673,7 @@ class LNServices {
     
     let task = {
       do {
+        SLLog.debug("LN List Peers Request")
         let request = try Lnrpc_ListPeersRequest().serializedData()
         LndmobileListPeers(request, lndOp)
       } catch {
@@ -727,6 +741,7 @@ class LNServices {
     
     let task = {
       do {
+        SLLog.debug("LN Get Info Request")
         let request = try Lnrpc_GetInfoRequest().serializedData()
         LndmobileGetInfo(request, lndOp)
       } catch {
@@ -878,6 +893,7 @@ class LNServices {
     
     let task = {
       do {
+        SLLog.debug("LN Pending Channels Request")
         let request = try Lnrpc_PendingChannelsRequest().serializedData()
         LndmobilePendingChannels(request, lndOp)
       } catch {
@@ -968,6 +984,7 @@ class LNServices {
     
     let task = {
       do {
+        SLLog.debug("LN List Channels Request")
         let request = try Lnrpc_ListChannelsRequest().serializedData()
         LndmobileListChannels(request, lndOp)
       } catch {
@@ -1056,9 +1073,8 @@ class LNServices {
     if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
   
     do {
+      SLLog.info("LN Open Channel Request - PubKey: \(nodePubKey.hexEncodedString().prefix(10))...")
       let serialReq = try request.serializedData()
-      
-      SLLog.info("Opening Channel to Node with PubKey \(nodePubKey.hexEncodedString())")
       LndmobileOpenChannel(serialReq, lndOp)
     } catch {
       completion({ throw error })
@@ -1142,9 +1158,8 @@ class LNServices {
     if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
     
     do {
+      SLLog.info("LN Close Channel Request - PubKey: \(fundingTxIDStr.prefix(10))...")
       let serialReq = try request.serializedData()
-      
-      SLLog.info("Closing Channel with Channel Point \(fundingTxIDStr)")
       LndmobileCloseChannel(serialReq, lndOp)
     } catch {
       completion({ throw error })
@@ -1206,10 +1221,16 @@ class LNServices {
     let task = {
       do {
         var request = Lnrpc_SendRequest()
-        if let dest = dest { request.dest = dest }
+        if let dest = dest {
+          request.dest = dest
+          SLLog.info("LN Send Payment Sync Request - Dest: \(dest.hexEncodedString().prefix(10))...")
+        }
         if let amount = amount { request.amt = Int64(amount) }
         if let payHash = payHash { request.paymentHash = payHash }
-        if let payReq = payReq { request.paymentRequest = payReq }
+        if let payReq = payReq {
+          request.paymentRequest = payReq
+          SLLog.info("LN Send Payment Sync Request - PayReq: \(payReq.prefix(10))...")
+        }
         if let finalCTLVDelta = finalCLTVDelta { request.finalCltvDelta = Int32(finalCTLVDelta) }
         
         let serialReq = try request.serializedData()
@@ -1274,6 +1295,7 @@ class LNServices {
         var request = Lnrpc_NodeInfoRequest()
         request.pubKey = pubKey
         
+        SLLog.info("LN Get Node Info Request - PubKey: \(pubKey.prefix(10))...")
         let serialReq = try request.serializedData()
         LndmobileGetNodeInfo(serialReq, lndOp)
       } catch {
@@ -1360,6 +1382,7 @@ class LNServices {
         request.amt = Int64(amt)
         request.numRoutes = Int32(numRoutes)
         
+        SLLog.info("LN Query Routes Request - PubKey: \(pubKey.prefix(10))...")
         let serialReq = try request.serializedData()
         LndmobileQueryRoutes(serialReq, lndOp)
       } catch {
@@ -1424,6 +1447,7 @@ class LNServices {
         var payReqString = Lnrpc_PayReqString()
         payReqString.payReq = payReqInput
         
+        SLLog.info("LN Decode Pay Req Request - PayReq: \(payReqInput.prefix(10))...")
         let request = try payReqString.serializedData()
         LndmobileDecodePayReq(request, lndOp)
       } catch {
@@ -1495,6 +1519,7 @@ class LNServices {
     
     let task = {
       do {
+        SLLog.debug("LN List Payments Request")
         let request = try Lnrpc_ListPaymentsResponse().serializedData()
         LndmobileListPayments(request, lndOp)
       } catch {
@@ -1544,6 +1569,7 @@ class LNServices {
     
     let task = {
       do {
+        SLLog.debug("LN Stop Daemon")
         let request = try Lnrpc_StopRequest().serializedData()
         LndmobileStopDaemon(request, lndOp)
       } catch {

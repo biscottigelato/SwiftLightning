@@ -523,7 +523,7 @@
 			path = Templates;
 			sourceTree = "<group>";
 		};
-		8C090DEF20870AD3009B8B8D /* Model */ = {
+		8C090DEF20870AD3009B8B8D /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				8C1AE3712095A55800A4D9BF /* BitcoinKit */,
@@ -532,7 +532,7 @@
 				8C7745BA209D3288004EBA69 /* MetaTracker */,
 				8C090DF020870AE7009B8B8D /* Lightning Shim */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		8C090DF020870AE7009B8B8D /* Lightning Shim */ = {
@@ -696,9 +696,9 @@
 				8C36A03920968DC0003BEFB6 /* Resources */,
 				8C4710FC20783DEB005D7ABC /* Extensions */,
 				8C090E082088197D009B8B8D /* Shared */,
-				8C7D310420755AE30068F2BD /* Common Views */,
-				8C90C948209D70BE00D6E7A8 /* Common View Models */,
-				8C090DEF20870AD3009B8B8D /* Model */,
+				8C7D310420755AE30068F2BD /* Views */,
+				8C90C948209D70BE00D6E7A8 /* View Models */,
+				8C090DEF20870AD3009B8B8D /* Models */,
 				8CFA16902082EB7300813EA6 /* Scenes */,
 				8C090E7120899D71009B8B8D /* Playground */,
 			);
@@ -972,7 +972,7 @@
 			path = "Support Files";
 			sourceTree = "<group>";
 		};
-		8C7D310420755AE30068F2BD /* Common Views */ = {
+		8C7D310420755AE30068F2BD /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				8C70EC0A208D934200D658DC /* SLDesign.swift */,
@@ -986,7 +986,7 @@
 				8C70EC0C208DBC3B00D658DC /* SLTextDialogView */,
 				8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialog */,
 			);
-			path = "Common Views";
+			path = Views;
 			sourceTree = "<group>";
 		};
 		8C7D310620755AF00068F2BD /* Assets */ = {
@@ -1165,12 +1165,12 @@
 			path = SLSpinnerDialog;
 			sourceTree = "<group>";
 		};
-		8C90C948209D70BE00D6E7A8 /* Common View Models */ = {
+		8C90C948209D70BE00D6E7A8 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
 				8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */,
 			);
-			path = "Common View Models";
+			path = "View Models";
 			sourceTree = "<group>";
 		};
 		8CD0639D2095638300D2B66B /* PayConfirm */ = {

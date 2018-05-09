@@ -48,8 +48,16 @@ class PayConfirmPresenter: PayConfirmPresentationLogic {
       viewController?.displaySendPaymentSubmitted(viewModel: viewModel)
       
     case .failure(let error):
-      let viewModel = PayConfirm.SendPayment.ErrorVM(errTitle: "Payment Error",
-                                                     errMsg: error.localizedDescription)
+      var viewModel: PayConfirm.SendPayment.ErrorVM
+      
+      switch error {
+      case PayConfirm.SendPayment.Error.lnPayRspErr(let payError):
+        viewModel = PayConfirm.SendPayment.ErrorVM(errTitle: "Payment Error",
+                                                   errMsg: payError)
+      default:
+        viewModel = PayConfirm.SendPayment.ErrorVM(errTitle: "Payment Error",
+                                                   errMsg: error.localizedDescription)
+      }
       viewController?.displaySendPaymentFailure(viewModel: viewModel)
     }
   }

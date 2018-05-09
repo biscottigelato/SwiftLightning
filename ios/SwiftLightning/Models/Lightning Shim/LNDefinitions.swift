@@ -269,11 +269,11 @@ struct LNPendingForceCloseChannel: CustomStringConvertible {
     var descriptiveString = """
       Pending Force Close Channel details -
         \(channel)
-        closingTxID: \(closingTxID)
-        limboBalance: \(limboBalance)
-        maturityHeight: \(maturityHeight)
-        blocksTilMaturity: \(blocksTilMaturity)
-        recoveredBalance: \(recoveredBalance)
+        closingTxID:        \(closingTxID)
+        limboBalance:       \(limboBalance)
+        maturityHeight:     \(maturityHeight)
+        blocksTilMaturity:  \(blocksTilMaturity)
+        recoveredBalance:   \(recoveredBalance)
     """
     
     for (index, pendingHTLCs) in pendingHTLCs.enumerated() {
@@ -450,12 +450,12 @@ struct LNHop: CustomStringConvertible {
   var description: String {
     return """
       Hop details -
-        chanID:        \(chanID)
-        chanCapacity:  \(chanCapacity)
-        amtToForward:  \(amtToForward)
-        expiry:        \(expiry)
+        chanID:           \(chanID)
+        chanCapacity:     \(chanCapacity)
+        amtToForward:     \(amtToForward)
+        expiry:           \(expiry)
         amtToForwardMsat: \(amtToForwardMsat)
-        feeMsat:  \(feeMsat)
+        feeMsat:          \(feeMsat)
     """
   }
 }
