@@ -19,7 +19,7 @@ protocol ChannelDetailsBusinessLogic {
 }
 
 protocol ChannelDetailsDataStore {
-  var channelVM: ChannelVM? { get set }
+  var channelPoint: String? { get set }
 }
 
 class ChannelDetailsInteractor: ChannelDetailsBusinessLogic, ChannelDetailsDataStore
@@ -27,40 +27,73 @@ class ChannelDetailsInteractor: ChannelDetailsBusinessLogic, ChannelDetailsDataS
   var presenter: ChannelDetailsPresentationLogic?
   
   // MARK: Data Store
+  var channelPoint: String?
+  private var channelInfo: ChannelVM?
+  private var nodeInfo: NodeInfo?
   
-  var channelVM: ChannelVM?
+  typealias ChDetailInfo = ChannelDetails.ChDetailInfo
+  typealias NodeInfo = ChannelDetails.NodeInfo
   
   
   // MARK: Refresh
   
   func refresh(request: ChannelDetails.Refresh.Request) {
-    guard var channelVM = channelVM else {
+    guard let channelPoint = channelPoint else {
       SLLog.assert("channelVM = nil in ChannelDetails interactor")
-      let result = Result<ChannelVM>.failure(ChannelDetails.Error.noChannelInfo)
+      let result = Result<ChDetailInfo>.failure(ChannelDetails.Error.noChannelPoint)
       let response = ChannelDetails.Refresh.Response(result: result)
       self.presenter?.presentRefresh(response: response)
       return
     }
     
-    // Try to grab additional node details
-    LNServices.getNodeInfo(pubKey: channelVM.nodePubKey) { (responder) in
+    // Always grab Channel Information from Scratch
+    ChannelVM.getFromLN { (chResponder) in
       do {
-        let nodeInfo = try responder()
+        let channels = try chResponder()
         
-        if nodeInfo.address.count > 0 {
-          let ipPort = nodeInfo.address[0].split(separator: ":")
-          channelVM.ipAddress = String(ipPort[0])
-          channelVM.port = String(ipPort[1])
+        // Find the Channel for given Channel Point
+        guard let index = channels.index(where: { $0.channelPoint == channelPoint }) else {
+          SLLog.warning("Cannot find Channel for Channel Point \(channelPoint)")
+          let result = Result<ChDetailInfo>.failure(ChannelDetails.Error.cannotFindChannel)
+          let response = ChannelDetails.Refresh.Response(result: result)
+          self.presenter?.presentRefresh(response: response)
+          return
         }
-        channelVM.alias = nodeInfo.alias
-        self.channelVM = channelVM  // Save a copy back to own data store
         
-        let result = Result<ChannelVM>.success(channelVM)
-        let response = ChannelDetails.Refresh.Response(result: result)
-        self.presenter?.presentRefresh(response: response)
+        let channel = channels[index]
+        self.channelInfo = channel  // Save a copy in DataStore
+        
+        // Attempt to get Node Info for channel
+        LNServices.getNodeInfo(pubKey: channel.nodePubKey) { (responder) in
+          var chDetailInfo: ChDetailInfo
+          
+          do {
+            let lnNodeInfo = try responder()
+            var ipAddr: String? = nil
+            var port: String? = nil
+            
+            if lnNodeInfo.address.count > 0 {
+              let ipPort = lnNodeInfo.address[0].split(separator: ":")
+              ipAddr = String(ipPort[0])
+              port = String(ipPort[1])
+            }
+            
+            let nodeInfo = NodeInfo(ipAddr: ipAddr, port: port, alias: lnNodeInfo.alias)
+            self.nodeInfo = nodeInfo  // Save a copy in DataStore
+            chDetailInfo = ChDetailInfo(channelVM: channel, nodeInfo: nodeInfo)
+            
+          } catch {
+            SLLog.warning("Cannot get node info for channel")
+            chDetailInfo = ChDetailInfo(channelVM: channel, nodeInfo: nil)
+          }
+          
+          let result = Result<ChDetailInfo>.success(chDetailInfo)
+          let response = ChannelDetails.Refresh.Response(result: result)
+          self.presenter?.presentRefresh(response: response)
+        }
         
       } catch {
-        let result = Result<ChannelVM>.failure(error)
+        let result = Result<ChDetailInfo>.failure(ChannelDetails.Error.channelListingError)
         let response = ChannelDetails.Refresh.Response(result: result)
         self.presenter?.presentRefresh(response: response)
       }
@@ -71,22 +104,16 @@ class ChannelDetailsInteractor: ChannelDetailsBusinessLogic, ChannelDetailsDataS
   // MARK: Connect
   
   func connect(request: ChannelDetails.Connect.Request) {
-    guard let channelVM = channelVM else {
-      SLLog.assert("channelVM = nil in ChannelDetails interactor")
-      let result = Result<Void>.failure(ChannelDetails.Error.noChannelInfo)
+    guard let channelInfo = channelInfo, let nodeInfo = nodeInfo, let ipAddr = nodeInfo.ipAddr,
+      let portString = nodeInfo.port, let port = Int(portString) else {
+      SLLog.assert("channel/nodeInfo = nil in ChannelDetails interactor")
+      let result = Result<Void>.failure(ChannelDetails.Error.noChannelNodeInfo)
       let response = ChannelDetails.Connect.Response(result: result)
       self.presenter?.presentConnect(response: response)
       return
     }
     
-    guard let ipAddress = channelVM.ipAddress, let portString = channelVM.port, let port = Int(portString) else {
-      let result = Result<Void>.failure(ChannelDetails.Error.noIPPort)
-      let response = ChannelDetails.Connect.Response(result: result)
-      self.presenter?.presentConnect(response: response)
-      return
-    }
-    
-    LNServices.connectPeer(pubKey: channelVM.nodePubKey, hostAddr: ipAddress, hostPort: port) { (responder) in
+    LNServices.connectPeer(pubKey: channelInfo.nodePubKey, hostAddr: ipAddr, hostPort: port) { (responder) in
       do {
         try responder()
         let response = ChannelDetails.Connect.Response(result: Result<Void>.success(()))
@@ -104,15 +131,15 @@ class ChannelDetailsInteractor: ChannelDetailsBusinessLogic, ChannelDetailsDataS
   // MARK: Close
   
   func close(request: ChannelDetails.Close.Request) {
-    guard let channelVM = channelVM else {
-      SLLog.assert("channelVM = nil in ChannelDetails interactor")
-      let result = Result<Void>.failure(ChannelDetails.Error.noChannelInfo)
+    guard let channelInfo = channelInfo else {
+      SLLog.assert("channelInfo = nil in ChannelDetails interactor")
+      let result = Result<Void>.failure(ChannelDetails.Error.noChannelNodeInfo)
       let response = ChannelDetails.Close.Response(result: result)
       self.presenter?.presentClose(response: response)
       return
     }
     
-    let channelPoint = channelVM.channelPoint.split(separator: ":")
+    let channelPoint = channelInfo.channelPoint.split(separator: ":")
     
     guard channelPoint.count == 2 else {
       SLLog.assert("channelPoint.count != 2 in ChannelDetails interactor")

@@ -42,7 +42,7 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Resulting Channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9b-ym-qA9" userLabel="Title Label">
                                     <rect key="frame" x="0.0" y="0.0" width="421" height="30"/>
-                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                     <color key="textColor" name="LightTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>

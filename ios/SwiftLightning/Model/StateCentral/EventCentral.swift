@@ -11,7 +11,8 @@ import Foundation
 class EventCentral {
   
   struct Constants {
-    static let timeIntervalPerBlk: Double = 600  // seconds
+    static let timeIntervalPerBlk: Double = 600  // Mainnet only!!!
+    static let testnet3Blk1Timestamp: Double = 1296688928   // Testnet 3 only!!!
     static let syncMonitorInterval: Double = 1 // seconds
   }
   
@@ -26,7 +27,9 @@ class EventCentral {
   // MARK: Sync Progress Monitoring
   
   // SyncUpdateCallback is guarenteed to be called at least once
-  private var syncUpdateCallback: ((Bool, Double) -> ())?
+  private var syncUpdateCallback: ((Bool, Double, Date) -> ())?
+  private var syncTimer: RepeatingTimer?
+  
   
   func start(proceed: @escaping (Result<Void>) -> ()) {
     // Increase retry count because unlock can take a while
@@ -41,7 +44,11 @@ class EventCentral {
           
         } else {
           // Start Sync Progress Monitor
-          Timer.scheduledTimer(withTimeInterval: Constants.syncMonitorInterval, repeats: true, block: self.syncTimerHandler)
+          self.syncTimer = RepeatingTimer(timeInterval: Constants.syncMonitorInterval)
+          self.syncTimer!.eventHandler = {
+            self.syncTimerHandler(for: self.syncTimer)
+          }
+          self.syncTimer!.resume()
         }
         proceed(Result<Void>.success(()))
         
@@ -51,16 +58,23 @@ class EventCentral {
     }
   }
   
-  private func syncTimerHandler(for timer: Timer?) {
+  private func syncTimerHandler(for timer: RepeatingTimer?) {
     LNServices.getInfo(retryCount: 0, retryDelay: 1.0) { (responder) in
       do {
         let info = try responder()
         
         if info.syncedToChain {
-          self.syncUpdateCallback?(true, 1.0)
           
-          // No longer need to update progress.
-          timer?.invalidate()
+          SLLog.debug("Synced to chain, invalidating Timer")
+          if let timer = timer {
+            timer.suspend()
+            
+            // Need to nil both to break reference loop
+            timer.eventHandler = nil
+            self.syncTimer = nil
+          }
+          
+          self.syncUpdateCallback?(true, 1.0, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))
           
           // Start Event Relayer if not already started
           self.startEventRelayer()
@@ -68,7 +82,9 @@ class EventCentral {
         } else {
           // Update progress with callback until syncedToChain = true
           let estimate = self.estimatePercentage(blockTimestamp: info.bestHeaderTimestamp, blockHeight: info.blockHeight)
-          self.syncUpdateCallback?(false, estimate)
+          
+          SLLog.verbose("Sycn progress estiamted at \(estimate * 100.0)%")
+          self.syncUpdateCallback?(false, estimate, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))
         }
       } catch {
         SLLog.warning("SyncTimer expiry cannot GetInfo with error - \(error.localizedDescription)")
@@ -77,16 +93,26 @@ class EventCentral {
   }
   
   private func estimatePercentage(blockTimestamp: Int, blockHeight: UInt) -> Double {
+    
+    // For Mainnet
+//    let dateForBlock = Date(timeIntervalSince1970: TimeInterval(blockTimestamp))
+//    let remainingInterval = abs(dateForBlock.timeIntervalSinceNow)
+//    let remainingBlocks = remainingInterval/Constants.timeIntervalPerBlk
+//    var estimate = Double(blockHeight)/(remainingBlocks + Double(blockHeight))
+    
+    // For Testnet 3
     let dateForBlock = Date(timeIntervalSince1970: TimeInterval(blockTimestamp))
-    let remainingInterval = dateForBlock.timeIntervalSinceNow
-    let remainingBlocks = remainingInterval/Constants.timeIntervalPerBlk
-    var estimate = Double(blockHeight)/(remainingBlocks + Double(blockHeight))
+    let dateForBlock1 = Date(timeIntervalSince1970: Constants.testnet3Blk1Timestamp)
+    let elapsedInterval = dateForBlock.timeIntervalSince(dateForBlock1)
+    let remainingInterval = abs(dateForBlock.timeIntervalSinceNow)
+    var estimate = elapsedInterval/(elapsedInterval + remainingInterval)
+    
     if estimate < 0.0 { estimate = 0.0 }
     if estimate >= 1.0 { estimate = 0.99 }  // Don't let it get to 1.0
     return estimate
   }
   
-  func regsiterSyncProgress(callback: @escaping (Bool, Double) -> ()) {
+  func regsiterSyncProgress(callback: @escaping (Bool, Double, Date) -> ()) {
     syncUpdateCallback = callback
     
     // Make sure syncUpdateCallback gets called at least once
@@ -119,6 +145,7 @@ class EventCentral {
   private func startEventRelayer() {
     guard !relayerStarted else { return }
     relayerStarted = true
+    SLLog.debug("Starting Event Relayer")
     
     // Start All Subscriptions
     LNServices.subscribeTransactions(completion: transactionNotify)

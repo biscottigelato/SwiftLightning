@@ -69,15 +69,8 @@ enum WalletMain
     struct Request {
       // TODO: Filters & Sorts
     }
-    struct Channels {
-      var openedChannels: [LNChannel]
-      var pendingOpenChannels: [LNPendingOpenChannel]
-      var pendingCloseChannels: [LNPendingCloseChannel]
-      var pendingForceCloseChannels: [LNPendingForceCloseChannel]
-      var waitingCloseChannels: [LNWaitingCloseChannel]
-    }
     struct Response {
-      var result: Result<Channels>
+      var result: Result<[ChannelVM]>
     }
     struct ViewModel {
       var channels: [ChannelVM]

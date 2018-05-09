@@ -38,8 +38,8 @@
                             <rect key="frame" x="0.0" y="0.0" width="358" height="30"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Against Node" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKS-CU-vqn" userLabel="Title Label">
-                                    <rect key="frame" x="0.0" y="8" width="358" height="22"/>
-                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                                    <rect key="frame" x="0.0" y="9.5" width="358" height="20.5"/>
+                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                     <color key="textColor" name="LightTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -55,8 +55,8 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Node Pub Key Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SN-dz-tkR">
-                                    <rect key="frame" x="59" y="9.5" width="299" height="20.5"/>
-                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                    <rect key="frame" x="59" y="12" width="299" height="18"/>
+                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                     <color key="textColor" name="DarkTextBlue"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -75,8 +75,8 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Some Node Alias Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azZ-qq-CE0">
-                                    <rect key="frame" x="38.5" y="9.5" width="319.5" height="20.5"/>
-                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                    <rect key="frame" x="38.5" y="12" width="319.5" height="18"/>
+                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                     <color key="textColor" name="DarkTextBlue"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -86,34 +86,34 @@
                             <rect key="frame" x="0.0" y="90" width="358" height="30"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pCK-gl-rU0">
-                                    <rect key="frame" x="0.0" y="9.5" width="162" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="12" width="161" height="18"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" text="IP" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hx6-qP-zTs" userLabel="IP">
-                                            <rect key="frame" x="0.0" y="0.0" width="11.5" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="11.5" height="18"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                             <color key="textColor" name="LightTextGray"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wTf-4m-4C3" userLabel="Address">
-                                            <rect key="frame" x="21.5" y="0.0" width="140.5" height="20.5"/>
-                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                            <rect key="frame" x="21.5" y="0.0" width="139.5" height="18"/>
+                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                             <color key="textColor" name="DarkTextBlue"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6NU-fV-pgO">
-                                    <rect key="frame" x="162" y="9.5" width="196" height="20.5"/>
+                                    <rect key="frame" x="161" y="12" width="197" height="18"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" text="Port" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZw-UX-k98" userLabel="Port">
-                                            <rect key="frame" x="0.0" y="0.0" width="26" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="26" height="18"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                             <color key="textColor" name="LightTextGray"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ss3-7Z-3A9" userLabel="Number">
-                                            <rect key="frame" x="36" y="0.0" width="160" height="20.5"/>
-                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                            <rect key="frame" x="36" y="0.0" width="161" height="18"/>
+                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                             <color key="textColor" name="DarkTextBlue"/>
                                             <nil key="highlightedColor"/>
                                         </label>

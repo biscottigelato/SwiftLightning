@@ -158,6 +158,9 @@
 		8C7745C8209D3E39004EBA69 /* ChannelDetailsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745C2209D3E39004EBA69 /* ChannelDetailsModels.swift */; };
 		8C7745C9209D3E39004EBA69 /* ChannelDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745C3209D3E39004EBA69 /* ChannelDetailsViewController.swift */; };
 		8C7745CA209D3E39004EBA69 /* ChannelDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7745C4209D3E39004EBA69 /* ChannelDetailsInteractor.swift */; };
+		8C77AD6920A249030094D733 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD6820A249030094D733 /* RepeatingTimer.swift */; };
+		8C77AD7420A290E90094D733 /* SLFormCompactView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C77AD7320A290A40094D733 /* SLFormCompactView.xib */; };
+		8C77AD7520A290EC0094D733 /* SLFormCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD7220A290A20094D733 /* SLFormCompactView.swift */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SLLog.swift */; };
 		8C7EC53220950449001C8FD6 /* PayMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */; };
@@ -391,6 +394,9 @@
 		8C7745C2209D3E39004EBA69 /* ChannelDetailsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelDetailsModels.swift; sourceTree = "<group>"; };
 		8C7745C3209D3E39004EBA69 /* ChannelDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelDetailsViewController.swift; sourceTree = "<group>"; };
 		8C7745C4209D3E39004EBA69 /* ChannelDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelDetailsInteractor.swift; sourceTree = "<group>"; };
+		8C77AD6820A249030094D733 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
+		8C77AD7220A290A20094D733 /* SLFormCompactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLFormCompactView.swift; sourceTree = "<group>"; };
+		8C77AD7320A290A40094D733 /* SLFormCompactView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLFormCompactView.xib; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLog.swift; sourceTree = "<group>"; };
 		8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainPresenter.swift; sourceTree = "<group>"; };
@@ -534,6 +540,7 @@
 				8C7D310720755CE00068F2BD /* SLLog.swift */,
 				8C090E4F20895CA9009B8B8D /* SLRandValues.swift */,
 				8C70EC12208E511900D658DC /* SLRetry.swift */,
+				8C77AD6820A249030094D733 /* RepeatingTimer.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -883,6 +890,15 @@
 			path = ChannelDetails;
 			sourceTree = "<group>";
 		};
+		8C77AD7120A290910094D733 /* SLFormCompactView */ = {
+			isa = PBXGroup;
+			children = (
+				8C77AD7320A290A40094D733 /* SLFormCompactView.xib */,
+				8C77AD7220A290A20094D733 /* SLFormCompactView.swift */,
+			);
+			path = SLFormCompactView;
+			sourceTree = "<group>";
+		};
 		8C7D30FE207542090068F2BD /* Protobuf */ = {
 			isa = PBXGroup;
 			children = (
@@ -975,6 +991,7 @@
 				8C8275BF208EA5020029BE7E /* SLFormAddrQRView */,
 				8C8275C0208EA5230029BE7E /* SLFormEntryView */,
 				8C8275C4208EA5740029BE7E /* SLFormSegCtrlView */,
+				8C77AD7120A290910094D733 /* SLFormCompactView */,
 				8C8275F7209117CF0029BE7E /* SLFormLabelView */,
 				8C8275F8209117E60029BE7E /* SLFormNodeView */,
 				8C8276012091186C0029BE7E /* SLFormChSummaryView */,
@@ -1413,6 +1430,7 @@
 				8C18829020868545002E2835 /* Montserrat-ExtraLight.ttf in Resources */,
 				8C7EC53920950593001C8FD6 /* PayMain.storyboard in Resources */,
 				8C6B7564208B17CB00B751A2 /* WalletNavigation.storyboard in Resources */,
+				8C77AD7420A290E90094D733 /* SLFormCompactView.xib in Resources */,
 				8C18828720868545002E2835 /* Montserrat-ExtraBold.ttf in Resources */,
 				8C686543209A6EE2001E41DA /* CameraMain.storyboard in Resources */,
 				8C82760820912A750029BE7E /* SLFormPaySummaryView.xib in Resources */,
@@ -1592,6 +1610,7 @@
 				8CD063AB209563BC00D2B66B /* PayConfirmInteractor.swift in Sources */,
 				8C68653F209A6E87001E41DA /* CameraMainModels.swift in Sources */,
 				8C090E2020885772009B8B8D /* URL+Extension.swift in Sources */,
+				8C77AD6920A249030094D733 /* RepeatingTimer.swift in Sources */,
 				8C68653C209A6E87001E41DA /* CameraMainPresenter.swift in Sources */,
 				8C090E5020895CA9009B8B8D /* SLRandValues.swift in Sources */,
 				8C1882B220869699002E2835 /* SLPasswordField.swift in Sources */,
@@ -1621,6 +1640,7 @@
 				8C6B755D208B17BD00B751A2 /* WalletMainPresenter.swift in Sources */,
 				8C6B755E208B17BD00B751A2 /* WalletMainWorker.swift in Sources */,
 				8C6B7541208AF33200B751A2 /* RootPresenter.swift in Sources */,
+				8C77AD7520A290EC0094D733 /* SLFormCompactView.swift in Sources */,
 				8C7745C7209D3E39004EBA69 /* ChannelDetailsRouter.swift in Sources */,
 				8C8275C8208EA63D0029BE7E /* SLFormEntryView.swift in Sources */,
 				8C8275EF20910FA40029BE7E /* ChannelConfirmPresenter.swift in Sources */,

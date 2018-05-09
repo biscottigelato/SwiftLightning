@@ -92,6 +92,6 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
   }
   
   func passDataToChannelDetails(channelVM: ChannelVM, destination: inout ChannelDetailsDataStore) {
-    destination.channelVM = channelVM
+    destination.channelPoint = channelVM.channelPoint
   }
 }

@@ -48,22 +48,24 @@ class LNServices {
     }
     let lndDestinationURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("lnd.conf", isDirectory: false)
     
-    // See if the file already exists, if so, just kill it. Aka. overwriting
-    do {
-      try FileManager.default.removeItem(at: lndDestinationURL)
-    } catch {
-      SLLog.warning("Remove item if needed - \(error)")
-    }
+    // TODO: Mechanism to replace lnd.conf when needed
+//    do {
+//      try FileManager.default.removeItem(at: lndDestinationURL)
+//    } catch {
+//      SLLog.warning("Remove item if needed failed - \(error)")
+//    }
     
     // See if the directories are in place. If not, make them
     do {
       try FileManager.default.createDirectory(atPath: directoryPath, withIntermediateDirectories: true)
     } catch {
-      SLLog.warning("Create directory if needed - \(error)")
+      SLLog.warning("Create directory if needed failed - \(error)")
     }
     
     do {
       try FileManager.default.copyItem(at: lndSourceURL, to: lndDestinationURL)
+    } catch CocoaError.fileWriteFileExists {
+      SLLog.debug("lnd.conf already exist at Applicaiton Support/lnd")
     } catch {
       let nsError = error as NSError
       SLLog.fatal("Failed to copy lnd.conf from bundle to Application Support/lnd - \(nsError.domain): \(nsError.code)")
@@ -271,7 +273,7 @@ class LNServices {
       
       do {
         let response = try Lnrpc_ChannelBalanceResponse(serializedData: data)
-        SLLog.verbose("Channel Balance: \(response.balance)")
+        SLLog.verbose("Channel Balance: \(response.balance), Pending Balance: \(response.pendingOpenBalance)")
         completion({ return (Int(response.balance), Int(response.pendingOpenBalance)) })
       } catch {
         completion({ throw error })
@@ -688,7 +690,7 @@ class LNServices {
     func onResponse(_ p0: Data!) {
       do {
         let response = try Lnrpc_GetInfoResponse(serializedData: p0)
-        SLLog.debug("LN Get Info Success!")
+        SLLog.verbose("LN Get Info Success!")  // Changing to verbose because this can get triggered a lot
         
         let lndInfo = LNDInfo(identityPubkey: response.identityPubkey,
                               alias: response.alias,

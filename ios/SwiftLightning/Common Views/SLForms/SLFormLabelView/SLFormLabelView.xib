@@ -35,8 +35,8 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g8W-1p-cNZ">
-                                    <rect key="frame" x="0.0" y="8" width="375" height="22"/>
-                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                                    <rect key="frame" x="0.0" y="9.5" width="375" height="20.5"/>
+                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                     <color key="textColor" name="LightTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -71,7 +71,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="IxG-if-opV" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="HuD-oW-ij0"/>
-                <constraint firstAttribute="trailing" secondItem="IxG-if-opV" secondAttribute="trailing" id="Jqc-TA-cVD"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="IxG-if-opV" secondAttribute="trailing" id="Jqc-TA-cVD"/>
                 <constraint firstItem="IxG-if-opV" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Q33-Ow-dYr"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

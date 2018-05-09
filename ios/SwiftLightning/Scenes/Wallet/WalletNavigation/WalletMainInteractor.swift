@@ -94,34 +94,15 @@ class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
   
   func updateChannels(request: WalletMain.UpdateChannels.Request) {
     
-    // Get list of normal channels
-    LNServices.listChannels { (listResponder) in
+    ChannelVM.getFromLN { (responder) in
       do {
-        let lists = try listResponder()
-
-        // Get list of pending channels
-        LNServices.pendingChannels { (pendingResponder) in
-          do {
-            let pendings = try pendingResponder()
-            let channels = WalletMain.UpdateChannels.Channels(openedChannels: lists,
-                                                              pendingOpenChannels: pendings.pendingOpen,
-                                                              pendingCloseChannels: pendings.pendingClose,
-                                                              pendingForceCloseChannels: pendings.pendingForceClose,
-                                                              waitingCloseChannels: pendings.waitingClose)
-            
-            let result = Result<WalletMain.UpdateChannels.Channels>.success(channels)
-            let response = WalletMain.UpdateChannels.Response(result: result)
-            self.presenter?.presentUpdatedChannels(response: response)
-            
-          } catch {
-            let result = Result<WalletMain.UpdateChannels.Channels>.failure(error)
-            let response = WalletMain.UpdateChannels.Response(result: result)
-            self.presenter?.presentUpdatedChannels(response: response)
-          }
-        }
-      
-      } catch {
-        let result = Result<WalletMain.UpdateChannels.Channels>.failure(error)
+        let channels = try responder()
+        let result = Result<[ChannelVM]>.success(channels)
+        let response = WalletMain.UpdateChannels.Response(result: result)
+        self.presenter?.presentUpdatedChannels(response: response)
+      }
+      catch {
+        let result = Result<[ChannelVM]>.failure(error)
         let response = WalletMain.UpdateChannels.Response(result: result)
         self.presenter?.presentUpdatedChannels(response: response)
       }

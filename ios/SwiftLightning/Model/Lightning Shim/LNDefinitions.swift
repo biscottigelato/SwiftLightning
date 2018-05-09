@@ -234,10 +234,10 @@ struct LNPendingOpenChannel: CustomStringConvertible {
     return """
     Pending Open Channel details -
     \(channel)
-    confirmationHeight: \(confirmationHeight)
-    commitFee: \(commitFee)
-    commitWeight: \(commitWeight)
-    feePerKw: \(feePerKw)
+      confirmationHeight: \(confirmationHeight)
+      commitFee: \(commitFee)
+      commitWeight: \(commitWeight)
+      feePerKw: \(feePerKw)
     """
   }
 }

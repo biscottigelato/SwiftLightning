@@ -25,27 +25,62 @@ class ChannelDetailsPresenter: ChannelDetailsPresentationLogic {
   
   func presentRefresh(response: ChannelDetails.Refresh.Response) {
     switch response.result {
-    case .success(let channelVM):
+    case .success(let chDetails):
+      let channelVM = chDetails.channelVM
+      let nodeVM = chDetails.nodeInfo
       
+      var confHeight: String? = nil
+      var closingTxID: String? = nil
+      var blksTilMaturity: String? = nil
+      var hideLeftButton = true
+      var hideRightButton = true
+      
+      // Determine whether buttons should be unhidden
       switch channelVM.state {
+      case .connected:
+        hideRightButton = false
+        
       case .disconnected:
-        let viewModel = ChannelDetails.Refresh.ViewModel(channelVM: channelVM,
-                                                         leftButtonHidden: false,
-                                                         rightButtonHidden: false)
-        viewController?.displayRefresh(viewModel: viewModel)
-        
-      case .pendingClose, .pendingOpen, .pendingForceClose:
-        let viewModel = ChannelDetails.Refresh.ViewModel(channelVM: channelVM,
-                                                         leftButtonHidden: true,
-                                                         rightButtonHidden: true)
-        viewController?.displayRefresh(viewModel: viewModel)
-        
+        if let nodeVM = nodeVM, nodeVM.ipAddr != nil, nodeVM.port != nil {
+          hideLeftButton = false
+        }
+        hideRightButton = false
+      
       default:
-        let viewModel = ChannelDetails.Refresh.ViewModel(channelVM: channelVM,
-                                                         leftButtonHidden: true,
-                                                         rightButtonHidden: false)
-        viewController?.displayRefresh(viewModel: viewModel)
+        break
       }
+      
+      // Determine additional information
+      if let addlInfo = channelVM.addlInfo {
+        switch addlInfo {
+        case .pendingOpen(let infoConfHeight):
+          confHeight = String(infoConfHeight)
+        case .pendingClose(let infoCloseTxID):
+          closingTxID = infoCloseTxID
+        case .forceClose(let blksLeft, let infoCloseTxID):
+          blksTilMaturity = String(blksLeft)
+          closingTxID = infoCloseTxID
+        default:
+          break
+        }
+      }
+      
+      let viewModel = ChannelDetails.Refresh.ViewModel(nodePubKey: channelVM.nodePubKey,
+                                                       ipAddr: nodeVM?.ipAddr ?? "",
+                                                       port: nodeVM?.port ?? "",
+                                                       alias: nodeVM?.alias ?? "",
+                                                       statusText: channelVM.statusText,
+                                                       statusColor: channelVM.statusColor,
+                                                       channelPoint: channelVM.channelPoint,
+                                                       canPayAmt: channelVM.canPayAmt,
+                                                       canRcvAmt: channelVM.canRcvAmt,
+                                                       confHeight: confHeight,
+                                                       closingTxID: closingTxID,
+                                                       blksTilMaturity: blksTilMaturity,
+                                                       leftButtonHidden: hideLeftButton,
+                                                       rightButtonHidden: hideRightButton)
+      
+      viewController?.displayRefresh(viewModel: viewModel)
       
     case .failure(let error):
       let viewModel = ChannelDetails.ErrorVM(errTitle: "Node Info Error",

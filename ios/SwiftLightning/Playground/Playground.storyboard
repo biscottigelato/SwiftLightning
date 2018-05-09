@@ -21,20 +21,20 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ids-3l-aeJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                         <state key="normal" title="Generate Seed"/>
                                         <connections>
                                             <action selector="generateSeed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eza-Gt-Uam"/>
                                         </connections>
                                     </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter a Wallet Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dxe-jq-FHs">
-                                        <rect key="frame" x="0.0" y="46" width="375" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="50" width="375" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="JMv-9P-se3">
-                                        <rect key="frame" x="0.0" y="46" width="375" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="50" width="375" height="0.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="FuJ-bI-I4v">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
@@ -56,17 +56,17 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="W0P-Dx-Uh8">
-                                        <rect key="frame" x="0.0" y="46" width="375" height="46.5"/>
+                                        <rect key="frame" x="0.0" y="50" width="375" height="49.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o1U-1v-zaX">
-                                                <rect key="frame" x="0.0" y="0.0" width="177.5" height="46.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="177.5" height="49.5"/>
                                                 <state key="normal" title="Create Wallet"/>
                                                 <connections>
                                                     <action selector="createWallet:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vdd-Y6-HJo"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydg-hs-njt">
-                                                <rect key="frame" x="197.5" y="0.0" width="177.5" height="46.5"/>
+                                                <rect key="frame" x="197.5" y="0.0" width="177.5" height="49.5"/>
                                                 <state key="normal" title="Unlock Wallet"/>
                                                 <connections>
                                                     <action selector="unlockWallet:" destination="BYZ-38-t0r" eventType="touchUpInside" id="28G-Ul-h2y"/>
@@ -75,36 +75,36 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3V3-az-bwl">
-                                        <rect key="frame" x="0.0" y="92.5" width="375" height="46"/>
+                                        <rect key="frame" x="0.0" y="99.5" width="375" height="50"/>
                                         <state key="normal" title="Get Info"/>
                                         <connections>
                                             <action selector="getInfo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3J6-2h-wWm"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="trx-HH-yW5">
-                                        <rect key="frame" x="0.0" y="138.5" width="375" height="46.5"/>
+                                        <rect key="frame" x="0.0" y="149.5" width="375" height="49.5"/>
                                         <state key="normal" title="Get Balance"/>
                                         <connections>
                                             <action selector="getBalance:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jd0-Y0-Dnz"/>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="7js-LO-Bl7">
-                                        <rect key="frame" x="0.0" y="185" width="375" height="46"/>
+                                        <rect key="frame" x="0.0" y="199" width="375" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Whd-e9-msE" userLabel="Total Balance">
-                                                <rect key="frame" x="0.0" y="0.0" width="125" height="46"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Conf" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGu-vG-mFv">
-                                                <rect key="frame" x="125" y="0.0" width="125" height="46"/>
+                                                <rect key="frame" x="125" y="0.0" width="125" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unconf" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7q-cu-gqI">
-                                                <rect key="frame" x="250" y="0.0" width="125" height="46"/>
+                                                <rect key="frame" x="250" y="0.0" width="125" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -112,63 +112,56 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p5w-VK-e2O">
-                                        <rect key="frame" x="0.0" y="231" width="375" height="46.5"/>
+                                        <rect key="frame" x="0.0" y="249" width="375" height="49.5"/>
                                         <state key="normal" title="New Address"/>
                                         <connections>
                                             <action selector="newAddress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vhf-Gq-DAW"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uvX-rW-363">
-                                        <rect key="frame" x="0.0" y="277.5" width="375" height="46"/>
+                                        <rect key="frame" x="0.0" y="298.5" width="375" height="50"/>
                                         <state key="normal" title="Connect Peer"/>
                                         <connections>
                                             <action selector="connectPeer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tuf-tk-D4V"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yMb-ap-Tvn">
-                                        <rect key="frame" x="0.0" y="323.5" width="375" height="46"/>
+                                        <rect key="frame" x="0.0" y="348.5" width="375" height="49.5"/>
                                         <state key="normal" title="List Peer"/>
                                         <connections>
                                             <action selector="listPeer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xrZ-DK-Dqw"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pTT-wd-Vcr">
-                                        <rect key="frame" x="0.0" y="369.5" width="375" height="46.5"/>
+                                        <rect key="frame" x="0.0" y="398" width="375" height="50"/>
                                         <state key="normal" title="Open Channel"/>
                                         <connections>
                                             <action selector="openChannel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5a8-WV-lfG"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UY2-oi-an3">
-                                        <rect key="frame" x="0.0" y="416" width="375" height="46"/>
+                                        <rect key="frame" x="0.0" y="448" width="375" height="49.5"/>
                                         <state key="normal" title="List Channels"/>
                                         <connections>
                                             <action selector="listChannels:" destination="BYZ-38-t0r" eventType="touchUpInside" id="695-Sc-E27"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oVg-oR-auK">
-                                        <rect key="frame" x="0.0" y="462" width="375" height="46.5"/>
-                                        <state key="normal" title="Rcv Open Channel Call"/>
-                                        <connections>
-                                            <action selector="receiveCall:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zPU-eZ-XIV"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rl4-kX-Il6">
-                                        <rect key="frame" x="0.0" y="508.5" width="375" height="46"/>
+                                        <rect key="frame" x="0.0" y="497.5" width="375" height="50"/>
                                         <state key="normal" title="Stop LND"/>
                                         <connections>
                                             <action selector="stopLND:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vpN-16-NtW"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2K5-87-S6N">
-                                        <rect key="frame" x="0.0" y="554.5" width="375" height="46.5"/>
+                                        <rect key="frame" x="0.0" y="547.5" width="375" height="49.5"/>
                                         <state key="normal" title="Delete LND Files"/>
                                         <connections>
                                             <action selector="deleteLNDFiles:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1xc-B8-HQk"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pdF-fO-Jqp">
-                                        <rect key="frame" x="0.0" y="601" width="375" height="46"/>
+                                        <rect key="frame" x="0.0" y="597" width="375" height="50"/>
                                         <state key="normal" title="Re-Initialize LND"/>
                                         <connections>
                                             <action selector="reinitLND:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KH0-wh-uyG"/>

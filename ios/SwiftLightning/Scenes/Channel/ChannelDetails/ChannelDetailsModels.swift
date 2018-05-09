@@ -15,29 +15,57 @@ import UIKit
 enum ChannelDetails {
   
   enum Error: LocalizedError {
-    case noChannelInfo
-    case noIPPort
+    case channelListingError
+    case noChannelPoint
+    case cannotFindChannel
     case invalidChannelPoint
+    case noChannelNodeInfo
     
     var localizedDescription: String {
       switch self {
-      case .noChannelInfo:
-        return NSLocalizedString("No Channel Info Supplied", comment: "ChannelDetails.Error enum")
-      case .noIPPort:
-        return NSLocalizedString("No Port IP information", comment: "ChannelDetails.Error enum")
+      case .channelListingError:
+        return NSLocalizedString("Cannot list all channels from LND", comment: "ChannelDetails.Error enum")
+      case .noChannelPoint:
+        return NSLocalizedString("No Channel Point supplied", comment: "ChannelDetails.Error enum")
+      case .cannotFindChannel:
+        return NSLocalizedString("Cannot find Channel for Channel Point", comment: "ChannelDetails.Error enum")
       case .invalidChannelPoint:
         return NSLocalizedString("Channel Point information invalid", comment: "ChannelDetails.Error enum")
+      case .noChannelNodeInfo:
+        return NSLocalizedString("No Channel/Node Information when expected", comment: "ChannelDetails.Error enum")
       }
     }
+  }
+  
+  struct NodeInfo {
+    var ipAddr: String?
+    var port: String?
+    var alias: String?
+  }
+  
+  struct ChDetailInfo {
+    var channelVM: ChannelVM
+    var nodeInfo: NodeInfo?
   }
   
   enum Refresh {
     struct Request { }
     struct Response {
-      var result: Result<ChannelVM>
+      var result: Result<ChDetailInfo>
     }
     struct ViewModel {
-      var channelVM: ChannelVM
+      var nodePubKey: String
+      var ipAddr: String?
+      var port: String?
+      var alias: String?
+      var statusText: String
+      var statusColor: UIColor
+      var channelPoint: String
+      var canPayAmt: String
+      var canRcvAmt: String
+      var confHeight: String?
+      var closingTxID: String?
+      var blksTilMaturity: String?
       var leftButtonHidden: Bool
       var rightButtonHidden: Bool
     }

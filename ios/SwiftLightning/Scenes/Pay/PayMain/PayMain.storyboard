@@ -24,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rgk-Wr-uw4" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="10" y="84" width="355" height="380"/>
+                                <rect key="frame" x="10" y="76" width="355" height="380"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iEA-lA-LMb">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="380"/>
@@ -186,7 +186,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Rgk-Wr-uw4" firstAttribute="top" secondItem="J7Y-xj-RHJ" secondAttribute="top" constant="20" id="IKO-7w-th4"/>
+                            <constraint firstItem="Rgk-Wr-uw4" firstAttribute="top" secondItem="J7Y-xj-RHJ" secondAttribute="top" constant="12" id="IKO-7w-th4"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Rgk-Wr-uw4" secondAttribute="bottom" constant="20" id="dV2-Rm-ZsU"/>
                             <constraint firstItem="Rgk-Wr-uw4" firstAttribute="leading" secondItem="J7Y-xj-RHJ" secondAttribute="leading" constant="10" id="oxb-iC-YjH"/>
                             <constraint firstItem="J7Y-xj-RHJ" firstAttribute="trailing" secondItem="Rgk-Wr-uw4" secondAttribute="trailing" constant="10" id="zz9-CM-92v"/>

@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JrJ-k8-KLJ" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="10" y="84" width="355" height="528"/>
+                                <rect key="frame" x="10" y="76" width="355" height="528"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXO-KZ-BEr">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="528"/>
@@ -117,8 +117,8 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="55u-hc-FUa">
                                                                 <rect key="frame" x="0.0" y="468" width="325" height="42"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-Nk-R1C" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="152.5" height="30"/>
+                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-Nk-R1C" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="152.5" height="42"/>
                                                                         <color key="backgroundColor" name="GenericGray"/>
                                                                         <state key="normal" title="Cancel">
                                                                             <color key="titleColor" name="NormalText"/>
@@ -133,15 +133,15 @@
                                                                             <action selector="cancelTapped:" destination="cGp-yS-qLV" eventType="touchUpInside" id="E0w-ZH-lJG"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LoE-yJ-Dnt" userLabel="Mid Spacer">
-                                                                        <rect key="frame" x="152.5" y="0.0" width="20" height="30"/>
+                                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="LoE-yJ-Dnt" userLabel="Mid Spacer">
+                                                                        <rect key="frame" x="152.5" y="0.0" width="20" height="42"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="20" id="vAR-bl-9OH"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkG-gg-vhY" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                                                        <rect key="frame" x="172.5" y="0.0" width="152.5" height="30"/>
+                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkG-gg-vhY" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                                        <rect key="frame" x="172.5" y="0.0" width="152.5" height="42"/>
                                                                         <color key="backgroundColor" name="MedAquamarine"/>
                                                                         <state key="normal" title="Send">
                                                                             <color key="titleColor" name="NormalText"/>
@@ -193,7 +193,7 @@
                                             <constraint firstItem="KPK-QW-GAs" firstAttribute="top" secondItem="gXO-KZ-BEr" secondAttribute="top" id="Oa0-mU-6o4"/>
                                         </constraints>
                                     </scrollView>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NDe-ak-OgU" customClass="SLFormHeaderView" customModule="SwiftLightning" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NDe-ak-OgU" customClass="SLFormHeaderView" customModule="SwiftLightning" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
@@ -217,7 +217,7 @@
                             <constraint firstItem="JrJ-k8-KLJ" firstAttribute="leading" secondItem="0LL-UJ-lHR" secondAttribute="leading" constant="10" id="M5i-dm-iiR"/>
                             <constraint firstItem="0LL-UJ-lHR" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="JrJ-k8-KLJ" secondAttribute="bottom" constant="20" id="X9s-9m-0SV"/>
                             <constraint firstItem="0LL-UJ-lHR" firstAttribute="trailing" secondItem="JrJ-k8-KLJ" secondAttribute="trailing" constant="10" id="XIH-SL-O0C"/>
-                            <constraint firstItem="JrJ-k8-KLJ" firstAttribute="top" secondItem="0LL-UJ-lHR" secondAttribute="top" constant="20" id="xp5-qw-zmb"/>
+                            <constraint firstItem="JrJ-k8-KLJ" firstAttribute="top" secondItem="0LL-UJ-lHR" secondAttribute="top" constant="12" id="xp5-qw-zmb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0LL-UJ-lHR"/>
                     </view>

@@ -38,13 +38,13 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="700" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Amount to Send:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cor-s8-REU">
-                                    <rect key="frame" x="0.0" y="0.0" width="113.5" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="117.5" height="30"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                     <color key="textColor" name="MediumTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="Amount" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZO-a1-bar" userLabel="Send Amount">
-                                    <rect key="frame" x="113.5" y="0.0" width="261.5" height="30"/>
+                                    <rect key="frame" x="117.5" y="0.0" width="257.5" height="30"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                     <color key="textColor" name="DarkTextBlue"/>
                                     <nil key="highlightedColor"/>
@@ -55,13 +55,13 @@
                             <rect key="frame" x="0.0" y="30" width="375" height="30"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="700" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Network Fee:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcd-bw-0X4" userLabel="Network Fee">
-                                    <rect key="frame" x="0.0" y="0.0" width="89.5" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="92.5" height="30"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                     <color key="textColor" name="MediumTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="Amount" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUe-T9-Ihx" userLabel="Fee Amount">
-                                    <rect key="frame" x="89.5" y="0.0" width="285.5" height="30"/>
+                                    <rect key="frame" x="92.5" y="0.0" width="282.5" height="30"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                     <color key="textColor" name="DarkTextBlue"/>
                                     <nil key="highlightedColor"/>
@@ -72,13 +72,13 @@
                             <rect key="frame" x="0.0" y="60" width="375" height="30"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="700" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Total Cost:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRH-D4-GQG" userLabel="Total Cost">
-                                    <rect key="frame" x="0.0" y="0.0" width="81.5" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="82.5" height="30"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                     <color key="textColor" name="MediumTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="Amount" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sgt-bz-ZmN" userLabel="Total Amount">
-                                    <rect key="frame" x="81.5" y="0.0" width="293.5" height="30"/>
+                                    <rect key="frame" x="82.5" y="0.0" width="292.5" height="30"/>
                                     <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="18"/>
                                     <color key="textColor" name="DarkTextBlue"/>
                                     <nil key="highlightedColor"/>
@@ -107,12 +107,6 @@
         </view>
     </objects>
     <resources>
-        <namedColor name="DarkTextBlue">
-            <color red="0.20000000000000001" green="0.2470588235" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="DarkTextBlue">
-            <color red="0.20000000000000001" green="0.2470588235" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <namedColor name="DarkTextBlue">
             <color red="0.20000000000000001" green="0.2470588235" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
