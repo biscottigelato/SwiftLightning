@@ -44,6 +44,7 @@ class SLRetry {
   // Attempt retry if retry count is not 0. Otherwise return False.
   func attempt(error: Error) {
     guard let taskBlock = taskBlock, let failBlock = failBlock else {
+      SLLog.warning(error.localizedDescription)
       SLLog.assert("Retry taskBlock and failBlock nil")
       return
     }

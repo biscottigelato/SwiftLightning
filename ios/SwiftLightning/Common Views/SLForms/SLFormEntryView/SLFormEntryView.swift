@@ -31,7 +31,7 @@ import UIKit
   
   // MARK: View lifecycle
   
-  var initialLayout = true
+  private var initialLayout = true
   
   override func layoutSubviews() {
     super.layoutSubviews()
@@ -45,7 +45,7 @@ import UIKit
   
   // MARK: Intrinsic Size
   
-  var intrinsicSize: CGSize = CGSize.zero
+  private var intrinsicSize: CGSize = CGSize.zero
   
   override var intrinsicContentSize: CGSize {
     return intrinsicSize

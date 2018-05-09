@@ -60,6 +60,15 @@ class ChannelDetailsViewController: UIViewController, ChannelDetailsDisplayLogic
   }
   
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    // Wire superview for field long pressed copies
+    nodeView.copyDialogSuperview = view
+    channelPointView.copyDialogSuperview = view
+    closingLabelView.copyDialogSuperview = view
+  }
+  
   // MARK: Refresh Views
   
   @IBOutlet weak var nodeView: SLFormNodeView!

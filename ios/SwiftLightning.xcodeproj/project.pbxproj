@@ -816,13 +816,13 @@
 			path = SLFormHeaderView;
 			sourceTree = "<group>";
 		};
-		8C70EC0C208DBC3B00D658DC /* SLBriefDialog */ = {
+		8C70EC0C208DBC3B00D658DC /* SLTextDialogView */ = {
 			isa = PBXGroup;
 			children = (
 				8C70EC0D208DBC7A00D658DC /* SLTextDialogView.xib */,
 				8C70EC0F208DBCDF00D658DC /* SLTextDialogView.swift */,
 			);
-			path = SLBriefDialog;
+			path = SLTextDialogView;
 			sourceTree = "<group>";
 		};
 		8C77459A209BD6A2004EBA69 /* WalletPages */ = {
@@ -929,7 +929,7 @@
 				8C1882B52086A193002E2835 /* SLIcon30Button */,
 				8C1882AB20869313002E2835 /* SLPasswordField */,
 				8C090E4A20894A65009B8B8D /* SLSeedField */,
-				8C70EC0C208DBC3B00D658DC /* SLBriefDialog */,
+				8C70EC0C208DBC3B00D658DC /* SLTextDialogView */,
 				8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialog */,
 			);
 			path = "Common Views";

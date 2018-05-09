@@ -61,9 +61,13 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
+                            <gestureRecognizers/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="TZM-za-bUa"/>
                             </constraints>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="9rx-XJ-jHy" appends="YES" id="03v-p1-Les"/>
+                            </connections>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="BF3-PZ-CDl" userLabel="Alias Stack">
                             <rect key="frame" x="0.0" y="60" width="358" height="30"/>
@@ -81,6 +85,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
+                            <gestureRecognizers/>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="sE8-m9-esC" appends="YES" id="ozP-7f-F9m"/>
+                            </connections>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="atb-zQ-kIo" userLabel="Address Stack">
                             <rect key="frame" x="0.0" y="90" width="358" height="30"/>
@@ -120,6 +128,10 @@
                                     </subviews>
                                 </stackView>
                             </subviews>
+                            <gestureRecognizers/>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="TnF-fa-UVh" appends="YES" id="THY-7B-Kga"/>
+                            </connections>
                         </stackView>
                     </subviews>
                     <constraints>
@@ -139,6 +151,21 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="12" y="514.5"/>
         </view>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="9rx-XJ-jHy" userLabel="PubKey Long Press Recognizer">
+            <connections>
+                <action selector="pubKeyLongPressed:" destination="-1" id="ssd-Hr-NhU"/>
+            </connections>
+        </pongPressGestureRecognizer>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="sE8-m9-esC" userLabel="Alias Long Press Recognizer">
+            <connections>
+                <action selector="aliasLongPressed:" destination="-1" id="pIs-it-XLK"/>
+            </connections>
+        </pongPressGestureRecognizer>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="TnF-fa-UVh" userLabel="IPPort Long Pres Recognizer">
+            <connections>
+                <action selector="ipPortLongPressed:" destination="-1" id="Bvy-pU-Ce0"/>
+            </connections>
+        </pongPressGestureRecognizer>
     </objects>
     <resources>
         <namedColor name="DarkTextBlue">

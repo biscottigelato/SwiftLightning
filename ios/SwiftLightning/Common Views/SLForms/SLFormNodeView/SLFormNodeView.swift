@@ -53,4 +53,53 @@ import UIKit
     
     return CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: multiple*singleLabelHeight.constant)
   }
+  
+  
+  // MARK: Long Press Copy
+  var copyDialogSuperview: UIView?
+  
+  @IBAction func pubKeyLongPressed(_ sender: UILongPressGestureRecognizer) {
+    if let dialogSuperview = copyDialogSuperview, let copyText = nodePubKeyLabel.text {
+      
+      if copyText.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+        // This is what actually puts the text onto the clipboard
+        UIPasteboard.general.string = copyText
+        
+        // This just shows a brief dialog to let the user know
+        SLTextDialogView.show("Copied", on: dialogSuperview)
+      }
+    }
+  }
+  
+  @IBAction func aliasLongPressed(_ sender: UILongPressGestureRecognizer) {
+    if let dialogSuperview = copyDialogSuperview, let copyText = aliasNameLabel.text {
+      
+      if copyText.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+        // This is what actually puts the text onto the clipboard
+        UIPasteboard.general.string = copyText
+        
+        // This just shows a brief dialog to let the user know
+        SLTextDialogView.show("Copied", on: dialogSuperview)
+      }
+    }
+  }
+  
+  @IBAction func ipPortLongPressed(_ sender: UILongPressGestureRecognizer) {
+    if let dialogSuperview = copyDialogSuperview, let ipText = ipAddressLabel.text {
+      if ipText.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+        
+        var copyText = ipText.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let portText = portNumberLabel.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+          Int(portText) != nil {
+          copyText += ":\(portText)"
+        }
+        
+        // This is what actually puts the text onto the clipboard
+        UIPasteboard.general.string = copyText
+        
+        // This just shows a brief dialog to let the user know
+        SLTextDialogView.show("Copied", on: dialogSuperview)
+      }
+    }
+  }
 }

@@ -61,6 +61,12 @@ class PayConfirmViewController: UIViewController, PayConfirmDisplayLogic {
     refresh()
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    toLabelView.copyDialogSuperview = view
+    descriptionLabelView.copyDialogSuperview = view
+  }
+  
   
   // MARK: Dismiss
   

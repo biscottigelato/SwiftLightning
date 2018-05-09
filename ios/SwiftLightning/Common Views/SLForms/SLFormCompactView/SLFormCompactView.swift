@@ -17,6 +17,7 @@ import UIKit
   @IBOutlet weak var textLabel: UILabel!
   @IBOutlet weak var singleLabelHeight: NSLayoutConstraint!
   
+  
   override var intrinsicContentSize: CGSize {
     return CGSize(width: SLDesign.Constants.defaultUIElementWidth, height: singleLabelHeight.constant)
   }
@@ -29,6 +30,22 @@ import UIKit
     }
     set {
       titleLabel.text = newValue
+    }
+  }
+  
+  // MARK: Long Press Copy
+  var copyDialogSuperview: UIView?
+  
+  @IBAction func longPressed(_ sender: UILongPressGestureRecognizer) {
+    if let dialogSuperview = copyDialogSuperview, let copyText = textLabel.text {
+      
+      if copyText.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+        // This is what actually puts the text onto the clipboard
+        UIPasteboard.general.string = copyText
+        
+        // This just shows a brief dialog to let the user know
+        SLTextDialogView.show("Copied", on: dialogSuperview)
+      }
     }
   }
 }

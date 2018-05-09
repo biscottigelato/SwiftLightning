@@ -66,6 +66,12 @@ class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
   }
   
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    nodeLabelView.copyDialogSuperview = view
+  }
+  
+  
   // MARK: Refresh All
   
   @IBOutlet weak var fundingLabelView: SLFormLabelView!

@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,30 +31,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S3Q-9J-b5c">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="sGM-Rg-LQj">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eM8-0z-KkO">
-                                            <rect key="frame" x="30" y="20" width="315" height="102"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eM8-0z-KkO">
+                                <rect key="frame" x="164.5" y="59.5" width="46" height="23.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <vibrancyEffect>
-                                    <blurEffect style="extraLight"/>
-                                </vibrancyEffect>
-                            </visualEffectView>
+                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="17"/>
+                                <color key="textColor" name="DarkTextBlue"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="eM8-0z-KkO" firstAttribute="centerY" secondItem="bKy-iw-DSg" secondAttribute="centerY" id="3Be-vM-CtV"/>
+                            <constraint firstItem="eM8-0z-KkO" firstAttribute="centerX" secondItem="bKy-iw-DSg" secondAttribute="centerX" id="OC4-CH-NKd"/>
+                        </constraints>
                     </view>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <blurEffect style="extraLight"/>
@@ -64,15 +54,16 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="4Xj-VF-DXJ" secondAttribute="trailing" id="1Ao-zv-1Pm"/>
                 <constraint firstItem="4Xj-VF-DXJ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="1LY-e2-POJ"/>
                 <constraint firstItem="4Xj-VF-DXJ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="8x7-ba-mQb"/>
-                <constraint firstItem="eM8-0z-KkO" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="CYc-rS-g9l"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="4Xj-VF-DXJ" secondAttribute="bottom" id="FG5-Qq-26H"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eM8-0z-KkO" secondAttribute="bottom" constant="20" id="Qe2-L9-udt"/>
-                <constraint firstItem="eM8-0z-KkO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="mBO-m1-rIZ"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eM8-0z-KkO" secondAttribute="trailing" constant="30" id="ttO-S6-9uI"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="8.5" y="120"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="DarkTextBlue">
+            <color red="0.20000000000000001" green="0.24705882352941178" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
 </document>

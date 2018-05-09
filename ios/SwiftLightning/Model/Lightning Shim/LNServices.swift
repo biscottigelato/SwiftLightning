@@ -988,16 +988,12 @@ class LNServices {
   
   private class OpenChannel: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> (LNOpenChannelUpdateType)) -> Void
-    let retry = SLRetry()
     
     init(_ completion: @escaping (() throws -> (LNOpenChannelUpdateType)) -> Void) {
       self.completion = completion
     }
     
     func onResponse(_ p0: Data!) {
-      // Dereference as will no longer retry
-      retry.success()
-      
       do {
         let response = try Lnrpc_OpenStatusUpdate(serializedData: p0)
         SLLog.debug("Open Channel Status Update")
@@ -1036,7 +1032,10 @@ class LNServices {
     }
     func onError(_ p0: Error!) {
       if p0.localizedDescription != "EOF" {
-        retry.attempt(error: p0)
+        SLLog.warning("OpenChannel error response - \(p0.localizedDescription)")
+        completion({ throw p0 })
+      } else {
+        SLLog.info("Open Channel EOF")
       }
     }
   }
@@ -1047,30 +1046,23 @@ class LNServices {
                           completion: @escaping (() throws -> (LNOpenChannelUpdateType)) -> Void) {
     
     let lndOp = OpenChannel(completion)
-    
-    let task = {
-      var request = Lnrpc_OpenChannelRequest()
-      request.nodePubkey = nodePubKey
-      request.localFundingAmount = Int64(localFundingAmt)
-      request.pushSat = Int64(pushSat)
 
-      if let targetConf = targetConf { request.targetConf = Int32(targetConf) }
-      if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
-    
-      do {
-        let serialReq = try request.serializedData()
-        LndmobileOpenChannel(serialReq, lndOp)
-      } catch {
-        completion({ throw error })
-      }
-    }
-    
-    let fail = { (error: Error) -> () in
-      SLLog.warning("LN Open Channel Failed - \(error.localizedDescription)")
+    var request = Lnrpc_OpenChannelRequest()
+    request.nodePubkey = nodePubKey
+    request.localFundingAmount = Int64(localFundingAmt)
+    request.pushSat = Int64(pushSat)
+
+    if let targetConf = targetConf { request.targetConf = Int32(targetConf) }
+    if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
+  
+    do {
+      let serialReq = try request.serializedData()
+      
+      SLLog.info("Opening Channel to Node with PubKey \(nodePubKey.hexEncodedString())")
+      LndmobileOpenChannel(serialReq, lndOp)
+    } catch {
       completion({ throw error })
     }
-    
-    lndOp.retry.start("LN Open Channel", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
 
 
@@ -1078,16 +1070,12 @@ class LNServices {
   
   private class CloseChannel: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> (LNCloseChannelUpdateType)) -> Void
-    let retry = SLRetry()
     
     init(_ completion: @escaping (() throws -> (LNCloseChannelUpdateType)) -> Void) {
       self.completion = completion
     }
     
     func onResponse(_ p0: Data!) {
-      // Dereference as will no longer retry
-      retry.success()
-      
       do {
         let response = try Lnrpc_CloseStatusUpdate(serializedData: p0)
         SLLog.debug("Close Channel Status Update")
@@ -1126,7 +1114,10 @@ class LNServices {
     }
     func onError(_ p0: Error!) {
       if p0.localizedDescription != "EOF" {
-        retry.attempt(error: p0)
+        SLLog.warning("CloseChannel error response - \(p0.localizedDescription)")
+        completion({ throw p0 })
+      } else {
+        SLLog.info("Close Channel EOF")
       }
     }
   }
@@ -1138,33 +1129,26 @@ class LNServices {
                            completion: @escaping (() throws -> (LNCloseChannelUpdateType)) -> Void) {
     
     let lndOp = CloseChannel(completion)
+
+    var channelPoint = Lnrpc_ChannelPoint()
+    channelPoint.fundingTxidStr = fundingTxIDStr
+    channelPoint.outputIndex = UInt32(outputIndex)
     
-    let task = {
-      var channelPoint = Lnrpc_ChannelPoint()
-      channelPoint.fundingTxidStr = fundingTxIDStr
-      channelPoint.outputIndex = UInt32(outputIndex)
-      
-      var request = Lnrpc_CloseChannelRequest()
-      request.channelPoint = channelPoint
-      request.force = force
-      
-      if let targetConf = targetConf { request.targetConf = Int32(targetConf) }
-      if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
-      
-      do {
-        let serialReq = try request.serializedData()
-        LndmobileCloseChannel(serialReq, lndOp)
-      } catch {
-        completion({ throw error })
-      }
-    }
+    var request = Lnrpc_CloseChannelRequest()
+    request.channelPoint = channelPoint
+    request.force = force
     
-    let fail = { (error: Error) -> () in
-      SLLog.warning("LN Close Channel Failed - \(error.localizedDescription)")
+    if let targetConf = targetConf { request.targetConf = Int32(targetConf) }
+    if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
+    
+    do {
+      let serialReq = try request.serializedData()
+      
+      SLLog.info("Closing Channel with Channel Point \(fundingTxIDStr)")
+      LndmobileCloseChannel(serialReq, lndOp)
+    } catch {
       completion({ throw error })
     }
-    
-    lndOp.retry.start("LN Close Channel", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   

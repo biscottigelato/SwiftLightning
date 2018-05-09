@@ -58,9 +58,13 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
+                            <gestureRecognizers/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="0yj-nX-BLn"/>
                             </constraints>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="3Zg-O6-HPx" appends="YES" id="bgo-oT-DHe"/>
+                            </connections>
                         </stackView>
                     </subviews>
                     <constraints>
@@ -78,6 +82,11 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="20.5" y="307.5"/>
         </view>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="3Zg-O6-HPx">
+            <connections>
+                <action selector="longPressed:" destination="-1" id="66s-5v-AXG"/>
+            </connections>
+        </pongPressGestureRecognizer>
     </objects>
     <resources>
         <namedColor name="DarkTextBlue">
