@@ -244,7 +244,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" name="SpaceCadetBlue"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="oa1-dl-XVn" firstAttribute="top" secondItem="79j-cx-TNs" secondAttribute="top" constant="12" id="Mzi-Xe-cGR"/>
                             <constraint firstItem="79j-cx-TNs" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="oa1-dl-XVn" secondAttribute="bottom" constant="20" id="VPU-RE-Vcl"/>
@@ -304,9 +304,6 @@
         </namedColor>
         <namedColor name="SandyOrangeShadow">
             <color red="0.57647058823529407" green="0.40784313725490196" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="SpaceCadetBlue">
-            <color red="0.14509803921568629" green="0.21568627450980393" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

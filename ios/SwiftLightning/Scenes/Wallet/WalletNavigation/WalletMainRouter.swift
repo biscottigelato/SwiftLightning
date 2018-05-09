@@ -15,7 +15,8 @@ import UIKit
 protocol WalletMainRoutingLogic {
   func routeToPayMain()
   func routeToReceiveMain()
-  func routeToChannelDetails(channelVM: ChannelVM)
+  func routeToChannelDetails(channelPoint: String)
+  func routeToTransactionDetails(type: BitcoinPaymentType, hash: String)
 }
 
 protocol WalletMainDataPassing {
@@ -45,12 +46,20 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
     navigateToReceiveMain(source: viewController!, destination: destinationVC)
   }
 
-  func routeToChannelDetails(channelVM: ChannelVM) {
+  func routeToChannelDetails(channelPoint: String) {
     let storyboard = UIStoryboard(name: "ChannelDetails", bundle: nil)
     let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChannelDetailsViewController") as! ChannelDetailsViewController
     var destinationDS = destinationVC.router!.dataStore!
-    passDataToChannelDetails(channelVM: channelVM, destination: &destinationDS)
+    passDataToChannelDetails(channelPoint: channelPoint, destination: &destinationDS)
     navigateToChannelDetails(source: viewController!, destination: destinationVC)
+  }
+  
+  func routeToTransactionDetails(type: BitcoinPaymentType, hash: String) {
+    let storyboard = UIStoryboard(name: "TransactionDetails", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "TransactionDetailsViewController") as! TransactionDetailsViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToTransactionDetails(type: type, hash: hash, destination: &destinationDS)
+    navigateToTransactionDetails(source: viewController!, destination: destinationVC)
   }
   
   
@@ -80,6 +89,14 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
     navigationController.pushViewController(destination, animated: true)
   }
   
+  func navigateToTransactionDetails(source: WalletMainViewController, destination: TransactionDetailsViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    navigationController.pushViewController(destination, animated: true)
+  }
+  
   
   // MARK: Passing data
   
@@ -91,7 +108,12 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
     // destination.name = source.name
   }
   
-  func passDataToChannelDetails(channelVM: ChannelVM, destination: inout ChannelDetailsDataStore) {
-    destination.channelPoint = channelVM.channelPoint
+  func passDataToChannelDetails(channelPoint: String, destination: inout ChannelDetailsDataStore) {
+    destination.channelPoint = channelPoint
+  }
+  
+  func passDataToTransactionDetails(type: BitcoinPaymentType, hash: String, destination: inout TransactionDetailsDataStore) {
+    destination.transactionHash = hash
+    destination.transactionType = type
   }
 }

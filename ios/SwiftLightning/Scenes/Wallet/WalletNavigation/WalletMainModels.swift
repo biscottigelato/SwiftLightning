@@ -48,6 +48,7 @@ enum WalletMain
       var date: Date
       var paymentType: BitcoinPaymentType
       var address: String
+      var txHash: String
       var statusText: String
       var statusColor: UIColor
       var dateText: String

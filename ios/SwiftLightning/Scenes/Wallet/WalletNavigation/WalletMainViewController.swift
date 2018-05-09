@@ -161,9 +161,10 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     switch tableView {
     case transactionView.tableView:
-      SLLog.info("TransactionView.TableView row select tapped")
+      router?.routeToTransactionDetails(type: transactions[indexPath.row].paymentType,
+                                        hash: transactions[indexPath.row].txHash)
     case channelView.tableView:
-      router?.routeToChannelDetails(channelVM: channels[indexPath.row])
+      router?.routeToChannelDetails(channelPoint: channels[indexPath.row].channelPoint)
     default:
       SLLog.fatal("Unrecognized Tableview - \(tableView)")
     }
@@ -179,7 +180,6 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
     transactionView.tableView.register(nib, forCellReuseIdentifier: Constants.txnCellReuseID)
     transactionView.tableView.delegate = self
     transactionView.tableView.dataSource = self
-    transactionView.tableView.allowsSelection = false // TODO: Select to do more later
     
     // Add refresh control
     let refreshControl = UIRefreshControl()

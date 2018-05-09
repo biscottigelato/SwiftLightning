@@ -161,6 +161,17 @@
 		8C77AD6920A249030094D733 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD6820A249030094D733 /* RepeatingTimer.swift */; };
 		8C77AD7420A290E90094D733 /* SLFormCompactView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C77AD7320A290A40094D733 /* SLFormCompactView.xib */; };
 		8C77AD7520A290EC0094D733 /* SLFormCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD7220A290A20094D733 /* SLFormCompactView.swift */; };
+		8C77AD7820A2C93A0094D733 /* TransactionDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C77AD7720A2C93A0094D733 /* TransactionDetails.storyboard */; };
+		8C77AD7F20A2C9530094D733 /* TransactionDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD7920A2C9530094D733 /* TransactionDetailsPresenter.swift */; };
+		8C77AD8020A2C9530094D733 /* TransactionDetailsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD7A20A2C9530094D733 /* TransactionDetailsWorker.swift */; };
+		8C77AD8120A2C9530094D733 /* TransactionDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD7B20A2C9530094D733 /* TransactionDetailsRouter.swift */; };
+		8C77AD8220A2C9530094D733 /* TransactionDetailsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD7C20A2C9530094D733 /* TransactionDetailsModels.swift */; };
+		8C77AD8320A2C9530094D733 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD7D20A2C9530094D733 /* TransactionDetailsViewController.swift */; };
+		8C77AD8420A2C9530094D733 /* TransactionDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD7E20A2C9530094D733 /* TransactionDetailsInteractor.swift */; };
+		8C77AD8B20A2DBCB0094D733 /* SLFormTitleLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C77AD8720A2DB6F0094D733 /* SLFormTitleLabel.xib */; };
+		8C77AD8C20A2DBCE0094D733 /* SLFormTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD8820A2DB6F0094D733 /* SLFormTitleLabel.swift */; };
+		8C77AD8D20A2DBD20094D733 /* SLFormTextLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C77AD8920A2DB720094D733 /* SLFormTextLabel.xib */; };
+		8C77AD8E20A2DBD50094D733 /* SLFormTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD8A20A2DB720094D733 /* SLFormTextLabel.swift */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SLLog.swift */; };
 		8C7EC53220950449001C8FD6 /* PayMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */; };
@@ -397,6 +408,17 @@
 		8C77AD6820A249030094D733 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		8C77AD7220A290A20094D733 /* SLFormCompactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLFormCompactView.swift; sourceTree = "<group>"; };
 		8C77AD7320A290A40094D733 /* SLFormCompactView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLFormCompactView.xib; sourceTree = "<group>"; };
+		8C77AD7720A2C93A0094D733 /* TransactionDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TransactionDetails.storyboard; sourceTree = "<group>"; };
+		8C77AD7920A2C9530094D733 /* TransactionDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsPresenter.swift; sourceTree = "<group>"; };
+		8C77AD7A20A2C9530094D733 /* TransactionDetailsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsWorker.swift; sourceTree = "<group>"; };
+		8C77AD7B20A2C9530094D733 /* TransactionDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsRouter.swift; sourceTree = "<group>"; };
+		8C77AD7C20A2C9530094D733 /* TransactionDetailsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsModels.swift; sourceTree = "<group>"; };
+		8C77AD7D20A2C9530094D733 /* TransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewController.swift; sourceTree = "<group>"; };
+		8C77AD7E20A2C9530094D733 /* TransactionDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsInteractor.swift; sourceTree = "<group>"; };
+		8C77AD8720A2DB6F0094D733 /* SLFormTitleLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLFormTitleLabel.xib; sourceTree = "<group>"; };
+		8C77AD8820A2DB6F0094D733 /* SLFormTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLFormTitleLabel.swift; sourceTree = "<group>"; };
+		8C77AD8920A2DB720094D733 /* SLFormTextLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLFormTextLabel.xib; sourceTree = "<group>"; };
+		8C77AD8A20A2DB720094D733 /* SLFormTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLFormTextLabel.swift; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLog.swift; sourceTree = "<group>"; };
 		8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainPresenter.swift; sourceTree = "<group>"; };
@@ -899,6 +921,38 @@
 			path = SLFormCompactView;
 			sourceTree = "<group>";
 		};
+		8C77AD7620A2C9140094D733 /* TransactionDetails */ = {
+			isa = PBXGroup;
+			children = (
+				8C77AD7720A2C93A0094D733 /* TransactionDetails.storyboard */,
+				8C77AD7920A2C9530094D733 /* TransactionDetailsPresenter.swift */,
+				8C77AD7A20A2C9530094D733 /* TransactionDetailsWorker.swift */,
+				8C77AD7B20A2C9530094D733 /* TransactionDetailsRouter.swift */,
+				8C77AD7C20A2C9530094D733 /* TransactionDetailsModels.swift */,
+				8C77AD7D20A2C9530094D733 /* TransactionDetailsViewController.swift */,
+				8C77AD7E20A2C9530094D733 /* TransactionDetailsInteractor.swift */,
+			);
+			path = TransactionDetails;
+			sourceTree = "<group>";
+		};
+		8C77AD8520A2DB380094D733 /* SLFormTitleLabel */ = {
+			isa = PBXGroup;
+			children = (
+				8C77AD8720A2DB6F0094D733 /* SLFormTitleLabel.xib */,
+				8C77AD8820A2DB6F0094D733 /* SLFormTitleLabel.swift */,
+			);
+			path = SLFormTitleLabel;
+			sourceTree = "<group>";
+		};
+		8C77AD8620A2DB4C0094D733 /* SLFormTextLabel */ = {
+			isa = PBXGroup;
+			children = (
+				8C77AD8920A2DB720094D733 /* SLFormTextLabel.xib */,
+				8C77AD8A20A2DB720094D733 /* SLFormTextLabel.swift */,
+			);
+			path = SLFormTextLabel;
+			sourceTree = "<group>";
+		};
 		8C7D30FE207542090068F2BD /* Protobuf */ = {
 			isa = PBXGroup;
 			children = (
@@ -986,6 +1040,8 @@
 		8C8275BE208EA4E40029BE7E /* SLForms */ = {
 			isa = PBXGroup;
 			children = (
+				8C77AD8520A2DB380094D733 /* SLFormTitleLabel */,
+				8C77AD8620A2DB4C0094D733 /* SLFormTextLabel */,
 				8C70EBD5208C382400D658DC /* SLFormBackingView */,
 				8C70EC05208D89CE00D658DC /* SLFormHeaderView */,
 				8C8275BF208EA5020029BE7E /* SLFormAddrQRView */,
@@ -1183,6 +1239,7 @@
 			children = (
 				8C7EC52B20950429001C8FD6 /* PayMain */,
 				8CD0639D2095638300D2B66B /* PayConfirm */,
+				8C77AD7620A2C9140094D733 /* TransactionDetails */,
 			);
 			path = Pay;
 			sourceTree = "<group>";
@@ -1411,6 +1468,7 @@
 				8CFA16E32085510600813EA6 /* Colors.xcassets in Resources */,
 				8C18829320868545002E2835 /* Montserrat-Regular.ttf in Resources */,
 				8C090E4920894817009B8B8D /* MnemonicConfirm.storyboard in Resources */,
+				8C77AD8B20A2DBCB0094D733 /* SLFormTitleLabel.xib in Resources */,
 				8C7745B4209BF846004EBA69 /* ChTableViewCell.xib in Resources */,
 				8C8275FA2091181A0029BE7E /* SLFormLabelView.xib in Resources */,
 				8C6B7568208BBBBF00B751A2 /* UnlockApp.storyboard in Resources */,
@@ -1418,6 +1476,7 @@
 				8C77459C209BD6BC004EBA69 /* WalletPageView.xib in Resources */,
 				8CFA16E620856E9800813EA6 /* CreateRecover.storyboard in Resources */,
 				8C18828A20868545002E2835 /* Montserrat-SemiBoldItalic.ttf in Resources */,
+				8C77AD7820A2C93A0094D733 /* TransactionDetails.storyboard in Resources */,
 				8C1882B4208696A8002E2835 /* SLPasswordField.xib in Resources */,
 				8C18828820868545002E2835 /* Montserrat-Medium.ttf in Resources */,
 				8C7745BE209D3E20004EBA69 /* ChannelDetails.storyboard in Resources */,
@@ -1428,6 +1487,7 @@
 				8C18829420868545002E2835 /* Montserrat-ThinItalic.ttf in Resources */,
 				8C090E2120885C84009B8B8D /* OpenSans-Bold.ttf in Resources */,
 				8C18829020868545002E2835 /* Montserrat-ExtraLight.ttf in Resources */,
+				8C77AD8D20A2DBD20094D733 /* SLFormTextLabel.xib in Resources */,
 				8C7EC53920950593001C8FD6 /* PayMain.storyboard in Resources */,
 				8C6B7564208B17CB00B751A2 /* WalletNavigation.storyboard in Resources */,
 				8C77AD7420A290E90094D733 /* SLFormCompactView.xib in Resources */,
@@ -1548,8 +1608,10 @@
 				8C7D310820755CE00068F2BD /* SLLog.swift in Sources */,
 				8C70EBD2208C345B00D658DC /* ReceiveMainInteractor.swift in Sources */,
 				8C8E4E67208C0C240017BAB2 /* SLSpinnerDialogView.swift in Sources */,
+				8C77AD8220A2C9530094D733 /* TransactionDetailsModels.swift in Sources */,
 				8C70EC0B208D934200D658DC /* SLDesign.swift in Sources */,
 				8C090E342088612B009B8B8D /* MnemonicDisplayRouter.swift in Sources */,
+				8C77AD8020A2C9530094D733 /* TransactionDetailsWorker.swift in Sources */,
 				8C7745CA209D3E39004EBA69 /* ChannelDetailsInteractor.swift in Sources */,
 				8C090DF420870DB9009B8B8D /* LNDefinitions.swift in Sources */,
 				8C090E4220894801009B8B8D /* MnemonicConfirmPresenter.swift in Sources */,
@@ -1561,6 +1623,7 @@
 				8C090E1020881DAB009B8B8D /* UIAlertController+Extension.swift in Sources */,
 				8C70EC15208E51A700D658DC /* HttpStatusCodes.swift in Sources */,
 				8C090E002087DEAA009B8B8D /* MnemonicExplainModels.swift in Sources */,
+				8C77AD8E20A2DBD50094D733 /* SLFormTextLabel.swift in Sources */,
 				8C6B7550208AFEC800B751A2 /* UnlockAppRouter.swift in Sources */,
 				8CFA16A12082EF3A00813EA6 /* CreateRecoverPresenter.swift in Sources */,
 				8C1AE3752095A58100A4D9BF /* PaymentURI.swift in Sources */,
@@ -1569,6 +1632,7 @@
 				8C7EC53620950449001C8FD6 /* PayMainViewController.swift in Sources */,
 				8C1882AD2086941D002E2835 /* NibView.swift in Sources */,
 				8CD063A6209563BC00D2B66B /* PayConfirmPresenter.swift in Sources */,
+				8C77AD7F20A2C9530094D733 /* TransactionDetailsPresenter.swift in Sources */,
 				8C6B7561208B17BD00B751A2 /* WalletMainViewController.swift in Sources */,
 				8C8276002091183F0029BE7E /* SLFormNodeView.swift in Sources */,
 				8CFA16E420856E6800813EA6 /* SLBarButton.swift in Sources */,
@@ -1584,6 +1648,7 @@
 				8C6B7560208B17BD00B751A2 /* WalletMainModels.swift in Sources */,
 				8C8275DE208FF8640029BE7E /* Money.swift in Sources */,
 				8C090DEB2086F92A009B8B8D /* UITextField+Extension.swift in Sources */,
+				8C77AD8120A2C9530094D733 /* TransactionDetailsRouter.swift in Sources */,
 				8C6D039820A170ED00C31F7F /* Date+Extension.swift in Sources */,
 				8C70EBD1208C345B00D658DC /* ReceiveMainViewController.swift in Sources */,
 				8C1882A120868EBE002E2835 /* PasswordCreateViewController.swift in Sources */,
@@ -1592,6 +1657,7 @@
 				8C7EC53220950449001C8FD6 /* PayMainPresenter.swift in Sources */,
 				8C090E4E20894A94009B8B8D /* SLSeedField.swift in Sources */,
 				8CFA16A42082EF3A00813EA6 /* CreateRecoverModels.swift in Sources */,
+				8C77AD8320A2C9530094D733 /* TransactionDetailsViewController.swift in Sources */,
 				8C8275BA208EA1B30029BE7E /* ChannelOpenRouter.swift in Sources */,
 				8C7745B3209BF846004EBA69 /* ChTableViewCell.swift in Sources */,
 				8C7745C6209D3E39004EBA69 /* ChannelDetailsWorker.swift in Sources */,
@@ -1629,6 +1695,7 @@
 				8C1882B72086A582002E2835 /* SLIcon30Button.swift in Sources */,
 				8C70EC07208D8A0E00D658DC /* SLFormHeaderView.swift in Sources */,
 				8C090E0620880154009B8B8D /* Result.swift in Sources */,
+				8C77AD8C20A2DBCE0094D733 /* SLFormTitleLabel.swift in Sources */,
 				8C8275F120910FA40029BE7E /* ChannelConfirmRouter.swift in Sources */,
 				8C18829E20868EBE002E2835 /* PasswordCreateWorker.swift in Sources */,
 				8C090DFD2087DEAA009B8B8D /* MnemonicExplainPresenter.swift in Sources */,
@@ -1650,6 +1717,7 @@
 				8C6B7546208AF33200B751A2 /* RootInteractor.swift in Sources */,
 				8C70EBFD208C458700D658DC /* SLFormBackingView.swift in Sources */,
 				8C7EC53720950449001C8FD6 /* PayMainInteractor.swift in Sources */,
+				8C77AD8420A2C9530094D733 /* TransactionDetailsInteractor.swift in Sources */,
 				8C6B7553208AFEC800B751A2 /* UnlockAppInteractor.swift in Sources */,
 				8C6B7551208AFEC800B751A2 /* UnlockAppModels.swift in Sources */,
 				8C8275BD208EA1B30029BE7E /* ChannelOpenInteractor.swift in Sources */,
