@@ -46,6 +46,9 @@ class RootInteractor: RootBusinessLogic, RootDataStore
       do {
         _ = try completion()
         
+        // Reconnect all Channels if disconnected
+        LNManager.reconnectAllChannels()
+        
         // Start Wallet Event Central
         EventCentral.shared.start { (result) in
           switch result {

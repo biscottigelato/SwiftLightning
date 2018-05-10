@@ -12,8 +12,7 @@
 
 import UIKit
 
-protocol RootDisplayLogic: class
-{
+protocol RootDisplayLogic: class {
   func displaySetupScenes()
   func displayUnlockScenes()
   func displayErrorStatus(viewModel: Root.WalletPresenceRouting.ViewModel)
@@ -23,22 +22,20 @@ protocol RootDisplayLogic: class
 }
 
 
-class RootViewController: UIViewController, RootDisplayLogic
-{
+class RootViewController: UIViewController, RootDisplayLogic {
+  
   var interactor: RootBusinessLogic?
   var router: (NSObjectProtocol & RootRoutingLogic & RootDataPassing)?
 
   
   // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     setup()
   }
   
-  required init?(coder aDecoder: NSCoder)
-  {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
@@ -46,8 +43,7 @@ class RootViewController: UIViewController, RootDisplayLogic
   
   // MARK: Setup
   
-  private func setup()
-  {
+  private func setup() {
     let viewController = self
     let interactor = RootInteractor()
     let presenter = RootPresenter()
@@ -63,10 +59,8 @@ class RootViewController: UIViewController, RootDisplayLogic
   
   // MARK: View lifecycle
   
-  override func viewDidLoad()
-  {
+  override func viewDidLoad() {
     super.viewDidLoad()
-
     let request = Root.WalletPresenceRouting.Request()
     interactor?.checkWalletPresence(request: request)
   }
@@ -74,7 +68,6 @@ class RootViewController: UIViewController, RootDisplayLogic
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    
     // Consider always clear all sensitive material from memory when one passes this
   }
   
@@ -127,7 +120,6 @@ class RootViewController: UIViewController, RootDisplayLogic
     
     DispatchQueue.main.async {
       self.activityIndicator.remove()
-      
       self.present(alertDialog, animated: true, completion: nil)
     }
   }

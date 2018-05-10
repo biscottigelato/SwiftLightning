@@ -61,6 +61,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func applicationWillEnterForeground(_ application: UIApplication) {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     SLLog.verbose("applicationWillEnterForeground")
+    
+    // This only gets triggered if from background to foreground? Did become active also gets triggered on start.
+    LNManager.reconnectAllChannels()
   }
 
   func applicationDidBecomeActive(_ application: UIApplication) {

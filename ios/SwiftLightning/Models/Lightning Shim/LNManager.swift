@@ -49,7 +49,6 @@ class LNManager {
   
   // MARK: Node Pub Key handling
   
-  
   static func splitKeyAddressString(_ inputString: String) -> (key: String, addr: String?) {
     let subStrings = inputString.split(separator: "@", maxSplits: 2)
     
@@ -82,7 +81,6 @@ class LNManager {
   
   
   // MARK: Port IP Handling
-  
   
   static func parsePortIPString(_ ipPortString: String) -> (ipString: String?, port: Int?) {
     var ipString: String?
@@ -230,6 +228,50 @@ class LNManager {
     // So nothing hit for the address. If this is from a Payment Request, some of the following stuff might be != nil
     else {
       completion(address, amount, description, paymentType, false)
+    }
+  }
+  
+  
+  // MARK: Reconnect Disconnected Channels
+  
+  static func reconnectAllChannels() {
+    LNServices.listChannels { (listResponder) in
+      do {
+        let channels = try listResponder()
+        
+        for channel in channels {
+          if !channel.isActive {
+            
+            LNServices.getNodeInfo(pubKey: channel.remotePubKey) { (nodeResponder) in
+              do {
+                let nodeInfo = try nodeResponder()
+                
+                if nodeInfo.address.count > 0 {
+                  let ipPort = nodeInfo.address[0].split(separator: ":")
+                  let ipAddr = String(ipPort[0])
+                  
+                  if let port = Int(ipPort[1]) {
+                    
+                    // Best effort connect
+                    LNServices.connectPeer(pubKey: nodeInfo.pubKey, hostAddr: ipAddr, hostPort: port) { connectResponder in
+                      do {
+                        try connectResponder()
+                        EventCentral.shared.reconnectNotify(channelPoint: channel.channelPoint)
+                      } catch {
+                        SLLog.warning("Cannot connect to node \(channel.remotePubKey) - \(error.localizedDescription)")
+                      }
+                    }
+                  }
+                }
+              } catch {
+                SLLog.warning("Cannot get node info for \(channel.remotePubKey) - \(error.localizedDescription)")
+              }
+            }
+          }
+        }
+      } catch {
+        SLLog.warning("Cannot list channels - \(error.localizedDescription)")
+      }
     }
   }
 }

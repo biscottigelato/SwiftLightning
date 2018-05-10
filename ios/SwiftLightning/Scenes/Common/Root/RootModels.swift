@@ -14,8 +14,7 @@ import UIKit
 
 enum Root
 {
-  enum WalletPresenceRouting
-  {
+  enum WalletPresenceRouting {
     struct Constants {
       static let checkWalletTryCount = 11
       static let timeBetweenCheckRetry = 1.0  // seconds
