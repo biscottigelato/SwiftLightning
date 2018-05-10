@@ -233,42 +233,37 @@ class LNManager {
   
   
   // MARK: Reconnect Disconnected Channels
-  
+
   static func reconnectAllChannels() {
+    SLLog.debug("Attempt to reconnect all channels")
+    
     LNServices.listChannels { (listResponder) in
       do {
         let channels = try listResponder()
+        let dChannels = channels.filter({ !$0.isActive })  // Get only channels that are inactive
+        let dPubKeys = dChannels.map({ $0.remotePubKey })  // Extract pubkeys for these channels
+        let uniquePubKeys = Array(Set(dPubKeys))  // Remove duplicates so we only connect to a node once
         
-        for channel in channels {
-          if !channel.isActive {
-            
-            LNServices.getNodeInfo(pubKey: channel.remotePubKey) { (nodeResponder) in
-              do {
-                let nodeInfo = try nodeResponder()
+        for pubKey in uniquePubKeys {
+          LNServices.getNodeInfo(pubKey: pubKey) { (nodeResponder) in
+            do {
+              let nodeInfo = try nodeResponder()
+              
+              if nodeInfo.address.count > 0 {
+                let ipPort = nodeInfo.address[0].split(separator: ":")
+                let ipAddr = String(ipPort[0])
                 
-                if nodeInfo.address.count > 0 {
-                  let ipPort = nodeInfo.address[0].split(separator: ":")
-                  let ipAddr = String(ipPort[0])
-                  
-                  if let port = Int(ipPort[1]) {
-                    
-                    // Best effort connect
-                    LNServices.connectPeer(pubKey: nodeInfo.pubKey, hostAddr: ipAddr, hostPort: port) { connectResponder in
-                      do {
-                        try connectResponder()
-                        EventCentral.shared.reconnectNotify(channelPoint: channel.channelPoint)
-                      } catch {
-                        SLLog.warning("Cannot connect to node \(channel.remotePubKey) - \(error.localizedDescription)")
-                      }
-                    }
-                  }
+                if let port = Int(ipPort[1]) {
+                  // Best effort connect
+                  LNServices.connectPeer(pubKey: nodeInfo.pubKey, hostAddr: ipAddr, hostPort: port) { _ in }
                 }
-              } catch {
-                SLLog.warning("Cannot get node info for \(channel.remotePubKey) - \(error.localizedDescription)")
               }
+            } catch {
+              SLLog.warning("Cannot get node info for \(pubKey) - \(error.localizedDescription)")
             }
           }
         }
+    
       } catch {
         SLLog.warning("Cannot list channels - \(error.localizedDescription)")
       }
