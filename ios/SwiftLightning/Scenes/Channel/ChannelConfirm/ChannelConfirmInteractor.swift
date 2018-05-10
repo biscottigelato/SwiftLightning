@@ -172,6 +172,8 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
         EventCentral.shared.channelOpenNotify()
       }      
     } catch {
+      SLLog.warning("Open Channel received error - \(error.localizedDescription)")
+      
       // No clue what's going on, hit the Event Center anyways
       EventCentral.shared.channelOpenNotify()
       

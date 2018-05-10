@@ -14,6 +14,8 @@ class EventCentral {
     static let timeIntervalPerBlk: Double = 600  // Mainnet only!!!
     static let testnet3Blk1Timestamp: Double = 1296688928   // Testnet 3 only!!!
     static let syncMonitorInterval: Double = 1 // seconds
+    static let pullUpdateInterval: Double = 60 // seconds
+    static let subscribeToGraphTopology: Bool = false
   }
   
   
@@ -131,16 +133,39 @@ class EventCentral {
   //
   // * Event Relayer does not guarentee that events might not be missed
   
-  private var transactionListeners = [Int : (BTCTransaction) -> ()]()
-  private var channelOpenUpdateListeners = [Int : () -> ()]()
-  private var channelCloseUpdateListeners = [Int : () -> ()]()
+  enum EventType {
+    case transaction
+    case openUpdate
+    case closeUpdate
+    case nodeUpdate
+    case chEdgeUpdate
+    case closedChUpdate
+    case periodicUpdate
+  }
   
-  private let idLock = DispatchSemaphore(value: 1)
+  enum Message {
+    case transaction(BTCTransaction)
+    case openUpdate
+    case closeUpdate
+    case nodeUpdate(String)  // Node Pub Key?
+    case chEdgeUpdate(String)  // Channel ID
+    case closeChUpdate(String)  // Channel ID
+    case periodicUpdate
+  }
+
+  struct Subscription {
+    var events: Set<EventType>
+    var callback: (Message) -> ()
+  }
+  
+  typealias Handle = Int
+  
+  private var listeners = [Handle : Subscription]()
   private let relayQueue = DispatchQueue(label: "EventRelay", qos: .background)  // not concurrent, so serial
-  
-  private var relayerStarted = false
+  private let idLock = DispatchSemaphore(value: 1)
   private var identifier = 0
-  
+  private var relayerStarted = false
+  private var periodicTimer = RepeatingTimer(timeInterval: Constants.pullUpdateInterval)
   
   private func startEventRelayer() {
     guard !relayerStarted else { return }
@@ -149,6 +174,14 @@ class EventCentral {
     
     // Start All Subscriptions
     LNServices.subscribeTransactions(completion: transactionNotify)
+    
+    if Constants.subscribeToGraphTopology {
+      LNServices.subscribeChannelGraph(completion: topologyNotify)
+    }
+    
+    // Start Periodic Pull Update
+    periodicTimer.eventHandler = { self.periodicNotify() }
+    periodicTimer.resume()
   }
 
   
@@ -159,8 +192,11 @@ class EventCentral {
       let transaction = try responder()
       
       relayQueue.async {
-        for listener in self.transactionListeners {
-          listener.value(transaction)
+        let txListeners = self.listeners.filter({ $0.value.events.contains(.transaction) })
+        
+        for listener in txListeners {
+          let message = Message.transaction(transaction)
+          listener.value.callback(message)
         }
       }
     } catch {
@@ -168,59 +204,108 @@ class EventCentral {
     }
   }
   
+  private func topologyNotify(responder: () throws -> ([LNGraphTopologyUpdate])) {
+    do {
+      let topologyUpdates = try responder()
+      
+      relayQueue.async {
+        let nodeListeners = self.listeners.filter({ $0.value.events.contains(.nodeUpdate) })
+        let channelListeners = self.listeners.filter({ $0.value.events.contains(.chEdgeUpdate) })
+        let closeListeners = self.listeners.filter({ $0.value.events.contains(.closedChUpdate) })
+        
+        for update in topologyUpdates {
+          switch update {
+          case .node(let idKey):
+            for listener in nodeListeners {
+              let message = Message.nodeUpdate(idKey)
+              listener.value.callback(message)
+            }
+            
+          case .channel(let channelPoint):
+            for listener in channelListeners {
+              let message = Message.chEdgeUpdate(channelPoint)
+              listener.value.callback(message)
+            }
+            
+          case .closedChannel(let channelPoint):
+            for listener in closeListeners {
+              let message = Message.closeChUpdate(channelPoint)
+              listener.value.callback(message)
+            }
+          }
+        }
+      }
+    } catch {
+      SLLog.assert("Graph Topology Notify Error - \(error)")
+    }
+  }
+  
+  private func periodicNotify() {
+    relayQueue.async {
+      let listeners = self.listeners.filter({ $0.value.events.contains(.periodicUpdate) })
+      SLLog.debug("Periodic Pull Notification")
+      
+      for listener in listeners {
+        let message = Message.periodicUpdate
+        listener.value.callback(message)
+      }
+    }
+  }
+  
   func channelOpenNotify() {
     relayQueue.async {
-      for listener in self.channelOpenUpdateListeners {
-        listener.value()
+      let openListeners = self.listeners.filter({ $0.value.events.contains(.openUpdate) })
+      
+      for listener in openListeners {
+        let message = Message.openUpdate
+        listener.value.callback(message)
       }
     }
   }
 
   func channelCloseNotify() {
     relayQueue.async {
-      for listener in self.channelCloseUpdateListeners {
-        listener.value()
+      let closeListeners = self.listeners.filter({ $0.value.events.contains(.closeUpdate) })
+      
+      for listener in closeListeners {
+        let message = Message.closeUpdate
+        listener.value.callback(message)
       }
     }
   }
   
   
-  // MARK: Functions to subscribe and unsubscribe from Relays
+  // MARK: Functions to manage subscription to Relay
   
-  func subscribeToTransactions(with callback: @escaping (BTCTransaction) -> ()) -> Int {
-    let id = getAtomicID()
-    relayQueue.async { self.transactionListeners[id] = callback }
-    return id
+  func subscribe(to events: Set<EventType>, with callback: @escaping (Message) -> ()) -> Handle {
+    let handle: Handle = getAtomicID()
+    relayQueue.async { self.listeners[handle] = Subscription(events: events, callback: callback) }
+    return handle
   }
   
-  func unsubscribeFromTransactions(for id: Int) {
+  func unsubscribe(from handle: Handle) {
     relayQueue.async {
-      self.transactionListeners.removeValue(forKey: id)
+      self.listeners.removeValue(forKey: handle)
     }
   }
   
-  func subscribeToChannelOpenUpdates(with callback: @escaping () -> ()) -> Int {
-    let id = getAtomicID()
-    relayQueue.async { self.channelOpenUpdateListeners[id] = callback }
-    return id
-  }
-  
-  func unsubscribeFromChannelOpenUpdates(for id: Int) {
-    relayQueue.async {
-      self.channelOpenUpdateListeners.removeValue(forKey: id)
+  func changeSubscription(for handle: Handle, to events: Set<EventType>, with callback: ((Message) -> ())? = nil) {
+    guard self.listeners[handle] != nil else {
+      SLLog.assert("No Listener for handle \(handle)")
+      return
+    }
+    self.listeners[handle]!.events = events
+    
+    if let callback = callback {
+      self.listeners[handle]!.callback = callback
     }
   }
   
-  func subscribeToChannelCloseUpdates(with callback: @escaping () -> ()) -> Int {
-    let id = getAtomicID()
-    relayQueue.async { self.channelCloseUpdateListeners[id] = callback }
-    return id
-  }
-  
-  func unsubscribeFromChannelCloseUpdates(for id: Int) {
-    relayQueue.async {
-      self.channelCloseUpdateListeners.removeValue(forKey: id)
+  func getEventsSubscribed(for handle: Handle) -> Set<EventType>? {
+    guard let listener = self.listeners[handle] else {
+      return nil
     }
+    return listener.events
   }
   
   private func getAtomicID() -> Int{

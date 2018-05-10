@@ -19,6 +19,7 @@ struct LNConstants {
   static let minChannelSize = Bitcoin(inSatoshi: 20000)
   static let defaultRetryCount: Int = 5
   static let defaultRetryDelay: Double = 1
+  static let defaultChannelOpTimeout: TimeInterval = 60  // seconds
 }
 
 
@@ -102,6 +103,7 @@ struct LNPeer: CustomStringConvertible {
   
   var description: String {
     return """
+    
     LN Peer details -
     pubKey:    \(pubKey)
     address:   \(address)
@@ -137,6 +139,7 @@ struct LNChannel: CustomStringConvertible {
   
   var description: String {
     var descriptiveString = """
+    
     LN Channel details -
     active:           \(isActive)
     remotePubKey:     \(remotePubKey)
@@ -191,12 +194,12 @@ struct LNPendingChannel: CustomStringConvertible {
   
   var description: String {
     return """
-      Pending Channel details -
-        remoteNodePub: \(remoteNodePub)
-        channelPoint: \(channelPoint)
-        capacity: \(capacity)
-        localBalance: \(localBalance)
-        remoteBalance: \(remoteBalance)
+    Pending Channel details -
+    remoteNodePub: \(remoteNodePub)
+    channelPoint: \(channelPoint)
+    capacity: \(capacity)
+    localBalance: \(localBalance)
+    remoteBalance: \(remoteBalance)
     """
   }
 }
@@ -212,13 +215,13 @@ struct LNPendingHTLC: CustomStringConvertible {
 
   var description: String {
     return """
-      Pending HTLC details -
-        incoming: \(incoming)
-        amount: \(amount)
-        outpoint: \(outpoint)
-        maturityHeight: \(maturityHeight)
-        blocksTilMaturity: \(blocksTilMaturity)
-        stage: \(stage)
+    Pending HTLC details -
+    incoming: \(incoming)
+    amount: \(amount)
+    outpoint: \(outpoint)
+    maturityHeight: \(maturityHeight)
+    blocksTilMaturity: \(blocksTilMaturity)
+    stage: \(stage)
     """
   }
 }
@@ -232,12 +235,13 @@ struct LNPendingOpenChannel: CustomStringConvertible {
   
   var description: String {
     return """
+    
     Pending Open Channel details -
     \(channel)
-      confirmationHeight: \(confirmationHeight)
-      commitFee: \(commitFee)
-      commitWeight: \(commitWeight)
-      feePerKw: \(feePerKw)
+    confirmationHeight: \(confirmationHeight)
+    commitFee: \(commitFee)
+    commitWeight: \(commitWeight)
+    feePerKw: \(feePerKw)
     """
   }
 }
@@ -248,13 +252,13 @@ struct LNPendingCloseChannel: CustomStringConvertible {
   
   var description: String {
     return """
-      Pending Close Channel details -
-        \(channel)
-        closingTxID: \(closingTxID)
+    
+    Pending Close Channel details -
+    \(channel)
+    closingTxID: \(closingTxID)
     """
   }
 }
-
 
 struct LNPendingForceCloseChannel: CustomStringConvertible {
   var channel: LNPendingChannel
@@ -267,13 +271,14 @@ struct LNPendingForceCloseChannel: CustomStringConvertible {
   
   var description: String {
     var descriptiveString = """
-      Pending Force Close Channel details -
-        \(channel)
-        closingTxID:        \(closingTxID)
-        limboBalance:       \(limboBalance)
-        maturityHeight:     \(maturityHeight)
-        blocksTilMaturity:  \(blocksTilMaturity)
-        recoveredBalance:   \(recoveredBalance)
+    
+    Pending Force Close Channel details -
+    \(channel)
+    closingTxID:        \(closingTxID)
+    limboBalance:       \(limboBalance)
+    maturityHeight:     \(maturityHeight)
+    blocksTilMaturity:  \(blocksTilMaturity)
+    recoveredBalance:   \(recoveredBalance)
     """
     
     for (index, pendingHTLCs) in pendingHTLCs.enumerated() {
@@ -283,7 +288,6 @@ struct LNPendingForceCloseChannel: CustomStringConvertible {
   }
 }
 
-
 struct LNWaitingCloseChannel: CustomStringConvertible {
   var channel: LNPendingChannel
   var hasChannel: Bool
@@ -291,14 +295,14 @@ struct LNWaitingCloseChannel: CustomStringConvertible {
   
   var description: String {
     return """
-      Waiting Close Channel
-        \(channel)
-        hasChannel: \(hasChannel)
-        limboBalance: \(limboBalance)
+    
+    Waiting Close Channel
+    \(channel)
+    hasChannel: \(hasChannel)
+    limboBalance: \(limboBalance)
     """
   }
 }
-
 
 struct LNPayment {
   var paymentHash: String
@@ -310,17 +314,17 @@ struct LNPayment {
   
   var description: String {
     return """
-      Lightning Payment detail -
-        paymentHash: \(paymentHash)
-        value: \(value)
-        creationDate: \(creationDate)
-        path: \(path.joined(separator: ", "))
-        fee: \(fee)
-        paymentPreimage: \(paymentPreimage)
+    
+    Lightning Payment detail -
+    paymentHash: \(paymentHash)
+    value: \(value)
+    creationDate: \(creationDate)
+    path: \(path.joined(separator: ", "))
+    fee: \(fee)
+    paymentPreimage: \(paymentPreimage)
     """
   }
 }
-
 
 struct BTCTransaction {
   var txHash: String
@@ -334,19 +338,19 @@ struct BTCTransaction {
   
   var description: String {
     return """
-      Bitcoin Transaction detail -
-        txHash: \(txHash)
-        amount: \(amount)
-        numConfirmations: \(numConfirmations)
-        blockHash: \(blockHash)
-        blockHeight: \(blockHeight)
-        timeStamp: \(timeStamp)
-        totalFees: \(totalFees)
-        destAddresses: \(destAddresses)
+    
+    Bitcoin Transaction detail -
+    txHash: \(txHash)
+    amount: \(amount)
+    numConfirmations: \(numConfirmations)
+    blockHash: \(blockHash)
+    blockHeight: \(blockHeight)
+    timeStamp: \(timeStamp)
+    totalFees: \(totalFees)
+    destAddresses: \(destAddresses)
     """
   }
 }
-
 
 struct LNDInfo: CustomStringConvertible {
   var identityPubkey: String
@@ -365,6 +369,7 @@ struct LNDInfo: CustomStringConvertible {
   
   var description: String {
     return """
+    
     LND Information -
     Identity Pubkey:       \(identityPubkey)
     Alias:                 \(alias)
@@ -383,7 +388,6 @@ struct LNDInfo: CustomStringConvertible {
   }
 }
 
-
 struct LNPayReq: CustomStringConvertible {
   var destination: String
   var paymentHash: String
@@ -397,6 +401,7 @@ struct LNPayReq: CustomStringConvertible {
   
   var description: String {
     return """
+    
     LN Payment Request -
     Destination:      \(destination)
     Payment Hash:     \(paymentHash)
@@ -411,7 +416,6 @@ struct LNPayReq: CustomStringConvertible {
   }
 }
 
-
 struct LNRoute: CustomStringConvertible {
   var totalTimeLock: UInt
   var totalFees: Int
@@ -422,12 +426,13 @@ struct LNRoute: CustomStringConvertible {
   
   var description: String {
     var descriptiveString = """
-      LN Route details -
-        totalTimeLock: \(totalTimeLock)
-        totalFees:     \(totalFees)
-        totalAmt:      \(totalAmt)
-        totalFeesMsat: \(totalFeesMsat)
-        totalAmtMsat:  \(totalAmtMsat)
+    
+    LN Route details -
+    totalTimeLock: \(totalTimeLock)
+    totalFees:     \(totalFees)
+    totalAmt:      \(totalAmt)
+    totalFeesMsat: \(totalFeesMsat)
+    totalAmtMsat:  \(totalAmtMsat)
     """
     
     for (index, hop) in hops.enumerated() {
@@ -436,7 +441,6 @@ struct LNRoute: CustomStringConvertible {
     return descriptiveString
   }
 }
-
 
 struct LNHop: CustomStringConvertible {
   var chanID: UInt
@@ -449,17 +453,16 @@ struct LNHop: CustomStringConvertible {
   
   var description: String {
     return """
-      Hop details -
-        chanID:           \(chanID)
-        chanCapacity:     \(chanCapacity)
-        amtToForward:     \(amtToForward)
-        expiry:           \(expiry)
-        amtToForwardMsat: \(amtToForwardMsat)
-        feeMsat:          \(feeMsat)
+    Hop details -
+    chanID:           \(chanID)
+    chanCapacity:     \(chanCapacity)
+    amtToForward:     \(amtToForward)
+    expiry:           \(expiry)
+    amtToForwardMsat: \(amtToForwardMsat)
+    feeMsat:          \(feeMsat)
     """
   }
 }
-
 
 struct LNNode: CustomStringConvertible {
   var lastUpdate: UInt
@@ -473,18 +476,39 @@ struct LNNode: CustomStringConvertible {
   
   var description: String {
     return """
-      Lightning Node details -
-        lastUpdate: \(lastUpdate)
-        pubKey: \(pubKey)
-        alias: \(alias)
-        network: \(network.joined(separator: ", "))
-        address: \(address.joined(separator: ", "))
-        color: \(color)
-        numChannels: \(numChannels)
-        totalCapacity: \(totalCapacity)
+    
+    Lightning Node details -
+    lastUpdate: \(lastUpdate)
+    pubKey: \(pubKey)
+    alias: \(alias)
+    network: \(network.joined(separator: ", "))
+    address: \(address.joined(separator: ", "))
+    color: \(color)
+    numChannels: \(numChannels)
+    totalCapacity: \(totalCapacity)
     """
   }
 }
+
+enum LNGraphTopologyUpdate: CustomStringConvertible {
+  case node(String)  // ID Key
+  case channel(String)  // ChannelPoint
+  case closedChannel(String)  // ChannelPoint
+  
+  var description: String {
+    switch self {
+    case .node(let idKey):
+      return "Graph Topology Node Update - identityKey: \(idKey)"
+      
+    case .channel(let channelPoint):
+      return "Graph Topology Channel Edge Update - channelPoint: \(channelPoint)"
+      
+    case .closedChannel(let channelPoint):
+      return "Graph Topology Close Channel Update -  channelPoint: \(channelPoint)"
+    }
+  }
+}
+
 
 // MARK: Errors
 
@@ -499,6 +523,9 @@ enum LNError: Int, LocalizedError {
   case closeChannelStreamNoType
   
   case addressTypeUnsupported
+  
+  case openChannelTimeoutError
+  case closeChannelTimeoutError
   
   // Computed Properties
   var code: Int { return self.rawValue }
@@ -521,6 +548,11 @@ enum LNError: Int, LocalizedError {
 
     case .addressTypeUnsupported:
       return NSLocalizedString("New address generation must be of Segwit types", comment: "LN Error Type")
+      
+    case .openChannelTimeoutError:
+      return NSLocalizedString("Open Channel Request Timeout", comment: "Open Channel Timeout Error")
+    case .closeChannelTimeoutError:
+      return NSLocalizedString("Close Channel Request Timeout", comment: "Close Channel Timeout Error")
     }
   }
 }

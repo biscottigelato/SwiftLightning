@@ -25,27 +25,8 @@ protocol WalletMainDisplayLogic: class {
 
 
 class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITableViewDelegate, UITableViewDataSource {
-  
   var interactor: WalletMainBusinessLogic?
   var router: (WalletMainRoutingLogic & WalletMainDataPassing)?
-
-  
-  // MARK: Local Constants
-  
-  struct Constants {
-    static let txnCellReuseID = "TransactionCell"
-    static let chCellReuseID = "ChannelCell"
-  }
-  
-  
-  // MARK: IBOutlets
-  
-  @IBOutlet weak var totalBalanceLabel: UILabel!
-  @IBOutlet weak var channelBalanceLabel: UILabel!
-  @IBOutlet weak var pagingScrollView: UIScrollView!
-  @IBOutlet weak var transactionView: WalletPageView!
-  @IBOutlet weak var channelView: WalletPageView!
-  
   
   // MARK: Object lifecycle
   
@@ -76,6 +57,24 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
   }
   
   
+  // MARK: Local Constants
+  
+  struct Constants {
+    static let txnCellReuseID = "TransactionCell"
+    static let chCellReuseID = "ChannelCell"
+  }
+  
+  
+  // MARK: IBOutlets
+  
+  @IBOutlet weak var totalBalanceLabel: UILabel!
+  @IBOutlet weak var channelBalanceLabel: UILabel!
+  @IBOutlet weak var pagingScrollView: UIScrollView!
+  @IBOutlet weak var transactionView: WalletPageView!
+  @IBOutlet weak var channelView: WalletPageView!
+  
+  var updateEventHandle: EventCentral.Handle?
+  
   // MARK: View lifecycle
   
   override func viewDidLoad() {
@@ -97,11 +96,42 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    
+    // Do an immediate update
     updateBalances()
     fetchTransactions()
     fetchChannels()
+    
+    // Re-subscribe to events
+    updateEventHandle = EventCentral.shared.subscribe(to: [.periodicUpdate, .transaction, .openUpdate, .closeUpdate]) { message in
+      self.updateBalances()
+      
+      switch message {
+      case .transaction:
+        self.fetchTransactions()
+        
+      case .openUpdate, .closeUpdate:
+        self.fetchChannels()
+        
+      case .periodicUpdate:
+        self.fetchTransactions()
+        self.fetchChannels()
+        
+      default:
+        SLLog.assert("Do not expect unsubscribed message types")
+      }
+    }
   }
   
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    
+    // Unsubscribe from events
+    if let handle = updateEventHandle {
+      EventCentral.shared.unsubscribe(from: handle)
+      updateEventHandle = nil
+    }
+  }
   
   // MARK: Paging control
   

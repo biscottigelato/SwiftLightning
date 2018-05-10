@@ -18,7 +18,7 @@ protocol TransactionDetailsDisplayLogic: class {
 }
 
 
-class TransactionDetailsViewController: UIViewController, TransactionDetailsDisplayLogic {
+final class TransactionDetailsViewController: UIViewController, TransactionDetailsDisplayLogic {
   var interactor: TransactionDetailsBusinessLogic?
   var router: (NSObjectProtocol & TransactionDetailsRoutingLogic & TransactionDetailsDataPassing)?
 
@@ -59,6 +59,13 @@ class TransactionDetailsViewController: UIViewController, TransactionDetailsDisp
     refresh()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    // Re-subscribe to events
+    interactor?.subscribeEvents()
+  }
+  
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
@@ -71,29 +78,37 @@ class TransactionDetailsViewController: UIViewController, TransactionDetailsDisp
     hashPreimageView.copyDialogSuperview = view
   }
   
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+  
+    // Unsubscribe from events
+    interactor?.unsubscribeEvents()
+  }
+  
+  
   // MARK: Refresh
   
-  @IBOutlet weak var stackView: UIStackView!
-  @IBOutlet weak var bottomSpacer: UIView!
+  @IBOutlet private weak var stackView: UIStackView!
+  @IBOutlet private weak var bottomSpacer: UIView!
   
-  @IBOutlet weak var headerView: SLFormHeaderView!
-  @IBOutlet weak var txHashView: SLFormLabelView!
-  @IBOutlet weak var amountView: SLFormCompactView!
-  @IBOutlet weak var feesView: SLFormCompactView!
-  @IBOutlet weak var dateView: SLFormLabelView!
+  @IBOutlet private weak var headerView: SLFormHeaderView!
+  @IBOutlet private weak var txHashView: SLFormLabelView!
+  @IBOutlet private weak var amountView: SLFormCompactView!
+  @IBOutlet private weak var feesView: SLFormCompactView!
+  @IBOutlet private weak var dateView: SLFormLabelView!
   
-  @IBOutlet weak var confirmationsSpacer: UIView!
-  @IBOutlet weak var confirmationsView: SLFormCompactView!
-  @IBOutlet weak var blockHeightSpacer: UIView!
-  @IBOutlet weak var blockHeightView: SLFormCompactView!
+  @IBOutlet private weak var confirmationsSpacer: UIView!
+  @IBOutlet private weak var confirmationsView: SLFormCompactView!
+  @IBOutlet private weak var blockHeightSpacer: UIView!
+  @IBOutlet private weak var blockHeightView: SLFormCompactView!
   
-  @IBOutlet weak var hashPreimageView: SLFormLabelView!
-  @IBOutlet weak var destPathTitleLabel: SLFormTitleLabel!
+  @IBOutlet private weak var hashPreimageView: SLFormLabelView!
+  @IBOutlet private weak var destPathTitleLabel: SLFormTitleLabel!
   
   
-  var destPathLabels = [SLFormTextLabel]()
+  private var destPathLabels = [SLFormTextLabel]()
   
-  func refresh() {
+  private func refresh() {
     let request = TransactionDetails.Refresh.Request()
     interactor?.refresh(request: request)
   }
@@ -173,7 +188,7 @@ class TransactionDetailsViewController: UIViewController, TransactionDetailsDisp
   
   // MARK: Dismiss Tapped
   
-  @IBAction func closeCrossTapped(_ sender: UIBarButtonItem) {
+  @IBAction private func closeCrossTapped(_ sender: UIBarButtonItem) {
     router?.routeToWalletMain()
   }
 }

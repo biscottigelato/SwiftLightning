@@ -528,7 +528,7 @@
 			children = (
 				8C1AE3712095A55800A4D9BF /* BitcoinKit */,
 				8C8275DA208FF1AD0029BE7E /* Money */,
-				8C7745B7209D30B2004EBA69 /* StateCentral */,
+				8C7745B7209D30B2004EBA69 /* EventCentral */,
 				8C7745BA209D3288004EBA69 /* MetaTracker */,
 				8C090DF020870AE7009B8B8D /* Lightning Shim */,
 			);
@@ -883,12 +883,12 @@
 			path = ChannelCell;
 			sourceTree = "<group>";
 		};
-		8C7745B7209D30B2004EBA69 /* StateCentral */ = {
+		8C7745B7209D30B2004EBA69 /* EventCentral */ = {
 			isa = PBXGroup;
 			children = (
 				8C7745B8209D3258004EBA69 /* EventCentral.swift */,
 			);
-			path = StateCentral;
+			path = EventCentral;
 			sourceTree = "<group>";
 		};
 		8C7745BA209D3288004EBA69 /* MetaTracker */ = {

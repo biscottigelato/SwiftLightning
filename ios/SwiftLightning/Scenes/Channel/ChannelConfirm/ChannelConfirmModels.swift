@@ -69,7 +69,7 @@ enum ChannelConfirm {
       }
     }
     struct Constants {
-      static let lnFindPeerRetry = 5
+      static let lnFindPeerRetry = 8
       static let lnFindPeerDelay = 2.0
     }
     struct Request {

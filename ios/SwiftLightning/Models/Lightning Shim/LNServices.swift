@@ -1004,20 +1004,37 @@ class LNServices {
   // MARK: Open Channel
   
   private class OpenChannel: NSObject, LndmobileCallbackProtocol {
-    private var completion: (() throws -> (LNOpenChannelUpdateType)) -> Void
+    var completion: ((() throws -> (LNOpenChannelUpdateType)) -> Void)?
+    var timeoutSemaphore = DispatchSemaphore(value: 1)
+    var timeoutWorkItem: DispatchWorkItem?
     
     init(_ completion: @escaping (() throws -> (LNOpenChannelUpdateType)) -> Void) {
       self.completion = completion
     }
-    
+    func timeout() {
+      timeoutSemaphore.wait()
+      completion?({ throw LNError.closeChannelTimeoutError })
+      completion = nil
+      timeoutWorkItem = nil
+      timeoutSemaphore.signal()
+    }
+    func timeoutCancel() {
+      timeoutSemaphore.wait()
+      timeoutWorkItem?.cancel()
+      timeoutWorkItem = nil
+      timeoutSemaphore.signal()
+    }
     func onResponse(_ p0: Data!) {
+      // Got a response, cancel the timeout
+      timeoutCancel()
+      
       do {
         let response = try Lnrpc_OpenStatusUpdate(serializedData: p0)
         SLLog.debug("Open Channel Status Update")
         
         guard let update = response.update else {
           SLLog.warning("LN Open Channel call stream result with no type")
-          completion({ throw LNError.openChannelStreamNoType })
+          completion?({ throw LNError.openChannelStreamNoType })
           return
         }
         
@@ -1026,31 +1043,34 @@ class LNServices {
           SLLog.verbose("LN Open Channel Pending Update:")
           SLLog.verbose(" TXID:          \(pendingUpdate.txid.hexEncodedString(options: .littleEndian))")
           SLLog.verbose(" Output Index:  \(pendingUpdate.outputIndex)")
-          completion({ return LNOpenChannelUpdateType.pending })
+          completion?({ return LNOpenChannelUpdateType.pending })
           
         case .confirmation(let confirmUpdate):
           SLLog.verbose("LN Open Channel Confirmation Update:")
           SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
           SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
           SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
-          completion({ return LNOpenChannelUpdateType.confirmation })
+          completion?({ return LNOpenChannelUpdateType.confirmation })
           
         case .chanOpen(let openUpdate):
           SLLog.verbose("LN Open Channel Open Update:")
           SLLog.verbose(" TXID:          \(openUpdate.channelPoint.fundingTxidStr)")
           SLLog.verbose(" Output Index:  \(openUpdate.channelPoint.outputIndex)")
-          completion({ return LNOpenChannelUpdateType.opened })
+          completion?({ return LNOpenChannelUpdateType.opened })
         }
         
       } catch {
         SLLog.warning("Open channel response is not OpenStatusUpdate?")
-        completion({ throw error })
+        completion?({ throw error })
       }
     }
+    
     func onError(_ p0: Error!) {
+      timeoutCancel()
+      
       if p0.localizedDescription != "EOF" {
         SLLog.warning("OpenChannel error response - \(p0.localizedDescription)")
-        completion({ throw p0 })
+        completion?({ throw p0 })
       } else {
         SLLog.info("Open Channel EOF")
       }
@@ -1061,9 +1081,10 @@ class LNServices {
                           retryCount: Int = LNConstants.defaultRetryCount,
                           retryDelay: Double = LNConstants.defaultRetryDelay,
                           completion: @escaping (() throws -> (LNOpenChannelUpdateType)) -> Void) {
-    
+    // Time-out routine
     let lndOp = OpenChannel(completion)
-
+    lndOp.timeoutWorkItem = DispatchWorkItem { lndOp.timeout() }
+    
     var request = Lnrpc_OpenChannelRequest()
     request.nodePubkey = nodePubKey
     request.localFundingAmount = Int64(localFundingAmt)
@@ -1075,6 +1096,9 @@ class LNServices {
     do {
       SLLog.info("LN Open Channel Request - PubKey: \(nodePubKey.hexEncodedString().prefix(10))...")
       let serialReq = try request.serializedData()
+      
+      // Initiate timeout before issuing the request
+      DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + LNConstants.defaultChannelOpTimeout, execute: lndOp.timeoutWorkItem!)
       LndmobileOpenChannel(serialReq, lndOp)
     } catch {
       completion({ throw error })
@@ -1085,20 +1109,37 @@ class LNServices {
   // MARK: Close Channel
   
   private class CloseChannel: NSObject, LndmobileCallbackProtocol {
-    private var completion: (() throws -> (LNCloseChannelUpdateType)) -> Void
+    var completion: ((() throws -> (LNCloseChannelUpdateType)) -> Void)?
+    var timeoutSemaphore = DispatchSemaphore(value: 1)
+    var timeoutWorkItem: DispatchWorkItem?
     
     init(_ completion: @escaping (() throws -> (LNCloseChannelUpdateType)) -> Void) {
       self.completion = completion
     }
-    
+    func timeout() {
+      timeoutSemaphore.wait()
+      completion?({ throw LNError.closeChannelTimeoutError })
+      completion = nil
+      timeoutWorkItem = nil
+      timeoutSemaphore.signal()
+    }
+    func timeoutCancel() {
+      timeoutSemaphore.wait()
+      timeoutWorkItem?.cancel()
+      timeoutWorkItem = nil
+      timeoutSemaphore.signal()
+    }
     func onResponse(_ p0: Data!) {
+      // Got a response, cancel the timeout
+      timeoutCancel()
+      
       do {
         let response = try Lnrpc_CloseStatusUpdate(serializedData: p0)
         SLLog.debug("Close Channel Status Update")
         
         guard let update = response.update else {
           SLLog.warning("LN Close Channel call stream result with no type")
-          completion({ throw LNError.closeChannelStreamNoType })
+          completion?({ throw LNError.closeChannelStreamNoType })
           return
         }
         
@@ -1107,31 +1148,33 @@ class LNServices {
           SLLog.verbose("LN Close Channel Pending Update:")
           SLLog.verbose(" TXID:          \(pendingUpdate.txid.hexEncodedString(options: .littleEndian))")
           SLLog.verbose(" Output Index:  \(pendingUpdate.outputIndex)")
-          completion({ return LNCloseChannelUpdateType.pending })
+          completion?({ return LNCloseChannelUpdateType.pending })
           
         case .confirmation(let confirmUpdate):
           SLLog.verbose("LN Close Channel Confirmation Update:")
           SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
           SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
           SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
-          completion({ return LNCloseChannelUpdateType.confirmation })
+          completion?({ return LNCloseChannelUpdateType.confirmation })
           
         case .chanClose(let closeUpdate):
           SLLog.verbose("LN Close Channel Open Update:")
           SLLog.verbose(" Close TxID:          \(closeUpdate.closingTxid.hexEncodedString())")
           SLLog.verbose(" Success:  \(closeUpdate.success)")
-          completion({ return LNCloseChannelUpdateType.closed })
+          completion?({ return LNCloseChannelUpdateType.closed })
         }
         
       } catch {
         SLLog.warning("Close channel response is not CloseStatusUpdate?")
-        completion({ throw error })
+        completion?({ throw error })
       }
     }
     func onError(_ p0: Error!) {
+      timeoutCancel()
+      
       if p0.localizedDescription != "EOF" {
         SLLog.warning("CloseChannel error response - \(p0.localizedDescription)")
-        completion({ throw p0 })
+        completion?({ throw p0 })
       } else {
         SLLog.info("Close Channel EOF")
       }
@@ -1145,7 +1188,8 @@ class LNServices {
                            completion: @escaping (() throws -> (LNCloseChannelUpdateType)) -> Void) {
     
     let lndOp = CloseChannel(completion)
-
+    lndOp.timeoutWorkItem = DispatchWorkItem { lndOp.timeout() }
+    
     var channelPoint = Lnrpc_ChannelPoint()
     channelPoint.fundingTxidStr = fundingTxIDStr
     channelPoint.outputIndex = UInt32(outputIndex)
@@ -1160,6 +1204,9 @@ class LNServices {
     do {
       SLLog.info("LN Close Channel Request - PubKey: \(fundingTxIDStr.prefix(10))...")
       let serialReq = try request.serializedData()
+      
+      // Initiate timeout before issuing the request
+      DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + LNConstants.defaultChannelOpTimeout, execute: lndOp.timeoutWorkItem!)
       LndmobileCloseChannel(serialReq, lndOp)
     } catch {
       completion({ throw error })
@@ -1583,5 +1630,64 @@ class LNServices {
     }
     
     lndOp.retry.start("LN Stop Daemon", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
+  
+  
+  // MARK: Subscribe Channel Graph
+  
+  private class SubscribeChannelGraph: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> ([LNGraphTopologyUpdate])) -> Void
+    
+    init(_ completion: @escaping (() throws -> ([LNGraphTopologyUpdate])) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let graphTopologyUpdate = try Lnrpc_GraphTopologyUpdate(serializedData: p0)
+        SLLog.debug("LN Graph Topology Update Received")
+        
+        var lnUpdates = [LNGraphTopologyUpdate]()
+        
+        for update in graphTopologyUpdate.nodeUpdates {
+          let lnUpdate = LNGraphTopologyUpdate.node(update.identityKey)
+          lnUpdates.append(lnUpdate)
+          SLLog.verbose(String(describing: lnUpdate))
+        }
+        
+        for update in graphTopologyUpdate.channelUpdates {
+          let channelPoint = "\(update.chanPoint.fundingTxidBytes.hexEncodedString()):\(update.chanPoint.outputIndex)"
+          let lnUpdate = LNGraphTopologyUpdate.channel(channelPoint)
+          lnUpdates.append(lnUpdate)
+          SLLog.verbose(String(describing: lnUpdate))
+        }
+
+        for update in graphTopologyUpdate.closedChans {
+          let channelPoint = "\(update.chanPoint.fundingTxidBytes.hexEncodedString()):\(update.chanPoint.outputIndex)"
+          let lnUpdate = LNGraphTopologyUpdate.channel(channelPoint)
+          lnUpdates.append(lnUpdate)
+          SLLog.verbose(String(describing: lnUpdate))
+        }
+        
+        completion({ return lnUpdates })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    
+    func onError(_ p0: Error!) {
+      if p0.localizedDescription != "EOF" {
+        completion({ throw p0 })
+      }
+    }
+  }
+  
+  static func subscribeChannelGraph(retryCount: Int = LNConstants.defaultRetryCount,
+                                    retryDelay: Double = LNConstants.defaultRetryDelay,
+                                    completion: @escaping (() throws -> ([LNGraphTopologyUpdate])) -> Void) {
+    
+    let lndOp = SubscribeChannelGraph(completion)
+    SLLog.debug("LN Subscribe Channel Graph Request")
+    LndmobileSubscribeChannelGraph(nil, lndOp)
   }
 }

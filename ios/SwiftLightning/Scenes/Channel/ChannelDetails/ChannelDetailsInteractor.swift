@@ -16,6 +16,8 @@ protocol ChannelDetailsBusinessLogic {
   func refresh(request: ChannelDetails.Refresh.Request)
   func connect(request: ChannelDetails.Connect.Request)
   func close(request: ChannelDetails.Close.Request)
+  func subscribeEvents()
+  func unsubscribeEvents()
 }
 
 protocol ChannelDetailsDataStore {
@@ -26,16 +28,19 @@ class ChannelDetailsInteractor: ChannelDetailsBusinessLogic, ChannelDetailsDataS
 {
   var presenter: ChannelDetailsPresentationLogic?
   
+  
   // MARK: Data Store
+  
   var channelPoint: String?
-  private var channelInfo: ChannelVM?
-  private var nodeInfo: NodeInfo?
   
   typealias ChDetailInfo = ChannelDetails.ChDetailInfo
   typealias NodeInfo = ChannelDetails.NodeInfo
   
   
   // MARK: Refresh
+  
+  private var channelInfo: ChannelVM?
+  private var nodeInfo: NodeInfo?
   
   func refresh(request: ChannelDetails.Refresh.Request) {
     guard let channelPoint = channelPoint else {
@@ -194,12 +199,31 @@ class ChannelDetailsInteractor: ChannelDetailsBusinessLogic, ChannelDetailsDataS
       }
       
     } catch {
+      SLLog.warning("Close Channel received error - \(error.localizedDescription)")
+      
       // No idea what's going on, hit the Event Central anyways
       EventCentral.shared.channelCloseNotify()
       
       // This is the nay path if the Close Channel Scene still exists
       let response = ChannelDetails.Close.Response(result: Result<Void>.failure(error))
       presenter?.presentClose(response: response)
+    }
+  }
+  
+  
+  // MARK: Event Subscriptions
+  private var eventHandle: EventCentral.Handle?
+  
+  func subscribeEvents() {
+    eventHandle = EventCentral.shared.subscribe(to: [.periodicUpdate, .openUpdate, .closeUpdate]) { (message) in
+      self.refresh(request: ChannelDetails.Refresh.Request())
+    }
+  }
+  
+  func unsubscribeEvents() {
+    if let handle = eventHandle {
+      EventCentral.shared.unsubscribe(from: handle)
+      self.eventHandle = nil
     }
   }
 }

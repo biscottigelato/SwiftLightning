@@ -25,7 +25,6 @@ protocol WalletMainDataStore {
 class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
   var presenter: WalletMainPresentationLogic?
   
-  
   // MARK: Update Balances
   
   func updateBalances(request: WalletMain.UpdateBalances.Request) {

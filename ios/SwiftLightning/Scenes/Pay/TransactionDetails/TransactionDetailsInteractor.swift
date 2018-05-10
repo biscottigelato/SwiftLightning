@@ -12,9 +12,10 @@
 
 import UIKit
 
-protocol TransactionDetailsBusinessLogic
-{
+protocol TransactionDetailsBusinessLogic {
   func refresh(request: TransactionDetails.Refresh.Request)
+  func subscribeEvents()
+  func unsubscribeEvents()
 }
 
 protocol TransactionDetailsDataStore {
@@ -82,6 +83,53 @@ class TransactionDetailsInteractor: TransactionDetailsBusinessLogic, Transaction
           self.presenter?.presentRefresh(response: response)
         }
       }
+    }
+  }
+  
+  
+  // MARK: Event Subscription
+  private var txEventHandle: EventCentral.Handle?
+  
+  func subscribeEvents() {
+    // Lightning Payments are instant. No updates expected
+    guard transactionType == .onChain else {
+      return
+    }
+    
+    SLLog.debug("Transaction Details Events Subscription")
+    txEventHandle = EventCentral.shared.subscribe(to: [.periodicUpdate, .transaction]) { (message) in
+      
+      switch message {
+      case .periodicUpdate:
+        self.refresh(request: TransactionDetails.Refresh.Request())
+        
+      case .transaction(let transaction):
+        guard let transactionHash = self.transactionHash, let transactionType = self.transactionType else {
+          SLLog.assert("Not transaction info in Data Store")
+          return
+        }
+        
+        switch transactionType {
+        case .onChain:
+          SLLog.debug("Transaction Event \(transaction.txHash.prefix(10)) received. Displayed Transaction \(transactionHash.prefix(10))")
+          if transactionHash == transaction.txHash {
+            self.refresh(request: TransactionDetails.Refresh.Request())
+          }
+          
+        default:
+          SLLog.warning("Do not expect updates for LN Payment Details")
+        }
+        
+      default:
+        SLLog.assert("Did not subscribe to event type \(message)")
+      }
+    }
+  }
+  
+  func unsubscribeEvents() {
+    if let handle = txEventHandle {
+      EventCentral.shared.unsubscribe(from: handle)
+      self.txEventHandle = nil
     }
   }
 }
