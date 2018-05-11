@@ -10,16 +10,16 @@ import UIKit
 
 @IBDesignable class SLUnboxedHeading: NibView {
 
+  @IBOutlet weak var logo: UIImageView!
   @IBOutlet weak var title: UILabel!
   @IBOutlet weak var logoHeightConstraint: NSLayoutConstraint!
-  @IBOutlet weak var logoAspectRatioConstraint: NSLayoutConstraint!
+  @IBOutlet weak var stackView: UIStackView!
   
   override var intrinsicContentSize: CGSize {
     let logoHeight = logoHeightConstraint.constant
-    let logoWidth = logoHeight / logoAspectRatioConstraint.multiplier
-    
-    let width = logoWidth + title.intrinsicContentSize.width + 15.0
-    let height = max(logoHeight, title.intrinsicContentSize.height)
+
+    let width = stackView.intrinsicContentSize.width
+    let height = max(logoHeight, stackView.intrinsicContentSize.height)
     
     return CGSize(width: width, height: height)
   }

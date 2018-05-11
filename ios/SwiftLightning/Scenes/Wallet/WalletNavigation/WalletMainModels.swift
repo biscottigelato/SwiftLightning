@@ -12,8 +12,8 @@
 
 import UIKit
 
-enum WalletMain
-{
+enum WalletMain {
+  
   // MARK: Update Balances
   enum UpdateBalances {
     struct Request { }

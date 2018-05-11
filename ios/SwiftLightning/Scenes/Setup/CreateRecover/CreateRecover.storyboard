@@ -41,9 +41,9 @@
                                         <rect key="frame" x="67.666666666666686" y="138.33333333333334" width="240" height="385.33333333333326"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningLogo" translatesAutoresizingMaskIntoConstraints="NO" id="a7X-bd-peU">
-                                                <rect key="frame" x="62.333333333333321" y="0.0" width="115.66666666666669" height="204"/>
+                                                <rect key="frame" x="18" y="0.0" width="204" height="204"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="a7X-bd-peU" secondAttribute="height" multiplier="303:537" id="46m-a3-WdK"/>
+                                                    <constraint firstAttribute="width" secondItem="a7X-bd-peU" secondAttribute="height" id="46m-a3-WdK"/>
                                                 </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oSj-Vb-HHF">
@@ -91,7 +91,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-A9-PER" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="16.333333333333343" y="639" width="343" height="42"/>
+                                <rect key="frame" x="15.666666666666657" y="639" width="345" height="42"/>
                                 <color key="backgroundColor" name="LightAzureBlue"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                 <state key="normal" title="Create New Wallet">
@@ -108,7 +108,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQF-OK-Hbl" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="16" y="696" width="343" height="42"/>
+                                <rect key="frame" x="15" y="696" width="345" height="42"/>
                                 <color key="backgroundColor" name="MedAquamarine"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                 <state key="normal" title="Recover Wallet">
@@ -152,7 +152,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LightningLogo" width="115" height="203"/>
+        <image name="LightningLogo" width="205" height="205"/>
         <image name="OnboardBackgroundTemp" width="1333" height="2000"/>
         <namedColor name="LightAzureBlue">
             <color red="0.4823529411764706" green="0.71372549019607845" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -167,7 +167,7 @@
             <color red="0.30588235294117649" green="0.50588235294117645" blue="0.44705882352941179" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="NormalText">
-            <color red="1" green="0.99607843137254903" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

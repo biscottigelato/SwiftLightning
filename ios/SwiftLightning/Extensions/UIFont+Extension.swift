@@ -48,4 +48,7 @@ extension UIFont {
   static func semiBoldFont(_ size: CGFloat) -> UIFont { return UIFont.OpenSansSemibold(size) }
   static func boldFont(_ size: CGFloat) -> UIFont { return UIFont.OpenSansBold(size) }
   static func extraBoldFont(_ size: CGFloat) -> UIFont { return UIFont.OpenSansExtraBold(size) }
+  
+  static func headerFont(_ size: CGFloat) -> UIFont { return UIFont.MontserratLight(size) }
+  
 }

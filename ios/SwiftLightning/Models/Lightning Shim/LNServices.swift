@@ -49,11 +49,11 @@ class LNServices {
     let lndDestinationURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("lnd.conf", isDirectory: false)
     
     // TODO: Mechanism to replace lnd.conf when needed
-//    do {
-//      try FileManager.default.removeItem(at: lndDestinationURL)
-//    } catch {
-//      SLLog.warning("Remove item if needed failed - \(error)")
-//    }
+    do {
+      try FileManager.default.removeItem(at: lndDestinationURL)
+    } catch {
+      SLLog.warning("Remove item if needed failed - \(error)")
+    }
     
     // See if the directories are in place. If not, make them
     do {

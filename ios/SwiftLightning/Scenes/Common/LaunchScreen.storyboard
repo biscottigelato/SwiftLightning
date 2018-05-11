@@ -28,9 +28,9 @@
                                 <color key="backgroundColor" name="SpaceCadetBlue"/>
                             </view>
                             <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningLogo" translatesAutoresizingMaskIntoConstraints="NO" id="XRX-ij-kXc">
-                                <rect key="frame" x="130.33333333333334" y="274.66666666666669" width="114.33333333333334" height="203"/>
+                                <rect key="frame" x="86" y="274.66666666666669" width="203" height="203"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="XRX-ij-kXc" secondAttribute="height" multiplier="303:537" id="xXb-kk-Jf7"/>
+                                    <constraint firstAttribute="width" secondItem="XRX-ij-kXc" secondAttribute="height" multiplier="1:1" id="xXb-kk-Jf7"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -57,7 +57,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LightningLogo" width="115" height="203"/>
+        <image name="LightningLogo" width="205" height="205"/>
         <image name="OnboardBackgroundTemp" width="1333" height="2000"/>
         <namedColor name="SpaceCadetBlue">
             <color red="0.14509803921568629" green="0.21568627450980393" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
