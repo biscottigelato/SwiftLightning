@@ -171,6 +171,7 @@ final class TransactionDetailsViewController: SLViewController, TransactionDetai
           self.destPathLabels.append(destPathLabel)
         }
         self.stackView.addArrangedSubview(self.bottomSpacer)
+        self.stackView.layoutIfNeeded()
       }
     }
   }

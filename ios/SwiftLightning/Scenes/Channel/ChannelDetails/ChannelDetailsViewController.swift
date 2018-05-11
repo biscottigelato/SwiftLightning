@@ -71,6 +71,7 @@ class ChannelDetailsViewController: SLViewController, ChannelDetailsDisplayLogic
   
   // MARK: Refresh Views
   
+  @IBOutlet weak var stackView: UIStackView!
   @IBOutlet weak var nodeView: SLFormNodeView!
   @IBOutlet weak var statusLabelView: SLFormCompactView!
   @IBOutlet weak var channelPointView: SLFormLabelView!
@@ -145,6 +146,7 @@ class ChannelDetailsViewController: SLViewController, ChannelDetailsDisplayLogic
         } else {
           self.buttonView.isHidden = false
         }
+        self.stackView.layoutIfNeeded()
       }
     }
   }

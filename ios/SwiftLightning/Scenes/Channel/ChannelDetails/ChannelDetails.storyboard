@@ -275,6 +275,7 @@
                         <outlet property="leftButton" destination="Hkv-b5-Z4W" id="byK-yI-iJR"/>
                         <outlet property="nodeView" destination="GG0-iZ-18L" id="p2w-qX-Vvw"/>
                         <outlet property="rightButton" destination="GoC-CJ-aK8" id="V7d-vm-tXu"/>
+                        <outlet property="stackView" destination="lfh-2V-0ef" id="TR0-g6-6Kt"/>
                         <outlet property="statusLabelView" destination="UYh-5b-mmu" id="Hga-1G-ser"/>
                     </connections>
                 </viewController>
