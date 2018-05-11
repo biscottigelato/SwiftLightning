@@ -74,7 +74,8 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
   @IBOutlet weak var channelView: WalletPageView!
   
   var updateEventHandle: EventCentral.Handle?
-  
+  var syncHandle: EventCentral.Handle?
+    
   // MARK: View lifecycle
   
   override func viewDidLoad() {
@@ -97,30 +98,65 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    // Do an immediate update
-    updateBalances()
-    fetchTransactions()
-    fetchChannels()
-    
-    // Re-subscribe to events
-    updateEventHandle = EventCentral.shared.subscribe(to: [.periodicUpdate, .transaction, .openUpdate, .closeUpdate]) { message in
-      self.updateBalances()
-      
-      switch message {
-      case .transaction:
-        self.fetchTransactions()
+    // Check chain for sync
+    syncHandle = EventCentral.shared.subscribeToSync { (synced, percentage, date) in
+      if synced {
+        DispatchQueue.main.async {
+          // Enable Pay & Manual Open Channel
+          self.transactionView.leftButton.isEnabled = true
+          self.transactionView.leftButton.backgroundColor = UIColor.lightAzureBlue
+          self.transactionView.leftButton.shadowColor = UIColor.lightAzureBlueShadow
+          self.transactionView.leftButton.setTitleColor(UIColor.normalText, for: .normal)
+          
+          self.channelView.leftButton.isEnabled = true
+          self.channelView.leftButton.backgroundColor = UIColor.lightAzureBlue
+          self.channelView.leftButton.shadowColor = UIColor.lightAzureBlueShadow
+          self.channelView.leftButton.setTitleColor(UIColor.normalText, for: .normal)
+        }
         
-      case .openUpdate, .closeUpdate:
+        // Do an immediate update
+        self.updateBalances()
+        self.fetchTransactions()
         self.fetchChannels()
         
-      case .periodicUpdate:
-        self.fetchTransactions()
-        self.fetchChannels()
-        
-      default:
-        SLLog.assert("Do not expect unsubscribed message types")
+        // Re-subscribe to events
+        self.updateEventHandle = EventCentral.shared.subscribe(to: [.periodicUpdate, .transaction, .openUpdate, .closeUpdate]) { message in
+          self.updateBalances()
+          
+          switch message {
+          case .transaction:
+            self.fetchTransactions()
+            
+          case .openUpdate, .closeUpdate:
+            self.fetchChannels()
+            
+          case .periodicUpdate:
+            self.fetchTransactions()
+            self.fetchChannels()
+            
+          default:
+            SLLog.assert("Do not expect unsubscribed message types")
+          }
+        }
+      } else {
+        DispatchQueue.main.async {
+          // TODO: Display views in place of Transaction/Channel View
+          
+          // Disable Pay & Manual Open
+          self.transactionView.leftButton.isEnabled = false
+          self.transactionView.leftButton.backgroundColor = UIColor.disabledGray
+          self.transactionView.leftButton.shadowColor = UIColor.disabledGrayShadow
+          self.transactionView.leftButton.setTitleColor(UIColor.disabledText, for: .normal)
+          
+          self.channelView.leftButton.isEnabled = false
+          self.channelView.leftButton.backgroundColor = UIColor.disabledGray
+          self.channelView.leftButton.shadowColor = UIColor.disabledGrayShadow
+          self.channelView.leftButton.setTitleColor(UIColor.disabledText, for: .normal)
+        }
       }
     }
+    
+    
   }
   
   override func viewDidDisappear(_ animated: Bool) {
@@ -131,7 +167,13 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
       EventCentral.shared.unsubscribe(from: handle)
       updateEventHandle = nil
     }
+    
+    if let handle = syncHandle {
+      EventCentral.shared.unsubscribeFromSync(on: handle)
+      syncHandle = nil
+    }
   }
+  
   
   // MARK: Paging control
   
@@ -159,7 +201,6 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
     }
   }
   
-  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch tableView {
     case transactionView.tableView:
@@ -172,7 +213,6 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
       SLLog.fatal("Unrecognized Tableview - \(tableView)")
     }
   }
-  
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch tableView {
@@ -352,11 +392,7 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
   }
   
   
-  // MARK: Update Balance - This is Temporary
-  
-  private func updateBalanceTapped(_ sender: SLBarButton) {
-    updateBalances()
-  }
+  // MARK: Update Balance
   
   private func updateBalances() {
     let request = WalletMain.UpdateBalances.Request()
@@ -377,5 +413,4 @@ class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITabl
       self.present(alertDialog, animated: true, completion: nil)
     }
   }
-  
 }

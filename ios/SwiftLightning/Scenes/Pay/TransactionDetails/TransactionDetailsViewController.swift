@@ -115,61 +115,63 @@ final class TransactionDetailsViewController: UIViewController, TransactionDetai
   
   func displayRefresh(viewModel: TransactionDetails.Refresh.ViewModel) {
     DispatchQueue.main.async {
-      switch viewModel.txType {
-      case .onChain:
-        self.headerView.iconImageView.image = UIImage(named: "ChainColored")
-      case .lightning:
-        self.headerView.iconImageView.image = UIImage(named: "BoltColored")
+      UIView.animate(withDuration: 0.5) {
+        switch viewModel.txType {
+        case .onChain:
+          self.headerView.iconImageView.image = UIImage(named: "ChainColored")
+        case .lightning:
+          self.headerView.iconImageView.image = UIImage(named: "BoltColored")
+        }
+        self.headerView.headerLabel.text = viewModel.txHeaderText
+        
+        self.txHashView.titleLabel.text = viewModel.txHashTitle
+        self.txHashView.textLabel.text = viewModel.txHashText
+        
+        self.amountView.textLabel.text = viewModel.amountText
+        self.feesView.textLabel.text = viewModel.feesText
+        self.dateView.textLabel.text = viewModel.dateText
+        
+        if let confirmationsText = viewModel.confirmationsText {
+          self.confirmationsSpacer.isHidden = false
+          self.confirmationsView.isHidden = false
+          self.confirmationsView.textLabel.text = confirmationsText
+        } else {
+          self.confirmationsSpacer.isHidden = true
+          self.confirmationsView.isHidden = true
+        }
+        
+        if let blockHeightText = viewModel.blockHeightText {
+          self.blockHeightSpacer.isHidden = false
+          self.blockHeightView.isHidden = false
+          self.blockHeightView.textLabel.text = blockHeightText
+        } else {
+          self.blockHeightSpacer.isHidden = true
+          self.blockHeightView.isHidden = true
+        }
+        
+        self.hashPreimageView.titleLabel.text = viewModel.hashPreimageTitle
+        self.hashPreimageView.textLabel.text = viewModel.hashPreimageText
+        
+        self.destPathTitleLabel.titleLabel.text = viewModel.destPathTitle
+        
+        // Remove old views
+        for destPath in self.destPathLabels {
+          self.stackView.removeArrangedSubview(destPath)
+        }
+        self.destPathLabels.removeAll(keepingCapacity: true)
+        self.stackView.removeArrangedSubview(self.bottomSpacer)
+        
+        // Add new views
+        for destPath in viewModel.destPaths {
+          let destPathLabel = SLFormTextLabel()
+          destPathLabel.textLabel.text = destPath
+          destPathLabel.copyDialogSuperview = self.view
+          destPathLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+          self.stackView.addArrangedSubview(destPathLabel)
+          self.destPathLabels.append(destPathLabel)
+        }
+        self.stackView.addArrangedSubview(self.bottomSpacer)
       }
-      self.headerView.headerLabel.text = viewModel.txHeaderText
-      
-      self.txHashView.titleLabel.text = viewModel.txHashTitle
-      self.txHashView.textLabel.text = viewModel.txHashText
-      
-      self.amountView.textLabel.text = viewModel.amountText
-      self.feesView.textLabel.text = viewModel.feesText
-      self.dateView.textLabel.text = viewModel.dateText
-      
-      if let confirmationsText = viewModel.confirmationsText {
-        self.confirmationsSpacer.isHidden = false
-        self.confirmationsView.isHidden = false
-        self.confirmationsView.textLabel.text = confirmationsText
-      } else {
-        self.confirmationsSpacer.isHidden = true
-        self.confirmationsView.isHidden = true
-      }
-      
-      if let blockHeightText = viewModel.blockHeightText {
-        self.blockHeightSpacer.isHidden = false
-        self.blockHeightView.isHidden = false
-        self.blockHeightView.textLabel.text = blockHeightText
-      } else {
-        self.blockHeightSpacer.isHidden = true
-        self.blockHeightView.isHidden = true
-      }
-      
-      self.hashPreimageView.titleLabel.text = viewModel.hashPreimageTitle
-      self.hashPreimageView.textLabel.text = viewModel.hashPreimageText
-      
-      self.destPathTitleLabel.titleLabel.text = viewModel.destPathTitle
-      
-      // Remove old views
-      for destPath in self.destPathLabels {
-        self.stackView.removeArrangedSubview(destPath)
-      }
-      self.destPathLabels.removeAll(keepingCapacity: true)
-      self.stackView.removeArrangedSubview(self.bottomSpacer)
-      
-      // Add new views
-      for destPath in viewModel.destPaths {
-        let destPathLabel = SLFormTextLabel()
-        destPathLabel.textLabel.text = destPath
-        destPathLabel.copyDialogSuperview = self.view
-        destPathLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-        self.stackView.addArrangedSubview(destPathLabel)
-        self.destPathLabels.append(destPathLabel)
-      }
-      self.stackView.addArrangedSubview(self.bottomSpacer)
     }
   }
   

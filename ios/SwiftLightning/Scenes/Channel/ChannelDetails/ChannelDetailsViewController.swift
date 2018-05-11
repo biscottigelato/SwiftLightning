@@ -97,52 +97,54 @@ class ChannelDetailsViewController: UIViewController, ChannelDetailsDisplayLogic
   
   func displayRefresh(viewModel: ChannelDetails.Refresh.ViewModel) {
     DispatchQueue.main.async {
-      self.nodeView.nodePubKeyLabel.text = viewModel.nodePubKey
-      self.nodeView.ipAddressLabel.text = viewModel.ipAddr ?? ""
-      self.nodeView.portNumberLabel.text = viewModel.port ?? ""
-      self.nodeView.aliasNameLabel.text = viewModel.alias ?? ""
-      
-      self.statusLabelView.textLabel.text = viewModel.statusText
-      self.statusLabelView.textLabel.textColor = viewModel.statusColor
-      self.channelPointView.textLabel.text = viewModel.channelPoint
-      
-      if let confHeight = viewModel.confHeight {
-        self.confirmationsSpacer.isHidden = false
-        self.confirmationsLabelView.isHidden = false
-        self.confirmationsLabelView.textLabel.text = confHeight
-      } else {
-        self.confirmationsSpacer.isHidden = true
-        self.confirmationsLabelView.isHidden = true
-      }
-      
-      if let closingTxID = viewModel.closingTxID {
-        self.closingSpacer.isHidden = false
-        self.closingLabelView.isHidden = false
-        self.closingLabelView.textLabel.text = closingTxID
-      } else {
-        self.closingSpacer.isHidden = true
-        self.closingLabelView.isHidden = true
-      }
-      
-      if let blksTillMaturity = viewModel.blksTilMaturity {
-        self.blksTillMaturitySpacer.isHidden = false
-        self.blksTillMaturityLabelView.isHidden = false
-        self.blksTillMaturityLabelView.textLabel.text = blksTillMaturity
-      } else {
-        self.blksTillMaturitySpacer.isHidden = true
-        self.blksTillMaturityLabelView.isHidden = true
-      }
-      
-      self.channelCapacityView.canPayAmtLabel.text = viewModel.canPayAmt
-      self.channelCapacityView.canRcvAmtLabel.text = viewModel.canRcvAmt
-      
-      self.leftButton.isHidden = viewModel.leftButtonHidden
-      self.rightButton.isHidden = viewModel.rightButtonHidden
-      
-      if viewModel.leftButtonHidden, viewModel.rightButtonHidden {
-        self.buttonView.isHidden = true
-      } else {
-        self.buttonView.isHidden = false
+      UIView.animate(withDuration: 0.5) {
+        self.nodeView.nodePubKeyLabel.text = viewModel.nodePubKey
+        self.nodeView.ipAddressLabel.text = viewModel.ipAddr ?? ""
+        self.nodeView.portNumberLabel.text = viewModel.port ?? ""
+        self.nodeView.aliasNameLabel.text = viewModel.alias ?? ""
+        
+        self.statusLabelView.textLabel.text = viewModel.statusText
+        self.statusLabelView.textLabel.textColor = viewModel.statusColor
+        self.channelPointView.textLabel.text = viewModel.channelPoint
+        
+        if let confHeight = viewModel.confHeight {
+          self.confirmationsSpacer.isHidden = false
+          self.confirmationsLabelView.isHidden = false
+          self.confirmationsLabelView.textLabel.text = confHeight
+        } else {
+          self.confirmationsSpacer.isHidden = true
+          self.confirmationsLabelView.isHidden = true
+        }
+        
+        if let closingTxID = viewModel.closingTxID {
+          self.closingSpacer.isHidden = false
+          self.closingLabelView.isHidden = false
+          self.closingLabelView.textLabel.text = closingTxID
+        } else {
+          self.closingSpacer.isHidden = true
+          self.closingLabelView.isHidden = true
+        }
+        
+        if let blksTillMaturity = viewModel.blksTilMaturity {
+          self.blksTillMaturitySpacer.isHidden = false
+          self.blksTillMaturityLabelView.isHidden = false
+          self.blksTillMaturityLabelView.textLabel.text = blksTillMaturity
+        } else {
+          self.blksTillMaturitySpacer.isHidden = true
+          self.blksTillMaturityLabelView.isHidden = true
+        }
+        
+        self.channelCapacityView.canPayAmtLabel.text = viewModel.canPayAmt
+        self.channelCapacityView.canRcvAmtLabel.text = viewModel.canRcvAmt
+        
+        self.leftButton.isHidden = viewModel.leftButtonHidden
+        self.rightButton.isHidden = viewModel.rightButtonHidden
+        
+        if viewModel.leftButtonHidden, viewModel.rightButtonHidden {
+          self.buttonView.isHidden = true
+        } else {
+          self.buttonView.isHidden = false
+        }
       }
     }
   }

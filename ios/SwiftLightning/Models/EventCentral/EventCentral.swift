@@ -13,7 +13,7 @@ class EventCentral {
   struct Constants {
     static let timeIntervalPerBlk: Double = 600  // Mainnet only!!!
     static let testnet3Blk1Timestamp: Double = 1296688928   // Testnet 3 only!!!
-    static let syncMonitorInterval: Double = 1 // seconds
+    static let syncMonitorInterval: Double = 3 // seconds
     static let pullUpdateInterval: Double = 60 // seconds
     static let subscribeToGraphTopology: Bool = false
   }
@@ -25,11 +25,29 @@ class EventCentral {
   
   private init() { }
   
+  private let eventQueue = DispatchQueue(label: "EventRelay", qos: .background)  // not concurrent, so serial
+  
+  
+  // MARK: Atomic infinitely incrementing identifier for handles
+  
+  typealias Handle = Int
+  
+  private let idLock = DispatchSemaphore(value: 1)
+  private var identifier = 0
+  
+  private func getAtomicID() -> Int {
+    idLock.wait()
+    let id = identifier
+    identifier += 1
+    idLock.signal()
+    return id
+  }
+  
   
   // MARK: Sync Progress Monitoring
   
-  // SyncUpdateCallback is guarenteed to be called at least once
-  private var syncUpdateCallback: ((Bool, Double, Date) -> ())?
+  // syncUpdateCallbacks is guarenteed to be called at least once
+  private var syncUpdateCallbacks = [Handle: (Bool, Double, Date) -> ()]()
   private var syncTimer: RepeatingTimer?
   
   
@@ -65,28 +83,34 @@ class EventCentral {
       do {
         let info = try responder()
         
-        if info.syncedToChain {
-          
-          SLLog.debug("Synced to chain, invalidating Timer")
-          if let timer = timer {
-            timer.suspend()
+        self.eventQueue.async {
+          if info.syncedToChain {
+            SLLog.debug("Synced to chain, invalidating Timer")
             
-            // Need to nil both to break reference loop
-            timer.eventHandler = nil
-            self.syncTimer = nil
+            if let timer = timer {
+              timer.suspend()
+              
+              // Need to nil both to break reference loop
+              timer.eventHandler = nil
+              self.syncTimer = nil
+            }
+            
+            for callback in self.syncUpdateCallbacks {
+              callback.value(true, 1.0, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))
+            }
+            // Start Event Relayer if not already started
+            self.startEventRelayer()
+            
+          } else {
+            // Update progress with callback until syncedToChain = true
+            let estimate = self.estimatePercentage(blockTimestamp: info.bestHeaderTimestamp, blockHeight: info.blockHeight)
+            
+            SLLog.verbose("Sycn progress estimated at \(estimate * 100.0)%")
+            
+            for callback in self.syncUpdateCallbacks {
+              callback.value(false, estimate, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))
+            }
           }
-          
-          self.syncUpdateCallback?(true, 1.0, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))
-          
-          // Start Event Relayer if not already started
-          self.startEventRelayer()
-          
-        } else {
-          // Update progress with callback until syncedToChain = true
-          let estimate = self.estimatePercentage(blockTimestamp: info.bestHeaderTimestamp, blockHeight: info.blockHeight)
-          
-          SLLog.verbose("Sycn progress estimated at \(estimate * 100.0)%")
-          self.syncUpdateCallback?(false, estimate, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))
         }
       } catch {
         SLLog.warning("SyncTimer expiry cannot GetInfo with error - \(error.localizedDescription)")
@@ -114,11 +138,22 @@ class EventCentral {
     return estimate
   }
   
-  func regsiterSyncProgress(callback: @escaping (Bool, Double, Date) -> ()) {
-    syncUpdateCallback = callback
+  func subscribeToSync(with callback: @escaping (Bool, Double, Date) -> ()) -> Handle {
+    let handle: Handle = getAtomicID()
     
-    // Make sure syncUpdateCallback gets called at least once
-    syncTimerHandler(for: nil)
+    eventQueue.async {
+      self.syncUpdateCallbacks[handle] = callback
+    
+      // Make sure syncUpdateCallbacks gets called at least once
+      self.syncTimerHandler(for: nil)
+    }
+    return handle
+  }
+  
+  func unsubscribeFromSync(on handle: Handle) {
+    eventQueue.async {
+      self.syncUpdateCallbacks.removeValue(forKey: handle)
+    }
   }
   
   
@@ -158,12 +193,7 @@ class EventCentral {
     var callback: (Message) -> ()
   }
   
-  typealias Handle = Int
-  
   private var listeners = [Handle : Subscription]()
-  private let relayQueue = DispatchQueue(label: "EventRelay", qos: .background)  // not concurrent, so serial
-  private let idLock = DispatchSemaphore(value: 1)
-  private var identifier = 0
   private var relayerStarted = false
   private var periodicTimer = RepeatingTimer(timeInterval: Constants.pullUpdateInterval)
   
@@ -191,7 +221,7 @@ class EventCentral {
     do {
       let transaction = try responder()
       
-      relayQueue.async {
+      eventQueue.async {
         let txListeners = self.listeners.filter({ $0.value.events.contains(.transaction) })
         
         for listener in txListeners {
@@ -208,7 +238,7 @@ class EventCentral {
     do {
       let topologyUpdates = try responder()
       
-      relayQueue.async {
+      eventQueue.async {
         let nodeListeners = self.listeners.filter({ $0.value.events.contains(.nodeUpdate) })
         let channelListeners = self.listeners.filter({ $0.value.events.contains(.chEdgeUpdate) })
         let closeListeners = self.listeners.filter({ $0.value.events.contains(.closedChUpdate) })
@@ -241,7 +271,7 @@ class EventCentral {
   }
   
   private func periodicNotify() {
-    relayQueue.async {
+    eventQueue.async {
       let listeners = self.listeners.filter({ $0.value.events.contains(.periodicUpdate) })
       SLLog.debug("Periodic Pull Notification")
       
@@ -253,7 +283,7 @@ class EventCentral {
   }
   
   func channelOpenNotify() {
-    relayQueue.async {
+    eventQueue.async {
       let openListeners = self.listeners.filter({ $0.value.events.contains(.openUpdate) })
       
       for listener in openListeners {
@@ -264,7 +294,7 @@ class EventCentral {
   }
 
   func channelCloseNotify() {
-    relayQueue.async {
+    eventQueue.async {
       let closeListeners = self.listeners.filter({ $0.value.events.contains(.closeUpdate) })
       
       for listener in closeListeners {
@@ -279,12 +309,12 @@ class EventCentral {
   
   func subscribe(to events: Set<EventType>, with callback: @escaping (Message) -> ()) -> Handle {
     let handle: Handle = getAtomicID()
-    relayQueue.async { self.listeners[handle] = Subscription(events: events, callback: callback) }
+    eventQueue.async { self.listeners[handle] = Subscription(events: events, callback: callback) }
     return handle
   }
   
   func unsubscribe(from handle: Handle) {
-    relayQueue.async {
+    eventQueue.async {
       self.listeners.removeValue(forKey: handle)
     }
   }
@@ -308,11 +338,5 @@ class EventCentral {
     return listener.events
   }
   
-  private func getAtomicID() -> Int{
-    idLock.wait()
-    let id = identifier
-    identifier += 1
-    idLock.signal()
-    return id
-  }
+
 }

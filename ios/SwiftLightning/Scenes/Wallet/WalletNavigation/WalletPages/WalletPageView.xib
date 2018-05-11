@@ -111,13 +111,13 @@
                             <rect key="frame" x="0.0" y="0.0" width="10" height="42"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ocE-LA-cbH" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ocE-LA-cbH" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
                             <rect key="frame" x="10" y="0.0" width="172.5" height="42"/>
-                            <color key="backgroundColor" name="LightAzureBlue"/>
+                            <color key="backgroundColor" name="DisabledGray"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="Pay">
-                                <color key="titleColor" name="NormalText"/>
-                                <color key="titleShadowColor" name="LightAzureBlueShadow"/>
+                                <color key="titleColor" name="DisabledText"/>
+                                <color key="titleShadowColor" name="DisabledGray"/>
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
@@ -174,6 +174,12 @@
         </view>
     </objects>
     <resources>
+        <namedColor name="DisabledGray">
+            <color red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="DisabledText">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="FormHeaderGray">
             <color red="0.97254901960784312" green="0.96862745098039216" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
@@ -182,9 +188,6 @@
         </namedColor>
         <namedColor name="LightAzureBlue">
             <color red="0.4823529411764706" green="0.71372549019607845" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="LightAzureBlueShadow">
-            <color red="0.26274509800000001" green="0.38431372549999998" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="LightTextGray">
             <color red="0.66666666666666663" green="0.66274509803921566" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

@@ -50,10 +50,11 @@ class WalletNavigationController: UINavigationController {
     
     let percentageFormatter = NumberFormatter()
     percentageFormatter.numberStyle = .percent
+    percentageFormatter.roundingMode = .down
     percentageFormatter.maximumFractionDigits = 0
     
     // Keep the header view updated to sync progress
-    EventCentral.shared.regsiterSyncProgress { (synced, percentage, date) in
+    _ = EventCentral.shared.subscribeToSync { (synced, percentage, date) in
       DispatchQueue.main.async {
         if synced {
           headingView.logo.stopAnimating()
