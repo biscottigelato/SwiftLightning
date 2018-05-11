@@ -19,7 +19,7 @@ protocol ChannelDetailsDisplayLogic: class {
   func displayError(viewModel: ChannelDetails.ErrorVM)
 }
 
-class ChannelDetailsViewController: UIViewController, ChannelDetailsDisplayLogic {
+class ChannelDetailsViewController: SLViewController, ChannelDetailsDisplayLogic {
   var interactor: ChannelDetailsBusinessLogic?
   var router: (NSObjectProtocol & ChannelDetailsRoutingLogic & ChannelDetailsDataPassing)?
   

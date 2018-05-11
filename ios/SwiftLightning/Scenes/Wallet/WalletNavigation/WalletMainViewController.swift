@@ -24,7 +24,7 @@ protocol WalletMainDisplayLogic: class {
 }
 
 
-class WalletMainViewController: UIViewController, WalletMainDisplayLogic, UITableViewDelegate, UITableViewDataSource {
+class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITableViewDelegate, UITableViewDataSource {
   var interactor: WalletMainBusinessLogic?
   var router: (WalletMainRoutingLogic & WalletMainDataPassing)?
   

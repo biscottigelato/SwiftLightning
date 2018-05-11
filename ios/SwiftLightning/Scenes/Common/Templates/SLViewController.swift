@@ -23,6 +23,7 @@ class SLViewController: UIViewController {
     let keyboardDismissRecognizer = UITapGestureRecognizer(target: self, action: #selector(keyboardDismiss))
     keyboardDismissRecognizer.numberOfTapsRequired = 1
     keyboardDismissRecognizer.numberOfTouchesRequired = 1
+    keyboardDismissRecognizer.cancelsTouchesInView = false
     view.addGestureRecognizer(keyboardDismissRecognizer)
     
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)

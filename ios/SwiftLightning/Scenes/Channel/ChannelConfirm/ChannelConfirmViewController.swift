@@ -12,30 +12,26 @@
 
 import UIKit
 
-protocol ChannelConfirmDisplayLogic: class
-{
+protocol ChannelConfirmDisplayLogic: class {
   func displayRefresh(viewModel: ChannelConfirm.Refresh.ViewModel)
   func displayOpenChannelSubmitted(viewModel: ChannelConfirm.OpenChannel.ViewModel)
   func displayOpenChannelFailure(viewModel: ChannelConfirm.OpenChannel.ErrorVM)
 }
 
 
-class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
-{
+class ChannelConfirmViewController: SLViewController, ChannelConfirmDisplayLogic {
   var interactor: ChannelConfirmBusinessLogic?
   var router: (NSObjectProtocol & ChannelConfirmRoutingLogic & ChannelConfirmDataPassing)?
 
   
   // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     setup()
   }
   
-  required init?(coder aDecoder: NSCoder)
-  {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
@@ -43,8 +39,7 @@ class ChannelConfirmViewController: UIViewController, ChannelConfirmDisplayLogic
   
   // MARK: Setup
   
-  private func setup()
-  {
+  private func setup() {
     let viewController = self
     let interactor = ChannelConfirmInteractor()
     let presenter = ChannelConfirmPresenter()

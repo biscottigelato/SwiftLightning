@@ -41,34 +41,42 @@ class LNServices {
       SLLog.fatal("Cannot get Application Support Folder URL")
     }
     directoryPath = appSupportPath + "/lnd"
-    
-    // Copy lnd.conf to the LND directoryPath
+
+    // Get handles to source and destination lnd.conf URLs
     guard let lndSourceURL = Bundle.main.url(forResource: "lnd", withExtension: "conf") else {
       SLLog.fatal("Cannot get in Bundle lnd.conf")
     }
     let lndDestinationURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("lnd.conf", isDirectory: false)
-    
-    // TODO: Mechanism to replace lnd.conf when needed
-    do {
-      try FileManager.default.removeItem(at: lndDestinationURL)
-    } catch {
-      SLLog.warning("Remove item if needed failed - \(error)")
+
+    // Check if file and directory. Create/copy as necassary
+    if !FileManager.default.fileExists(atPath: lndDestinationURL.path) {
+      do {
+        if !FileManager.default.fileExists(atPath: directoryPath, isDirectory: nil) {
+          try FileManager.default.createDirectory(atPath: directoryPath, withIntermediateDirectories: true)
+        }
+        try FileManager.default.copyItem(at: lndSourceURL, to: lndDestinationURL)
+        usleep(100000)  // Sleep for 100ms for file to settle
+      } catch CocoaError.fileWriteFileExists {
+        SLLog.assert("lnd.conf already exist at Applicaiton Support/lnd")
+      } catch {
+        let nsError = error as NSError
+        SLLog.fatal("Failed to copy lnd.conf from bundle to Application Support/lnd/lnd.conf.\(nsError.domain): \(nsError.code) - \(nsError.localizedDescription)")
+      }
     }
-    
-    // See if the directories are in place. If not, make them
-    do {
-      try FileManager.default.createDirectory(atPath: directoryPath, withIntermediateDirectories: true)
-    } catch {
-      SLLog.warning("Create directory if needed failed - \(error)")
-    }
-    
-    do {
-      try FileManager.default.copyItem(at: lndSourceURL, to: lndDestinationURL)
-    } catch CocoaError.fileWriteFileExists {
-      SLLog.debug("lnd.conf already exist at Applicaiton Support/lnd")
-    } catch {
-      let nsError = error as NSError
-      SLLog.fatal("Failed to copy lnd.conf from bundle to Application Support/lnd - \(nsError.domain): \(nsError.code)")
+      
+    // File exists, replace if differs
+    else if !FileManager.default.contentsEqual(atPath: lndSourceURL.path, andPath: lndDestinationURL.path) {
+      let lndTempURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("lnd.temp", isDirectory: false)
+      
+      // Replacement requires source to be in a local temp. And seems the temp is auto removed after
+      do {
+        try FileManager.default.copyItem(at: lndSourceURL, to: lndTempURL)
+        _ = try FileManager.default.replaceItemAt(lndDestinationURL, withItemAt: lndTempURL, backupItemName: "lnd.bak")
+        usleep(100000)  // Sleep for 100ms for file to settle
+      } catch {
+        let nsError = error as NSError
+        SLLog.assert("Failed to replace lnd.conf. \(nsError.domain): \(nsError.code) - \(nsError.localizedDescription)")
+      }
     }
     
     // BTCD can throw SIGPIPEs. Ignoring according to https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/NetworkingOverview/CommonPitfalls/CommonPitfalls.html for now

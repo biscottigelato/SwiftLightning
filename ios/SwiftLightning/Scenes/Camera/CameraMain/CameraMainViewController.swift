@@ -25,7 +25,7 @@ protocol CameraReturnDelegate: class {
 }
 
 
-class CameraMainViewController: UIViewController, CameraMainDisplayLogic {
+class CameraMainViewController: SLViewController, CameraMainDisplayLogic {
   var interactor: (CameraMainBusinessLogic & AVCaptureMetadataOutputObjectsDelegate)?
   var router: (NSObjectProtocol & CameraMainRoutingLogic & CameraMainDataPassing)?
   var delegate: CameraReturnDelegate?

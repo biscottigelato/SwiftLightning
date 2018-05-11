@@ -18,7 +18,7 @@ protocol TransactionDetailsDisplayLogic: class {
 }
 
 
-final class TransactionDetailsViewController: UIViewController, TransactionDetailsDisplayLogic {
+final class TransactionDetailsViewController: SLViewController, TransactionDetailsDisplayLogic {
   var interactor: TransactionDetailsBusinessLogic?
   var router: (NSObjectProtocol & TransactionDetailsRoutingLogic & TransactionDetailsDataPassing)?
 

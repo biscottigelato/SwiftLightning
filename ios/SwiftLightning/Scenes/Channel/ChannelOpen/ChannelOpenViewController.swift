@@ -89,6 +89,7 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, Came
   }
   
   override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     updateOnChainedConfirmedBalance()
   }
   

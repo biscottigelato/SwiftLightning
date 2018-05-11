@@ -20,7 +20,7 @@ protocol ReceiveMainDisplayLogic: class {
 }
 
 
-class ReceiveMainViewController: UIViewController, ReceiveMainDisplayLogic {
+class ReceiveMainViewController: SLViewController, ReceiveMainDisplayLogic {
   var interactor: ReceiveMainBusinessLogic?
   var router: (NSObjectProtocol & ReceiveMainRoutingLogic & ReceiveMainDataPassing)?
 

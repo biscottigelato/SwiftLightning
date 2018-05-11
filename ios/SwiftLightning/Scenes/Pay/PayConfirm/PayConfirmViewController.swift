@@ -19,7 +19,7 @@ protocol PayConfirmDisplayLogic: class {
 }
 
 
-class PayConfirmViewController: UIViewController, PayConfirmDisplayLogic {
+class PayConfirmViewController: SLViewController, PayConfirmDisplayLogic {
   
   var interactor: PayConfirmBusinessLogic?
   var router: (NSObjectProtocol & PayConfirmRoutingLogic & PayConfirmDataPassing)?

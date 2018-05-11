@@ -705,6 +705,13 @@
 			path = SwiftLightning;
 			sourceTree = "<group>";
 		};
+		8C33E69620A545B300C31F33 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Transitions;
+			sourceTree = "<group>";
+		};
 		8C36A026209662B8003BEFB6 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -1216,6 +1223,7 @@
 			isa = PBXGroup;
 			children = (
 				8C6B7565208BB9CF00B751A2 /* LaunchScreen.storyboard */,
+				8C33E69620A545B300C31F33 /* Transitions */,
 				8C090DEC2086FF3D009B8B8D /* Templates */,
 				8C6B753A208AF30800B751A2 /* Root */,
 			);
