@@ -67,6 +67,7 @@ class RootRouter: NSObject, RootRoutingLogic, RootDataPassing
   }
   
   func navigateToWalletNavigation(source: RootViewController, destination: WalletNavigationController) {
+    destination.modalTransitionStyle = .crossDissolve
     source.present(destination, animated: true, completion: nil)
   }
   

@@ -90,6 +90,11 @@
 		8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FC7072073513700966D31 /* AppDelegate.swift */; };
 		8C2FC70D2073513700966D31 /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70B2073513700966D31 /* Root.storyboard */; };
 		8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70E2073513800966D31 /* Assets.xcassets */; };
+		8C33E69820A5607900C31F33 /* PercentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E69720A5607800C31F33 /* PercentInteractor.swift */; };
+		8C33E69A20A5608400C31F33 /* SlideTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E69920A5608400C31F33 /* SlideTransitionAnimator.swift */; };
+		8C33E69C20A560B200C31F33 /* BasicDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E69B20A560B200C31F33 /* BasicDirection.swift */; };
+		8C33E69E20A5621400C31F33 /* PopTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E69D20A5621400C31F33 /* PopTransitionAnimator.swift */; };
+		8C33E6A020A5636B00C31F33 /* CGPoint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E69F20A5636B00C31F33 /* CGPoint+Extension.swift */; };
 		8C36A02C20966DA2003BEFB6 /* AddressTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02B20966DA2003BEFB6 /* AddressTest.swift */; };
 		8C36A02E20966DB3003BEFB6 /* PaymentURITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */; };
 		8C36A03020966DCA003BEFB6 /* SecureHashTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */; };
@@ -337,6 +342,11 @@
 		8C2FC70C2073513700966D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Root.storyboard; sourceTree = "<group>"; };
 		8C2FC70E2073513800966D31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C2FC7132073513900966D31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C33E69720A5607800C31F33 /* PercentInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PercentInteractor.swift; sourceTree = "<group>"; };
+		8C33E69920A5608400C31F33 /* SlideTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideTransitionAnimator.swift; sourceTree = "<group>"; };
+		8C33E69B20A560B200C31F33 /* BasicDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicDirection.swift; sourceTree = "<group>"; };
+		8C33E69D20A5621400C31F33 /* PopTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopTransitionAnimator.swift; sourceTree = "<group>"; };
+		8C33E69F20A5636B00C31F33 /* CGPoint+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extension.swift"; sourceTree = "<group>"; };
 		8C36A02B20966DA2003BEFB6 /* AddressTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTest.swift; sourceTree = "<group>"; };
 		8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentURITest.swift; sourceTree = "<group>"; };
 		8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureHashTest.swift; sourceTree = "<group>"; };
@@ -558,6 +568,7 @@
 			children = (
 				8C090E5120896050009B8B8D /* Test */,
 				8C090E0520880154009B8B8D /* Result.swift */,
+				8C33E69B20A560B200C31F33 /* BasicDirection.swift */,
 				8C70EC14208E51A700D658DC /* HttpStatusCodes.swift */,
 				8C7D310720755CE00068F2BD /* SLLog.swift */,
 				8C090E4F20895CA9009B8B8D /* SLRandValues.swift */,
@@ -708,6 +719,9 @@
 		8C33E69620A545B300C31F33 /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
+				8C33E69720A5607800C31F33 /* PercentInteractor.swift */,
+				8C33E69920A5608400C31F33 /* SlideTransitionAnimator.swift */,
+				8C33E69D20A5621400C31F33 /* PopTransitionAnimator.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";
@@ -742,6 +756,7 @@
 				8CE3AE642086DA9E007D1065 /* UIColor+Extension.swift */,
 				8C090DEA2086F92A009B8B8D /* UITextField+Extension.swift */,
 				8C090E0F20881DAB009B8B8D /* UIAlertController+Extension.swift */,
+				8C33E69F20A5636B00C31F33 /* CGPoint+Extension.swift */,
 				8C6D039720A170ED00C31F7F /* Date+Extension.swift */,
 			);
 			path = Extensions;
@@ -1604,6 +1619,7 @@
 				8C8275B9208EA1B30029BE7E /* ChannelOpenWorker.swift in Sources */,
 				8C686541209A6E87001E41DA /* CameraMainInteractor.swift in Sources */,
 				8C82760A20912A890029BE7E /* SLFormPaySummaryView.swift in Sources */,
+				8C33E69E20A5621400C31F33 /* PopTransitionAnimator.swift in Sources */,
 				8C090E012087DEAA009B8B8D /* MnemonicExplainViewController.swift in Sources */,
 				8C70EC13208E511900D658DC /* SLRetry.swift in Sources */,
 				8C8275BC208EA1B30029BE7E /* ChannelOpenViewController.swift in Sources */,
@@ -1624,6 +1640,7 @@
 				8C090DF420870DB9009B8B8D /* LNDefinitions.swift in Sources */,
 				8C090E4220894801009B8B8D /* MnemonicConfirmPresenter.swift in Sources */,
 				8C090E4720894801009B8B8D /* MnemonicConfirmInteractor.swift in Sources */,
+				8C33E6A020A5636B00C31F33 /* CGPoint+Extension.swift in Sources */,
 				8C6B7542208AF33200B751A2 /* RootWorker.swift in Sources */,
 				8C7745AF209BF839004EBA69 /* TxnTableViewCell.swift in Sources */,
 				8C1882A020868EBE002E2835 /* PasswordCreateModels.swift in Sources */,
@@ -1659,6 +1676,7 @@
 				8C77AD8120A2C9530094D733 /* TransactionDetailsRouter.swift in Sources */,
 				8C6D039820A170ED00C31F7F /* Date+Extension.swift in Sources */,
 				8C70EBD1208C345B00D658DC /* ReceiveMainViewController.swift in Sources */,
+				8C33E69820A5607900C31F33 /* PercentInteractor.swift in Sources */,
 				8C1882A120868EBE002E2835 /* PasswordCreateViewController.swift in Sources */,
 				8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */,
 				8CFA16AE2083001F00813EA6 /* DesignableViews.swift in Sources */,
@@ -1677,6 +1695,7 @@
 				8C8275FC209118250029BE7E /* SLFormLabelView.swift in Sources */,
 				8C7EC53320950449001C8FD6 /* PayMainWorker.swift in Sources */,
 				8CFA16A52082EF3A00813EA6 /* CreateRecoverViewController.swift in Sources */,
+				8C33E69C20A560B200C31F33 /* BasicDirection.swift in Sources */,
 				8C1AE3832095BF4000A4D9BF /* Bech32.swift in Sources */,
 				8C090E042087F28D009B8B8D /* LNManager.swift in Sources */,
 				8C8275F020910FA40029BE7E /* ChannelConfirmWorker.swift in Sources */,
@@ -1741,6 +1760,7 @@
 				8C090E022087DEAA009B8B8D /* MnemonicExplainInteractor.swift in Sources */,
 				8C7745C9209D3E39004EBA69 /* ChannelDetailsViewController.swift in Sources */,
 				8CFA16A62082EF3A00813EA6 /* CreateRecoverInteractor.swift in Sources */,
+				8C33E69A20A5608400C31F33 /* SlideTransitionAnimator.swift in Sources */,
 				8C6B754F208AFEC800B751A2 /* UnlockAppWorker.swift in Sources */,
 				8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */,
 				8C090E352088612B009B8B8D /* MnemonicDisplayModels.swift in Sources */,

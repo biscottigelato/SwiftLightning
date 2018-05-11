@@ -115,7 +115,7 @@ final class TransactionDetailsViewController: SLViewController, TransactionDetai
   
   func displayRefresh(viewModel: TransactionDetails.Refresh.ViewModel) {
     DispatchQueue.main.async {
-      UIView.animate(withDuration: 0.5) {
+      UIView.animate(withDuration: SLDesign.Constants.defaultTransitionDuration) {
         switch viewModel.txType {
         case .onChain:
           self.headerView.iconImageView.image = UIImage(named: "ChainColored")

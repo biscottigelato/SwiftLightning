@@ -63,6 +63,8 @@ class ChannelOpenRouter: NSObject, ChannelOpenRoutingLogic, ChannelOpenDataPassi
       SLLog.assert("\(type(of: source)).navigationController = nil")
       return
     }
+    destination.setSlideTransition(presentTowards: .left, dismissIsInteractive: true)
+    navigationController.delegate = destination
     navigationController.pushViewController(destination, animated: true)
   }
   
@@ -72,6 +74,8 @@ class ChannelOpenRouter: NSObject, ChannelOpenRoutingLogic, ChannelOpenDataPassi
       return
     }
     destination.delegate = source
+    destination.setPopTransition(dismissIsInteractive: true)
+    navigationController.delegate = destination
     navigationController.pushViewController(destination, animated: true)
   }
   

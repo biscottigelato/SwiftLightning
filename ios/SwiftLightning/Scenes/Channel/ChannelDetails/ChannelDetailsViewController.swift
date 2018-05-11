@@ -98,7 +98,7 @@ class ChannelDetailsViewController: SLViewController, ChannelDetailsDisplayLogic
   
   func displayRefresh(viewModel: ChannelDetails.Refresh.ViewModel) {
     DispatchQueue.main.async {
-      UIView.animate(withDuration: 0.5) {
+      UIView.animate(withDuration: SLDesign.Constants.defaultTransitionDuration) {
         self.nodeView.nodePubKeyLabel.text = viewModel.nodePubKey
         self.nodeView.ipAddressLabel.text = viewModel.ipAddr ?? ""
         self.nodeView.portNumberLabel.text = viewModel.port ?? ""

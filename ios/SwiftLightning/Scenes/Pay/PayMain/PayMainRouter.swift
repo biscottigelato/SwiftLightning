@@ -61,6 +61,8 @@ class PayMainRouter: NSObject, PayMainRoutingLogic, PayMainDataPassing {
       SLLog.assert("\(type(of: source)).navigationController = nil")
       return
     }
+    destination.setSlideTransition(presentTowards: .left, dismissIsInteractive: true)
+    navigationController.delegate = destination
     navigationController.pushViewController(destination, animated: true)
   }
   
@@ -70,6 +72,8 @@ class PayMainRouter: NSObject, PayMainRoutingLogic, PayMainDataPassing {
       return
     }
     destination.delegate = source
+    destination.setPopTransition(dismissIsInteractive: true)
+    navigationController.delegate = destination
     navigationController.pushViewController(destination, animated: true)
   }
   

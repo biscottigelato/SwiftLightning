@@ -15,6 +15,7 @@ import UIKit
 protocol WalletMainRoutingLogic {
   func routeToPayMain()
   func routeToReceiveMain()
+  func routeToChannelOpen()
   func routeToChannelDetails(channelPoint: String)
   func routeToTransactionDetails(type: BitcoinPaymentType, hash: String)
 }
@@ -45,6 +46,14 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
     passDataToReceiveMain(source: dataStore!, destination: &destinationDS)
     navigateToReceiveMain(source: viewController!, destination: destinationVC)
   }
+  
+  func routeToChannelOpen() {
+    let storyboard = UIStoryboard(name: "ChannelOpen", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChannelOpenViewController") as! ChannelOpenViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToChannelOpen(source: dataStore!, destination: &destinationDS)
+    navigateToChannelOpen(source: viewController!, destination: destinationVC)
+  }
 
   func routeToChannelDetails(channelPoint: String) {
     let storyboard = UIStoryboard(name: "ChannelDetails", bundle: nil)
@@ -70,6 +79,8 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
       SLLog.assert("\(type(of: source)).navigationController = nil")
       return
     }
+    destination.setPopTransition(dismissIsInteractive: true)
+    navigationController.delegate = destination
     navigationController.pushViewController(destination, animated: true)
   }
   
@@ -78,6 +89,18 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
       SLLog.assert("\(type(of: source)).navigationController = nil")
       return
     }
+    destination.setPopTransition(dismissIsInteractive: true)
+    navigationController.delegate = destination
+    navigationController.pushViewController(destination, animated: true)
+  }
+  
+  func navigateToChannelOpen(source: WalletMainViewController, destination: ChannelOpenViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    destination.setPopTransition(dismissIsInteractive: true)
+    navigationController.delegate = destination
     navigationController.pushViewController(destination, animated: true)
   }
   
@@ -86,6 +109,8 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
       SLLog.assert("\(type(of: source)).navigationController = nil")
       return
     }
+    destination.setPopTransition(dismissIsInteractive: true)
+    navigationController.delegate = destination
     navigationController.pushViewController(destination, animated: true)
   }
   
@@ -94,6 +119,8 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
       SLLog.assert("\(type(of: source)).navigationController = nil")
       return
     }
+    destination.setPopTransition(dismissIsInteractive: true)
+    navigationController.delegate = destination
     navigationController.pushViewController(destination, animated: true)
   }
   
@@ -105,6 +132,10 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
   }
   
   func passDataToReceiveMain(source: WalletMainDataStore, destination: inout ReceiveMainDataStore) {
+    // destination.name = source.name
+  }
+  
+  func passDataToChannelOpen(source: WalletMainDataStore, destination: inout ChannelOpenDataStore) {
     // destination.name = source.name
   }
   

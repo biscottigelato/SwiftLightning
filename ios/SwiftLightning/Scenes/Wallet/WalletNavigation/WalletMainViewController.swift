@@ -386,9 +386,7 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
   // MARK: Open Channel
   
   @objc private func openChannelTapped(_ sender: SLBarButton) {
-    let storyboard = UIStoryboard(name: "ChannelOpen", bundle: nil)
-    let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChannelOpenViewController") as! ChannelOpenViewController
-    navigationController?.pushViewController(destinationVC, animated: true)
+    router?.routeToChannelOpen()
   }
   
   
