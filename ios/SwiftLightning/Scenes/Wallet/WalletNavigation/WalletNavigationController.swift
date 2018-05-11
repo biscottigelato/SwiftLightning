@@ -12,7 +12,7 @@ class WalletNavigationController: UINavigationController {
   
   struct Constants {
     static let headerFont = UIFont.MontserratLight(18.0)  // Make font a touch smaller than during setup
-    static let logoHeight: CGFloat = 28.0  // Make logo height a touch smaller than during setup
+    static let logoHeight: CGFloat = 30.0  // Make logo height a touch smaller than during setup
     static let logoAnimationDuration = TimeInterval(3.0)
   }
   
@@ -31,7 +31,7 @@ class WalletNavigationController: UINavigationController {
                            UIImage(named: "LightningLogo1")!,
                            UIImage(named: "LightningLogo2")!,
                            UIImage(named: "LightningLogo3")!,
-                           UIImage(named: "LightningLogo")!]
+                           UIImage(named: "LightningLogo4")!]
     
     let headingView = SLUnboxedHeading()
     headingView.logoHeightConstraint.constant = Constants.logoHeight
@@ -57,7 +57,7 @@ class WalletNavigationController: UINavigationController {
       DispatchQueue.main.async {
         if synced {
           headingView.logo.stopAnimating()
-          headingView.logo.image = UIImage(named: "LightningLogo")
+          headingView.logo.image = UIImage(named: "LightningLogo4")
           headingView.title.isHidden = true
         } else {
           if headingView.logo.isAnimating {

@@ -85,7 +85,7 @@ class EventCentral {
           // Update progress with callback until syncedToChain = true
           let estimate = self.estimatePercentage(blockTimestamp: info.bestHeaderTimestamp, blockHeight: info.blockHeight)
           
-          SLLog.verbose("Sycn progress estiamted at \(estimate * 100.0)%")
+          SLLog.verbose("Sycn progress estimated at \(estimate * 100.0)%")
           self.syncUpdateCallback?(false, estimate, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))
         }
       } catch {
