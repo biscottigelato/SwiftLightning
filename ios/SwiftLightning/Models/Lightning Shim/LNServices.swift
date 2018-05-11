@@ -399,7 +399,6 @@ class LNServices {
   
   private class SendCoins: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> (String)) -> Void
-    let retry = SLRetry()
     init(_ completion: @escaping (() throws -> (String)) -> Void) {
       self.completion = completion
     }
@@ -409,14 +408,12 @@ class LNServices {
         let response = try Lnrpc_SendCoinsResponse(serializedData: p0)
         SLLog.debug("LN Send Coins Success!")
         
-        // Success. Deference retry
-        retry.success()
         completion({ response.txid })
       } catch {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    func onError(_ p0: Error!) { completion({ throw p0 }) }
   }
   
   static func sendCoins(address: String, amount: Int, targetConf: Int? = nil, satPerByte: Int? = nil,
@@ -424,31 +421,23 @@ class LNServices {
                         retryDelay: Double = LNConstants.defaultRetryDelay,
                         completion: @escaping (() throws -> (String)) -> Void) {
     
+    // Not retrying anything that draws funds
     let lndOp = SendCoins(completion)
-    
-    let task = {
-      do {
-        var request = Lnrpc_SendCoinsRequest()
-        request.addr = address
-        request.amount = Int64(amount)
-        
-        if let targetConf = targetConf { request.targetConf = Int32(targetConf) }
-        if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
-        
-        SLLog.debug("LN Send Coins Request to \(request.addr.prefix(10))...")
-        let serialReq = try request.serializedData()
-        LndmobileSendCoins(serialReq, lndOp)
-      } catch {
-        completion({ throw error })
-      }
-    }
-    
-    let fail = { (error: Error) -> () in
-      SLLog.warning("LN Send Coins Failed - \(error.localizedDescription)")
+
+    do {
+      var request = Lnrpc_SendCoinsRequest()
+      request.addr = address
+      request.amount = Int64(amount)
+      
+      if let targetConf = targetConf { request.targetConf = Int32(targetConf) }
+      if let satPerByte = satPerByte { request.satPerByte = Int64(satPerByte) }
+      
+      SLLog.debug("LN Send Coins Request to \(request.addr.prefix(10))...")
+      let serialReq = try request.serializedData()
+      LndmobileSendCoins(serialReq, lndOp)
+    } catch {
       completion({ throw error })
     }
-    
-    lndOp.retry.start("LN Send Coins", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
@@ -1226,7 +1215,6 @@ class LNServices {
   
   private class SendPaymentSync: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> (payError: String, payPreImage: Data, payRoute: LNRoute)) -> Void
-    let retry = SLRetry()
     init(_ completion: @escaping (() throws -> (payError: String, payPreImage: Data, payRoute: LNRoute)) -> Void) {
       self.completion = completion
     }
@@ -1256,14 +1244,12 @@ class LNServices {
                               totalFeesMsat: Int(response.paymentRoute.totalFeesMsat),
                               totalAmtMsat: Int(response.paymentRoute.totalAmtMsat))
         
-        // Success. Deference retry
-        retry.success()
         completion({ return (response.paymentError, response.paymentPreimage, lnRoute) })
       } catch {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    func onError(_ p0: Error!) { completion({ throw p0 }) }
   }
   
   static func sendPaymentSync(dest: Data? = nil, amount: Int? = nil, payHash: Data? = nil, payReq: String? = nil, finalCLTVDelta: Int? = nil,
@@ -1271,36 +1257,28 @@ class LNServices {
                               retryDelay: Double = LNConstants.defaultRetryDelay,
                               completion: @escaping (() throws -> (payError: String, payPreImage: Data, payRoute: LNRoute)) -> Void) {
     
+    // Not retrying anything that draws funds
     let lndOp = SendPaymentSync(completion)
     
-    let task = {
-      do {
-        var request = Lnrpc_SendRequest()
-        if let dest = dest {
-          request.dest = dest
-          SLLog.info("LN Send Payment Sync Request - Dest: \(dest.hexEncodedString().prefix(10))...")
-        }
-        if let amount = amount { request.amt = Int64(amount) }
-        if let payHash = payHash { request.paymentHash = payHash }
-        if let payReq = payReq {
-          request.paymentRequest = payReq
-          SLLog.info("LN Send Payment Sync Request - PayReq: \(payReq.prefix(10))...")
-        }
-        if let finalCTLVDelta = finalCLTVDelta { request.finalCltvDelta = Int32(finalCTLVDelta) }
-        
-        let serialReq = try request.serializedData()
-        LndmobileSendPaymentSync(serialReq, lndOp)
-      } catch {
-        completion({ throw error })
+    do {
+      var request = Lnrpc_SendRequest()
+      if let dest = dest {
+        request.dest = dest
+        SLLog.info("LN Send Payment Sync Request - Dest: \(dest.hexEncodedString().prefix(10))...")
       }
-    }
-    
-    let fail = { (error: Error) -> () in
-      SLLog.warning("LN Send Payment Sync Failed - \(error.localizedDescription)")
+      if let amount = amount { request.amt = Int64(amount) }
+      if let payHash = payHash { request.paymentHash = payHash }
+      if let payReq = payReq {
+        request.paymentRequest = payReq
+        SLLog.info("LN Send Payment Sync Request - PayReq: \(payReq.prefix(10))...")
+      }
+      if let finalCTLVDelta = finalCLTVDelta { request.finalCltvDelta = Int32(finalCTLVDelta) }
+      
+      let serialReq = try request.serializedData()
+      LndmobileSendPaymentSync(serialReq, lndOp)
+    } catch {
       completion({ throw error })
     }
-    
-    lndOp.retry.start("LN Send Payment Sync", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   

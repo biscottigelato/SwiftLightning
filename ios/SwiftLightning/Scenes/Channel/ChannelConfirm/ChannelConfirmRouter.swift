@@ -39,6 +39,9 @@ class ChannelConfirmRouter: NSObject, ChannelConfirmRoutingLogic, ChannelConfirm
   }
 
   func routeToWalletMain() {
+//    let destinationVC = viewController!.presentingViewController as! WalletMainViewController
+//    var destinationDS = destinationVC.router!.dataStore!
+//    passDataToChannelOpen(source: dataStore!, destination: &destinationDS)
     navigateToWalletMain(source: viewController!)
   }
   
@@ -57,6 +60,11 @@ class ChannelConfirmRouter: NSObject, ChannelConfirmRoutingLogic, ChannelConfirm
     guard let navigationController = source.navigationController else {
       SLLog.assert("\(type(of: source)).navigationController = nil")
       return
+    }
+    
+    // Wallet Main is at index 0. So we want the dismissal transition delegate at index 1
+    if let navigationDelegate = navigationController.viewControllers[1] as? SLViewController {
+      navigationController.delegate = navigationDelegate
     }
     navigationController.popToRootViewController(animated: true)
   }

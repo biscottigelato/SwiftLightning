@@ -171,6 +171,34 @@ class CameraMainViewController: SLViewController, CameraMainDisplayLogic {
   }
   
   
+  // MARK: Flash Toggle
+  
+  @IBAction func toggleFlash(_ sender: UIBarButtonItem) {
+    guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
+      SLLog.assert("Cannot access AVCaputreDevice for video")
+      return
+    }
+    
+    if device.hasTorch {
+      do {
+        try device.lockForConfiguration()
+        
+        if device.torchMode == .on {
+           device.torchMode = .off
+        } else {
+          device.torchMode = .on
+        }
+        
+        device.unlockForConfiguration()
+      } catch {
+        SLLog.assert("Cannot lock AVCaptureDevice for configuration - \(error.localizedDescription)")
+      }
+    } else {
+      SLLog.warning("Torch is not available")
+    }
+  }
+  
+  
   // MARK: Dismiss
   
   @IBAction func closeCrossTapped(_ sender: UIBarButtonItem) {

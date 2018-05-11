@@ -58,6 +58,11 @@ class PayConfirmRouter: NSObject, PayConfirmRoutingLogic, PayConfirmDataPassing 
       SLLog.assert("\(type(of: source)).navigationController = nil")
       return
     }
+    
+    // Wallet Main is at index 0. So we want the dismissal transition delegate at index 1
+    if let navigationDelegate = navigationController.viewControllers[1] as? SLViewController {
+      navigationController.delegate = navigationDelegate
+    }
     navigationController.popToRootViewController(animated: true)
   }
   
