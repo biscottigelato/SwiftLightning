@@ -118,9 +118,9 @@ final class TransactionDetailsViewController: SLViewController, TransactionDetai
       UIView.animate(withDuration: SLDesign.Constants.defaultTransitionDuration) {
         switch viewModel.txType {
         case .onChain:
-          self.headerView.iconImageView.image = UIImage(named: "ChainColored")
+          self.headerView.setIcon(to: .chain)
         case .lightning:
-          self.headerView.iconImageView.image = UIImage(named: "BoltColored")
+          self.headerView.setIcon(to: .bolt)
         }
         self.headerView.headerLabel.text = viewModel.txHeaderText
         

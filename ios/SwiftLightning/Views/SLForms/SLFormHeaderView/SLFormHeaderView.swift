@@ -39,28 +39,31 @@ import UIKit
     case chain
   }
   
-  var iconType: IconType = .bolt
+  private var iconType: IconType = .bolt
   
-  @IBOutlet weak var iconImageView: UIImageView!
+  @IBOutlet private weak var iconImageView: UIImageView!
+  
+  func setIcon(to type: IconType) {
+    iconType = type
+    
+    switch iconType {
+    case .none:
+      iconImageView.isHidden = true
+    case .bolt:
+      iconImageView.isHidden = false
+      iconImageView.image = UIImage(named: "BoltColored")
+    case .chain:
+      iconImageView.isHidden = false
+      iconImageView.image = UIImage(named: "ChainColored")
+    }
+  }
   
   @IBInspectable var iconIndex: Int {
     get {
       return iconType.rawValue
     }
-
     set {
-      iconType = IconType(rawValue: newValue) ?? .bolt
-
-      switch iconType {
-      case .none:
-        iconImageView.isHidden = true
-      case .bolt:
-        iconImageView.isHidden = false
-        iconImageView.image = UIImage(named: "BoltColored")
-      case .chain:
-        iconImageView.isHidden = false
-        iconImageView.image = UIImage(named: "ChainColored")
-      }
+      setIcon(to: IconType(rawValue: newValue) ?? .none)
     }
   }
 }

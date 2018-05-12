@@ -106,12 +106,12 @@ class PayConfirmViewController: SLViewController, PayConfirmDisplayLogic {
       
       switch viewModel.paymentType {
       case .lightning:
-        self.headerView.iconImageView.image = UIImage(named: "BoltColored")
+        self.headerView.setIcon(to: .bolt)
         self.headerView.headerLabel.text = "Confirm Lightning Payment"
         self.confirmationSpacer.isHidden = true
         self.confirmationLabelView.isHidden = true
       case .onChain:
-        self.headerView.iconImageView.image = UIImage(named: "ChainColored")
+        self.headerView.setIcon(to: .chain)
         self.headerView.headerLabel.text = "Confirm On-Chain Payment"
         self.confirmationLabelView.textLabel.text = viewModel.confSpeed
         self.confirmationLabelView.isHidden = true

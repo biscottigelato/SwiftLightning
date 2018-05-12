@@ -86,7 +86,7 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
     amountEntryView.textField.delegate = self
     descriptionEntryView.textField.delegate = self
     
-    headerView.iconImageView.image = nil
+    headerView.setIcon(to: .none)
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -187,12 +187,15 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
       if let paymentType = viewModel.paymentType {
         switch paymentType {
         case .lightning:
-          self.headerView.iconImageView.image = UIImage(named: "BoltColored")
+          self.headerView.setIcon(to: .bolt)
           self.headerView.headerLabel.text = "Lightning Payment"
         case .onChain:
-          self.headerView.iconImageView.image = UIImage(named: "ChainColored")
+          self.headerView.setIcon(to: .chain)
           self.headerView.headerLabel.text = "On-Chain Payment"
         }
+      } else {
+        self.headerView.setIcon(to: .none)
+        self.headerView.headerLabel.text = "Payment"
       }
       
       self.amountEntryView.balanceLabel.text = viewModel.balance
@@ -235,6 +238,7 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
   
   func displayAddressWarning(viewModel: PayMain.AddressVM) {
     DispatchQueue.main.async {
+      self.headerView.setIcon(to: .none)
       self.addressEntryView.errorLabel.text = viewModel.errMsg
     }
   }

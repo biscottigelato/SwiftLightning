@@ -71,11 +71,16 @@ class PayMainPresenter: PayMainPresentationLogic
     
     let amountToShow = inputAmount ?? validationResult.revisedAmount
     let amountExpected = validationResult.revisedAmount
+    var paymentType: BitcoinPaymentType? = validationResult.paymentType
     
     let addressError = validationResult.addressError
     let addrErrVM = PayMain.AddressVM(errMsg: addressError?.localizedDescription ?? "")
     viewController?.displayAddressWarning(viewModel: addrErrVM)
-    addrInvalid = addressError != nil
+    
+    if addressError != nil {
+      addrInvalid = true
+      paymentType = nil
+    }
     
     if let error = validationResult.amountError {
       if let amountExpected = amountExpected, error == .amtMismatch {
@@ -116,7 +121,7 @@ class PayMainPresenter: PayMainPresentationLogic
     let viewModel = PayMain.UpdateVM(revisedAddress: addressToShow,
                                      revisedAmount: amountToShow?.formattedInSatoshis(),
                                      payDescription: validationResult.payDescription,
-                                     paymentType: validationResult.paymentType,
+                                     paymentType: paymentType,
                                      fee: "fee: \(feeString)",
                                      balance: balanceString)
     
