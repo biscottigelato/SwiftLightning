@@ -26,11 +26,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PYD-9C-EKR" userLabel="Camera View">
-                                <rect key="frame" x="0.0" y="72" width="375" height="531"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="525"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aM0-Z0-w9b">
-                                <rect key="frame" x="0.0" y="603" width="375" height="64"/>
+                                <rect key="frame" x="0.0" y="597" width="375" height="70"/>
                                 <items>
                                     <barButtonItem title="Item" image="CloseCrossLight" id="13k-fb-Qvk">
                                         <color key="tintColor" name="NormalText"/>
@@ -49,25 +49,25 @@
                                 <color key="barTintColor" name="SpaceCadetBlue"/>
                             </toolbar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Hyg-Bi-iPE">
-                                <rect key="frame" x="12" y="72" width="351" height="531"/>
+                                <rect key="frame" x="12" y="72" width="351" height="525"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NnC-kr-4nP" userLabel="Spacer">
-                                        <rect key="frame" x="27.5" y="0.0" width="296" height="94"/>
+                                        <rect key="frame" x="27.5" y="0.0" width="296" height="88"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ScanFrame" translatesAutoresizingMaskIntoConstraints="NO" id="vrX-qB-2l7" userLabel="Scan Frame">
-                                        <rect key="frame" x="53" y="94" width="245" height="245.5"/>
+                                        <rect key="frame" x="53" y="88" width="245" height="245.5"/>
                                         <color key="tintColor" name="NormalText"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="vrX-qB-2l7" secondAttribute="height" multiplier="1:1" id="o2x-m0-mcx"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VMa-Gv-Xh7" userLabel="Spacer">
-                                        <rect key="frame" x="27.5" y="339.5" width="296" height="93"/>
+                                        <rect key="frame" x="27.5" y="333.5" width="296" height="87.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WLD-Mu-dxd" userLabel="QR Dialog View">
-                                        <rect key="frame" x="0.0" y="432.5" width="351" height="70"/>
+                                        <rect key="frame" x="0.0" y="421" width="351" height="70"/>
                                         <subviews>
                                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ro-72-4kb">
                                                 <rect key="frame" x="0.0" y="0.0" width="351" height="70"/>
@@ -115,27 +115,27 @@ Lightning Peer Node info</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EaQ-wt-oGF" userLabel="Spacer">
-                                        <rect key="frame" x="27.5" y="502.5" width="296" height="28.5"/>
+                                        <rect key="frame" x="27.5" y="491" width="296" height="34"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="VMa-Gv-Xh7" firstAttribute="height" secondItem="NnC-kr-4nP" secondAttribute="height" id="E6D-Xz-TQl"/>
-                                    <constraint firstItem="EaQ-wt-oGF" firstAttribute="height" secondItem="VMa-Gv-Xh7" secondAttribute="height" multiplier="0.3" id="FXa-uV-cqC"/>
+                                    <constraint firstItem="EaQ-wt-oGF" firstAttribute="height" secondItem="VMa-Gv-Xh7" secondAttribute="height" multiplier="0.38" id="FXa-uV-cqC"/>
                                     <constraint firstItem="vrX-qB-2l7" firstAttribute="width" secondItem="Hyg-Bi-iPE" secondAttribute="width" multiplier="0.7" id="QtT-Ye-sZu"/>
                                     <constraint firstAttribute="trailing" secondItem="WLD-Mu-dxd" secondAttribute="trailing" id="axW-W1-1ey"/>
                                     <constraint firstItem="WLD-Mu-dxd" firstAttribute="leading" secondItem="Hyg-Bi-iPE" secondAttribute="leading" id="fpV-Gp-d8i"/>
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FQ8-Vm-4Nh" userLabel="Scan Horizontal Line">
-                                <rect key="frame" x="156.5" y="288" width="61.5" height="2"/>
+                                <rect key="frame" x="156.5" y="282" width="61.5" height="2"/>
                                 <color key="backgroundColor" name="JellyBeanRed"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="dZL-s7-baN"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="enF-Bf-kkf" userLabel="Scan Vertical Line">
-                                <rect key="frame" x="187" y="258.5" width="2" height="61"/>
+                                <rect key="frame" x="187" y="252.5" width="2" height="61"/>
                                 <color key="backgroundColor" name="JellyBeanRed"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="2" id="MXp-kJ-FuS"/>
@@ -159,7 +159,7 @@ Lightning Peer Node info</string>
                             <constraint firstItem="enF-Bf-kkf" firstAttribute="centerX" secondItem="vrX-qB-2l7" secondAttribute="centerX" id="fGf-ZH-kNI"/>
                             <constraint firstItem="FQ8-Vm-4Nh" firstAttribute="centerX" secondItem="vrX-qB-2l7" secondAttribute="centerX" id="gAq-iK-rGZ"/>
                             <constraint firstItem="aM0-Z0-w9b" firstAttribute="bottom" secondItem="0Tb-zq-FJx" secondAttribute="bottom" id="hxm-GI-1yI"/>
-                            <constraint firstItem="kQM-bB-ylA" firstAttribute="bottom" secondItem="aM0-Z0-w9b" secondAttribute="top" constant="64" id="tIb-lJ-U2p"/>
+                            <constraint firstItem="kQM-bB-ylA" firstAttribute="bottom" secondItem="aM0-Z0-w9b" secondAttribute="top" constant="70" id="tIb-lJ-U2p"/>
                             <constraint firstItem="enF-Bf-kkf" firstAttribute="height" secondItem="vrX-qB-2l7" secondAttribute="height" multiplier="0.25" id="yzN-mj-Uir"/>
                             <constraint firstItem="Hyg-Bi-iPE" firstAttribute="bottom" secondItem="PYD-9C-EKR" secondAttribute="bottom" id="zuh-4X-5sV"/>
                         </constraints>

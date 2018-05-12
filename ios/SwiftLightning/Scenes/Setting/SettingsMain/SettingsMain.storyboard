@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
+        <array key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Settings Main View Controller-->
+        <scene sceneID="daH-6Q-ap7">
+            <objects>
+                <viewController storyboardIdentifier="SettingsMainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="R2z-Ve-YpG" customClass="SettingsMainViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cBI-JD-8Ws">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gjI-aH-5s5" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
+                                <rect key="frame" x="10" y="100" width="355" height="213"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kF-wb-tDU">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="213"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UmZ-E4-3xP" userLabel="Content View">
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="213"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jk0-5G-205">
+                                                        <rect key="frame" x="10" y="0.0" width="335" height="213"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="rYk-AA-NN4" userLabel="Header Spacer">
+                                                                <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="0hr-Kh-2O9"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="YxP-if-miW" userLabel="Top Spacer">
+                                                                <rect key="frame" x="0.0" y="40" width="335" height="10"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="10" id="vOZ-fH-01q"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QKo-7k-xao" userLabel="Debug Header">
+                                                                <rect key="frame" x="0.0" y="50" width="335" height="30"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fzb-ue-KlJ" userLabel="Spacer">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="30"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="5" id="iOs-Sq-aQ9"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Debug" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1X0-F9-GP0" userLabel="Debug">
+                                                                        <rect key="frame" x="5" y="6.6666666666666572" width="330" height="16.666666666666668"/>
+                                                                        <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="12"/>
+                                                                        <color key="textColor" name="MediumTextGray"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="30" id="DLv-DB-aCK"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p5X-xr-zEQ" userLabel="Line">
+                                                                <rect key="frame" x="0.0" y="80" width="335" height="1"/>
+                                                                <color key="backgroundColor" name="FormLineGray"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="1" id="WmK-FE-7vQ"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1fc-CT-1Zj" userLabel="LND Debug Level">
+                                                                <rect key="frame" x="0.0" y="81" width="335" height="40"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="roz-9h-KQf" userLabel="Spacer">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="40"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="5" id="IuY-V3-vsV"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LND Debug Level" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UP9-db-vdE">
+                                                                        <rect key="frame" x="5" y="0.0" width="325" height="40"/>
+                                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                                                        <color key="textColor" name="DarkTextBlue"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S7D-fd-39J" userLabel="Spacer">
+                                                                        <rect key="frame" x="330" y="0.0" width="5" height="40"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
+                                                                </subviews>
+                                                                <gestureRecognizers/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="Bk5-dm-n9v"/>
+                                                                    <constraint firstItem="S7D-fd-39J" firstAttribute="width" secondItem="roz-9h-KQf" secondAttribute="width" id="XP8-id-4a8"/>
+                                                                </constraints>
+                                                                <connections>
+                                                                    <outletCollection property="gestureRecognizers" destination="swC-o2-Btk" appends="YES" id="qH9-oU-HzD"/>
+                                                                </connections>
+                                                            </stackView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5EN-Rm-VJ1" userLabel="Line">
+                                                                <rect key="frame" x="0.0" y="121" width="335" height="1"/>
+                                                                <color key="backgroundColor" name="FormLineGray"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="1" id="AMW-2q-Gb1"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yv6-gW-r7K" userLabel="LND Debug Console">
+                                                                <rect key="frame" x="0.0" y="122" width="335" height="40"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S4I-Cq-aLt" userLabel="Spacer">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="40"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LND Log Console" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6o-yo-eEe" userLabel="LND Log Console">
+                                                                        <rect key="frame" x="5" y="0.0" width="325" height="40"/>
+                                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                                                        <color key="textColor" name="DarkTextBlue"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9A-0I-Ygh" userLabel="Spacer">
+                                                                        <rect key="frame" x="330" y="0.0" width="5" height="40"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
+                                                                </subviews>
+                                                                <gestureRecognizers/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="Vdp-P0-t3X"/>
+                                                                    <constraint firstItem="y9A-0I-Ygh" firstAttribute="width" secondItem="S4I-Cq-aLt" secondAttribute="width" id="whm-Kh-Eq4"/>
+                                                                </constraints>
+                                                                <connections>
+                                                                    <outletCollection property="gestureRecognizers" destination="Y3Y-Y7-F75" appends="YES" id="dA9-tV-K0p"/>
+                                                                </connections>
+                                                            </stackView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZtQ-bL-og1" userLabel="Line">
+                                                                <rect key="frame" x="0.0" y="162" width="335" height="1"/>
+                                                                <color key="backgroundColor" name="FormLineGray"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="1" id="Pqh-ce-hzW"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="69r-Yt-aaJ">
+                                                                <rect key="frame" x="0.0" y="163" width="335" height="40"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5by-EO-IUj" userLabel="Spacer">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="40"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Log" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="feI-eR-swn">
+                                                                        <rect key="frame" x="5" y="0.0" width="325" height="40"/>
+                                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                                                        <color key="textColor" name="DarkTextBlue"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g6b-59-lae" userLabel="Spacer">
+                                                                        <rect key="frame" x="330" y="0.0" width="5" height="40"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
+                                                                </subviews>
+                                                                <gestureRecognizers/>
+                                                                <constraints>
+                                                                    <constraint firstItem="g6b-59-lae" firstAttribute="width" secondItem="5by-EO-IUj" secondAttribute="width" id="7MZ-GH-3rR"/>
+                                                                    <constraint firstAttribute="height" constant="40" id="v4X-ZN-J14"/>
+                                                                </constraints>
+                                                                <connections>
+                                                                    <outletCollection property="gestureRecognizers" destination="VAL-Qm-zkh" appends="YES" id="fIB-9J-PkA"/>
+                                                                </connections>
+                                                            </stackView>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="pmD-pu-T1L" userLabel="Header Spacer">
+                                                                <rect key="frame" x="0.0" y="203" width="335" height="10"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="10" id="YFB-GI-efO"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="5by-EO-IUj" firstAttribute="width" secondItem="roz-9h-KQf" secondAttribute="width" id="7mg-Ws-6YO"/>
+                                                            <constraint firstItem="roz-9h-KQf" firstAttribute="width" secondItem="S4I-Cq-aLt" secondAttribute="width" id="FCV-Sb-jaJ"/>
+                                                            <constraint firstItem="roz-9h-KQf" firstAttribute="width" secondItem="S4I-Cq-aLt" secondAttribute="width" id="qRd-KJ-9qT"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="jk0-5G-205" secondAttribute="bottom" id="QWt-13-4uk"/>
+                                                    <constraint firstItem="jk0-5G-205" firstAttribute="leading" secondItem="UmZ-E4-3xP" secondAttribute="leading" constant="10" id="e0b-Lc-JWZ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="jk0-5G-205" secondAttribute="trailing" constant="10" id="g5E-6x-Ls9"/>
+                                                    <constraint firstItem="jk0-5G-205" firstAttribute="top" secondItem="UmZ-E4-3xP" secondAttribute="top" id="mcb-Ni-885"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="UmZ-E4-3xP" secondAttribute="bottom" id="Qme-5w-HLQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="UmZ-E4-3xP" secondAttribute="trailing" id="ejL-i1-zym"/>
+                                            <constraint firstItem="UmZ-E4-3xP" firstAttribute="top" secondItem="2kF-wb-tDU" secondAttribute="top" id="fuP-Np-LkW"/>
+                                            <constraint firstItem="UmZ-E4-3xP" firstAttribute="leading" secondItem="2kF-wb-tDU" secondAttribute="leading" id="iYn-yc-JoJ"/>
+                                        </constraints>
+                                    </scrollView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sic-Ua-zzI" customClass="SLFormHeaderView" customModule="SwiftLightning" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iconIndex">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="headerTitle" value="Settings"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="2kF-wb-tDU" firstAttribute="leading" secondItem="gjI-aH-5s5" secondAttribute="leading" id="1Ye-E2-WBF"/>
+                                    <constraint firstItem="UmZ-E4-3xP" firstAttribute="height" secondItem="gjI-aH-5s5" secondAttribute="height" priority="800" id="AT8-bG-2VF"/>
+                                    <constraint firstAttribute="trailing" secondItem="2kF-wb-tDU" secondAttribute="trailing" id="CdL-Lo-kmG"/>
+                                    <constraint firstItem="sic-Ua-zzI" firstAttribute="top" secondItem="gjI-aH-5s5" secondAttribute="top" id="KhT-lC-0S8"/>
+                                    <constraint firstItem="UmZ-E4-3xP" firstAttribute="width" secondItem="gjI-aH-5s5" secondAttribute="width" id="Zzg-Gu-Zul"/>
+                                    <constraint firstItem="2kF-wb-tDU" firstAttribute="top" secondItem="gjI-aH-5s5" secondAttribute="top" id="bYN-3u-GM8"/>
+                                    <constraint firstItem="sic-Ua-zzI" firstAttribute="leading" secondItem="gjI-aH-5s5" secondAttribute="leading" id="meo-iv-Fai"/>
+                                    <constraint firstAttribute="trailing" secondItem="sic-Ua-zzI" secondAttribute="trailing" id="rMy-j0-bsI"/>
+                                    <constraint firstAttribute="bottom" secondItem="2kF-wb-tDU" secondAttribute="bottom" id="sRQ-Q8-4lc"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6gk-EF-DqO" firstAttribute="trailing" secondItem="gjI-aH-5s5" secondAttribute="trailing" constant="10" id="1rz-ch-nEX"/>
+                            <constraint firstItem="gjI-aH-5s5" firstAttribute="top" secondItem="6gk-EF-DqO" secondAttribute="top" constant="12" id="Axc-6t-Y4x"/>
+                            <constraint firstItem="6gk-EF-DqO" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gjI-aH-5s5" secondAttribute="bottom" constant="20" id="fN3-xl-kwR"/>
+                            <constraint firstItem="gjI-aH-5s5" firstAttribute="leading" secondItem="6gk-EF-DqO" secondAttribute="leading" constant="10" id="mea-U2-FVb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6gk-EF-DqO"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="TGb-3d-FBj">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="CloseCrossLight" id="2hM-Gt-vQp">
+                            <color key="tintColor" name="NormalText"/>
+                            <connections>
+                                <action selector="closeCrossTapped:" destination="R2z-Ve-YpG" id="h01-Mc-zjh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RfI-a7-7U7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="swC-o2-Btk" userLabel="LND Debug Level Tap">
+                    <connections>
+                        <action selector="lndDebugLevelTapped:" destination="R2z-Ve-YpG" id="9pX-y0-Bue"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Y3Y-Y7-F75" userLabel="LND Log Console Tap"/>
+                <tapGestureRecognizer id="VAL-Qm-zkh" userLabel="Wallet Log Tap"/>
+            </objects>
+            <point key="canvasLocation" x="960.79999999999995" y="38.23088455772114"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="CloseCrossLight" width="30" height="30"/>
+        <namedColor name="DarkTextBlue">
+            <color red="0.25098039220000001" green="0.26274509800000001" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="FormLineGray">
+            <color red="0.86666666670000003" green="0.86274509799999999" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="FormLineGray">
+            <color red="0.8666666666666667" green="0.86274509803921573" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="MediumTextGray">
+            <color red="0.53333333333333333" green="0.52941176470588236" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="NormalText">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

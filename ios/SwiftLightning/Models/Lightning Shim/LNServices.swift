@@ -1676,4 +1676,56 @@ class LNServices {
     SLLog.debug("LN Subscribe Channel Graph Request")
     LndmobileSubscribeChannelGraph(nil, lndOp)
   }
+  
+  
+  // MARK: Debug Level
+
+  private class DebugLevel: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> (String)) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> (String)) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      do {
+        let response = try Lnrpc_DebugLevelResponse(serializedData: p0)
+        SLLog.debug("LN Debug Level Success!")
+        SLLog.verbose("\(response.subSystems)")
+        completion({ return response.subSystems })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
+  static func debugLevel(show: Bool = false, levelSpec: String = "",
+                         retryCount: Int = LNConstants.defaultRetryCount,
+                         retryDelay: Double = LNConstants.defaultRetryDelay,
+                         completion: @escaping (() throws -> (String)) -> Void) {
+    
+    let lndOp = DebugLevel(completion)
+    
+    let task = {
+      do {
+        var request = Lnrpc_DebugLevelRequest()
+        request.show = show
+        request.levelSpec = levelSpec
+        
+        SLLog.debug("LN Debug Level Request")
+        let serialReq = try request.serializedData()
+        LndmobileDebugLevel(serialReq, lndOp)
+      } catch {
+        completion({ throw error })
+      }
+    }
+    
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Debug Level Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    lndOp.retry.start("LN Debug Level", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
 }

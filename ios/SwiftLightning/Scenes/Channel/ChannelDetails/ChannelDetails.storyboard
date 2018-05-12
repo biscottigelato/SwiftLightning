@@ -225,7 +225,7 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="headerTitle" value="Channel Details"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="iconIndex">
-                                                <integer key="value" value="0"/>
+                                                <integer key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>

@@ -34,7 +34,8 @@ import UIKit
   // MARK: Icon
   
   enum IconType: Int {
-    case bolt = 0
+    case none = 0
+    case bolt
     case chain
   }
   
@@ -51,9 +52,13 @@ import UIKit
       iconType = IconType(rawValue: newValue) ?? .bolt
 
       switch iconType {
+      case .none:
+        iconImageView.isHidden = true
       case .bolt:
+        iconImageView.isHidden = false
         iconImageView.image = UIImage(named: "BoltColored")
       case .chain:
+        iconImageView.isHidden = false
         iconImageView.image = UIImage(named: "ChainColored")
       }
     }

@@ -411,4 +411,11 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
       self.present(alertDialog, animated: true, completion: nil)
     }
   }
+  
+  
+  // MARK: Settings
+  
+  @IBAction func settingsTapped(_ sender: UIButton) {
+    router?.routeToSettingsMain()
+  }
 }

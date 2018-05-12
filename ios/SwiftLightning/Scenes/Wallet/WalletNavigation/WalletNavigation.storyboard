@@ -135,7 +135,7 @@
                         <viewLayoutGuide key="safeArea" id="z5t-Y1-iMe"/>
                     </view>
                     <navigationItem key="navigationItem" id="SBE-4f-E57">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" id="ghT-0z-IIs">
+                        <barButtonItem key="rightBarButtonItem" id="ghT-0z-IIs">
                             <view key="customView" contentMode="scaleToFill" id="5fO-Jo-eQW">
                                 <rect key="frame" x="276" y="5.5" width="83" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -144,16 +144,19 @@
                                         <rect key="frame" x="0.0" y="0.0" width="83" height="33"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="7mp-bW-jEE">
-                                                <rect key="frame" x="0.0" y="16.5" width="7" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="16.5" width="45" height="0.0"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9H-8p-31M">
-                                                <rect key="frame" x="15" y="1.5" width="30" height="30"/>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9H-8p-31M" userLabel="Search">
+                                                <rect key="frame" x="49" y="1.5" width="0.0" height="30"/>
                                                 <state key="normal" image="SearchLight"/>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQf-ve-yul">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQf-ve-yul" userLabel="Settings">
                                                 <rect key="frame" x="53" y="1.5" width="30" height="30"/>
                                                 <state key="normal" image="GearLight"/>
+                                                <connections>
+                                                    <action selector="settingsTapped:" destination="biu-h6-UIo" eventType="touchUpInside" id="Eg0-Qy-SGh"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>

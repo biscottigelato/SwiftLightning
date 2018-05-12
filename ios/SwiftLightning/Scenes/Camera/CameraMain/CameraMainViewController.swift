@@ -165,7 +165,7 @@ class CameraMainViewController: SLViewController, CameraMainDisplayLogic {
       captureSession.startRunning()
     } catch {
       // If any error occurs, simply print it out and don't continue any more.
-      SLLog.warning("Getting capture device inpupt erro - \(error.localizedDescription)")
+      SLLog.warning("Getting capture device input error - \(error.localizedDescription)")
       return
     }
   }
@@ -188,7 +188,6 @@ class CameraMainViewController: SLViewController, CameraMainDisplayLogic {
         } else {
           device.torchMode = .on
         }
-        
         device.unlockForConfiguration()
       } catch {
         SLLog.assert("Cannot lock AVCaptureDevice for configuration - \(error.localizedDescription)")

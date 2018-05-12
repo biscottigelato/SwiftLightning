@@ -18,6 +18,7 @@ protocol WalletMainRoutingLogic {
   func routeToChannelOpen()
   func routeToChannelDetails(channelPoint: String)
   func routeToTransactionDetails(type: BitcoinPaymentType, hash: String)
+  func routeToSettingsMain()
 }
 
 protocol WalletMainDataPassing {
@@ -69,6 +70,14 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
     var destinationDS = destinationVC.router!.dataStore!
     passDataToTransactionDetails(type: type, hash: hash, destination: &destinationDS)
     navigateToTransactionDetails(source: viewController!, destination: destinationVC)
+  }
+  
+  func routeToSettingsMain() {
+    let storyboard = UIStoryboard(name: "SettingsMain", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SettingsMainViewController") as! SettingsMainViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToSettingsMain(source: dataStore!, destination: &destinationDS)
+    navigateToSettingsMain(source: viewController!, destination: destinationVC)
   }
   
   
@@ -124,6 +133,16 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
     navigationController.pushViewController(destination, animated: true)
   }
   
+  func navigateToSettingsMain(source: WalletMainViewController, destination: SettingsMainViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    destination.setPopTransition(dismissIsInteractive: true)
+    navigationController.delegate = destination
+    navigationController.pushViewController(destination, animated: true)
+  }
+  
   
   // MARK: Passing data
   
@@ -146,5 +165,9 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
   func passDataToTransactionDetails(type: BitcoinPaymentType, hash: String, destination: inout TransactionDetailsDataStore) {
     destination.transactionHash = hash
     destination.transactionType = type
+  }
+  
+  func passDataToSettingsMain(source: WalletMainDataStore, destination: inout SettingsMainDataStore) {
+    // destination.name = source.name
   }
 }
