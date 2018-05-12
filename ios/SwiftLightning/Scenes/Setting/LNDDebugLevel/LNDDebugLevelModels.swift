@@ -27,7 +27,7 @@ enum LNDDebugLevel
     var string: String {
       switch self {
       case .noChange:
-        return "N/C"
+        return " "
       case .trace:
         return "Trace"
       case .debug:
@@ -77,9 +77,27 @@ enum LNDDebugLevel
   }
   
   enum ChangeDebugLevel {
-    struct Request { }
-    struct Reponse {
+    struct Request {
+      var systemLevel: Level?
+      var subsystemLevels: [String : Level]?
+    }
+    struct Response {
       var result: Result<Void>
+    }
+    struct ViewModel {
+      var title: String
+      var msg: String
+    }
+  }
+  
+  enum Error: LocalizedError {
+    case lnDebugLevelShowNoData
+    
+    var localizedDescription: String {
+      switch self {
+      case .lnDebugLevelShowNoData:
+        return NSLocalizedString("LND Debug Level Show Response = nil", comment: "LND Debug Leve error enum")
+      }
     }
   }
   

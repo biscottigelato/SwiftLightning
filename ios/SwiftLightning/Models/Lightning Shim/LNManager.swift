@@ -269,4 +269,68 @@ class LNManager {
       }
     }
   }
+  
+  
+  // MARK: Change lnd.conf debug level
+  
+  static func changeDebugLevel(withLevelSpec levelSpecString: String) throws {
+    let lndConfURL = URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("lnd.conf", isDirectory: false)
+    let tempLndConfURL = URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("lnd.temp", isDirectory: false)
+    
+    do {
+      let lndConfText = try String(contentsOf: lndConfURL, encoding: .utf8)
+      var newLndConfText: String = ""
+      
+      // Find a line that contains 'debuglevel'
+      lndConfText.enumerateLines { (line, stop) in
+        var newLine = line
+        if line.range(of:"debuglevel") != nil {
+          newLine = "debuglevel=\(levelSpecString)"
+        }
+        newLndConfText += newLine
+        newLndConfText += "\n"
+      }
+      
+      // Create a new file, and then replace the original lnd.conf
+      try newLndConfText.write(to: tempLndConfURL, atomically: true, encoding: .utf8)
+      _ = try FileManager.default.replaceItemAt(lndConfURL, withItemAt: tempLndConfURL, backupItemName: "lnd.bak")
+      
+    } catch {
+      throw LNError.lndConfDebugUpdateError(error.localizedDescription)
+    }
+  }
+  
+  
+  // MARK: lnd.conf version
+  
+  static func getLndConfVersion(for url: URL) -> Int? {
+    do {
+      let lndConfText = try String(contentsOf: url, encoding: .utf8)
+      var lndConfStrings = [String]()
+      var swiftLightningLineNum: Int?
+      
+      // Find a line that contains 'SwiftLightning'
+      lndConfText.enumerateLines { (line, stop) in
+        lndConfStrings.append(line)
+        if line.range(of:"SwiftLightning") != nil {
+          swiftLightningLineNum = lndConfStrings.count - 1
+        }
+      }
+      
+      if let index = swiftLightningLineNum {
+        
+        // Extract version on the next line
+        var versionLine = lndConfStrings[index+1]
+        if let range = versionLine.range(of:"version=") {
+          versionLine.removeSubrange(versionLine.startIndex..<range.upperBound)
+          return Int(versionLine.trimmingCharacters(in: .whitespacesAndNewlines))
+        }
+      }
+      return nil
+      
+    } catch {
+      SLLog.warning("Cannot read lnd.conf at \(url.absoluteString) - \(error.localizedDescription)")
+      return nil
+    }
+  }
 }

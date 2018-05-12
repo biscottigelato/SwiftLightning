@@ -512,7 +512,7 @@ enum LNGraphTopologyUpdate: CustomStringConvertible {
 
 // MARK: Errors
 
-enum LNError: Int, LocalizedError {
+enum LNError: LocalizedError {
   
   case createWalletInvalidCipherSeed
   case createWalletInvalidPassword
@@ -527,8 +527,8 @@ enum LNError: Int, LocalizedError {
   case openChannelTimeoutError
   case closeChannelTimeoutError
   
-  // Computed Properties
-  var code: Int { return self.rawValue }
+  case lndConfDebugUpdateError(String)
+
   
   var errorDescription: String? {
     switch self {
@@ -553,6 +553,9 @@ enum LNError: Int, LocalizedError {
       return NSLocalizedString("Open Channel Request Timeout", comment: "Open Channel Timeout Error")
     case .closeChannelTimeoutError:
       return NSLocalizedString("Close Channel Request Timeout", comment: "Close Channel Timeout Error")
+      
+    case .lndConfDebugUpdateError(let errorString):
+      return NSLocalizedString("Read/Write error from lnd.conf - \(errorString)", comment: "Debug Level Change Error")
     }
   }
 }

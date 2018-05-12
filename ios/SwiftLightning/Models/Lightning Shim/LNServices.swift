@@ -66,13 +66,20 @@ class LNServices {
       
     // File exists, replace if differs
     else if !FileManager.default.contentsEqual(atPath: lndSourceURL.path, andPath: lndDestinationURL.path) {
-      let lndTempURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("lnd.temp", isDirectory: false)
-      
-      // Replacement requires source to be in a local temp. And seems the temp is auto removed after
       do {
-        try FileManager.default.copyItem(at: lndSourceURL, to: lndTempURL)
-        _ = try FileManager.default.replaceItemAt(lndDestinationURL, withItemAt: lndTempURL, backupItemName: "lnd.bak")
-        usleep(100000)  // Sleep for 100ms for file to settle
+        let diskVersion = LNManager.getLndConfVersion(for: lndDestinationURL)
+        
+        // Compare SwiftLightning lnd.conf versions
+        if let bundleVersion = LNManager.getLndConfVersion(for: lndSourceURL),
+           bundleVersion > (diskVersion ?? 0) {
+          
+          let lndTempURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("lnd.temp", isDirectory: false)
+        
+          // Replacement requires source to be in a local temp. And seems the temp is auto removed after
+          try FileManager.default.copyItem(at: lndSourceURL, to: lndTempURL)
+          _ = try FileManager.default.replaceItemAt(lndDestinationURL, withItemAt: lndTempURL, backupItemName: "lnd.bak")
+          usleep(100000)  // Sleep for 100ms for file to settle
+        }
       } catch {
         let nsError = error as NSError
         SLLog.assert("Failed to replace lnd.conf. \(nsError.domain): \(nsError.code) - \(nsError.localizedDescription)")
@@ -1681,16 +1688,21 @@ class LNServices {
   // MARK: Debug Level
 
   private class DebugLevel: NSObject, LndmobileCallbackProtocol {
-    private var completion: (() throws -> (String)) -> Void
+    private var completion: (() throws -> (String?)) -> Void
     let retry = SLRetry()
-    init(_ completion: @escaping (() throws -> (String)) -> Void) {
+    init(_ completion: @escaping (() throws -> (String?)) -> Void) {
       self.completion = completion
     }
     
     func onResponse(_ p0: Data!) {
+      SLLog.debug("LN Debug Level Success!")
+      
+      guard let data = p0 else {
+        completion({ return nil })
+        return
+      }
       do {
-        let response = try Lnrpc_DebugLevelResponse(serializedData: p0)
-        SLLog.debug("LN Debug Level Success!")
+        let response = try Lnrpc_DebugLevelResponse(serializedData: data)
         SLLog.verbose("\(response.subSystems)")
         completion({ return response.subSystems })
       } catch {
@@ -1703,7 +1715,7 @@ class LNServices {
   static func debugLevel(show: Bool = false, levelSpec: String = "",
                          retryCount: Int = LNConstants.defaultRetryCount,
                          retryDelay: Double = LNConstants.defaultRetryDelay,
-                         completion: @escaping (() throws -> (String)) -> Void) {
+                         completion: @escaping (() throws -> (String?)) -> Void) {
     
     let lndOp = DebugLevel(completion)
     

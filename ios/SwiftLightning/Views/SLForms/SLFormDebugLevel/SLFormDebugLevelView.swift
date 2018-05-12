@@ -71,6 +71,7 @@ protocol SLFormDebugLevelViewDelegate {
   }
   
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    levelLabel.text = delegate?.stringsForLevel(self)[row]
     delegate?.debugLevelView(self, didSelectLevel: row)
   }
   
@@ -106,8 +107,14 @@ protocol SLFormDebugLevelViewDelegate {
     }
   }
   
+  var selectedRow: Int {
+    return picker.selectedRow(inComponent: 0)
+  }
+  
   
   // MARK: Tap Management
+  
+  @IBOutlet weak var tapArrowView: UIImageView!
   
   @IBAction func labelStackTapped(_ sender: UITapGestureRecognizer) {
     UIView.animate(withDuration: SLDesign.Constants.defaultTransitionDuration) {
@@ -115,11 +122,13 @@ protocol SLFormDebugLevelViewDelegate {
         self.picker.alpha = 1.0
         self.picker.isHidden = false
         self.lineView2.isHidden = false
+        self.tapArrowView.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2)
       }
       else {
         self.picker.alpha = 0.0
         self.picker.isHidden = true
         self.lineView2.isHidden = true
+        self.tapArrowView.transform = CGAffineTransform.identity
       }
       self.invalidateIntrinsicContentSize()
       self.delegate?.debugLevelViewExpanded(self)

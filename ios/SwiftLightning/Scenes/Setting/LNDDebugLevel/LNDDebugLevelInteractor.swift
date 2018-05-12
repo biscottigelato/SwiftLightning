@@ -14,6 +14,7 @@ import UIKit
 
 protocol LNDDebugLevelBusinessLogic {
   func fetchSubsystems(request: LNDDebugLevel.FetchSubsystems.Request)
+  func changeDebugLevel(request: LNDDebugLevel.ChangeDebugLevel.Request)
 }
 
 protocol LNDDebugLevelDataStore {
@@ -30,7 +31,9 @@ class LNDDebugLevelInteractor: LNDDebugLevelBusinessLogic, LNDDebugLevelDataStor
   func fetchSubsystems(request: LNDDebugLevel.FetchSubsystems.Request) {
     LNServices.debugLevel(show: true) { (responder) in
       do {
-        let subsystemsString = try responder()
+        guard let subsystemsString = try responder() else {
+          throw LNDDebugLevel.Error.lnDebugLevelShowNoData
+        }
         let subsystemsStrings = subsystemsString.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: " ").map({ return String($0) })
         
         let result = Result<[String]>.success(subsystemsStrings)
@@ -43,4 +46,45 @@ class LNDDebugLevelInteractor: LNDDebugLevelBusinessLogic, LNDDebugLevelDataStor
       }
     }
   }
+  
+  // MARK: Change Debug Level
+  func changeDebugLevel(request: LNDDebugLevel.ChangeDebugLevel.Request) {
+    var debugLevelArg: String = ""
+    
+    if let systemLevel = request.systemLevel {
+      debugLevelArg = systemLevel.string.lowercased()
+      
+    } else if let subsystemLevels = request.subsystemLevels {
+      for (index, subsystemLevel) in subsystemLevels.enumerated() {
+        if index != 0 { debugLevelArg += "," }
+        debugLevelArg += "\(subsystemLevel.key)=\(subsystemLevel.value.string.lowercased())"
+      }
+    } else {
+      SLLog.fatal("Both systemLevel & subsystemLevels = nil")
+    }
+    
+    SLLog.debug("Changing LND Debug Level Spec to \(debugLevelArg)")
+    
+    LNServices.debugLevel(levelSpec: debugLevelArg) { (responder) in
+      do {
+        _ = try responder()
+        
+        // LND Debug Level change success. Now lets also change lnd.conf
+        try LNManager.changeDebugLevel(withLevelSpec: debugLevelArg)
+        
+        let result = Result<Void>.success(())
+        let response = LNDDebugLevel.ChangeDebugLevel.Response(result: result)
+        self.presenter?.presentChangeDebugLevel(response: response)
+      } catch {
+        let result = Result<Void>.failure(error)
+        let response = LNDDebugLevel.ChangeDebugLevel.Response(result: result)
+        self.presenter?.presentChangeDebugLevel(response: response)
+      }
+    }
+  }
 }
+
+
+
+
+

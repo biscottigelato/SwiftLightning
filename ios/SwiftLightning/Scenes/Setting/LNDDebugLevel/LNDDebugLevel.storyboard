@@ -66,6 +66,9 @@
                                                                                 <integer key="value" value="2"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="changeDebugLevel:" destination="wpC-nP-Oqr" eventType="touchUpInside" id="eTI-Ea-cKz"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

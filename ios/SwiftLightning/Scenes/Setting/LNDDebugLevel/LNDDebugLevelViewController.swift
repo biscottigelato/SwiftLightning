@@ -14,6 +14,7 @@ import UIKit
 
 protocol LNDDebugLevelDisplayLogic: class {
   func updateFetchSubsystems(viewModel: LNDDebugLevel.FetchSubsystems.ViewModel)
+  func displayChangedDebugLevel(viewModel: LNDDebugLevel.ChangeDebugLevel.ViewModel)
   func displayError(viewModel: LNDDebugLevel.ErrorVM)
 }
 
@@ -128,6 +129,55 @@ class LNDDebugLevelViewController: SLViewController, LNDDebugLevelDisplayLogic, 
       self.stackView.addArrangedSubview(buttonView)
     }
   }
+  
+  
+  
+  
+  // MARK: Change Debug Level
+  
+  @IBAction func changeDebugLevel(_ sender: SLBarButton) {
+    let systemLevel = LNDDebugLevel.Level(rawValue: systemDebugLevelView.selectedRow + 1)  // +1 because of no N/C
+    
+    if systemLevel == .individual {
+      var subsystemLevels = [String : LNDDebugLevel.Level]()
+      
+      for debugView in subsystemViews {
+        guard let subsystem = debugView.subSystemLabel.text else {
+          SLLog.assert("Debug Form View subsystemLabel = nil")
+          continue
+        }
+        let level = LNDDebugLevel.Level(rawValue: debugView.selectedRow)
+        
+        // Submit only the entries with something specified
+        if level != LNDDebugLevel.Level.noChange {
+          subsystemLevels[subsystem] = level
+        }
+      }
+      
+      let request = LNDDebugLevel.ChangeDebugLevel.Request(systemLevel: nil,
+                                                           subsystemLevels: subsystemLevels)
+      interactor?.changeDebugLevel(request: request)
+      
+    } else {
+      let request = LNDDebugLevel.ChangeDebugLevel.Request(systemLevel: systemLevel,
+                                                           subsystemLevels: nil)
+      interactor?.changeDebugLevel(request: request)
+    }
+  }
+  
+  func displayChangedDebugLevel(viewModel: LNDDebugLevel.ChangeDebugLevel.ViewModel) {
+    DispatchQueue.main.async {
+      let alertDialog = UIAlertController(title: viewModel.title,
+                                          message: viewModel.msg,
+                                          preferredStyle: .alert).addAction(title: "OK", style: .default) { _ in
+        self.router?.routeToSettingsMain()
+      }
+      self.present(alertDialog, animated: true, completion: nil)
+    }
+  }
+  
+  
+  // MARK: Error Dialog
   
   func displayError(viewModel: LNDDebugLevel.ErrorVM) {
     DispatchQueue.main.async {

@@ -80,7 +80,7 @@
                                                                     <constraint firstAttribute="height" constant="1" id="WmK-FE-7vQ"/>
                                                                 </constraints>
                                                             </view>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1fc-CT-1Zj" userLabel="LND Debug Level">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1fc-CT-1Zj" userLabel="LND Debug Level">
                                                                 <rect key="frame" x="0.0" y="81" width="335" height="40"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="roz-9h-KQf" userLabel="Spacer">
@@ -91,11 +91,15 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LND Debug Level" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UP9-db-vdE">
-                                                                        <rect key="frame" x="5" y="0.0" width="325" height="40"/>
+                                                                        <rect key="frame" x="5" y="10.333333333333341" width="301" height="19.333333333333329"/>
                                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                                         <color key="textColor" name="DarkTextBlue"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" verticalHuggingPriority="251" image="ThinRightArrowDark" translatesAutoresizingMaskIntoConstraints="NO" id="1va-4W-dNa">
+                                                                        <rect key="frame" x="306" y="8" width="24" height="24"/>
+                                                                        <color key="tintColor" name="GenericGray"/>
+                                                                    </imageView>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S7D-fd-39J" userLabel="Spacer">
                                                                         <rect key="frame" x="330" y="0.0" width="5" height="40"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -117,7 +121,7 @@
                                                                     <constraint firstAttribute="height" constant="1" id="AMW-2q-Gb1"/>
                                                                 </constraints>
                                                             </view>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yv6-gW-r7K" userLabel="LND Debug Console">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Yv6-gW-r7K" userLabel="LND Debug Console">
                                                                 <rect key="frame" x="0.0" y="122" width="335" height="40"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S4I-Cq-aLt" userLabel="Spacer">
@@ -125,11 +129,15 @@
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LND Log Console" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6o-yo-eEe" userLabel="LND Log Console">
-                                                                        <rect key="frame" x="5" y="0.0" width="325" height="40"/>
+                                                                        <rect key="frame" x="5" y="10.333333333333341" width="301" height="19.333333333333329"/>
                                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                                         <color key="textColor" name="DarkTextBlue"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" verticalHuggingPriority="251" image="ThinRightArrowDark" translatesAutoresizingMaskIntoConstraints="NO" id="IHR-fq-YPs">
+                                                                        <rect key="frame" x="306" y="8" width="24" height="24"/>
+                                                                        <color key="tintColor" name="GenericGray"/>
+                                                                    </imageView>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9A-0I-Ygh" userLabel="Spacer">
                                                                         <rect key="frame" x="330" y="0.0" width="5" height="40"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -151,7 +159,7 @@
                                                                     <constraint firstAttribute="height" constant="1" id="Pqh-ce-hzW"/>
                                                                 </constraints>
                                                             </view>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="69r-Yt-aaJ">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="69r-Yt-aaJ">
                                                                 <rect key="frame" x="0.0" y="163" width="335" height="40"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5by-EO-IUj" userLabel="Spacer">
@@ -159,11 +167,15 @@
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Log" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="feI-eR-swn">
-                                                                        <rect key="frame" x="5" y="0.0" width="325" height="40"/>
+                                                                        <rect key="frame" x="5" y="10.333333333333313" width="301" height="19.333333333333329"/>
                                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                                         <color key="textColor" name="DarkTextBlue"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" verticalHuggingPriority="251" image="ThinRightArrowDark" translatesAutoresizingMaskIntoConstraints="NO" id="vcR-2e-sQx">
+                                                                        <rect key="frame" x="306" y="8" width="24" height="24"/>
+                                                                        <color key="tintColor" name="GenericGray"/>
+                                                                    </imageView>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g6b-59-lae" userLabel="Spacer">
                                                                         <rect key="frame" x="330" y="0.0" width="5" height="40"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -267,6 +279,7 @@
     </scenes>
     <resources>
         <image name="CloseCrossLight" width="30" height="30"/>
+        <image name="ThinRightArrowDark" width="24" height="24"/>
         <namedColor name="DarkTextBlue">
             <color red="0.25098039220000001" green="0.26274509800000001" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
@@ -275,6 +288,9 @@
         </namedColor>
         <namedColor name="FormLineGray">
             <color red="0.8666666666666667" green="0.86274509803921573" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="GenericGray">
+            <color red="0.66666666666666663" green="0.66274509803921566" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="MediumTextGray">
             <color red="0.53333333333333333" green="0.52941176470588236" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

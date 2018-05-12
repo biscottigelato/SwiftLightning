@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,6 +23,7 @@
                 <outlet property="lineView2" destination="B9o-h9-vuc" id="2uc-6Q-3fC"/>
                 <outlet property="picker" destination="Rcx-aH-vwc" id="jY9-Kg-kIq"/>
                 <outlet property="subSystemLabel" destination="nwP-nO-epA" id="ZRN-yc-cBh"/>
+                <outlet property="tapArrowView" destination="c5w-I1-EZ2" id="NWx-1i-m1y"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -32,21 +34,35 @@
                 <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="t9P-vZ-gi2">
                     <rect key="frame" x="0.0" y="143.5" width="341" height="41"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="opL-qq-caE">
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="opL-qq-caE">
                             <rect key="frame" x="0.0" y="0.0" width="341" height="40"/>
                             <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="500" verticalHuggingPriority="251" image="ThinRightArrowDark" translatesAutoresizingMaskIntoConstraints="NO" id="c5w-I1-EZ2">
+                                    <rect key="frame" x="0.0" y="8" width="24" height="24"/>
+                                    <color key="tintColor" name="MediumTextGray"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="c5w-I1-EZ2" secondAttribute="height" multiplier="1:1" id="yUm-3O-1bd"/>
+                                    </constraints>
+                                </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subsystem" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwP-nO-epA">
-                                    <rect key="frame" x="0.0" y="0.0" width="291" height="40"/>
+                                    <rect key="frame" x="32" y="10.5" width="238" height="19.5"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                     <color key="textColor" name="DarkTextBlue"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QDx-5m-q5q">
-                                    <rect key="frame" x="291" y="0.0" width="50" height="40"/>
+                                    <rect key="frame" x="278" y="0.0" width="50" height="40"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                     <color key="textColor" name="MediumTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SuG-L5-p2X">
+                                    <rect key="frame" x="336" y="0.0" width="5" height="40"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="5" id="Lbb-dR-84a"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <gestureRecognizers/>
                             <constraints>
@@ -94,11 +110,15 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
+        <image name="ThinRightArrowDark" width="24" height="24"/>
         <namedColor name="DarkTextBlue">
             <color red="0.25098039215686274" green="0.2627450980392157" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="FormLineGray">
             <color red="0.8666666666666667" green="0.86274509803921573" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="MediumTextGray">
+            <color red="0.53333333333333333" green="0.52941176470588236" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="MediumTextGray">
             <color red="0.53333333333333333" green="0.52941176470588236" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
