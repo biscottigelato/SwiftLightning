@@ -27,16 +27,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gjI-aH-5s5" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="10" y="100" width="355" height="213"/>
+                                <rect key="frame" x="10" y="100" width="355" height="172"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kF-wb-tDU">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="213"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="172"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UmZ-E4-3xP" userLabel="Content View">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="213"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="172"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jk0-5G-205">
-                                                        <rect key="frame" x="10" y="0.0" width="335" height="213"/>
+                                                        <rect key="frame" x="10" y="0.0" width="335" height="172"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="rYk-AA-NN4" userLabel="Header Spacer">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
@@ -128,7 +128,7 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="5" height="40"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </view>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LND Log Console" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6o-yo-eEe" userLabel="LND Log Console">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log Console" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6o-yo-eEe" userLabel="LND Log Console">
                                                                         <rect key="frame" x="5" y="10.333333333333341" width="301" height="19.333333333333329"/>
                                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                                         <color key="textColor" name="DarkTextBlue"/>
@@ -152,46 +152,8 @@
                                                                     <outletCollection property="gestureRecognizers" destination="Y3Y-Y7-F75" appends="YES" id="dA9-tV-K0p"/>
                                                                 </connections>
                                                             </stackView>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZtQ-bL-og1" userLabel="Line">
-                                                                <rect key="frame" x="0.0" y="162" width="335" height="1"/>
-                                                                <color key="backgroundColor" name="FormLineGray"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="1" id="Pqh-ce-hzW"/>
-                                                                </constraints>
-                                                            </view>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="69r-Yt-aaJ">
-                                                                <rect key="frame" x="0.0" y="163" width="335" height="40"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5by-EO-IUj" userLabel="Spacer">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="40"/>
-                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    </view>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Log" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="feI-eR-swn">
-                                                                        <rect key="frame" x="5" y="10.333333333333313" width="301" height="19.333333333333329"/>
-                                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
-                                                                        <color key="textColor" name="DarkTextBlue"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" verticalHuggingPriority="251" image="ThinRightArrowDark" translatesAutoresizingMaskIntoConstraints="NO" id="vcR-2e-sQx">
-                                                                        <rect key="frame" x="306" y="8" width="24" height="24"/>
-                                                                        <color key="tintColor" name="GenericGray"/>
-                                                                    </imageView>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g6b-59-lae" userLabel="Spacer">
-                                                                        <rect key="frame" x="330" y="0.0" width="5" height="40"/>
-                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    </view>
-                                                                </subviews>
-                                                                <gestureRecognizers/>
-                                                                <constraints>
-                                                                    <constraint firstItem="g6b-59-lae" firstAttribute="width" secondItem="5by-EO-IUj" secondAttribute="width" id="7MZ-GH-3rR"/>
-                                                                    <constraint firstAttribute="height" constant="40" id="v4X-ZN-J14"/>
-                                                                </constraints>
-                                                                <connections>
-                                                                    <outletCollection property="gestureRecognizers" destination="VAL-Qm-zkh" appends="YES" id="fIB-9J-PkA"/>
-                                                                </connections>
-                                                            </stackView>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="pmD-pu-T1L" userLabel="Header Spacer">
-                                                                <rect key="frame" x="0.0" y="203" width="335" height="10"/>
+                                                                <rect key="frame" x="0.0" y="162" width="335" height="10"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="10" id="YFB-GI-efO"/>
@@ -199,7 +161,6 @@
                                                             </view>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="5by-EO-IUj" firstAttribute="width" secondItem="roz-9h-KQf" secondAttribute="width" id="7mg-Ws-6YO"/>
                                                             <constraint firstItem="roz-9h-KQf" firstAttribute="width" secondItem="S4I-Cq-aLt" secondAttribute="width" id="FCV-Sb-jaJ"/>
                                                             <constraint firstItem="roz-9h-KQf" firstAttribute="width" secondItem="S4I-Cq-aLt" secondAttribute="width" id="qRd-KJ-9qT"/>
                                                         </constraints>
@@ -271,8 +232,11 @@
                         <action selector="lndDebugLevelTapped:" destination="R2z-Ve-YpG" id="9pX-y0-Bue"/>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="Y3Y-Y7-F75" userLabel="LND Log Console Tap"/>
-                <tapGestureRecognizer id="VAL-Qm-zkh" userLabel="Wallet Log Tap"/>
+                <tapGestureRecognizer id="Y3Y-Y7-F75" userLabel="LND Log Console Tap">
+                    <connections>
+                        <action selector="logConsoleTapped:" destination="R2z-Ve-YpG" id="BeL-Dv-DC2"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="960.79999999999995" y="38.23088455772114"/>
         </scene>

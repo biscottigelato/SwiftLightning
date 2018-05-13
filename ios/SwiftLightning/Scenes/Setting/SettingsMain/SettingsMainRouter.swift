@@ -15,6 +15,7 @@ import UIKit
 @objc protocol SettingsMainRoutingLogic {
   func routeToLndDebugLevel()
   func routeToWalletMain()
+  func routeToLogConsole()
 }
 
 protocol SettingsMainDataPassing
@@ -27,6 +28,7 @@ class SettingsMainRouter: NSObject, SettingsMainRoutingLogic, SettingsMainDataPa
   weak var viewController: SettingsMainViewController?
   var dataStore: SettingsMainDataStore?
   
+  
   // MARK: Routing
   
   func routeToLndDebugLevel() {
@@ -37,6 +39,14 @@ class SettingsMainRouter: NSObject, SettingsMainRoutingLogic, SettingsMainDataPa
     navigateToLNDDebugLevel(source: viewController!, destination: destinationVC)
   }
 
+  func routeToLogConsole() {
+    let storyboard = UIStoryboard(name: "LogConsole", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "LogConsoleViewController") as! LogConsoleViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToLogConsole(source: dataStore!, destination: &destinationDS)
+    navigateToLogConsole(source: viewController!, destination: destinationVC)
+  }
+  
   func routeToWalletMain() {
     //    let destinationVC = viewController! as! WalletMainViewController
     //    var destinationDS = destinationVC.router!.dataStore!
@@ -48,6 +58,16 @@ class SettingsMainRouter: NSObject, SettingsMainRoutingLogic, SettingsMainDataPa
   // MARK: Navigation
   
   func navigateToLNDDebugLevel(source: SettingsMainViewController, destination: LNDDebugLevelViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    destination.setSlideTransition(presentTowards: .left, dismissIsInteractive: true)
+    navigationController.delegate = destination
+    navigationController.pushViewController(destination, animated: true)
+  }
+  
+  func navigateToLogConsole(source: SettingsMainViewController, destination: LogConsoleViewController) {
     guard let navigationController = source.navigationController else {
       SLLog.assert("\(type(of: source)).navigationController = nil")
       return
@@ -69,9 +89,12 @@ class SettingsMainRouter: NSObject, SettingsMainRoutingLogic, SettingsMainDataPa
   // MARK: Passing data
   
   func passDataToLNDDebugLevel(source: SettingsMainDataStore, destination: inout LNDDebugLevelDataStore) {
-//    destination.name = source.name
   }
   
-  func passDataToWalletMain(source: SettingsMainDataStore, destination: inout WalletMainDataStore) { }
+  func passDataToLogConsole(source: SettingsMainDataStore, destination: inout LogConsoleDataStore) {
+  }
+  
+  func passDataToWalletMain(source: SettingsMainDataStore, destination: inout WalletMainDataStore) {
+  }
 
 }

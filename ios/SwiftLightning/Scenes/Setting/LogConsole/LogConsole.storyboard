@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Log Console View Controller-->
+        <scene sceneID="eJe-ub-zXz">
+            <objects>
+                <viewController storyboardIdentifier="LogConsoleViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Grr-J7-j0K" customClass="LogConsoleViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HoL-4w-sfp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="06o-zu-muT" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
+                                <rect key="frame" x="10" y="100" width="355" height="562"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="jn8-mZ-9Ok">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="562"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xxu-hu-q1P">
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="562"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" name="DarkTextBlue"/>
+                                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="4"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="xxu-hu-q1P" firstAttribute="leading" secondItem="jn8-mZ-9Ok" secondAttribute="leading" id="FoD-Vi-Mp0"/>
+                                            <constraint firstAttribute="trailing" secondItem="xxu-hu-q1P" secondAttribute="trailing" id="LhG-iM-0zn"/>
+                                            <constraint firstItem="xxu-hu-q1P" firstAttribute="top" secondItem="jn8-mZ-9Ok" secondAttribute="top" id="kgb-vN-FNc"/>
+                                            <constraint firstAttribute="bottom" secondItem="xxu-hu-q1P" secondAttribute="bottom" id="txZ-sE-lxA"/>
+                                        </constraints>
+                                    </scrollView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="jn8-mZ-9Ok" secondAttribute="bottom" id="90O-fq-Yfc"/>
+                                    <constraint firstItem="xxu-hu-q1P" firstAttribute="width" secondItem="06o-zu-muT" secondAttribute="width" id="I8N-Gs-LYj"/>
+                                    <constraint firstItem="jn8-mZ-9Ok" firstAttribute="leading" secondItem="06o-zu-muT" secondAttribute="leading" id="XJU-hs-gbo"/>
+                                    <constraint firstItem="xxu-hu-q1P" firstAttribute="height" secondItem="06o-zu-muT" secondAttribute="height" id="cTz-hp-yCP"/>
+                                    <constraint firstItem="jn8-mZ-9Ok" firstAttribute="top" secondItem="06o-zu-muT" secondAttribute="top" id="nai-9w-3h1"/>
+                                    <constraint firstAttribute="trailing" secondItem="jn8-mZ-9Ok" secondAttribute="trailing" id="zO2-Eg-EYy"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hbh-I7-bff">
+                                <rect key="frame" x="10" y="674" width="355" height="94"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GBi-0M-MmQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="42"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lOx-WI-plY" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="42"/>
+                                                <color key="backgroundColor" name="MedAquamarine"/>
+                                                <state key="normal" title="Read Wallet Log">
+                                                    <color key="titleColor" name="NormalText"/>
+                                                    <color key="titleShadowColor" name="MedAquamarineShadow"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="readWalletLogTapped:" destination="Grr-J7-j0K" eventType="touchUpInside" id="7Iy-px-tgn"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ap4-mo-rDl" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                <rect key="frame" x="182.66666666666663" y="0.0" width="172.33333333333337" height="42"/>
+                                                <color key="backgroundColor" name="LNDPurple"/>
+                                                <state key="normal" title="Read LND Log">
+                                                    <color key="titleColor" name="NormalText"/>
+                                                    <color key="titleShadowColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="readLNDLogTapped:" destination="Grr-J7-j0K" eventType="touchUpInside" id="gby-sq-gsc"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="c2a-hf-tZV">
+                                        <rect key="frame" x="0.0" y="52" width="355" height="42"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5zF-be-vfy" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="42"/>
+                                                <color key="backgroundColor" name="LightAzureBlue"/>
+                                                <state key="normal" title="Export Wallet Log">
+                                                    <color key="titleColor" name="NormalText"/>
+                                                    <color key="titleShadowColor" name="LightAzureBlueShadow"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="exportWalletLogTapped:" destination="Grr-J7-j0K" eventType="touchUpInside" id="vje-LC-Dp7"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RaV-uY-ofm" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                <rect key="frame" x="182.66666666666663" y="0.0" width="172.33333333333337" height="42"/>
+                                                <color key="backgroundColor" name="LNDTeal"/>
+                                                <state key="normal" title="Export LND Log">
+                                                    <color key="titleColor" name="NormalText"/>
+                                                    <color key="titleShadowColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="exportLNDLogTapped:" destination="Grr-J7-j0K" eventType="touchUpInside" id="u5s-k1-aoK"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="m3r-vS-MUN" firstAttribute="bottom" secondItem="hbh-I7-bff" secondAttribute="bottom" constant="10" id="0ii-iq-SpB"/>
+                            <constraint firstItem="hbh-I7-bff" firstAttribute="leading" secondItem="m3r-vS-MUN" secondAttribute="leading" constant="10" id="3l3-u3-Em8"/>
+                            <constraint firstItem="m3r-vS-MUN" firstAttribute="trailing" secondItem="06o-zu-muT" secondAttribute="trailing" constant="10" id="EHM-80-En1"/>
+                            <constraint firstItem="m3r-vS-MUN" firstAttribute="trailing" secondItem="hbh-I7-bff" secondAttribute="trailing" constant="10" id="K6U-Jc-s3S"/>
+                            <constraint firstItem="06o-zu-muT" firstAttribute="leading" secondItem="m3r-vS-MUN" secondAttribute="leading" constant="10" id="S6K-mb-hG1"/>
+                            <constraint firstItem="06o-zu-muT" firstAttribute="top" secondItem="m3r-vS-MUN" secondAttribute="top" constant="12" id="VUv-1Z-r9n"/>
+                            <constraint firstItem="hbh-I7-bff" firstAttribute="top" secondItem="06o-zu-muT" secondAttribute="bottom" constant="12" id="aGG-S5-Ahe"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="m3r-vS-MUN"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="xtE-Uj-n6r">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="BackArrowLight" id="0Ua-YE-OfB">
+                            <color key="tintColor" name="NormalText"/>
+                            <connections>
+                                <action selector="backArrowTapped:" destination="Grr-J7-j0K" id="Zis-CD-MEX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="logDisplayTextView" destination="xxu-hu-q1P" id="Gqc-K9-544"/>
+                        <outlet property="scrollView" destination="jn8-mZ-9Ok" id="wL1-Ii-dNg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="di3-cA-gMI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="815.20000000000005" y="87.706146926536732"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="BackArrowLight" width="30" height="30"/>
+        <namedColor name="DarkTextBlue">
+            <color red="0.25098039215686274" green="0.2627450980392157" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="LNDPurple">
+            <color red="0.28999999165534973" green="0.097999997437000275" blue="0.56099998950958252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LNDTeal">
+            <color red="0.39599999785423279" green="0.73299998044967651" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LightAzureBlue">
+            <color red="0.4823529411764706" green="0.71372549019607845" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="LightAzureBlueShadow">
+            <color red="0.2627450980392157" green="0.3843137254901961" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="MedAquamarine">
+            <color red="0.50588235294117645" green="0.83921568627450982" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="MedAquamarineShadow">
+            <color red="0.30588235294117649" green="0.50588235294117645" blue="0.44705882352941179" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="NormalText">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

@@ -333,4 +333,11 @@ class LNManager {
       return nil
     }
   }
+  
+  
+  // MARK: Read LND Log
+  
+  static func getLndLogURL() -> URL {
+    return URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("/logs/bitcoin/testnet/lnd.log", isDirectory: false)
+  }
 }

@@ -63,6 +63,10 @@ class SettingsMainViewController: SLViewController, SettingsMainDisplayLogic {
     router?.routeToLndDebugLevel()
   }
   
+  @IBAction func logConsoleTapped(_ sender: UITapGestureRecognizer) {
+    router?.routeToLogConsole()
+  }
+  
   
   // MARK: Close Cross Tapped
   

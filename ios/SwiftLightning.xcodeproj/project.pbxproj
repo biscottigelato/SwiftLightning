@@ -108,21 +108,16 @@
 		8C33E6BC20A65D9D00C31F33 /* LNDDebugLevelModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6B620A65D9D00C31F33 /* LNDDebugLevelModels.swift */; };
 		8C33E6BD20A65D9D00C31F33 /* LNDDebugLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6B720A65D9D00C31F33 /* LNDDebugLevelViewController.swift */; };
 		8C33E6BE20A65D9D00C31F33 /* LNDDebugLevelInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6B820A65D9D00C31F33 /* LNDDebugLevelInteractor.swift */; };
-		8C33E6C520A65DC300C31F33 /* LNDLogConsolePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6BF20A65DC300C31F33 /* LNDLogConsolePresenter.swift */; };
-		8C33E6C620A65DC300C31F33 /* LNDLogConsoleWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6C020A65DC300C31F33 /* LNDLogConsoleWorker.swift */; };
-		8C33E6C720A65DC300C31F33 /* LNDLogConsoleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6C120A65DC300C31F33 /* LNDLogConsoleRouter.swift */; };
-		8C33E6C820A65DC300C31F33 /* LNDLogConsoleModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6C220A65DC300C31F33 /* LNDLogConsoleModels.swift */; };
-		8C33E6C920A65DC300C31F33 /* LNDLogConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6C320A65DC300C31F33 /* LNDLogConsoleViewController.swift */; };
-		8C33E6CA20A65DC300C31F33 /* LNDLogConsoleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6C420A65DC300C31F33 /* LNDLogConsoleInteractor.swift */; };
-		8C33E6D120A65DDA00C31F33 /* WalletLogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6CB20A65DDA00C31F33 /* WalletLogPresenter.swift */; };
-		8C33E6D220A65DDA00C31F33 /* WalletLogWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6CC20A65DDA00C31F33 /* WalletLogWorker.swift */; };
-		8C33E6D320A65DDA00C31F33 /* WalletLogRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6CD20A65DDA00C31F33 /* WalletLogRouter.swift */; };
-		8C33E6D420A65DDA00C31F33 /* WalletLogModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6CE20A65DDA00C31F33 /* WalletLogModels.swift */; };
-		8C33E6D520A65DDA00C31F33 /* WalletLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6CF20A65DDA00C31F33 /* WalletLogViewController.swift */; };
-		8C33E6D620A65DDA00C31F33 /* WalletLogInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6D020A65DDA00C31F33 /* WalletLogInteractor.swift */; };
 		8C33E6D820A6602100C31F33 /* LNDDebugLevel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C33E6D720A6602100C31F33 /* LNDDebugLevel.storyboard */; };
 		8C33E6DB20A664D700C31F33 /* SLFormDebugLevelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C33E6DA20A664D700C31F33 /* SLFormDebugLevelView.xib */; };
 		8C33E6DD20A664EB00C31F33 /* SLFormDebugLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6DC20A664EB00C31F33 /* SLFormDebugLevelView.swift */; };
+		8C33E6E520A7B67300C31F33 /* LogConsolePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6DF20A7B67300C31F33 /* LogConsolePresenter.swift */; };
+		8C33E6E620A7B67300C31F33 /* LogConsoleWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6E020A7B67300C31F33 /* LogConsoleWorker.swift */; };
+		8C33E6E720A7B67300C31F33 /* LogConsoleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6E120A7B67300C31F33 /* LogConsoleRouter.swift */; };
+		8C33E6E820A7B67300C31F33 /* LogConsoleModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6E220A7B67300C31F33 /* LogConsoleModels.swift */; };
+		8C33E6E920A7B67300C31F33 /* LogConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6E320A7B67300C31F33 /* LogConsoleViewController.swift */; };
+		8C33E6EA20A7B67300C31F33 /* LogConsoleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6E420A7B67300C31F33 /* LogConsoleInteractor.swift */; };
+		8C33E6EC20A7B78300C31F33 /* LogConsole.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C33E6EB20A7B78300C31F33 /* LogConsole.storyboard */; };
 		8C36A02C20966DA2003BEFB6 /* AddressTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02B20966DA2003BEFB6 /* AddressTest.swift */; };
 		8C36A02E20966DB3003BEFB6 /* PaymentURITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */; };
 		8C36A03020966DCA003BEFB6 /* SecureHashTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */; };
@@ -388,21 +383,16 @@
 		8C33E6B620A65D9D00C31F33 /* LNDDebugLevelModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNDDebugLevelModels.swift; sourceTree = "<group>"; };
 		8C33E6B720A65D9D00C31F33 /* LNDDebugLevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNDDebugLevelViewController.swift; sourceTree = "<group>"; };
 		8C33E6B820A65D9D00C31F33 /* LNDDebugLevelInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNDDebugLevelInteractor.swift; sourceTree = "<group>"; };
-		8C33E6BF20A65DC300C31F33 /* LNDLogConsolePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNDLogConsolePresenter.swift; sourceTree = "<group>"; };
-		8C33E6C020A65DC300C31F33 /* LNDLogConsoleWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNDLogConsoleWorker.swift; sourceTree = "<group>"; };
-		8C33E6C120A65DC300C31F33 /* LNDLogConsoleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNDLogConsoleRouter.swift; sourceTree = "<group>"; };
-		8C33E6C220A65DC300C31F33 /* LNDLogConsoleModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNDLogConsoleModels.swift; sourceTree = "<group>"; };
-		8C33E6C320A65DC300C31F33 /* LNDLogConsoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNDLogConsoleViewController.swift; sourceTree = "<group>"; };
-		8C33E6C420A65DC300C31F33 /* LNDLogConsoleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNDLogConsoleInteractor.swift; sourceTree = "<group>"; };
-		8C33E6CB20A65DDA00C31F33 /* WalletLogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLogPresenter.swift; sourceTree = "<group>"; };
-		8C33E6CC20A65DDA00C31F33 /* WalletLogWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLogWorker.swift; sourceTree = "<group>"; };
-		8C33E6CD20A65DDA00C31F33 /* WalletLogRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLogRouter.swift; sourceTree = "<group>"; };
-		8C33E6CE20A65DDA00C31F33 /* WalletLogModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLogModels.swift; sourceTree = "<group>"; };
-		8C33E6CF20A65DDA00C31F33 /* WalletLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLogViewController.swift; sourceTree = "<group>"; };
-		8C33E6D020A65DDA00C31F33 /* WalletLogInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLogInteractor.swift; sourceTree = "<group>"; };
 		8C33E6D720A6602100C31F33 /* LNDDebugLevel.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LNDDebugLevel.storyboard; sourceTree = "<group>"; };
 		8C33E6DA20A664D700C31F33 /* SLFormDebugLevelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLFormDebugLevelView.xib; sourceTree = "<group>"; };
 		8C33E6DC20A664EB00C31F33 /* SLFormDebugLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLFormDebugLevelView.swift; sourceTree = "<group>"; };
+		8C33E6DF20A7B67300C31F33 /* LogConsolePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogConsolePresenter.swift; sourceTree = "<group>"; };
+		8C33E6E020A7B67300C31F33 /* LogConsoleWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogConsoleWorker.swift; sourceTree = "<group>"; };
+		8C33E6E120A7B67300C31F33 /* LogConsoleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogConsoleRouter.swift; sourceTree = "<group>"; };
+		8C33E6E220A7B67300C31F33 /* LogConsoleModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogConsoleModels.swift; sourceTree = "<group>"; };
+		8C33E6E320A7B67300C31F33 /* LogConsoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogConsoleViewController.swift; sourceTree = "<group>"; };
+		8C33E6E420A7B67300C31F33 /* LogConsoleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogConsoleInteractor.swift; sourceTree = "<group>"; };
+		8C33E6EB20A7B78300C31F33 /* LogConsole.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LogConsole.storyboard; sourceTree = "<group>"; };
 		8C36A02B20966DA2003BEFB6 /* AddressTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTest.swift; sourceTree = "<group>"; };
 		8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentURITest.swift; sourceTree = "<group>"; };
 		8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureHashTest.swift; sourceTree = "<group>"; };
@@ -810,32 +800,6 @@
 			path = LNDDebugLevel;
 			sourceTree = "<group>";
 		};
-		8C33E6B120A65C1500C31F33 /* LNDLogConsole */ = {
-			isa = PBXGroup;
-			children = (
-				8C33E6BF20A65DC300C31F33 /* LNDLogConsolePresenter.swift */,
-				8C33E6C020A65DC300C31F33 /* LNDLogConsoleWorker.swift */,
-				8C33E6C120A65DC300C31F33 /* LNDLogConsoleRouter.swift */,
-				8C33E6C220A65DC300C31F33 /* LNDLogConsoleModels.swift */,
-				8C33E6C320A65DC300C31F33 /* LNDLogConsoleViewController.swift */,
-				8C33E6C420A65DC300C31F33 /* LNDLogConsoleInteractor.swift */,
-			);
-			path = LNDLogConsole;
-			sourceTree = "<group>";
-		};
-		8C33E6B220A65C1C00C31F33 /* WalletLog */ = {
-			isa = PBXGroup;
-			children = (
-				8C33E6CB20A65DDA00C31F33 /* WalletLogPresenter.swift */,
-				8C33E6CC20A65DDA00C31F33 /* WalletLogWorker.swift */,
-				8C33E6CD20A65DDA00C31F33 /* WalletLogRouter.swift */,
-				8C33E6CE20A65DDA00C31F33 /* WalletLogModels.swift */,
-				8C33E6CF20A65DDA00C31F33 /* WalletLogViewController.swift */,
-				8C33E6D020A65DDA00C31F33 /* WalletLogInteractor.swift */,
-			);
-			path = WalletLog;
-			sourceTree = "<group>";
-		};
 		8C33E6D920A664BD00C31F33 /* SLFormDebugLevel */ = {
 			isa = PBXGroup;
 			children = (
@@ -843,6 +807,20 @@
 				8C33E6DC20A664EB00C31F33 /* SLFormDebugLevelView.swift */,
 			);
 			path = SLFormDebugLevel;
+			sourceTree = "<group>";
+		};
+		8C33E6DE20A7B62D00C31F33 /* LogConsole */ = {
+			isa = PBXGroup;
+			children = (
+				8C33E6EB20A7B78300C31F33 /* LogConsole.storyboard */,
+				8C33E6DF20A7B67300C31F33 /* LogConsolePresenter.swift */,
+				8C33E6E020A7B67300C31F33 /* LogConsoleWorker.swift */,
+				8C33E6E120A7B67300C31F33 /* LogConsoleRouter.swift */,
+				8C33E6E220A7B67300C31F33 /* LogConsoleModels.swift */,
+				8C33E6E320A7B67300C31F33 /* LogConsoleViewController.swift */,
+				8C33E6E420A7B67300C31F33 /* LogConsoleInteractor.swift */,
+			);
+			path = LogConsole;
 			sourceTree = "<group>";
 		};
 		8C36A026209662B8003BEFB6 /* Test */ = {
@@ -1400,8 +1378,7 @@
 			children = (
 				8C33E6A120A64D6700C31F33 /* SettingsMain */,
 				8C33E6B020A65C0900C31F33 /* LNDDebugLevel */,
-				8C33E6B120A65C1500C31F33 /* LNDLogConsole */,
-				8C33E6B220A65C1C00C31F33 /* WalletLog */,
+				8C33E6DE20A7B62D00C31F33 /* LogConsole */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1657,6 +1634,7 @@
 				8C70EC0E208DBC7A00D658DC /* SLTextDialogView.xib in Resources */,
 				8C090E2420885C84009B8B8D /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				8C33E6DB20A664D700C31F33 /* SLFormDebugLevelView.xib in Resources */,
+				8C33E6EC20A7B78300C31F33 /* LogConsole.storyboard in Resources */,
 				8C090E2320885C84009B8B8D /* OpenSans-ExtraBold.ttf in Resources */,
 				8C8275FE209118330029BE7E /* SLFormNodeView.xib in Resources */,
 			);
@@ -1751,7 +1729,6 @@
 				8C70EC13208E511900D658DC /* SLRetry.swift in Sources */,
 				8C8275BC208EA1B30029BE7E /* ChannelOpenViewController.swift in Sources */,
 				8C7745C8209D3E39004EBA69 /* ChannelDetailsModels.swift in Sources */,
-				8C33E6D220A65DDA00C31F33 /* WalletLogWorker.swift in Sources */,
 				8C70EBCE208C345B00D658DC /* ReceiveMainWorker.swift in Sources */,
 				8C090E4620894801009B8B8D /* MnemonicConfirmViewController.swift in Sources */,
 				8C82760620912A5C0029BE7E /* SLFormChSummaryView.swift in Sources */,
@@ -1774,7 +1751,6 @@
 				8C7745AF209BF839004EBA69 /* TxnTableViewCell.swift in Sources */,
 				8C1882A020868EBE002E2835 /* PasswordCreateModels.swift in Sources */,
 				8CE3AE612086AF3F007D1065 /* SLUnboxedHeading.swift in Sources */,
-				8C33E6C620A65DC300C31F33 /* LNDLogConsoleWorker.swift in Sources */,
 				8C090E1020881DAB009B8B8D /* UIAlertController+Extension.swift in Sources */,
 				8C33E6AC20A64D8E00C31F33 /* SettingsMainViewController.swift in Sources */,
 				8C70EC15208E51A700D658DC /* HttpStatusCodes.swift in Sources */,
@@ -1785,7 +1761,6 @@
 				8CFA16A12082EF3A00813EA6 /* CreateRecoverPresenter.swift in Sources */,
 				8C1AE3752095A58100A4D9BF /* PaymentURI.swift in Sources */,
 				8CFA16A22082EF3A00813EA6 /* CreateRecoverWorker.swift in Sources */,
-				8C33E6C820A65DC300C31F33 /* LNDLogConsoleModels.swift in Sources */,
 				8C6B7543208AF33200B751A2 /* RootRouter.swift in Sources */,
 				8C7EC53620950449001C8FD6 /* PayMainViewController.swift in Sources */,
 				8C1882AD2086941D002E2835 /* NibView.swift in Sources */,
@@ -1794,6 +1769,7 @@
 				8C6B7561208B17BD00B751A2 /* WalletMainViewController.swift in Sources */,
 				8C8276002091183F0029BE7E /* SLFormNodeView.swift in Sources */,
 				8CFA16E420856E6800813EA6 /* SLBarButton.swift in Sources */,
+				8C33E6E620A7B67300C31F33 /* LogConsoleWorker.swift in Sources */,
 				8C8275BB208EA1B30029BE7E /* ChannelOpenModels.swift in Sources */,
 				8C6B7544208AF33200B751A2 /* RootModels.swift in Sources */,
 				8C090DFE2087DEAA009B8B8D /* MnemonicExplainWorker.swift in Sources */,
@@ -1801,7 +1777,9 @@
 				8C33E6A920A64D8E00C31F33 /* SettingsMainWorker.swift in Sources */,
 				8C6B754E208AFEC800B751A2 /* UnlockAppPresenter.swift in Sources */,
 				8C70EBCF208C345B00D658DC /* ReceiveMainRouter.swift in Sources */,
+				8C33E6E820A7B67300C31F33 /* LogConsoleModels.swift in Sources */,
 				8CFA16A32082EF3A00813EA6 /* CreateRecoverRouter.swift in Sources */,
+				8C33E6E520A7B67300C31F33 /* LogConsolePresenter.swift in Sources */,
 				8C188271208679BD002E2835 /* GradientView.swift in Sources */,
 				8C1882A220868EBE002E2835 /* PasswordCreateInteractor.swift in Sources */,
 				8C6B7560208B17BD00B751A2 /* WalletMainModels.swift in Sources */,
@@ -1819,7 +1797,6 @@
 				8CFA16A42082EF3A00813EA6 /* CreateRecoverModels.swift in Sources */,
 				8C77AD8320A2C9530094D733 /* TransactionDetailsViewController.swift in Sources */,
 				8C8275BA208EA1B30029BE7E /* ChannelOpenRouter.swift in Sources */,
-				8C33E6D420A65DDA00C31F33 /* WalletLogModels.swift in Sources */,
 				8C7745B3209BF846004EBA69 /* ChTableViewCell.swift in Sources */,
 				8C7745C6209D3E39004EBA69 /* ChannelDetailsWorker.swift in Sources */,
 				8C8275DC208FF1CF0029BE7E /* Bitcoin.swift in Sources */,
@@ -1830,7 +1807,6 @@
 				8C7745B9209D3258004EBA69 /* EventCentral.swift in Sources */,
 				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
 				8C8275FC209118250029BE7E /* SLFormLabelView.swift in Sources */,
-				8C33E6D520A65DDA00C31F33 /* WalletLogViewController.swift in Sources */,
 				8C7EC53320950449001C8FD6 /* PayMainWorker.swift in Sources */,
 				8CFA16A52082EF3A00813EA6 /* CreateRecoverViewController.swift in Sources */,
 				8C33E69C20A560B200C31F33 /* BasicDirection.swift in Sources */,
@@ -1853,23 +1829,19 @@
 				8C6B7552208AFEC800B751A2 /* UnlockAppViewController.swift in Sources */,
 				8CD063AA209563BC00D2B66B /* PayConfirmViewController.swift in Sources */,
 				8C90C94A209D70ED00D6E7A8 /* ChannelVM.swift in Sources */,
-				8C33E6C520A65DC300C31F33 /* LNDLogConsolePresenter.swift in Sources */,
-				8C33E6C720A65DC300C31F33 /* LNDLogConsoleRouter.swift in Sources */,
 				8C6B755F208B17BD00B751A2 /* WalletMainRouter.swift in Sources */,
-				8C33E6CA20A65DC300C31F33 /* LNDLogConsoleInteractor.swift in Sources */,
 				8CD063A8209563BC00D2B66B /* PayConfirmRouter.swift in Sources */,
+				8C33E6E920A7B67300C31F33 /* LogConsoleViewController.swift in Sources */,
 				8C70EBCD208C345B00D658DC /* ReceiveMainPresenter.swift in Sources */,
 				8C090E362088612B009B8B8D /* MnemonicDisplayViewController.swift in Sources */,
 				8C33E6B920A65D9D00C31F33 /* LNDDebugLevelPresenter.swift in Sources */,
 				8C1882B72086A582002E2835 /* SLIcon30Button.swift in Sources */,
 				8C70EC07208D8A0E00D658DC /* SLFormHeaderView.swift in Sources */,
-				8C33E6D120A65DDA00C31F33 /* WalletLogPresenter.swift in Sources */,
 				8C090E0620880154009B8B8D /* Result.swift in Sources */,
 				8C77AD8C20A2DBCE0094D733 /* SLFormTitleLabel.swift in Sources */,
 				8C8275F120910FA40029BE7E /* ChannelConfirmRouter.swift in Sources */,
 				8C18829E20868EBE002E2835 /* PasswordCreateWorker.swift in Sources */,
 				8C090DFD2087DEAA009B8B8D /* MnemonicExplainPresenter.swift in Sources */,
-				8C33E6C920A65DC300C31F33 /* LNDLogConsoleViewController.swift in Sources */,
 				8C7EC53420950449001C8FD6 /* PayMainRouter.swift in Sources */,
 				8C686545209A923C001E41DA /* CameraMainRouter.swift in Sources */,
 				8C1AE3732095A57700A4D9BF /* Address.swift in Sources */,
@@ -1882,6 +1854,7 @@
 				8C7745C7209D3E39004EBA69 /* ChannelDetailsRouter.swift in Sources */,
 				8C8275C8208EA63D0029BE7E /* SLFormEntryView.swift in Sources */,
 				8C8275EF20910FA40029BE7E /* ChannelConfirmPresenter.swift in Sources */,
+				8C33E6EA20A7B67300C31F33 /* LogConsoleInteractor.swift in Sources */,
 				8C8275F220910FA40029BE7E /* ChannelConfirmModels.swift in Sources */,
 				8C090E4420894801009B8B8D /* MnemonicConfirmRouter.swift in Sources */,
 				8C1AE3852095BF6E00A4D9BF /* SegwitAddrCoder.swift in Sources */,
@@ -1899,7 +1872,6 @@
 				8C18829D20868EBE002E2835 /* PasswordCreatePresenter.swift in Sources */,
 				8C7745C5209D3E39004EBA69 /* ChannelDetailsPresenter.swift in Sources */,
 				8C090DFF2087DEAA009B8B8D /* MnemonicExplainRouter.swift in Sources */,
-				8C33E6D620A65DDA00C31F33 /* WalletLogInteractor.swift in Sources */,
 				8C686540209A6E87001E41DA /* CameraMainViewController.swift in Sources */,
 				8C8275E0208FF8770029BE7E /* Currency.swift in Sources */,
 				8C090E372088612B009B8B8D /* MnemonicDisplayInteractor.swift in Sources */,
@@ -1919,9 +1891,9 @@
 				8C33E6BD20A65D9D00C31F33 /* LNDDebugLevelViewController.swift in Sources */,
 				8C6B7562208B17BD00B751A2 /* WalletMainInteractor.swift in Sources */,
 				8C33E6AB20A64D8E00C31F33 /* SettingsMainModels.swift in Sources */,
+				8C33E6E720A7B67300C31F33 /* LogConsoleRouter.swift in Sources */,
 				8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */,
 				8C1AE37A2095A81500A4D9BF /* SecureHash.swift in Sources */,
-				8C33E6D320A65DDA00C31F33 /* WalletLogRouter.swift in Sources */,
 				8C090E1E20885295009B8B8D /* UIFont+Extension.swift in Sources */,
 				8C70EC02208D6F9D00D658DC /* WalletNavigationController.swift in Sources */,
 				8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */,
