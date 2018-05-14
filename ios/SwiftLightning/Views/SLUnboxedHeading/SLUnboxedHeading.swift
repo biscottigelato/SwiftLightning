@@ -15,6 +15,8 @@ import UIKit
   @IBOutlet weak var logoHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var stackView: UIStackView!
   
+  @IBOutlet weak var headerButton: UIButton!
+  
   override var intrinsicContentSize: CGSize {
     let logoHeight = logoHeightConstraint.constant
 

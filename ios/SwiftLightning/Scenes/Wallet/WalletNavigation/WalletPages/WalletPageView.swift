@@ -71,10 +71,17 @@ import UIKit
       rightButton.setTitle("Autopilot", for: .normal)
       
       #if !TARGET_INTERFACE_BUILDER
-        leftButton.backgroundColor = UIColor.lightAzureBlue
-        leftButton.shadowColor = UIColor.lightAzureBlueShadow
-        rightButton.backgroundColor = UIColor.sandyOrange
-        rightButton.shadowColor = UIColor.sandyOrangeShadow
+      leftButton.backgroundColor = UIColor.lightAzureBlue
+      leftButton.shadowColor = UIColor.lightAzureBlueShadow
+    
+      // TODO: Enable Autopilot someday
+//      rightButton.backgroundColor = UIColor.sandyOrange
+//      rightButton.shadowColor = UIColor.sandyOrangeShadow
+    
+      rightButton.isEnabled = false
+      rightButton.backgroundColor = UIColor.disabledGray
+      rightButton.shadowColor = UIColor.disabledGrayShadow
+      rightButton.setTitleColor(UIColor.disabledText, for: .normal)
       #endif
       
     }

@@ -11,7 +11,6 @@ import UIKit
 @IBDesignable class SLFormHeaderView: NibView {
 
   override var intrinsicContentSize: CGSize {
-//    let screenSize = UIScreen.main.bounds.size
     return CGSize(width: 350, height: 40.0)
   }
   

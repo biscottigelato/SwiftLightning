@@ -73,10 +73,28 @@ class WalletNavigationController: UINavigationController {
         }
       }
     }
+    
+    // Register an action to the Heading View gesture recognizer
+    headingView.headerButton.addTarget(self, action: #selector(headerTapped(_:)), for: .touchUpInside)
   }
   
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  
+  // MARK: Wallet Info Tapped
+  @objc private func headerTapped(_ sender: UIButton) {
+    
+    // Prevent WalletInfo recursion
+    if let topViewController = topViewController, topViewController is WalletInfoViewController {
+      return
+    }
+    
+    // Screw Routers...
+    let storyboard = UIStoryboard(name: "WalletInfo", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletInfoViewController") as! WalletInfoViewController
+    // var destinationDS = destinationVC.router!.dataStore!
+    
+    // Force the top VC in the navigation stack to present the WalletInfo view
+    destinationVC.setPopTransition(dismissIsInteractive: true)
+    delegate = destinationVC
+    pushViewController(destinationVC, animated: true)
   }
 }

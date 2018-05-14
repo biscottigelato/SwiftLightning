@@ -125,6 +125,13 @@
 		8C33E6FB20A8EC9A00C31F33 /* WalletBalanceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6F520A8EC9A00C31F33 /* WalletBalanceModels.swift */; };
 		8C33E6FC20A8EC9A00C31F33 /* WalletBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6F620A8EC9A00C31F33 /* WalletBalanceViewController.swift */; };
 		8C33E6FD20A8EC9A00C31F33 /* WalletBalanceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6F720A8EC9A00C31F33 /* WalletBalanceInteractor.swift */; };
+		8C33E70520A90FEE00C31F33 /* WalletInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E6FF20A90FEE00C31F33 /* WalletInfoPresenter.swift */; };
+		8C33E70620A90FEE00C31F33 /* WalletInfoWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E70020A90FEE00C31F33 /* WalletInfoWorker.swift */; };
+		8C33E70720A90FEE00C31F33 /* WalletInfoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E70120A90FEE00C31F33 /* WalletInfoRouter.swift */; };
+		8C33E70820A90FEE00C31F33 /* WalletInfoModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E70220A90FEE00C31F33 /* WalletInfoModels.swift */; };
+		8C33E70920A90FEE00C31F33 /* WalletInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E70320A90FEE00C31F33 /* WalletInfoViewController.swift */; };
+		8C33E70A20A90FEE00C31F33 /* WalletInfoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E70420A90FEE00C31F33 /* WalletInfoInteractor.swift */; };
+		8C33E70C20A90FFA00C31F33 /* WalletInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C33E70B20A90FFA00C31F33 /* WalletInfo.storyboard */; };
 		8C36A02C20966DA2003BEFB6 /* AddressTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02B20966DA2003BEFB6 /* AddressTest.swift */; };
 		8C36A02E20966DB3003BEFB6 /* PaymentURITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */; };
 		8C36A03020966DCA003BEFB6 /* SecureHashTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */; };
@@ -407,6 +414,13 @@
 		8C33E6F520A8EC9A00C31F33 /* WalletBalanceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBalanceModels.swift; sourceTree = "<group>"; };
 		8C33E6F620A8EC9A00C31F33 /* WalletBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBalanceViewController.swift; sourceTree = "<group>"; };
 		8C33E6F720A8EC9A00C31F33 /* WalletBalanceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBalanceInteractor.swift; sourceTree = "<group>"; };
+		8C33E6FF20A90FEE00C31F33 /* WalletInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoPresenter.swift; sourceTree = "<group>"; };
+		8C33E70020A90FEE00C31F33 /* WalletInfoWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoWorker.swift; sourceTree = "<group>"; };
+		8C33E70120A90FEE00C31F33 /* WalletInfoRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoRouter.swift; sourceTree = "<group>"; };
+		8C33E70220A90FEE00C31F33 /* WalletInfoModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoModels.swift; sourceTree = "<group>"; };
+		8C33E70320A90FEE00C31F33 /* WalletInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoViewController.swift; sourceTree = "<group>"; };
+		8C33E70420A90FEE00C31F33 /* WalletInfoInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoInteractor.swift; sourceTree = "<group>"; };
+		8C33E70B20A90FFA00C31F33 /* WalletInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WalletInfo.storyboard; sourceTree = "<group>"; };
 		8C36A02B20966DA2003BEFB6 /* AddressTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTest.swift; sourceTree = "<group>"; };
 		8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentURITest.swift; sourceTree = "<group>"; };
 		8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureHashTest.swift; sourceTree = "<group>"; };
@@ -660,6 +674,7 @@
 			children = (
 				8C6B7556208B17A700B751A2 /* WalletNavigation */,
 				8C33E6EE20A8EBEB00C31F33 /* WalletBalance */,
+				8C33E6FE20A90FCD00C31F33 /* WalletInfo */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -850,6 +865,20 @@
 				8C33E6F720A8EC9A00C31F33 /* WalletBalanceInteractor.swift */,
 			);
 			path = WalletBalance;
+			sourceTree = "<group>";
+		};
+		8C33E6FE20A90FCD00C31F33 /* WalletInfo */ = {
+			isa = PBXGroup;
+			children = (
+				8C33E70B20A90FFA00C31F33 /* WalletInfo.storyboard */,
+				8C33E6FF20A90FEE00C31F33 /* WalletInfoPresenter.swift */,
+				8C33E70020A90FEE00C31F33 /* WalletInfoWorker.swift */,
+				8C33E70120A90FEE00C31F33 /* WalletInfoRouter.swift */,
+				8C33E70220A90FEE00C31F33 /* WalletInfoModels.swift */,
+				8C33E70320A90FEE00C31F33 /* WalletInfoViewController.swift */,
+				8C33E70420A90FEE00C31F33 /* WalletInfoInteractor.swift */,
+			);
+			path = WalletInfo;
 			sourceTree = "<group>";
 		};
 		8C36A026209662B8003BEFB6 /* Test */ = {
@@ -1645,6 +1674,7 @@
 				8C090E2520885C84009B8B8D /* OpenSans-Italic.ttf in Resources */,
 				8C18828C20868545002E2835 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
 				8C18828920868545002E2835 /* Montserrat-Bold.ttf in Resources */,
+				8C33E70C20A90FFA00C31F33 /* WalletInfo.storyboard in Resources */,
 				8C090E2220885C84009B8B8D /* OpenSans-BoldItalic.ttf in Resources */,
 				8C2FC70D2073513700966D31 /* Root.storyboard in Resources */,
 				8C8275B1208EA1920029BE7E /* ChannelOpen.storyboard in Resources */,
@@ -1767,6 +1797,8 @@
 				8C7745CA209D3E39004EBA69 /* ChannelDetailsInteractor.swift in Sources */,
 				8C090DF420870DB9009B8B8D /* LNDefinitions.swift in Sources */,
 				8C090E4220894801009B8B8D /* MnemonicConfirmPresenter.swift in Sources */,
+				8C33E70620A90FEE00C31F33 /* WalletInfoWorker.swift in Sources */,
+				8C33E70A20A90FEE00C31F33 /* WalletInfoInteractor.swift in Sources */,
 				8C090E4720894801009B8B8D /* MnemonicConfirmInteractor.swift in Sources */,
 				8C33E6A020A5636B00C31F33 /* CGPoint+Extension.swift in Sources */,
 				8C6B7542208AF33200B751A2 /* RootWorker.swift in Sources */,
@@ -1837,8 +1869,10 @@
 				8C1AE3832095BF4000A4D9BF /* Bech32.swift in Sources */,
 				8C090E042087F28D009B8B8D /* LNManager.swift in Sources */,
 				8C8275F020910FA40029BE7E /* ChannelConfirmWorker.swift in Sources */,
+				8C33E70520A90FEE00C31F33 /* WalletInfoPresenter.swift in Sources */,
 				8C8275F320910FA40029BE7E /* ChannelConfirmViewController.swift in Sources */,
 				8CD063AB209563BC00D2B66B /* PayConfirmInteractor.swift in Sources */,
+				8C33E70920A90FEE00C31F33 /* WalletInfoViewController.swift in Sources */,
 				8C68653F209A6E87001E41DA /* CameraMainModels.swift in Sources */,
 				8C090E2020885772009B8B8D /* URL+Extension.swift in Sources */,
 				8C77AD6920A249030094D733 /* RepeatingTimer.swift in Sources */,
@@ -1887,6 +1921,7 @@
 				8C1AE3852095BF6E00A4D9BF /* SegwitAddrCoder.swift in Sources */,
 				8C6B7546208AF33200B751A2 /* RootInteractor.swift in Sources */,
 				8C70EBFD208C458700D658DC /* SLFormBackingView.swift in Sources */,
+				8C33E70720A90FEE00C31F33 /* WalletInfoRouter.swift in Sources */,
 				8C7EC53720950449001C8FD6 /* PayMainInteractor.swift in Sources */,
 				8C77AD8420A2C9530094D733 /* TransactionDetailsInteractor.swift in Sources */,
 				8C6B7553208AFEC800B751A2 /* UnlockAppInteractor.swift in Sources */,
@@ -1920,6 +1955,7 @@
 				8C33E6AB20A64D8E00C31F33 /* SettingsMainModels.swift in Sources */,
 				8C33E6E720A7B67300C31F33 /* LogConsoleRouter.swift in Sources */,
 				8C33E6FD20A8EC9A00C31F33 /* WalletBalanceInteractor.swift in Sources */,
+				8C33E70820A90FEE00C31F33 /* WalletInfoModels.swift in Sources */,
 				8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */,
 				8C1AE37A2095A81500A4D9BF /* SecureHash.swift in Sources */,
 				8C090E1E20885295009B8B8D /* UIFont+Extension.swift in Sources */,

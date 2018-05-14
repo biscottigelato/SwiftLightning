@@ -70,11 +70,13 @@ class LogConsoleViewController: SLViewController, LogConsoleDisplayLogic, UIScro
   @IBOutlet weak var logDisplayTextView: UITextView!
   
   @IBAction func readWalletLogTapped(_ sender: SLBarButton) {
+    activityIndicator.show(on: view)
     let request = LogConsole.ReadLog.Request(logType: .wallet)
     interactor?.readLog(request: request)
   }
   
   @IBAction func readLNDLogTapped(_ sender: SLBarButton) {
+    activityIndicator.show(on: view)
     let request = LogConsole.ReadLog.Request(logType: .lnd)
     interactor?.readLog(request: request)
   }
@@ -84,6 +86,7 @@ class LogConsoleViewController: SLViewController, LogConsoleDisplayLogic, UIScro
       let bottom = NSMakeRange(viewModel.displayText.count - 1, 1)
       self.logDisplayTextView.text = viewModel.displayText
       self.logDisplayTextView.scrollRangeToVisible(bottom)
+      self.activityIndicator.remove()
     }
   }
   

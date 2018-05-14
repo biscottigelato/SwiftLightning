@@ -26,7 +26,7 @@ import SnapKit
     UIApplication.shared.beginIgnoringInteractionEvents()
     view.addSubview(self)
     self.snp.makeConstraints { (make) in
-      make.center.equalTo(view)
+      make.center.equalTo(view.window ?? view)
     }
   }
   

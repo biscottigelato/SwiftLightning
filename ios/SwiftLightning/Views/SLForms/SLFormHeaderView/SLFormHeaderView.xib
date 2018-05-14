@@ -43,6 +43,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <gestureRecognizers/>
                 </stackView>
             </subviews>
             <color key="backgroundColor" name="FormHeaderGray"/>

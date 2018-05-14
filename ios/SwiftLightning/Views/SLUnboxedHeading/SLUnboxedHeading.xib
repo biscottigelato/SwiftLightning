@@ -17,6 +17,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SLUnboxedHeading" customModule="SwiftLightning" customModuleProvider="target">
             <connections>
+                <outlet property="headerButton" destination="Lsy-G0-sSx" id="jYR-as-Mok"/>
                 <outlet property="logo" destination="6Qg-rm-841" id="JBB-fx-nYB"/>
                 <outlet property="logoHeightConstraint" destination="UgH-cd-bq6" id="8f7-N1-Twi"/>
                 <outlet property="stackView" destination="Jab-wR-we5" id="hsh-Dk-HN6"/>
@@ -28,7 +29,7 @@
             <rect key="frame" x="0.0" y="0.0" width="294" height="463"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jab-wR-we5">
+                <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" verticalHuggingPriority="500" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jab-wR-we5">
                     <rect key="frame" x="51" y="213.5" width="193.5" height="36"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningLogo" translatesAutoresizingMaskIntoConstraints="NO" id="6Qg-rm-841">
@@ -38,18 +39,26 @@
                                 <constraint firstAttribute="width" secondItem="6Qg-rm-841" secondAttribute="height" id="fFr-Ba-gTG"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swiftning  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VgX-3d-2aC">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" text="Swiftning  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VgX-3d-2aC">
                             <rect key="frame" x="46" y="1" width="147.5" height="34.5"/>
                             <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="28"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <gestureRecognizers/>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lsy-G0-sSx">
+                    <rect key="frame" x="0.0" y="0.0" width="294" height="463"/>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Lsy-G0-sSx" secondAttribute="trailing" id="ItQ-UP-F93"/>
+                <constraint firstItem="Lsy-G0-sSx" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Lxj-B2-YPJ"/>
                 <constraint firstItem="Jab-wR-we5" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="bn1-Jx-0kH"/>
+                <constraint firstItem="Lsy-G0-sSx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="f6a-Cj-jPv"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Lsy-G0-sSx" secondAttribute="bottom" id="lZd-Ef-RAA"/>
                 <constraint firstItem="Jab-wR-we5" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="qBC-sv-MBP"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
