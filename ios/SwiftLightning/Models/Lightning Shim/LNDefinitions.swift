@@ -527,8 +527,7 @@ enum LNError: LocalizedError {
   case openChannelTimeoutError
   case closeChannelTimeoutError
   
-  case lndConfDebugUpdateError(String)
-
+  case lndConfLNDCofRWError(String)
   
   var errorDescription: String? {
     switch self {
@@ -554,8 +553,8 @@ enum LNError: LocalizedError {
     case .closeChannelTimeoutError:
       return NSLocalizedString("Close Channel Request Timeout", comment: "Close Channel Timeout Error")
       
-    case .lndConfDebugUpdateError(let errorString):
-      return NSLocalizedString("Read/Write error from lnd.conf - \(errorString)", comment: "Debug Level Change Error")
+    case .lndConfLNDCofRWError(let errorString):
+      return NSLocalizedString("Read/Write error from lnd.conf - \(errorString)", comment: "LND Conf Change Error")
     }
   }
 }

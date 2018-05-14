@@ -160,7 +160,7 @@
     <resources>
         <image name="BoltColored" width="24" height="24"/>
         <namedColor name="DarkTextBlue">
-            <color red="0.20000000000000001" green="0.24705882352941178" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.25098039215686274" green="0.2627450980392157" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="MedAquamarine">
             <color red="0.50588235294117645" green="0.83921568627450982" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

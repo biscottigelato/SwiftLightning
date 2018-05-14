@@ -296,7 +296,54 @@ class LNManager {
       _ = try FileManager.default.replaceItemAt(lndConfURL, withItemAt: tempLndConfURL, backupItemName: "lnd.bak")
       
     } catch {
-      throw LNError.lndConfDebugUpdateError(error.localizedDescription)
+      throw LNError.lndConfLNDCofRWError(error.localizedDescription)
+    }
+  }
+  
+  
+  // MARK: Read/Change lnd.conf Neutrino Peers
+  
+  static func findNeutrinoPeers(andReplaceWith newPeers: [String]? = nil) throws -> [String] {
+    let lndConfURL = URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("lnd.conf", isDirectory: false)
+    let tempLndConfURL = URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("lnd.temp", isDirectory: false)
+    
+    do {
+      let lndConfText = try String(contentsOf: lndConfURL, encoding: .utf8)
+      var newLndConfText: String = ""
+      var peerAddrs = [String]()
+      
+      // Find a line that contains 'neutrino.addpeer'
+      lndConfText.enumerateLines { (line, stop) in
+        var newLine = line
+        
+        // If it's found, find the address and throw the line away
+        if let range = newLine.range(of:"neutrino.addpeer=") {
+          newLine.removeSubrange(newLine.startIndex..<range.upperBound)
+          peerAddrs.append(newLine.trimmingCharacters(in: .whitespacesAndNewlines))
+          
+        // If not found, just add back to the new LND conf file
+        } else {
+          newLndConfText += newLine
+          newLndConfText += "\n"
+        }
+      }
+      
+      // Add the new Peer Addresses
+      if let newPeers = newPeers {
+        for newPeer in newPeers {
+          newLndConfText += "neutrino.addpeer=\(newPeer)"
+          newLndConfText += "\n"
+        }
+      
+        // Create a new file, and then replace the original lnd.conf
+        try newLndConfText.write(to: tempLndConfURL, atomically: true, encoding: .utf8)
+        _ = try FileManager.default.replaceItemAt(lndConfURL, withItemAt: tempLndConfURL, backupItemName: "lnd.bak")
+      }
+      
+      return peerAddrs
+      
+    } catch {
+      throw LNError.lndConfLNDCofRWError(error.localizedDescription)
     }
   }
   

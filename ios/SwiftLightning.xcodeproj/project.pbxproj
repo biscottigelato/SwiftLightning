@@ -134,6 +134,17 @@
 		8C33E70C20A90FFA00C31F33 /* WalletInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C33E70B20A90FFA00C31F33 /* WalletInfo.storyboard */; };
 		8C33E70F20A92C2700C31F33 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E70E20A92C2700C31F33 /* LaunchScreenViewController.swift */; };
 		8C33E71220A92CDB00C31F33 /* SLLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E71120A92CDB00C31F33 /* SLLogoView.swift */; };
+		8C33E71720A954B500C31F33 /* NeutrinoPeers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C33E71620A954B500C31F33 /* NeutrinoPeers.storyboard */; };
+		8C33E71E20A954C900C31F33 /* NeutrinoPeersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E71820A954C900C31F33 /* NeutrinoPeersPresenter.swift */; };
+		8C33E71F20A954C900C31F33 /* NeutrinoPeersWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E71920A954C900C31F33 /* NeutrinoPeersWorker.swift */; };
+		8C33E72020A954C900C31F33 /* NeutrinoPeersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E71A20A954C900C31F33 /* NeutrinoPeersRouter.swift */; };
+		8C33E72120A954C900C31F33 /* NeutrinoPeersModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E71B20A954C900C31F33 /* NeutrinoPeersModels.swift */; };
+		8C33E72220A954C900C31F33 /* NeutrinoPeersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E71C20A954C900C31F33 /* NeutrinoPeersViewController.swift */; };
+		8C33E72320A954C900C31F33 /* NeutrinoPeersInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E71D20A954C900C31F33 /* NeutrinoPeersInteractor.swift */; };
+		8C33E72620A95D2A00C31F33 /* SLLineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C33E72520A95D2A00C31F33 /* SLLineView.xib */; };
+		8C33E72820A95D3D00C31F33 /* SLLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E72720A95D3D00C31F33 /* SLLineView.swift */; };
+		8C33E72E20A96A4B00C31F33 /* PeerAddrTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E72C20A96A4B00C31F33 /* PeerAddrTableViewCell.swift */; };
+		8C33E72F20A96A4B00C31F33 /* PeerAddrTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C33E72D20A96A4B00C31F33 /* PeerAddrTableViewCell.xib */; };
 		8C36A02C20966DA2003BEFB6 /* AddressTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02B20966DA2003BEFB6 /* AddressTest.swift */; };
 		8C36A02E20966DB3003BEFB6 /* PaymentURITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */; };
 		8C36A03020966DCA003BEFB6 /* SecureHashTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */; };
@@ -425,6 +436,17 @@
 		8C33E70B20A90FFA00C31F33 /* WalletInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WalletInfo.storyboard; sourceTree = "<group>"; };
 		8C33E70E20A92C2700C31F33 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		8C33E71120A92CDB00C31F33 /* SLLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLogoView.swift; sourceTree = "<group>"; };
+		8C33E71620A954B500C31F33 /* NeutrinoPeers.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NeutrinoPeers.storyboard; sourceTree = "<group>"; };
+		8C33E71820A954C900C31F33 /* NeutrinoPeersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeutrinoPeersPresenter.swift; sourceTree = "<group>"; };
+		8C33E71920A954C900C31F33 /* NeutrinoPeersWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeutrinoPeersWorker.swift; sourceTree = "<group>"; };
+		8C33E71A20A954C900C31F33 /* NeutrinoPeersRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeutrinoPeersRouter.swift; sourceTree = "<group>"; };
+		8C33E71B20A954C900C31F33 /* NeutrinoPeersModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeutrinoPeersModels.swift; sourceTree = "<group>"; };
+		8C33E71C20A954C900C31F33 /* NeutrinoPeersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeutrinoPeersViewController.swift; sourceTree = "<group>"; };
+		8C33E71D20A954C900C31F33 /* NeutrinoPeersInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeutrinoPeersInteractor.swift; sourceTree = "<group>"; };
+		8C33E72520A95D2A00C31F33 /* SLLineView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLLineView.xib; sourceTree = "<group>"; };
+		8C33E72720A95D3D00C31F33 /* SLLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLineView.swift; sourceTree = "<group>"; };
+		8C33E72C20A96A4B00C31F33 /* PeerAddrTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerAddrTableViewCell.swift; sourceTree = "<group>"; };
+		8C33E72D20A96A4B00C31F33 /* PeerAddrTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PeerAddrTableViewCell.xib; sourceTree = "<group>"; };
 		8C36A02B20966DA2003BEFB6 /* AddressTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTest.swift; sourceTree = "<group>"; };
 		8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentURITest.swift; sourceTree = "<group>"; };
 		8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureHashTest.swift; sourceTree = "<group>"; };
@@ -902,6 +924,39 @@
 			path = SLLogoView;
 			sourceTree = "<group>";
 		};
+		8C33E71520A9549300C31F33 /* NeutrinoPeers */ = {
+			isa = PBXGroup;
+			children = (
+				8C33E72920A96A0C00C31F33 /* PeerAddrTableViewCell */,
+				8C33E71620A954B500C31F33 /* NeutrinoPeers.storyboard */,
+				8C33E71820A954C900C31F33 /* NeutrinoPeersPresenter.swift */,
+				8C33E71920A954C900C31F33 /* NeutrinoPeersWorker.swift */,
+				8C33E71A20A954C900C31F33 /* NeutrinoPeersRouter.swift */,
+				8C33E71B20A954C900C31F33 /* NeutrinoPeersModels.swift */,
+				8C33E71C20A954C900C31F33 /* NeutrinoPeersViewController.swift */,
+				8C33E71D20A954C900C31F33 /* NeutrinoPeersInteractor.swift */,
+			);
+			path = NeutrinoPeers;
+			sourceTree = "<group>";
+		};
+		8C33E72420A95CDF00C31F33 /* SLLineView */ = {
+			isa = PBXGroup;
+			children = (
+				8C33E72520A95D2A00C31F33 /* SLLineView.xib */,
+				8C33E72720A95D3D00C31F33 /* SLLineView.swift */,
+			);
+			path = SLLineView;
+			sourceTree = "<group>";
+		};
+		8C33E72920A96A0C00C31F33 /* PeerAddrTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				8C33E72D20A96A4B00C31F33 /* PeerAddrTableViewCell.xib */,
+				8C33E72C20A96A4B00C31F33 /* PeerAddrTableViewCell.swift */,
+			);
+			path = PeerAddrTableViewCell;
+			sourceTree = "<group>";
+		};
 		8C36A026209662B8003BEFB6 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -1179,6 +1234,7 @@
 				8CE3AE5F2086AED6007D1065 /* SLUnboxedHeading */,
 				8CFA16E120854C3C00813EA6 /* SLBarButton */,
 				8C1882B52086A193002E2835 /* SLIcon30Button */,
+				8C33E72420A95CDF00C31F33 /* SLLineView */,
 				8C1882AB20869313002E2835 /* SLPasswordField */,
 				8C090E4A20894A65009B8B8D /* SLSeedField */,
 				8C70EC0C208DBC3B00D658DC /* SLTextDialogView */,
@@ -1450,6 +1506,7 @@
 			children = (
 				8C33E6A120A64D6700C31F33 /* SettingsMain */,
 				8C33E6B020A65C0900C31F33 /* LNDDebugLevel */,
+				8C33E71520A9549300C31F33 /* NeutrinoPeers */,
 				8C33E6DE20A7B62D00C31F33 /* LogConsole */,
 			);
 			path = Setting;
@@ -1686,12 +1743,14 @@
 				8C090E2120885C84009B8B8D /* OpenSans-Bold.ttf in Resources */,
 				8C18829020868545002E2835 /* Montserrat-ExtraLight.ttf in Resources */,
 				8C77AD8D20A2DBD20094D733 /* SLFormTextLabel.xib in Resources */,
+				8C33E72F20A96A4B00C31F33 /* PeerAddrTableViewCell.xib in Resources */,
 				8C7EC53920950593001C8FD6 /* PayMain.storyboard in Resources */,
 				8C6B7564208B17CB00B751A2 /* WalletNavigation.storyboard in Resources */,
 				8C77AD7420A290E90094D733 /* SLFormCompactView.xib in Resources */,
 				8C18828720868545002E2835 /* Montserrat-ExtraBold.ttf in Resources */,
 				8C686543209A6EE2001E41DA /* CameraMain.storyboard in Resources */,
 				8C82760820912A750029BE7E /* SLFormPaySummaryView.xib in Resources */,
+				8C33E72620A95D2A00C31F33 /* SLLineView.xib in Resources */,
 				8C36A049209696A0003BEFB6 /* lnd.conf in Resources */,
 				8C090E2520885C84009B8B8D /* OpenSans-Italic.ttf in Resources */,
 				8C18828C20868545002E2835 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
@@ -1709,6 +1768,7 @@
 				8C090E2420885C84009B8B8D /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				8C33E6DB20A664D700C31F33 /* SLFormDebugLevelView.xib in Resources */,
 				8C33E6EC20A7B78300C31F33 /* LogConsole.storyboard in Resources */,
+				8C33E71720A954B500C31F33 /* NeutrinoPeers.storyboard in Resources */,
 				8C090E2320885C84009B8B8D /* OpenSans-ExtraBold.ttf in Resources */,
 				8C8275FE209118330029BE7E /* SLFormNodeView.xib in Resources */,
 			);
@@ -1856,6 +1916,7 @@
 				8C33E6E820A7B67300C31F33 /* LogConsoleModels.swift in Sources */,
 				8CFA16A32082EF3A00813EA6 /* CreateRecoverRouter.swift in Sources */,
 				8C33E6E520A7B67300C31F33 /* LogConsolePresenter.swift in Sources */,
+				8C33E72820A95D3D00C31F33 /* SLLineView.swift in Sources */,
 				8C188271208679BD002E2835 /* GradientView.swift in Sources */,
 				8C1882A220868EBE002E2835 /* PasswordCreateInteractor.swift in Sources */,
 				8C6B7560208B17BD00B751A2 /* WalletMainModels.swift in Sources */,
@@ -1923,10 +1984,12 @@
 				8C090E0620880154009B8B8D /* Result.swift in Sources */,
 				8C77AD8C20A2DBCE0094D733 /* SLFormTitleLabel.swift in Sources */,
 				8C8275F120910FA40029BE7E /* ChannelConfirmRouter.swift in Sources */,
+				8C33E72020A954C900C31F33 /* NeutrinoPeersRouter.swift in Sources */,
 				8C18829E20868EBE002E2835 /* PasswordCreateWorker.swift in Sources */,
 				8C090DFD2087DEAA009B8B8D /* MnemonicExplainPresenter.swift in Sources */,
 				8C7EC53420950449001C8FD6 /* PayMainRouter.swift in Sources */,
 				8C686545209A923C001E41DA /* CameraMainRouter.swift in Sources */,
+				8C33E72E20A96A4B00C31F33 /* PeerAddrTableViewCell.swift in Sources */,
 				8C1AE3732095A57700A4D9BF /* Address.swift in Sources */,
 				8C8275F420910FA40029BE7E /* ChannelConfirmInteractor.swift in Sources */,
 				8C33E6F820A8EC9A00C31F33 /* WalletBalancePresenter.swift in Sources */,
@@ -1936,8 +1999,10 @@
 				8C6B7541208AF33200B751A2 /* RootPresenter.swift in Sources */,
 				8C77AD7520A290EC0094D733 /* SLFormCompactView.swift in Sources */,
 				8C7745C7209D3E39004EBA69 /* ChannelDetailsRouter.swift in Sources */,
+				8C33E72320A954C900C31F33 /* NeutrinoPeersInteractor.swift in Sources */,
 				8C8275C8208EA63D0029BE7E /* SLFormEntryView.swift in Sources */,
 				8C8275EF20910FA40029BE7E /* ChannelConfirmPresenter.swift in Sources */,
+				8C33E72220A954C900C31F33 /* NeutrinoPeersViewController.swift in Sources */,
 				8C33E6EA20A7B67300C31F33 /* LogConsoleInteractor.swift in Sources */,
 				8C8275F220910FA40029BE7E /* ChannelConfirmModels.swift in Sources */,
 				8C090E4420894801009B8B8D /* MnemonicConfirmRouter.swift in Sources */,
@@ -1947,6 +2012,7 @@
 				8C70EBFD208C458700D658DC /* SLFormBackingView.swift in Sources */,
 				8C33E70720A90FEE00C31F33 /* WalletInfoRouter.swift in Sources */,
 				8C7EC53720950449001C8FD6 /* PayMainInteractor.swift in Sources */,
+				8C33E71E20A954C900C31F33 /* NeutrinoPeersPresenter.swift in Sources */,
 				8C77AD8420A2C9530094D733 /* TransactionDetailsInteractor.swift in Sources */,
 				8C6B7553208AFEC800B751A2 /* UnlockAppInteractor.swift in Sources */,
 				8C33E6AD20A64D8E00C31F33 /* SettingsMainInteractor.swift in Sources */,
@@ -1963,12 +2029,14 @@
 				8C090E372088612B009B8B8D /* MnemonicDisplayInteractor.swift in Sources */,
 				8CD063A9209563BC00D2B66B /* PayConfirmModels.swift in Sources */,
 				8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */,
+				8C33E71F20A954C900C31F33 /* NeutrinoPeersWorker.swift in Sources */,
 				8C090E4320894801009B8B8D /* MnemonicConfirmWorker.swift in Sources */,
 				8C090E022087DEAA009B8B8D /* MnemonicExplainInteractor.swift in Sources */,
 				8C7745C9209D3E39004EBA69 /* ChannelDetailsViewController.swift in Sources */,
 				8CFA16A62082EF3A00813EA6 /* CreateRecoverInteractor.swift in Sources */,
 				8C33E69A20A5608400C31F33 /* SlideTransitionAnimator.swift in Sources */,
 				8C6B754F208AFEC800B751A2 /* UnlockAppWorker.swift in Sources */,
+				8C33E72120A954C900C31F33 /* NeutrinoPeersModels.swift in Sources */,
 				8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */,
 				8C090E352088612B009B8B8D /* MnemonicDisplayModels.swift in Sources */,
 				8C70EC10208DBCDF00D658DC /* SLTextDialogView.swift in Sources */,

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -16,11 +16,11 @@
             <objects>
                 <viewController storyboardIdentifier="PayConfirmViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cGp-yS-qLV" customClass="PayConfirmViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OWw-Wj-za4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JrJ-k8-KLJ" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="10" y="76" width="355" height="528"/>
+                                <rect key="frame" x="10" y="100" width="355" height="528"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXO-KZ-BEr">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="528"/>
@@ -92,18 +92,18 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="eZU-oz-uRe" userLabel="Before Line Spacer">
-                                                                <rect key="frame" x="0.0" y="323" width="325" height="21.5"/>
+                                                                <rect key="frame" x="0.0" y="323" width="325" height="21.666666666666686"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="2Zi-OU-J85" userLabel="Line">
-                                                                <rect key="frame" x="0.0" y="344.5" width="325" height="1"/>
+                                                                <rect key="frame" x="0.0" y="344.66666666666669" width="325" height="1"/>
                                                                 <color key="backgroundColor" name="FormLineGray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="EMZ-Fq-wUA"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="zQ0-Pi-Ed0" userLabel="1.2 Spacer">
-                                                                <rect key="frame" x="0.0" y="345.5" width="325" height="14.5"/>
+                                                                <rect key="frame" x="0.0" y="345.66666666666669" width="325" height="14.333333333333314"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KO7-vG-bap" customClass="SLFormPaySummaryView" customModule="SwiftLightning" customModuleProvider="target">
@@ -118,7 +118,7 @@
                                                                 <rect key="frame" x="0.0" y="468" width="325" height="42"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-Nk-R1C" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="152.5" height="42"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="152.66666666666666" height="42"/>
                                                                         <color key="backgroundColor" name="GenericGray"/>
                                                                         <state key="normal" title="Cancel">
                                                                             <color key="titleColor" name="NormalText"/>
@@ -134,14 +134,14 @@
                                                                         </connections>
                                                                     </button>
                                                                     <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="LoE-yJ-Dnt" userLabel="Mid Spacer">
-                                                                        <rect key="frame" x="152.5" y="0.0" width="20" height="42"/>
+                                                                        <rect key="frame" x="152.66666666666666" y="0.0" width="20" height="42"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="20" id="vAR-bl-9OH"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkG-gg-vhY" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                                                        <rect key="frame" x="172.5" y="0.0" width="152.5" height="42"/>
+                                                                        <rect key="frame" x="172.66666666666663" y="0.0" width="152.33333333333337" height="42"/>
                                                                         <color key="backgroundColor" name="MedAquamarine"/>
                                                                         <state key="normal" title="Send">
                                                                             <color key="titleColor" name="NormalText"/>

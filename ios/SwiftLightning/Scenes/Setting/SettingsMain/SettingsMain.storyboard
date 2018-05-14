@@ -27,16 +27,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gjI-aH-5s5" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="10" y="100" width="355" height="172"/>
+                                <rect key="frame" x="10" y="100" width="355" height="213"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kF-wb-tDU">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="172"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="213"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UmZ-E4-3xP" userLabel="Content View">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="172"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="213"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jk0-5G-205">
-                                                        <rect key="frame" x="10" y="0.0" width="335" height="172"/>
+                                                        <rect key="frame" x="10" y="0.0" width="335" height="213"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="rYk-AA-NN4" userLabel="Header Spacer">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
@@ -121,15 +121,50 @@
                                                                     <constraint firstAttribute="height" constant="1" id="AMW-2q-Gb1"/>
                                                                 </constraints>
                                                             </view>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Yv6-gW-r7K" userLabel="LND Debug Console">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Oae-FQ-944" userLabel="LND Debug Console">
                                                                 <rect key="frame" x="0.0" y="122" width="335" height="40"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xIM-ww-uhk" userLabel="Spacer">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="40"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Neutrino Peers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7l-iA-HMh" userLabel="LND Log Console">
+                                                                        <rect key="frame" x="5" y="10.333333333333341" width="301" height="19.333333333333329"/>
+                                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                                                        <color key="textColor" name="DarkTextBlue"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" verticalHuggingPriority="251" image="ThinRightArrowDark" translatesAutoresizingMaskIntoConstraints="NO" id="kpx-Ou-eZl">
+                                                                        <rect key="frame" x="306" y="8" width="24" height="24"/>
+                                                                        <color key="tintColor" name="GenericGray"/>
+                                                                    </imageView>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n3b-nA-Y1N" userLabel="Spacer">
+                                                                        <rect key="frame" x="330" y="0.0" width="5" height="40"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
+                                                                </subviews>
+                                                                <gestureRecognizers/>
+                                                                <constraints>
+                                                                    <constraint firstItem="n3b-nA-Y1N" firstAttribute="width" secondItem="xIM-ww-uhk" secondAttribute="width" id="cy2-p7-1Xg"/>
+                                                                    <constraint firstAttribute="height" constant="40" id="ewy-AB-fYZ"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdD-jn-TDi" userLabel="Line">
+                                                                <rect key="frame" x="0.0" y="162" width="335" height="1"/>
+                                                                <color key="backgroundColor" name="FormLineGray"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="1" id="JdS-D3-4aL"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Yv6-gW-r7K" userLabel="LND Debug Console">
+                                                                <rect key="frame" x="0.0" y="163" width="335" height="40"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S4I-Cq-aLt" userLabel="Spacer">
                                                                         <rect key="frame" x="0.0" y="0.0" width="5" height="40"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log Console" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6o-yo-eEe" userLabel="LND Log Console">
-                                                                        <rect key="frame" x="5" y="10.333333333333341" width="301" height="19.333333333333329"/>
+                                                                        <rect key="frame" x="5" y="10.333333333333313" width="301" height="19.333333333333329"/>
                                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                                         <color key="textColor" name="DarkTextBlue"/>
                                                                         <nil key="highlightedColor"/>
@@ -153,7 +188,7 @@
                                                                 </connections>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="pmD-pu-T1L" userLabel="Header Spacer">
-                                                                <rect key="frame" x="0.0" y="162" width="335" height="10"/>
+                                                                <rect key="frame" x="0.0" y="203" width="335" height="10"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="10" id="YFB-GI-efO"/>
@@ -162,6 +197,7 @@
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="roz-9h-KQf" firstAttribute="width" secondItem="S4I-Cq-aLt" secondAttribute="width" id="FCV-Sb-jaJ"/>
+                                                            <constraint firstItem="xIM-ww-uhk" firstAttribute="width" secondItem="roz-9h-KQf" secondAttribute="width" id="Wq7-oO-xum"/>
                                                             <constraint firstItem="roz-9h-KQf" firstAttribute="width" secondItem="S4I-Cq-aLt" secondAttribute="width" id="qRd-KJ-9qT"/>
                                                         </constraints>
                                                     </stackView>
@@ -250,11 +286,8 @@
         <namedColor name="FormLineGray">
             <color red="0.86666666670000003" green="0.86274509799999999" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="FormLineGray">
-            <color red="0.8666666666666667" green="0.86274509803921573" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <namedColor name="GenericGray">
-            <color red="0.66666666666666663" green="0.66274509803921566" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.66666666669999997" green="0.66274509800000003" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="MediumTextGray">
             <color red="0.53333333333333333" green="0.52941176470588236" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
