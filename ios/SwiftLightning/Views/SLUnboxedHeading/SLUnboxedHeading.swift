@@ -10,7 +10,7 @@ import UIKit
 
 @IBDesignable class SLUnboxedHeading: NibView {
 
-  @IBOutlet weak var logo: UIImageView!
+  @IBOutlet weak var logo: SLLogoView!
   @IBOutlet weak var title: UILabel!
   @IBOutlet weak var logoHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var stackView: UIStackView!

@@ -18,7 +18,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SLUnboxedHeading" customModule="SwiftLightning" customModuleProvider="target">
             <connections>
                 <outlet property="headerButton" destination="Lsy-G0-sSx" id="jYR-as-Mok"/>
-                <outlet property="logo" destination="6Qg-rm-841" id="JBB-fx-nYB"/>
+                <outlet property="logo" destination="6Qg-rm-841" id="u18-xX-awn"/>
                 <outlet property="logoHeightConstraint" destination="UgH-cd-bq6" id="8f7-N1-Twi"/>
                 <outlet property="stackView" destination="Jab-wR-we5" id="hsh-Dk-HN6"/>
                 <outlet property="title" destination="VgX-3d-2aC" id="lfc-3t-ImV"/>
@@ -32,7 +32,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" verticalHuggingPriority="500" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jab-wR-we5">
                     <rect key="frame" x="51" y="213.5" width="193.5" height="36"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningLogo" translatesAutoresizingMaskIntoConstraints="NO" id="6Qg-rm-841">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningVector4" translatesAutoresizingMaskIntoConstraints="NO" id="6Qg-rm-841" customClass="SLLogoView" customModule="SwiftLightning" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="UgH-cd-bq6"/>
@@ -67,6 +67,6 @@
         </view>
     </objects>
     <resources>
-        <image name="LightningLogo" width="205" height="205"/>
+        <image name="LightningVector4" width="200" height="200"/>
     </resources>
 </document>

@@ -10,27 +10,27 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Launch Screen View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="RootViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="RootViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LaunchScreenViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LaunchScreenViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningVector4" translatesAutoresizingMaskIntoConstraints="NO" id="dSc-p7-v7b" customClass="SLLogoView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="87.666666666666686" y="286" width="200" height="200"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningVector4" translatesAutoresizingMaskIntoConstraints="NO" id="kil-uY-KzR" customClass="SLLogoView" customModule="SwiftLightning" customModuleProvider="target">
+                                <rect key="frame" x="87" y="286" width="200" height="200"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" name="SpaceCadetBlue"/>
                         <constraints>
-                            <constraint firstItem="dSc-p7-v7b" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-20" id="eBx-Kf-ay8"/>
-                            <constraint firstItem="dSc-p7-v7b" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="s8p-IL-icx"/>
+                            <constraint firstItem="kil-uY-KzR" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-20" id="6Uo-ut-h68"/>
+                            <constraint firstItem="kil-uY-KzR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JZi-cX-zVv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="logoImageView" destination="dSc-p7-v7b" id="c1h-aJ-2nt"/>
+                        <outlet property="logoImageView" destination="kil-uY-KzR" id="CgT-OG-Ogq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

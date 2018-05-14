@@ -13,7 +13,6 @@ class WalletNavigationController: UINavigationController {
   struct Constants {
     static let headerFont = UIFont.MontserratLight(18.0)  // Make font a touch smaller than during setup
     static let logoHeight: CGFloat = 30.0  // Make logo height a touch smaller than during setup
-    static let logoAnimationDuration = TimeInterval(3.0)
   }
   
   override func viewDidLoad() {
@@ -26,18 +25,8 @@ class WalletNavigationController: UINavigationController {
     // Set this as a background color for the Nav Controller
     view.backgroundColor = UIColor.spaceCadetBlue
     
-    // NavigationBar Title View - assume 'Syncing' to start
-    let animationImages = [UIImage(named: "LightningLogo0")!,
-                           UIImage(named: "LightningLogo1")!,
-                           UIImage(named: "LightningLogo2")!,
-                           UIImage(named: "LightningLogo3")!,
-                           UIImage(named: "LightningLogo4")!]
-    
     let headingView = SLUnboxedHeading()
     headingView.logoHeightConstraint.constant = Constants.logoHeight
-    headingView.logo.animationImages = animationImages
-    headingView.logo.animationDuration = Constants.logoAnimationDuration
-    headingView.logo.startAnimating()
     
     headingView.title.isHidden = false
     headingView.title.font = Constants.headerFont
@@ -57,12 +46,11 @@ class WalletNavigationController: UINavigationController {
     _ = EventCentral.shared.subscribeToSync { (synced, percentage, date) in
       DispatchQueue.main.async {
         if synced {
-          headingView.logo.stopAnimating()
-          headingView.logo.image = UIImage(named: "LightningLogo4")
+          headingView.logo.popAnimate()
           headingView.title.isHidden = true
         } else {
-          if headingView.logo.isAnimating {
-            headingView.logo.startAnimating()
+          if !headingView.logo.isAnimating {
+            headingView.logo.pushAnimate()
           }
           headingView.title.isHidden = false
           headingView.title.text = "Syncing...  "  // add 2 spaces after to center

@@ -59,16 +59,23 @@ class RootViewController: UIViewController, RootDisplayLogic {
   
   // MARK: View lifecycle
   
+  @IBOutlet weak var logoImageView: SLLogoView!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     let request = Root.WalletPresenceRouting.Request()
     interactor?.checkWalletPresence(request: request)
   }
   
-  
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    // Consider always clear all sensitive material from memory when one passes this
+    logoImageView.animationDuration = TimeInterval(2.0)
+    logoImageView.pushAnimate()
+  }
+  
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    logoImageView.popAnimate()
   }
   
   
@@ -97,11 +104,8 @@ class RootViewController: UIViewController, RootDisplayLogic {
   
   
   // MARK: Confirm Wallet is Unlocked before proceeding to Wallet Navigation
-  let activityIndicator = SLSpinnerDialogView()
   
   func goWalletNavigation() {
-    activityIndicator.show(on: view)
-    
     // We gotta confirm that the wallet is indeed unlocked before proceeding
     let request = Root.ConfirmWalletUnlock.Request()
     interactor?.confirmWalletUnlock(request: request)
@@ -109,8 +113,6 @@ class RootViewController: UIViewController, RootDisplayLogic {
   
   func displayWalletNavigation() {
     DispatchQueue.main.async {
-      self.activityIndicator.remove()
-      
       self.router?.routeToWalletNavigation()
     }
   }
@@ -119,7 +121,6 @@ class RootViewController: UIViewController, RootDisplayLogic {
     let alertDialog = UIAlertController(title: viewModel.errTitle, message: viewModel.errMsg, preferredStyle: .alert).addAction(title: "OK", style: .default)
     
     DispatchQueue.main.async {
-      self.activityIndicator.remove()
       self.present(alertDialog, animated: true, completion: nil)
     }
   }

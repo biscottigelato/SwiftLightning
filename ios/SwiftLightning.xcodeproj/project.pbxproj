@@ -132,6 +132,8 @@
 		8C33E70920A90FEE00C31F33 /* WalletInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E70320A90FEE00C31F33 /* WalletInfoViewController.swift */; };
 		8C33E70A20A90FEE00C31F33 /* WalletInfoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E70420A90FEE00C31F33 /* WalletInfoInteractor.swift */; };
 		8C33E70C20A90FFA00C31F33 /* WalletInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C33E70B20A90FFA00C31F33 /* WalletInfo.storyboard */; };
+		8C33E70F20A92C2700C31F33 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E70E20A92C2700C31F33 /* LaunchScreenViewController.swift */; };
+		8C33E71220A92CDB00C31F33 /* SLLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E71120A92CDB00C31F33 /* SLLogoView.swift */; };
 		8C36A02C20966DA2003BEFB6 /* AddressTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02B20966DA2003BEFB6 /* AddressTest.swift */; };
 		8C36A02E20966DB3003BEFB6 /* PaymentURITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */; };
 		8C36A03020966DCA003BEFB6 /* SecureHashTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */; };
@@ -421,6 +423,8 @@
 		8C33E70320A90FEE00C31F33 /* WalletInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoViewController.swift; sourceTree = "<group>"; };
 		8C33E70420A90FEE00C31F33 /* WalletInfoInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoInteractor.swift; sourceTree = "<group>"; };
 		8C33E70B20A90FFA00C31F33 /* WalletInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WalletInfo.storyboard; sourceTree = "<group>"; };
+		8C33E70E20A92C2700C31F33 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		8C33E71120A92CDB00C31F33 /* SLLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLogoView.swift; sourceTree = "<group>"; };
 		8C36A02B20966DA2003BEFB6 /* AddressTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTest.swift; sourceTree = "<group>"; };
 		8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentURITest.swift; sourceTree = "<group>"; };
 		8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureHashTest.swift; sourceTree = "<group>"; };
@@ -881,6 +885,23 @@
 			path = WalletInfo;
 			sourceTree = "<group>";
 		};
+		8C33E70D20A92BCB00C31F33 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				8C6B7565208BB9CF00B751A2 /* LaunchScreen.storyboard */,
+				8C33E70E20A92C2700C31F33 /* LaunchScreenViewController.swift */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		8C33E71020A92C8200C31F33 /* SLLogoView */ = {
+			isa = PBXGroup;
+			children = (
+				8C33E71120A92CDB00C31F33 /* SLLogoView.swift */,
+			);
+			path = SLLogoView;
+			sourceTree = "<group>";
+		};
 		8C36A026209662B8003BEFB6 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -1217,6 +1238,7 @@
 		8C8275BE208EA4E40029BE7E /* SLForms */ = {
 			isa = PBXGroup;
 			children = (
+				8C33E71020A92C8200C31F33 /* SLLogoView */,
 				8C70EBD5208C382400D658DC /* SLFormBackingView */,
 				8C70EC05208D89CE00D658DC /* SLFormHeaderView */,
 				8C77AD8520A2DB380094D733 /* SLFormTitleLabel */,
@@ -1385,9 +1407,9 @@
 		8CFA16912082EB7E00813EA6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				8C6B7565208BB9CF00B751A2 /* LaunchScreen.storyboard */,
-				8C33E69620A545B300C31F33 /* Transitions */,
 				8C090DEC2086FF3D009B8B8D /* Templates */,
+				8C33E69620A545B300C31F33 /* Transitions */,
+				8C33E70D20A92BCB00C31F33 /* LaunchScreen */,
 				8C6B753A208AF30800B751A2 /* Root */,
 			);
 			path = Common;
@@ -1889,6 +1911,7 @@
 				8C6B7552208AFEC800B751A2 /* UnlockAppViewController.swift in Sources */,
 				8CD063AA209563BC00D2B66B /* PayConfirmViewController.swift in Sources */,
 				8C90C94A209D70ED00D6E7A8 /* ChannelVM.swift in Sources */,
+				8C33E71220A92CDB00C31F33 /* SLLogoView.swift in Sources */,
 				8C6B755F208B17BD00B751A2 /* WalletMainRouter.swift in Sources */,
 				8CD063A8209563BC00D2B66B /* PayConfirmRouter.swift in Sources */,
 				8C33E6E920A7B67300C31F33 /* LogConsoleViewController.swift in Sources */,
@@ -1918,6 +1941,7 @@
 				8C33E6EA20A7B67300C31F33 /* LogConsoleInteractor.swift in Sources */,
 				8C8275F220910FA40029BE7E /* ChannelConfirmModels.swift in Sources */,
 				8C090E4420894801009B8B8D /* MnemonicConfirmRouter.swift in Sources */,
+				8C33E70F20A92C2700C31F33 /* LaunchScreenViewController.swift in Sources */,
 				8C1AE3852095BF6E00A4D9BF /* SegwitAddrCoder.swift in Sources */,
 				8C6B7546208AF33200B751A2 /* RootInteractor.swift in Sources */,
 				8C70EBFD208C458700D658DC /* SLFormBackingView.swift in Sources */,
