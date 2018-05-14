@@ -19,6 +19,7 @@ protocol WalletMainRoutingLogic {
   func routeToChannelDetails(channelPoint: String)
   func routeToTransactionDetails(type: BitcoinPaymentType, hash: String)
   func routeToSettingsMain()
+  func routeToWalletBalance()
 }
 
 protocol WalletMainDataPassing {
@@ -78,6 +79,14 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
     var destinationDS = destinationVC.router!.dataStore!
     passDataToSettingsMain(source: dataStore!, destination: &destinationDS)
     navigateToSettingsMain(source: viewController!, destination: destinationVC)
+  }
+  
+  func routeToWalletBalance() {
+    let storyboard = UIStoryboard(name: "WalletBalance", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "WalletBalanceViewController") as! WalletBalanceViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToWalletBalance(source: dataStore!, destination: &destinationDS)
+    navigateToWalletBalance(source: viewController!, destination: destinationVC)
   }
   
   
@@ -143,6 +152,16 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
     navigationController.pushViewController(destination, animated: true)
   }
   
+  func navigateToWalletBalance(source: WalletMainViewController, destination: WalletBalanceViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    destination.setPopTransition(dismissIsInteractive: true)
+    navigationController.delegate = destination
+    navigationController.pushViewController(destination, animated: true)
+  }
+  
   
   // MARK: Passing data
   
@@ -168,6 +187,10 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
   }
   
   func passDataToSettingsMain(source: WalletMainDataStore, destination: inout SettingsMainDataStore) {
+    // destination.name = source.name
+  }
+  
+  func passDataToWalletBalance(source: WalletMainDataStore, destination: inout WalletBalanceDataStore) {
     // destination.name = source.name
   }
 }

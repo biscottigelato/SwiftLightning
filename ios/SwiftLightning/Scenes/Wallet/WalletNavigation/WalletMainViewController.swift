@@ -73,6 +73,9 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
   @IBOutlet weak var transactionView: WalletPageView!
   @IBOutlet weak var channelView: WalletPageView!
   
+  @IBOutlet weak var totalBalanceTapRecognizer: UITapGestureRecognizer!
+  @IBOutlet weak var channelBalanceTapRecognizer: UITapGestureRecognizer!
+  
   var updateEventHandle: EventCentral.Handle?
   var syncHandle: EventCentral.Handle?
     
@@ -112,6 +115,9 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
           self.channelView.leftButton.backgroundColor = UIColor.lightAzureBlue
           self.channelView.leftButton.shadowColor = UIColor.lightAzureBlueShadow
           self.channelView.leftButton.setTitleColor(UIColor.normalText, for: .normal)
+          
+          self.totalBalanceTapRecognizer.isEnabled = true
+          self.channelBalanceTapRecognizer.isEnabled = true
         }
         
         // Do an immediate update
@@ -417,5 +423,16 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
   
   @IBAction func settingsTapped(_ sender: UIButton) {
     router?.routeToSettingsMain()
+  }
+  
+  
+  // MARK: Total Balance Tapped
+  
+  @IBAction func totalBalanceTapped(_ sender: UITapGestureRecognizer) {
+    router?.routeToWalletBalance()
+  }
+  
+  @IBAction func channelBalanceTapped(_ sender: UITapGestureRecognizer) {
+    router?.routeToWalletBalance()
   }
 }

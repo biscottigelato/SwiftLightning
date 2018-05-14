@@ -65,6 +65,8 @@ class LogConsoleViewController: SLViewController, LogConsoleDisplayLogic, UIScro
 
   // MARK: Read Logs
   
+  let activityIndicator = SLSpinnerDialogView()
+  
   @IBOutlet weak var logDisplayTextView: UITextView!
   
   @IBAction func readWalletLogTapped(_ sender: SLBarButton) {

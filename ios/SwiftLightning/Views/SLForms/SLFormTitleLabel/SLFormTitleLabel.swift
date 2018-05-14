@@ -32,4 +32,13 @@ import UIKit
       titleLabel.text = newValue
     }
   }
+  
+  @IBInspectable var fontSize: CGFloat {
+    get {
+      return titleLabel.font.pointSize
+    }
+    set {
+      titleLabel.font = UIFont.regularFont(newValue)
+    }
+  }
 }

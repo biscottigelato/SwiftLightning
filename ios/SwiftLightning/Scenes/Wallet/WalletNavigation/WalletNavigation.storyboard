@@ -55,6 +55,10 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="EeH-3f-v2I" appends="YES" id="SzL-OF-doo"/>
+                                </connections>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zkY-WT-qcP" userLabel="Channel Stack">
                                 <rect key="frame" x="300" y="5" width="60" height="48.5"/>
@@ -80,6 +84,10 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="a8x-Zi-6q3" appends="YES" id="7zO-gf-t93"/>
+                                </connections>
                             </stackView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhM-12-US3">
                                 <rect key="frame" x="0.0" y="53.5" width="375" height="549.5"/>
@@ -173,13 +181,25 @@
                     </navigationItem>
                     <connections>
                         <outlet property="channelBalanceLabel" destination="9Sf-ah-19C" id="ccg-FZ-oDo"/>
+                        <outlet property="channelBalanceTapRecognizer" destination="a8x-Zi-6q3" id="afr-jU-gj2"/>
                         <outlet property="channelView" destination="YZZ-2K-Ihz" id="znO-E7-PqE"/>
                         <outlet property="pagingScrollView" destination="nhM-12-US3" id="cap-Fm-0Gl"/>
                         <outlet property="totalBalanceLabel" destination="DHY-EV-q61" id="7Ck-RV-Ggg"/>
+                        <outlet property="totalBalanceTapRecognizer" destination="EeH-3f-v2I" id="G4h-of-d08"/>
                         <outlet property="transactionView" destination="Swd-QE-PAo" id="WhL-1f-kYn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bWG-0Q-vOB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer enabled="NO" id="EeH-3f-v2I" userLabel="Total Balance Tapped">
+                    <connections>
+                        <action selector="totalBalanceTapped:" destination="biu-h6-UIo" id="qHQ-vh-GQF"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer enabled="NO" id="a8x-Zi-6q3" userLabel="Channel Balance Tapped">
+                    <connections>
+                        <action selector="channelBalanceTapped:" destination="biu-h6-UIo" id="2JT-Wx-WgK"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="778" y="152"/>
         </scene>

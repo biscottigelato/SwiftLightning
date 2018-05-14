@@ -37,4 +37,13 @@ import UIKit
       }
     }
   }
+  
+  @IBInspectable var fontSize: CGFloat {
+    get {
+      return textLabel.font.pointSize
+    }
+    set {
+      textLabel.font = UIFont.regularFont(newValue)
+    }
+  }
 }
