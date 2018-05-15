@@ -82,9 +82,10 @@ class NeutrinoPeersViewController: SLViewController, NeutrinoPeersDisplayLogic, 
     tableView.register(nib, forCellReuseIdentifier: Constants.peerCellReuseID)
     tableView.delegate = self
     tableView.dataSource = self
-    tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 20.0, 0.0)
+    tableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 20.0, 0.0)
     
     // Cell reordering
+    longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(gesture:)))
     self.tableView.addGestureRecognizer(longPressGesture)
     
     let request = NeutrinoPeers.CurrentPeers.Request()
@@ -94,7 +95,7 @@ class NeutrinoPeersViewController: SLViewController, NeutrinoPeersDisplayLogic, 
   
   // MARK: Cell Reordering
 
-  private let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(gesture:)))
+  var longPressGesture: UILongPressGestureRecognizer!
   
   private func snapshot(view inputView: UIView) -> UIView {
     UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0.0)
@@ -228,6 +229,9 @@ class NeutrinoPeersViewController: SLViewController, NeutrinoPeersDisplayLogic, 
     }
   }
 
+  func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+    return true
+  }
   
   // MARK: TextField Delegates
   

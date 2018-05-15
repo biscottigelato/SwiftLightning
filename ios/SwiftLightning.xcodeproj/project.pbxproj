@@ -132,7 +132,6 @@
 		8C33E70920A90FEE00C31F33 /* WalletInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E70320A90FEE00C31F33 /* WalletInfoViewController.swift */; };
 		8C33E70A20A90FEE00C31F33 /* WalletInfoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E70420A90FEE00C31F33 /* WalletInfoInteractor.swift */; };
 		8C33E70C20A90FFA00C31F33 /* WalletInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C33E70B20A90FFA00C31F33 /* WalletInfo.storyboard */; };
-		8C33E70F20A92C2700C31F33 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E70E20A92C2700C31F33 /* LaunchScreenViewController.swift */; };
 		8C33E71220A92CDB00C31F33 /* SLLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E71120A92CDB00C31F33 /* SLLogoView.swift */; };
 		8C33E71720A954B500C31F33 /* NeutrinoPeers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C33E71620A954B500C31F33 /* NeutrinoPeers.storyboard */; };
 		8C33E71E20A954C900C31F33 /* NeutrinoPeersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E71820A954C900C31F33 /* NeutrinoPeersPresenter.swift */; };
@@ -435,7 +434,6 @@
 		8C33E70320A90FEE00C31F33 /* WalletInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoViewController.swift; sourceTree = "<group>"; };
 		8C33E70420A90FEE00C31F33 /* WalletInfoInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletInfoInteractor.swift; sourceTree = "<group>"; };
 		8C33E70B20A90FFA00C31F33 /* WalletInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WalletInfo.storyboard; sourceTree = "<group>"; };
-		8C33E70E20A92C2700C31F33 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		8C33E71120A92CDB00C31F33 /* SLLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLogoView.swift; sourceTree = "<group>"; };
 		8C33E71620A954B500C31F33 /* NeutrinoPeers.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NeutrinoPeers.storyboard; sourceTree = "<group>"; };
 		8C33E71820A954C900C31F33 /* NeutrinoPeersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeutrinoPeersPresenter.swift; sourceTree = "<group>"; };
@@ -913,7 +911,6 @@
 			isa = PBXGroup;
 			children = (
 				8C6B7565208BB9CF00B751A2 /* LaunchScreen.storyboard */,
-				8C33E70E20A92C2700C31F33 /* LaunchScreenViewController.swift */,
 			);
 			path = LaunchScreen;
 			sourceTree = "<group>";
@@ -2018,7 +2015,6 @@
 				8C33E6EA20A7B67300C31F33 /* LogConsoleInteractor.swift in Sources */,
 				8C8275F220910FA40029BE7E /* ChannelConfirmModels.swift in Sources */,
 				8C090E4420894801009B8B8D /* MnemonicConfirmRouter.swift in Sources */,
-				8C33E70F20A92C2700C31F33 /* LaunchScreenViewController.swift in Sources */,
 				8C1AE3852095BF6E00A4D9BF /* SegwitAddrCoder.swift in Sources */,
 				8C6B7546208AF33200B751A2 /* RootInteractor.swift in Sources */,
 				8C70EBFD208C458700D658DC /* SLFormBackingView.swift in Sources */,

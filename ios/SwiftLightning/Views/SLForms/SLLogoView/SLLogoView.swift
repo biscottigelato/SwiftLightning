@@ -25,6 +25,7 @@ import UIKit
   }
   
   private func initializeLogo() {
+    #if !TARGET_INTERFACE_BUILDER
     self.image = UIImage(named: "LightningVector4")
     
     let animationImages = [UIImage(named: "LightningVector4")!,
@@ -35,6 +36,7 @@ import UIKit
     
     self.animationImages = animationImages
     self.animationDuration = Constants.logoAnimationDuration
+    #endif
   }
   
   

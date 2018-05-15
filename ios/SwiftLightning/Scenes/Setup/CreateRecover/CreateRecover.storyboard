@@ -75,7 +75,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="eHH-hT-y2m">
-                                        <rect key="frame" x="15" y="638.66666666666663" width="345" height="99"/>
+                                        <rect key="frame" x="15.333333333333343" y="638.66666666666663" width="345" height="99"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-A9-PER" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="345" height="42"/>
@@ -99,7 +99,7 @@
                                                 <color key="backgroundColor" name="MedAquamarine"/>
                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                 <state key="normal" title="Recover Wallet">
-                                                    <color key="titleColor" name="DisabledText"/>
+                                                    <color key="titleColor" name="NormalText"/>
                                                     <color key="titleShadowColor" name="MedAquamarineShadow"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -160,9 +160,6 @@
     <resources>
         <image name="LightningVector4" width="200" height="200"/>
         <image name="OnboardBackgroundTemp" width="1333" height="2000"/>
-        <namedColor name="DisabledText">
-            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <namedColor name="LightAzureBlue">
             <color red="0.4823529411764706" green="0.71372549019607845" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
@@ -174,6 +171,9 @@
         </namedColor>
         <namedColor name="MedAquamarineShadow">
             <color red="0.30588235294117649" green="0.50588235294117645" blue="0.44705882352941179" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="NormalText">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="NormalText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

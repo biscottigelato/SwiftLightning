@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,38 +19,33 @@
                 <rect key="frame" x="0.0" y="0.0" width="366" height="157.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sBJ-fj-GCZ">
-                        <rect key="frame" x="15" y="0.0" width="336" height="157.5"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="UiI-UZ-MaS">
+                        <rect key="frame" x="15" y="59" width="336" height="40"/>
                         <subviews>
-                            <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="fcY-dX-oJG" userLabel="Spacer">
-                                <rect key="frame" x="0.0" y="0.0" width="336" height="127.5"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="UiI-UZ-MaS">
-                                <rect key="frame" x="0.0" y="127.5" width="336" height="30"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="cvL-V9-JvT">
-                                        <rect key="frame" x="0.0" y="5.5" width="336" height="19"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="5eC-LI-D2q"/>
-                                </constraints>
-                            </stackView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ReorderLight" translatesAutoresizingMaskIntoConstraints="NO" id="3ZV-2h-msx">
+                                <rect key="frame" x="0.0" y="8" width="24" height="24"/>
+                                <color key="tintColor" name="GenericGray"/>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="cvL-V9-JvT">
+                                <rect key="frame" x="32" y="10.5" width="304" height="19"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
-                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="5eC-LI-D2q"/>
+                        </constraints>
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="sBJ-fj-GCZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Bbk-ea-zHc"/>
-                    <constraint firstAttribute="trailing" secondItem="sBJ-fj-GCZ" secondAttribute="trailing" constant="15" id="kLy-xb-cC3"/>
-                    <constraint firstAttribute="bottom" secondItem="sBJ-fj-GCZ" secondAttribute="bottom" id="pqC-vP-bhh"/>
-                    <constraint firstItem="sBJ-fj-GCZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="tgF-P2-hab"/>
+                    <constraint firstItem="UiI-UZ-MaS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="8Fl-IM-81W"/>
+                    <constraint firstAttribute="trailing" secondItem="UiI-UZ-MaS" secondAttribute="trailing" constant="15" id="V4N-7o-ies"/>
                 </constraints>
             </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="UiI-UZ-MaS" firstAttribute="centerY" secondItem="njF-e1-oar" secondAttribute="centerY" id="KKW-Rw-rct"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="peerAddrTextField" destination="cvL-V9-JvT" id="KvN-N9-aPW"/>
@@ -57,4 +53,10 @@
             <point key="canvasLocation" x="-70" y="233"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ReorderLight" width="24" height="24"/>
+        <namedColor name="GenericGray">
+            <color red="0.66666666666666663" green="0.66274509803921566" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
 </document>
