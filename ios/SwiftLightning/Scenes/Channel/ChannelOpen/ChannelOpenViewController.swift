@@ -23,7 +23,13 @@ protocol ChannelOpenDisplayLogic: class {
   func displayOnChainConfirmedBalanceError(viewModel: ChannelOpen.GetBalance.ErrorVM)
   func displayChannelConfirm()
   func displayChannelConfirmError(viewModel: ChannelOpen.ChannelConfirm.ErrorVM)
-  func displayConfirmButton(enable: Bool)
+  func updateInvalidity(nodePubKey: Bool?, nodeIPPort: Bool?, fundingAmt: Bool?, initAmt: Bool?)
+}
+
+extension ChannelOpenDisplayLogic {
+  func updateInvalidity(nodePubKey: Bool? = nil, nodeIPPort: Bool? = nil, fundingAmt: Bool? = nil, initAmt: Bool? = nil) {
+    updateInvalidity(nodePubKey: nodePubKey, nodeIPPort: nodeIPPort, fundingAmt: fundingAmt, initAmt: initAmt)
+  }
 }
 
 
@@ -86,6 +92,11 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, Came
     
     fundingEntryView.errorLabel.isHidden = true
     initPaymentEntryView.errorLabel.isHidden = true
+
+    nodePubKeyEntryView.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    nodePortIPEntryView.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    fundingEntryView.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    initPaymentEntryView.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -115,6 +126,10 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, Came
       SLLog.assert("Unreognized textfield returned - \(textField)")
     }
     return true
+  }
+  
+  @objc private func textFieldDidChange(_ textField: UITextField) {
+    updateInvalidity()
   }
   
   
@@ -226,18 +241,37 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, Came
     }
   }
   
-  func displayConfirmButton(enable: Bool) {
+  
+  // MARK: Validity Tracking
+  
+  var isNodePubKeyInvalid = false
+  var isNodeIPPortInvalid = false
+  var isFundingAmtInvalid = false
+  var isInitAmtInvalid = false
+  
+  func updateInvalidity(nodePubKey: Bool? = nil, nodeIPPort: Bool? = nil, fundingAmt: Bool? = nil, initAmt: Bool? = nil) {
+    if let nodePubKey = nodePubKey { isNodePubKeyInvalid = nodePubKey }
+    if let nodeIPPort = nodeIPPort { isNodeIPPortInvalid = nodeIPPort }
+    if let fundingAmt = fundingAmt { isFundingAmtInvalid = fundingAmt }
+    if let initAmt = initAmt { isInitAmtInvalid = initAmt }
+    
     DispatchQueue.main.async {
-      self.openChannelButton.isEnabled = enable
+      // Update button state
+      if (self.isNodePubKeyInvalid || self.isNodeIPPortInvalid || self.isFundingAmtInvalid || self.isInitAmtInvalid ||
+          (self.nodePubKeyEntryView.textField.text?.isEmpty ?? true) ||
+          (self.nodePortIPEntryView.textField.text?.isEmpty ?? true) ||
+          (self.fundingEntryView.textField.text?.isEmpty ?? true) ||
+          (self.initPaymentEntryView.textField.text?.isEmpty ?? true)) {
       
-      if enable {
-        self.openChannelButton.backgroundColor = UIColor.medAquamarine
-        self.openChannelButton.shadowColor = UIColor.medAquamarineShadow
-        self.openChannelButton.setTitleColor(UIColor.normalText, for: .normal)
-      } else {
+        self.openChannelButton.isEnabled = false
         self.openChannelButton.backgroundColor = UIColor.disabledGray
         self.openChannelButton.shadowColor = UIColor.disabledGrayShadow
         self.openChannelButton.setTitleColor(UIColor.disabledText, for: .normal)
+      } else {
+        self.openChannelButton.isEnabled = true
+        self.openChannelButton.backgroundColor = UIColor.medAquamarine
+        self.openChannelButton.shadowColor = UIColor.medAquamarineShadow
+        self.openChannelButton.setTitleColor(UIColor.normalText, for: .normal)
       }
     }
   }

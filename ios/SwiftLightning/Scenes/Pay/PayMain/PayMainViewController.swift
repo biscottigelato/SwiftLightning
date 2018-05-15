@@ -41,10 +41,6 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
   @IBOutlet weak var warningLabel: UILabel!
   @IBOutlet weak var sendButton: SLBarButton!
   
-  var isAddressInvalid: Bool = false
-  var isAmountInvalid: Bool = false
-  var isRoutingInvalid: Bool = false
-  
   
   // MARK: Object lifecycle
   
@@ -87,6 +83,9 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
     descriptionEntryView.textField.delegate = self
     
     headerView.setIcon(to: .none)
+    
+    addressEntryView.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    amountEntryView.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -95,7 +94,7 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
   }
   
   
-  // MARK: Text Field Return
+  // MARK: Text Field Delegates
   
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     switch textField {
@@ -111,15 +110,9 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
     return true
   }
   
-  
-  // MARK: Text Field Did Change
-  
   @objc private func textFieldDidChange(_ textField: UITextField) {
     updateInvalidity()
   }
-  
-  
-  // MARK: Verify Text Field Entries
   
   func textFieldDidEndEditing(_ textField: UITextField) {
     switch textField {
@@ -208,6 +201,10 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
   
   // MARK: Validity Tracking
   
+  var isAddressInvalid = false
+  var isAmountInvalid = false
+  var isRoutingInvalid = false
+  
   func updateInvalidity(addr: Bool? = nil, amt: Bool? = nil, route: Bool? = nil) {
     if let addr = addr { isAddressInvalid = addr }
     if let amt = amt { isAmountInvalid = amt }
@@ -216,8 +213,8 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
     DispatchQueue.main.async {
       // Update button state
       if (self.isAddressInvalid || self.isAmountInvalid || self.isRoutingInvalid ||
-         (self.addressEntryView.textField.text?.isEmpty ?? true) ||
-         (self.amountEntryView.textField.text?.isEmpty ?? true)) {
+          (self.addressEntryView.textField.text?.isEmpty ?? true) ||
+          (self.amountEntryView.textField.text?.isEmpty ?? true)) {
         
         self.sendButton.isEnabled = false
         self.sendButton.backgroundColor = UIColor.disabledGray

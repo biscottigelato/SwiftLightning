@@ -131,6 +131,13 @@ class ChannelOpenInteractor: ChannelOpenBusinessLogic, ChannelOpenDataStore {
         var fundingError: ChannelOpen.ValidateAmounts.Error? = nil
         var initPayError: ChannelOpen.ValidateAmounts.Error? = nil
         
+        guard request.fundingAmt != "" else {
+          // Let View Controller to check for empty, not marking init pay as invalid. Just as empty
+          let response = ChannelOpen.ValidateAmounts.Response(fundingError: ChannelOpen.ValidateAmounts.Error.empty,
+                                                              initPayError: nil)
+          self.presenter?.presentAmountValid(response: response)
+          return
+        }
         // TODO: Need to know what the text field value means. Satoshi? Bits? USD? etc
         guard let fundingAmt = Bitcoin(inSatoshi: request.fundingAmt) else {
           let response = ChannelOpen.ValidateAmounts.Response(fundingError: ChannelOpen.ValidateAmounts.Error.invalid,
@@ -145,6 +152,14 @@ class ChannelOpenInteractor: ChannelOpenBusinessLogic, ChannelOpenDataStore {
         
         if fundingAmt < LNConstants.minChannelSize {
           fundingError = ChannelOpen.ValidateAmounts.Error.minChannelSize
+        }
+        
+        guard request.initPayAmt != "" else {
+          // Let View Controller to check for empty, not marking init pay as invalid. Just as empty
+          let response = ChannelOpen.ValidateAmounts.Response(fundingError: fundingError,
+                                                              initPayError: ChannelOpen.ValidateAmounts.Error.empty)
+          self.presenter?.presentAmountValid(response: response)
+          return
         }
         
         guard let initPayAmt = Bitcoin(inSatoshi: request.initPayAmt) else {

@@ -46,6 +46,7 @@ enum ChannelOpen
       case walletBalance
       case feeEstimation
       case minChannelSize
+      case empty
     }
     struct Request {
       var fundingAmt: String

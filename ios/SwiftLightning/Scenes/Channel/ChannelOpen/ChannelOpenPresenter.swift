@@ -26,24 +26,17 @@ class ChannelOpenPresenter: ChannelOpenPresentationLogic {
   
   weak var viewController: ChannelOpenDisplayLogic?
   
-  
   // MARK: Validate Entries
-  
-  var pubKeyValid = false
-  var ipPortValid = false
-  var fundingValid = false
-  var initPayValid = false
   
   func presentNodePubKeyValid(response: ChannelOpen.ValidateNodePubKey.Response) {
     var errorLabelString = ""
     
     if !response.isKeyValid {
       errorLabelString = "Invalid Public Key"
-      pubKeyValid = false
+      viewController?.updateInvalidity(nodePubKey: true)
     } else {
-      pubKeyValid = true
+      viewController?.updateInvalidity(nodePubKey: false)
     }
-    updateValidities()
     
     let viewModel = ChannelOpen.ValidateNodePubKey.WarningVM(errorLabel: errorLabelString)
     viewController?.displayNodePubKeyValidWarning(viewModel: viewModel)
@@ -51,19 +44,19 @@ class ChannelOpenPresenter: ChannelOpenPresentationLogic {
   
   func presentNodePortIPValid(response: ChannelOpen.ValidateNodeIPPort.Response) {
     var errorLabelString = ""
-    ipPortValid = false
-    
+    var nodeIPPortInvalid = true
+
     if !response.isIPValid {
       errorLabelString = "Invalid Host Address"
     } else if !response.isPortValid {
       errorLabelString = "Invalid Port"
     } else {
-      ipPortValid = true
+      nodeIPPortInvalid = false
     }
-    updateValidities()
     
     let viewModel = ChannelOpen.ValidateNodeIPPort.WarningVM(errorLabel: errorLabelString)
     viewController?.displayIPPortValidWarning(viewModel: viewModel)
+    viewController?.updateInvalidity(nodeIPPort: nodeIPPortInvalid)
   }
   
   func presentAmountValid(response: ChannelOpen.ValidateAmounts.Response) {
@@ -71,8 +64,8 @@ class ChannelOpenPresenter: ChannelOpenPresentationLogic {
     var errorLabelString = ""
     var errorAlertString: String? = nil
     
-    fundingValid = false
-    initPayValid = false
+    var fundingInvalid = true
+    var initPayInvalid = true
     
     switch response.initPayError {
     case .some(.invalid):
@@ -85,9 +78,12 @@ class ChannelOpenPresenter: ChannelOpenPresentationLogic {
     case .some(.walletBalance):
       errorLabelString = ""
       errorAlertString = "Cannot obtain wallet balance"
+    case .some(.empty):
+      errorLabelString = ""
+      initPayInvalid = false
     case .none:
       errorLabelString = ""
-      initPayValid = true
+      initPayInvalid = false
     default:
       errorLabelString = ""
       errorAlertString = "Unexpected Error!"
@@ -109,12 +105,15 @@ class ChannelOpenPresenter: ChannelOpenPresentationLogic {
     case .some(.walletBalance):
       errorLabelString = ""
       errorAlertString = "Cannot obtain wallet balance"
+    case .some(.empty):
+      errorLabelString = ""
+      initPayInvalid = false
     case .none:
       errorLabelString = ""
-      fundingValid = true
+      fundingInvalid = false
     }
     
-    updateValidities()
+    viewController?.updateInvalidity(fundingAmt: fundingInvalid, initAmt: initPayInvalid)
     
     let fundingViewModel = ChannelOpen.ValidateAmounts.FundingWarningVM(fundingErrorLabel: errorLabelString)
     viewController?.displayFundingAmtValidWarning(viewModel: fundingViewModel)
@@ -123,10 +122,6 @@ class ChannelOpenPresenter: ChannelOpenPresentationLogic {
       let viewModel = ChannelOpen.ValidateAmounts.ErrorVM(errTitle: "Channel Amount Error", errMsg: errorAlertString)
       viewController?.displayAmtValidError(viewModel: viewModel)
     }
-  }
-  
-  private func updateValidities() {
-    viewController?.displayConfirmButton(enable: pubKeyValid && ipPortValid && fundingValid && initPayValid)
   }
   
   
