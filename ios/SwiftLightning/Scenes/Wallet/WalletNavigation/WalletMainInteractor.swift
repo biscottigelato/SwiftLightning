@@ -16,6 +16,7 @@ protocol WalletMainBusinessLogic {
   func updateBalances(request: WalletMain.UpdateBalances.Request)
   func updateChannels(request: WalletMain.UpdateChannels.Request)
   func updateTransactions(request: WalletMain.UpdateTransactions.Request)
+  func updateChTx()
 }
 
 protocol WalletMainDataStore {
@@ -99,6 +100,27 @@ class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
         let result = Result<[ChannelVM]>.success(channels)
         let response = WalletMain.UpdateChannels.Response(result: result)
         self.presenter?.presentUpdatedChannels(response: response)
+      }
+      catch {
+        let result = Result<[ChannelVM]>.failure(error)
+        let response = WalletMain.UpdateChannels.Response(result: result)
+        self.presenter?.presentUpdatedChannels(response: response)
+      }
+    }
+  }
+  
+  
+  // MARK: Update Channels & Transactions with no sort options
+  
+  func updateChTx() {
+    ChannelVM.getFromLN { (responder) in
+      do {
+        let channels = try responder()
+        let result = Result<[ChannelVM]>.success(channels)
+        let response = WalletMain.UpdateChannels.Response(result: result)
+        self.presenter?.presentUpdatedChannels(response: response)
+        
+        self.updateTransactions(request: WalletMain.UpdateTransactions.Request())
       }
       catch {
         let result = Result<[ChannelVM]>.failure(error)

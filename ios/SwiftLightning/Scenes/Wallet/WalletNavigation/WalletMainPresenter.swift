@@ -22,6 +22,11 @@ protocol WalletMainPresentationLogic
 class WalletMainPresenter: WalletMainPresentationLogic {
   weak var viewController: WalletMainDisplayLogic?
   
+  private var channelSem = DispatchSemaphore(value: 1)
+  private var channelOpenTxIDs = Set<String>()
+  private var channelCloseTxIDs = Set<String>()
+  
+  
   // MARK: Update Balances
   
   func presentUpdatedBalances(response: WalletMain.UpdateBalances.Response) {
@@ -96,9 +101,22 @@ class WalletMainPresenter: WalletMainPresentationLogic {
           statusColor = UIColor.jellyBeanRed
         }
         
+        // Add a note if Tx is associated with Channel Open/Closes
+        var addressText = btcTransaction.destAddresses[0]
+        
+        channelSem.wait()
+        if channelOpenTxIDs.contains(btcTransaction.txHash) {
+          addressText = "Channel Open Tx - \(btcTransaction.destAddresses[0])"
+        }
+        
+        if channelCloseTxIDs.contains(btcTransaction.txHash) {
+          addressText = "Channel Close Tx - \(btcTransaction.destAddresses[0])"
+        }
+        channelSem.signal()
+        
         let transaction = Transaction(date: date,
                                       paymentType: .onChain,
-                                      address: btcTransaction.destAddresses[0],
+                                      address: addressText,
                                       txHash: btcTransaction.txHash,
                                       statusText: statusText,
                                       statusColor: statusColor,
@@ -177,6 +195,30 @@ class WalletMainPresenter: WalletMainPresentationLogic {
         }
         return $0.state.rawValue < $1.state.rawValue
       }
+      
+      // Track transactions that are Opens, Closes, etc
+      channelSem.wait()
+      channelOpenTxIDs.removeAll(keepingCapacity: true)
+      channelCloseTxIDs.removeAll(keepingCapacity: true)
+      
+      for channel in channels {
+        if let addlInfo = channel.addlInfo {
+          switch addlInfo {
+          case .pendingClose(let closeTxID):
+            channelCloseTxIDs.insert(closeTxID)
+          case .forceClose(_, let closeTxID):
+            channelCloseTxIDs.insert(closeTxID)
+          default:
+            break
+          }
+        }
+        
+        let subStrings = channel.channelPoint.split(separator: ":")
+        if subStrings.count > 0 {
+          channelOpenTxIDs.insert(String(subStrings[0]))
+        }
+      }
+      channelSem.signal()
         
       let viewModel = WalletMain.UpdateChannels.ViewModel(channels: channels)
       viewController?.updateChannels(viewModel: viewModel)

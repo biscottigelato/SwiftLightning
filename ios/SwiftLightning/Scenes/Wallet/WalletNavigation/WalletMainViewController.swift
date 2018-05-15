@@ -122,8 +122,7 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
         
         // Do an immediate update
         self.updateBalances()
-        self.fetchTransactions()
-        self.fetchChannels()
+        self.interactor?.updateChTx()  // Ordered channel first, tx second initial fetch
         
         // Re-subscribe to events
         self.updateEventHandle = EventCentral.shared.subscribe(to: [.periodicUpdate, .transaction, .openUpdate, .closeUpdate]) { message in
@@ -137,8 +136,7 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
             self.fetchChannels()
             
           case .periodicUpdate:
-            self.fetchTransactions()
-            self.fetchChannels()
+            self.interactor?.updateChTx()  // Ordered channel first, tx second initial fetch
             
           default:
             SLLog.assert("Do not expect unsubscribed message types")
