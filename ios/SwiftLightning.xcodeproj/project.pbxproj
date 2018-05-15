@@ -143,8 +143,6 @@
 		8C33E72320A954C900C31F33 /* NeutrinoPeersInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E71D20A954C900C31F33 /* NeutrinoPeersInteractor.swift */; };
 		8C33E72620A95D2A00C31F33 /* SLLineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C33E72520A95D2A00C31F33 /* SLLineView.xib */; };
 		8C33E72820A95D3D00C31F33 /* SLLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E72720A95D3D00C31F33 /* SLLineView.swift */; };
-		8C33E72E20A96A4B00C31F33 /* PeerAddrTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E72C20A96A4B00C31F33 /* PeerAddrTableViewCell.swift */; };
-		8C33E72F20A96A4B00C31F33 /* PeerAddrTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C33E72D20A96A4B00C31F33 /* PeerAddrTableViewCell.xib */; };
 		8C36A02C20966DA2003BEFB6 /* AddressTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02B20966DA2003BEFB6 /* AddressTest.swift */; };
 		8C36A02E20966DB3003BEFB6 /* PaymentURITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */; };
 		8C36A03020966DCA003BEFB6 /* SecureHashTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */; };
@@ -268,6 +266,9 @@
 		8C8E4E67208C0C240017BAB2 /* SLSpinnerDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */; };
 		8C90C94A209D70ED00D6E7A8 /* ChannelVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */; };
 		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
+		8CB3CF7E20AA773900D1E28D /* PeerAddrTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB3CF7D20AA773900D1E28D /* PeerAddrTableViewCell.swift */; };
+		8CB3CF8020AA77C300D1E28D /* PeerAddrTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CB3CF7F20AA77C300D1E28D /* PeerAddrTableViewCell.xib */; };
+		8CB3CF8520AA93BA00D1E28D /* SLTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB3CF8420AA93BA00D1E28D /* SLTableView.swift */; };
 		8CD0639F209563A700D2B66B /* PayConfirm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CD0639E209563A600D2B66B /* PayConfirm.storyboard */; };
 		8CD063A6209563BC00D2B66B /* PayConfirmPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD063A0209563BC00D2B66B /* PayConfirmPresenter.swift */; };
 		8CD063A7209563BC00D2B66B /* PayConfirmWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD063A1209563BC00D2B66B /* PayConfirmWorker.swift */; };
@@ -445,8 +446,6 @@
 		8C33E71D20A954C900C31F33 /* NeutrinoPeersInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeutrinoPeersInteractor.swift; sourceTree = "<group>"; };
 		8C33E72520A95D2A00C31F33 /* SLLineView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLLineView.xib; sourceTree = "<group>"; };
 		8C33E72720A95D3D00C31F33 /* SLLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLineView.swift; sourceTree = "<group>"; };
-		8C33E72C20A96A4B00C31F33 /* PeerAddrTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerAddrTableViewCell.swift; sourceTree = "<group>"; };
-		8C33E72D20A96A4B00C31F33 /* PeerAddrTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PeerAddrTableViewCell.xib; sourceTree = "<group>"; };
 		8C36A02B20966DA2003BEFB6 /* AddressTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTest.swift; sourceTree = "<group>"; };
 		8C36A02D20966DB3003BEFB6 /* PaymentURITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentURITest.swift; sourceTree = "<group>"; };
 		8C36A02F20966DCA003BEFB6 /* SecureHashTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureHashTest.swift; sourceTree = "<group>"; };
@@ -572,6 +571,9 @@
 		8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSpinnerDialogView.swift; sourceTree = "<group>"; };
 		8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVM.swift; sourceTree = "<group>"; };
 		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
+		8CB3CF7D20AA773900D1E28D /* PeerAddrTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerAddrTableViewCell.swift; sourceTree = "<group>"; };
+		8CB3CF7F20AA77C300D1E28D /* PeerAddrTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PeerAddrTableViewCell.xib; sourceTree = "<group>"; };
+		8CB3CF8420AA93BA00D1E28D /* SLTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLTableView.swift; sourceTree = "<group>"; };
 		8CD0639E209563A600D2B66B /* PayConfirm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PayConfirm.storyboard; sourceTree = "<group>"; };
 		8CD063A0209563BC00D2B66B /* PayConfirmPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayConfirmPresenter.swift; sourceTree = "<group>"; };
 		8CD063A1209563BC00D2B66B /* PayConfirmWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayConfirmWorker.swift; sourceTree = "<group>"; };
@@ -951,8 +953,8 @@
 		8C33E72920A96A0C00C31F33 /* PeerAddrTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				8C33E72D20A96A4B00C31F33 /* PeerAddrTableViewCell.xib */,
-				8C33E72C20A96A4B00C31F33 /* PeerAddrTableViewCell.swift */,
+				8CB3CF7F20AA77C300D1E28D /* PeerAddrTableViewCell.xib */,
+				8CB3CF7D20AA773900D1E28D /* PeerAddrTableViewCell.swift */,
 			);
 			path = PeerAddrTableViewCell;
 			sourceTree = "<group>";
@@ -1239,6 +1241,7 @@
 				8C090E4A20894A65009B8B8D /* SLSeedField */,
 				8C70EC0C208DBC3B00D658DC /* SLTextDialogView */,
 				8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialog */,
+				8CB3CF8320AA939D00D1E28D /* SLTableView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1419,6 +1422,14 @@
 				8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */,
 			);
 			path = "View Models";
+			sourceTree = "<group>";
+		};
+		8CB3CF8320AA939D00D1E28D /* SLTableView */ = {
+			isa = PBXGroup;
+			children = (
+				8CB3CF8420AA93BA00D1E28D /* SLTableView.swift */,
+			);
+			path = SLTableView;
 			sourceTree = "<group>";
 		};
 		8CD0639D2095638300D2B66B /* PayConfirm */ = {
@@ -1743,7 +1754,7 @@
 				8C090E2120885C84009B8B8D /* OpenSans-Bold.ttf in Resources */,
 				8C18829020868545002E2835 /* Montserrat-ExtraLight.ttf in Resources */,
 				8C77AD8D20A2DBD20094D733 /* SLFormTextLabel.xib in Resources */,
-				8C33E72F20A96A4B00C31F33 /* PeerAddrTableViewCell.xib in Resources */,
+				8CB3CF8020AA77C300D1E28D /* PeerAddrTableViewCell.xib in Resources */,
 				8C7EC53920950593001C8FD6 /* PayMain.storyboard in Resources */,
 				8C6B7564208B17CB00B751A2 /* WalletNavigation.storyboard in Resources */,
 				8C77AD7420A290E90094D733 /* SLFormCompactView.xib in Resources */,
@@ -1861,6 +1872,7 @@
 				8C33E69E20A5621400C31F33 /* PopTransitionAnimator.swift in Sources */,
 				8C090E012087DEAA009B8B8D /* MnemonicExplainViewController.swift in Sources */,
 				8C70EC13208E511900D658DC /* SLRetry.swift in Sources */,
+				8CB3CF8520AA93BA00D1E28D /* SLTableView.swift in Sources */,
 				8C8275BC208EA1B30029BE7E /* ChannelOpenViewController.swift in Sources */,
 				8C7745C8209D3E39004EBA69 /* ChannelDetailsModels.swift in Sources */,
 				8C70EBCE208C345B00D658DC /* ReceiveMainWorker.swift in Sources */,
@@ -1898,6 +1910,7 @@
 				8C1AE3752095A58100A4D9BF /* PaymentURI.swift in Sources */,
 				8CFA16A22082EF3A00813EA6 /* CreateRecoverWorker.swift in Sources */,
 				8C6B7543208AF33200B751A2 /* RootRouter.swift in Sources */,
+				8CB3CF7E20AA773900D1E28D /* PeerAddrTableViewCell.swift in Sources */,
 				8C7EC53620950449001C8FD6 /* PayMainViewController.swift in Sources */,
 				8C1882AD2086941D002E2835 /* NibView.swift in Sources */,
 				8CD063A6209563BC00D2B66B /* PayConfirmPresenter.swift in Sources */,
@@ -1989,7 +2002,6 @@
 				8C090DFD2087DEAA009B8B8D /* MnemonicExplainPresenter.swift in Sources */,
 				8C7EC53420950449001C8FD6 /* PayMainRouter.swift in Sources */,
 				8C686545209A923C001E41DA /* CameraMainRouter.swift in Sources */,
-				8C33E72E20A96A4B00C31F33 /* PeerAddrTableViewCell.swift in Sources */,
 				8C1AE3732095A57700A4D9BF /* Address.swift in Sources */,
 				8C8275F420910FA40029BE7E /* ChannelConfirmInteractor.swift in Sources */,
 				8C33E6F820A8EC9A00C31F33 /* WalletBalancePresenter.swift in Sources */,

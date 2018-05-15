@@ -121,14 +121,14 @@
                                                                     <constraint firstAttribute="height" constant="1" id="AMW-2q-Gb1"/>
                                                                 </constraints>
                                                             </view>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Oae-FQ-944" userLabel="LND Debug Console">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Oae-FQ-944" userLabel="Neutrino Peers">
                                                                 <rect key="frame" x="0.0" y="122" width="335" height="40"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xIM-ww-uhk" userLabel="Spacer">
                                                                         <rect key="frame" x="0.0" y="0.0" width="5" height="40"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </view>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Neutrino Peers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7l-iA-HMh" userLabel="LND Log Console">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Neutrino Peers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7l-iA-HMh">
                                                                         <rect key="frame" x="5" y="10.333333333333341" width="301" height="19.333333333333329"/>
                                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                                                         <color key="textColor" name="DarkTextBlue"/>
@@ -148,6 +148,9 @@
                                                                     <constraint firstItem="n3b-nA-Y1N" firstAttribute="width" secondItem="xIM-ww-uhk" secondAttribute="width" id="cy2-p7-1Xg"/>
                                                                     <constraint firstAttribute="height" constant="40" id="ewy-AB-fYZ"/>
                                                                 </constraints>
+                                                                <connections>
+                                                                    <outletCollection property="gestureRecognizers" destination="HCk-OQ-887" appends="YES" id="8Ue-fu-P23"/>
+                                                                </connections>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdD-jn-TDi" userLabel="Line">
                                                                 <rect key="frame" x="0.0" y="162" width="335" height="1"/>
@@ -268,7 +271,12 @@
                         <action selector="lndDebugLevelTapped:" destination="R2z-Ve-YpG" id="9pX-y0-Bue"/>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="Y3Y-Y7-F75" userLabel="LND Log Console Tap">
+                <tapGestureRecognizer id="HCk-OQ-887" userLabel="Neutrino Peers Tap">
+                    <connections>
+                        <action selector="neutrinoPeersTapped:" destination="R2z-Ve-YpG" id="jCx-Hh-pof"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Y3Y-Y7-F75" userLabel="Log Console Tap">
                     <connections>
                         <action selector="logConsoleTapped:" destination="R2z-Ve-YpG" id="BeL-Dv-DC2"/>
                     </connections>

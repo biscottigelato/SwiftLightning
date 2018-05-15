@@ -12,49 +12,43 @@
 
 import UIKit
 
-@objc protocol NeutrinoPeersRoutingLogic
-{
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+@objc protocol NeutrinoPeersRoutingLogic {
+  func routeToSettingsMain()
 }
 
-protocol NeutrinoPeersDataPassing
-{
+
+protocol NeutrinoPeersDataPassing {
   var dataStore: NeutrinoPeersDataStore? { get }
 }
 
-class NeutrinoPeersRouter: NSObject, NeutrinoPeersRoutingLogic, NeutrinoPeersDataPassing
-{
+
+class NeutrinoPeersRouter: NSObject, NeutrinoPeersRoutingLogic, NeutrinoPeersDataPassing {
   weak var viewController: NeutrinoPeersViewController?
   var dataStore: NeutrinoPeersDataStore?
   
+  
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
+  func routeToSettingsMain() {
+    //    let destinationVC = viewController! as! WalletMainViewController
+    //    var destinationDS = destinationVC.router!.dataStore!
+    //    passDataToWalletMain(source: dataStore!, destination: &destinationDS)
+    navigateToSettingsMain(source: viewController!)
+  }
+  
+  
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: NeutrinoPeersViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func navigateToSettingsMain(source: NeutrinoPeersViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    navigationController.popViewController(animated: true)
+  }
+  
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: NeutrinoPeersDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func passDataToSettingsMain(source: NeutrinoPeersDataStore, destination: inout SettingsMainDataStore) { }
 }

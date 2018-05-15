@@ -11,7 +11,7 @@ import UIKit
 @IBDesignable class SLLogoView: UIImageView {
 
   struct Constants {
-    static let logoAnimationDuration = TimeInterval(3.0)
+    static let logoAnimationDuration = TimeInterval(2.0)
   }
 
   override init(frame: CGRect) {

@@ -69,7 +69,6 @@ class RootViewController: UIViewController, RootDisplayLogic {
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    logoImageView.animationDuration = TimeInterval(2.0)
     logoImageView.pushAnimate()
   }
   

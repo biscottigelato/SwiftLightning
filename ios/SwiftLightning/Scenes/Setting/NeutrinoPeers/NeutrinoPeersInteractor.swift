@@ -14,6 +14,7 @@ import UIKit
 
 protocol NeutrinoPeersBusinessLogic {
   func fetchCurrentPeers(request: NeutrinoPeers.CurrentPeers.Request)
+  func writePeers(request: NeutrinoPeers.WritePeers.Request)
 }
 
 
@@ -29,17 +30,35 @@ class NeutrinoPeersInteractor: NeutrinoPeersBusinessLogic, NeutrinoPeersDataStor
   // MARK: Current Peers
   
   func fetchCurrentPeers(request: NeutrinoPeers.CurrentPeers.Request) {
+    var result: Result<[String]>
     
     do {
       // Read LND.conf and find all instances of addrpeers
-      let peerAddrs = try LNManager.findNeutrinoPeers(andReplaceWith: nil)
-      
-      
-      
+      let peerAddrs = try LNManager.findNeutrinoPeers()
+      result = .success(peerAddrs)
     } catch {
-      
+      result = .failure(error)
     }
-    let response = NeutrinoPeers.CurrentPeers.Response()
-    presenter?.presentSomething(response: response)
+    
+    let response = NeutrinoPeers.CurrentPeers.Response(result: result)
+    presenter?.presentCurrentPeers(response: response)
+  }
+  
+  
+  // MARK: Update Peers by Writing
+  
+  func writePeers(request: NeutrinoPeers.WritePeers.Request) {
+    var result: Result<Void>
+    
+    do {
+      // Read LND.conf and find all instances of addrpeers
+      _ = try LNManager.findNeutrinoPeers(andReplaceWith: request.peers)
+      result = .success(())
+    } catch {
+      result = .failure(error)
+    }
+    
+    let response = NeutrinoPeers.WritePeers.Response(result: result)
+    presenter?.presentWritePeers(response: response)
   }
 }

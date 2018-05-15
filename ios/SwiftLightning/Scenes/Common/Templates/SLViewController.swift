@@ -60,12 +60,16 @@ class SLViewController: UIViewController {
   var keyboardScrollView: UIScrollView?
   var keyboardConstraint: NSLayoutConstraint?
   var keyboardConstraintMargin: CGFloat?
+  private(set) var keyboardIsShown: Bool = false
+  
   
   @objc private func keyboardDismiss() {
     self.view.endEditing(true)
   }
   
   @objc private func keyboardWillShow(_ notification: NSNotification) {
+    keyboardIsShown = true
+    
     if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
       if keyboardScrollView != nil && keyboardConstraint != nil {
         SLLog.fatal("Both keyboardScrollView and keyboardConstraint set")
@@ -97,7 +101,7 @@ class SLViewController: UIViewController {
   }
   
   @objc private func keyboardWillHide(_ notification: NSNotification) {
-
+    keyboardIsShown = false
     keyboardScrollView?.contentInset.bottom = 0
     keyboardConstraint?.constant = keyboardConstraintMargin!
     

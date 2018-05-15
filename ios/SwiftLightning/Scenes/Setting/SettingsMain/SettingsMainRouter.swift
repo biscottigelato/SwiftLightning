@@ -14,17 +14,19 @@ import UIKit
 
 @objc protocol SettingsMainRoutingLogic {
   func routeToLndDebugLevel()
-  func routeToWalletMain()
+  func routeToNeutrinoPeers()
   func routeToLogConsole()
+  func routeToWalletMain()
 }
 
-protocol SettingsMainDataPassing
-{
+
+protocol SettingsMainDataPassing {
   var dataStore: SettingsMainDataStore? { get }
 }
 
-class SettingsMainRouter: NSObject, SettingsMainRoutingLogic, SettingsMainDataPassing
-{
+
+class SettingsMainRouter: NSObject, SettingsMainRoutingLogic, SettingsMainDataPassing {
+  
   weak var viewController: SettingsMainViewController?
   var dataStore: SettingsMainDataStore?
   
@@ -39,6 +41,14 @@ class SettingsMainRouter: NSObject, SettingsMainRoutingLogic, SettingsMainDataPa
     navigateToLNDDebugLevel(source: viewController!, destination: destinationVC)
   }
 
+  func routeToNeutrinoPeers() {
+    let storyboard = UIStoryboard(name: "NeutrinoPeers", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "NeutrinoPeersViewController") as! NeutrinoPeersViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToNeutrinoPeers(source: dataStore!, destination: &destinationDS)
+    navigateToNeutrinoPeers(source: viewController!, destination: destinationVC)
+  }
+  
   func routeToLogConsole() {
     let storyboard = UIStoryboard(name: "LogConsole", bundle: nil)
     let destinationVC = storyboard.instantiateViewController(withIdentifier: "LogConsoleViewController") as! LogConsoleViewController
@@ -58,6 +68,16 @@ class SettingsMainRouter: NSObject, SettingsMainRoutingLogic, SettingsMainDataPa
   // MARK: Navigation
   
   func navigateToLNDDebugLevel(source: SettingsMainViewController, destination: LNDDebugLevelViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    destination.setSlideTransition(presentTowards: .left, dismissIsInteractive: true)
+    navigationController.delegate = destination
+    navigationController.pushViewController(destination, animated: true)
+  }
+  
+  func navigateToNeutrinoPeers(source: SettingsMainViewController, destination: NeutrinoPeersViewController) {
     guard let navigationController = source.navigationController else {
       SLLog.assert("\(type(of: source)).navigationController = nil")
       return
@@ -89,6 +109,9 @@ class SettingsMainRouter: NSObject, SettingsMainRoutingLogic, SettingsMainDataPa
   // MARK: Passing data
   
   func passDataToLNDDebugLevel(source: SettingsMainDataStore, destination: inout LNDDebugLevelDataStore) {
+  }
+  
+  func passDataToNeutrinoPeers(source: SettingsMainDataStore, destination: inout NeutrinoPeersDataStore) {
   }
   
   func passDataToLogConsole(source: SettingsMainDataStore, destination: inout LogConsoleDataStore) {

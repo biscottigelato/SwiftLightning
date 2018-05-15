@@ -63,6 +63,11 @@ class SettingsMainViewController: SLViewController, SettingsMainDisplayLogic {
     router?.routeToLndDebugLevel()
   }
   
+  @IBAction func neutrinoPeersTapped(_ sender: UITapGestureRecognizer) {
+    router?.routeToNeutrinoPeers()
+  }
+  
+  
   @IBAction func logConsoleTapped(_ sender: UITapGestureRecognizer) {
     router?.routeToLogConsole()
   }

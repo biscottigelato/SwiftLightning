@@ -18,72 +18,79 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fcu-QN-jYm" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="10" y="100" width="355" height="658"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="u6I-Eb-vCT" userLabel="Layout Stack">
+                                <rect key="frame" x="10" y="100" width="355" height="682"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3Pp-0T-MRn">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="658"/>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Fcu-QN-jYm" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="614"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T7L-zf-sNH" customClass="SLFormHeaderView" customModule="SwiftLightning" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="iconIndex">
-                                                        <integer key="value" value="0"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="headerTitle" value="Neutrino Peers"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </view>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ML9-Fb-ifj">
-                                                <rect key="frame" x="0.0" y="50" width="355" height="520"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </tableView>
-                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fXg-HT-hij" userLabel="Button View">
-                                                <rect key="frame" x="0.0" y="570" width="355" height="88"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3Pp-0T-MRn" userLabel="Form Stack">
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="614"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="900" verticalCompressionResistancePriority="1000" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CwM-30-D2S" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                                        <rect key="frame" x="152.66666666666666" y="20" width="51" height="43"/>
-                                                        <color key="backgroundColor" name="DisabledGray"/>
-                                                        <state key="normal" title="Update">
-                                                            <color key="titleColor" name="DisabledText"/>
-                                                            <color key="titleShadowColor" name="DisabledGrayShadow"/>
-                                                        </state>
+                                                    <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="T7L-zf-sNH" customClass="SLFormHeaderView" customModule="SwiftLightning" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="40"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
-                                                                <integer key="value" value="1"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconIndex">
+                                                                <integer key="value" value="0"/>
                                                             </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="headerTitle" value="Neutrino Peers"/>
                                                         </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="updatePeersTapped:" destination="Zk5-TC-oDP" eventType="touchUpInside" id="co6-6x-pxp"/>
-                                                        </connections>
-                                                    </button>
+                                                    </view>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="800" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ykD-TN-8hv" customClass="SLTableView" customModule="SwiftLightning" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="40" width="355" height="574"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                                    </tableView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="CwM-30-D2S" secondAttribute="bottom" constant="25" id="4LG-Cq-bxq"/>
-                                                    <constraint firstItem="CwM-30-D2S" firstAttribute="top" secondItem="fXg-HT-hij" secondAttribute="top" constant="20" id="6nw-hB-fbJ"/>
-                                                    <constraint firstItem="CwM-30-D2S" firstAttribute="centerX" secondItem="fXg-HT-hij" secondAttribute="centerX" id="PF1-KH-OWU"/>
-                                                    <constraint firstAttribute="height" constant="88" id="kfM-AK-wY8"/>
-                                                </constraints>
-                                            </view>
+                                            </stackView>
                                         </subviews>
-                                    </stackView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="3Pp-0T-MRn" firstAttribute="leading" secondItem="Fcu-QN-jYm" secondAttribute="leading" id="6y6-V3-1eQ"/>
+                                            <constraint firstItem="3Pp-0T-MRn" firstAttribute="top" secondItem="Fcu-QN-jYm" secondAttribute="top" id="Ifr-3y-hJj"/>
+                                            <constraint firstAttribute="bottom" secondItem="3Pp-0T-MRn" secondAttribute="bottom" id="RuA-sb-bxF"/>
+                                            <constraint firstAttribute="trailing" secondItem="3Pp-0T-MRn" secondAttribute="trailing" id="gLc-D1-2Ak"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fXg-HT-hij" userLabel="Button View">
+                                        <rect key="frame" x="0.0" y="614" width="355" height="68"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="900" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CwM-30-D2S" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                <rect key="frame" x="94.333333333333329" y="20" width="167.66666666666669" height="43"/>
+                                                <color key="backgroundColor" name="MedAquamarine"/>
+                                                <state key="normal" title="Update">
+                                                    <color key="titleColor" name="NormalText"/>
+                                                    <color key="titleShadowColor" name="MedAquamarineShadow"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="updatePeersTapped:" destination="Zk5-TC-oDP" eventType="touchUpInside" id="co6-6x-pxp"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="CwM-30-D2S" secondAttribute="bottom" constant="5" id="4LG-Cq-bxq"/>
+                                            <constraint firstItem="CwM-30-D2S" firstAttribute="top" secondItem="fXg-HT-hij" secondAttribute="top" constant="20" id="6nw-hB-fbJ"/>
+                                            <constraint firstItem="CwM-30-D2S" firstAttribute="centerX" secondItem="fXg-HT-hij" secondAttribute="centerX" id="PF1-KH-OWU"/>
+                                            <constraint firstAttribute="height" constant="68" id="kfM-AK-wY8"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="3Pp-0T-MRn" firstAttribute="leading" secondItem="Fcu-QN-jYm" secondAttribute="leading" id="6y6-V3-1eQ"/>
-                                    <constraint firstItem="3Pp-0T-MRn" firstAttribute="top" secondItem="Fcu-QN-jYm" secondAttribute="top" id="Ifr-3y-hJj"/>
-                                    <constraint firstAttribute="bottom" secondItem="3Pp-0T-MRn" secondAttribute="bottom" id="RuA-sb-bxF"/>
-                                    <constraint firstAttribute="trailing" secondItem="3Pp-0T-MRn" secondAttribute="trailing" id="gLc-D1-2Ak"/>
-                                </constraints>
-                            </view>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="L80-hG-vje" firstAttribute="bottom" secondItem="Fcu-QN-jYm" secondAttribute="bottom" constant="20" id="7ZQ-WY-cMl"/>
-                            <constraint firstItem="Fcu-QN-jYm" firstAttribute="leading" secondItem="L80-hG-vje" secondAttribute="leading" constant="10" id="kO0-DO-gaz"/>
-                            <constraint firstItem="Fcu-QN-jYm" firstAttribute="top" secondItem="L80-hG-vje" secondAttribute="top" constant="12" id="kaz-7I-U37"/>
-                            <constraint firstItem="L80-hG-vje" firstAttribute="trailing" secondItem="Fcu-QN-jYm" secondAttribute="trailing" constant="10" id="zjL-GG-VaK"/>
+                            <constraint firstItem="u6I-Eb-vCT" firstAttribute="top" secondItem="L80-hG-vje" secondAttribute="top" constant="12" id="6FO-L0-lm9"/>
+                            <constraint firstAttribute="trailing" secondItem="u6I-Eb-vCT" secondAttribute="trailing" constant="10" id="GlV-0x-ELf"/>
+                            <constraint firstItem="u6I-Eb-vCT" firstAttribute="leading" secondItem="L80-hG-vje" secondAttribute="leading" constant="10" id="hSi-4N-ftD"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="u6I-Eb-vCT" secondAttribute="bottom" constant="20" id="oUS-rs-cJe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="L80-hG-vje"/>
                     </view>
@@ -103,7 +110,10 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="tableView" destination="ML9-Fb-ifj" id="6g3-Fs-dYd"/>
+                        <outlet property="addButton" destination="FDc-yD-oxD" id="miG-kM-Jrb"/>
+                        <outlet property="bottomHeightConstraint" destination="oUS-rs-cJe" id="mTx-yA-0bP"/>
+                        <outlet property="layoutStack" destination="u6I-Eb-vCT" id="nUM-76-Gcb"/>
+                        <outlet property="tableView" destination="ykD-TN-8hv" id="FFc-eI-ofh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UZO-Ov-W3x" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -114,14 +124,11 @@
     <resources>
         <image name="CloseCrossLight" width="30" height="30"/>
         <image name="PlusLight" width="30" height="30"/>
-        <namedColor name="DisabledGray">
-            <color red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="MedAquamarine">
+            <color red="0.50588235294117645" green="0.83921568627450982" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="DisabledGrayShadow">
-            <color red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="0.1000000015" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="DisabledText">
-            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+        <namedColor name="MedAquamarineShadow">
+            <color red="0.30588235294117649" green="0.50588235294117645" blue="0.44705882352941179" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="NormalText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

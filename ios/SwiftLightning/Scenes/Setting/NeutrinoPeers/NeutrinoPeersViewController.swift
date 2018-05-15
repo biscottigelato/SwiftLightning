@@ -15,6 +15,7 @@ import UIKit
 protocol NeutrinoPeersDisplayLogic: class {
   func displayCurrentPeers(viewModel: NeutrinoPeers.CurrentPeers.ViewModel)
   func displayPeersWritten(viewModel: NeutrinoPeers.WritePeers.ViewModel)
+  func displayError(viewModel: NeutrinoPeers.ErrorVM)
 }
 
 
@@ -28,6 +29,7 @@ class NeutrinoPeersViewController: SLViewController, NeutrinoPeersDisplayLogic, 
   struct Constants {
     static let peerCellReuseID = "PeerCell"
   }
+  
   
   // MARK: Object lifecycle
   
@@ -60,7 +62,10 @@ class NeutrinoPeersViewController: SLViewController, NeutrinoPeersDisplayLogic, 
   
   // MARK: IBOutlets
   
-  @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var layoutStack: UIStackView!
+  @IBOutlet weak var tableView: SLTableView!
+  @IBOutlet weak var bottomHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var addButton: UIBarButtonItem!
   
   
   // MARK: View lifecycle
@@ -69,20 +74,132 @@ class NeutrinoPeersViewController: SLViewController, NeutrinoPeersDisplayLogic, 
     super.viewDidLoad()
     
     // Manage keyboard bottom adjustment
-    keyboardScrollView = tableView
+    keyboardConstraint = bottomHeightConstraint
+    keyboardConstraintMargin = bottomHeightConstraint.constant
     
     // TableView registrations
     let nib = UINib(nibName: "PeerAddrTableViewCell", bundle: nil)
     tableView.register(nib, forCellReuseIdentifier: Constants.peerCellReuseID)
-    tableView.allowsSelection = false
     tableView.delegate = self
     tableView.dataSource = self
+    tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 20.0, 0.0)
+    
+    // Cell reordering
+    self.tableView.addGestureRecognizer(longPressGesture)
     
     let request = NeutrinoPeers.CurrentPeers.Request()
     interactor?.fetchCurrentPeers(request: request)
   }
 
+  
+  // MARK: Cell Reordering
 
+  let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(gesture:)))
+  
+  private func snapshot(view inputView: UIView) -> UIView {
+    UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0.0)
+    inputView.layer.render(in: UIGraphicsGetCurrentContext()!)
+    let image = UIGraphicsGetImageFromCurrentImageContext()! as UIImage
+    UIGraphicsEndImageContext()
+    let cellSnapshot : UIView = UIImageView(image: image)
+    cellSnapshot.layer.masksToBounds = false
+    cellSnapshot.layer.cornerRadius = 0.0
+    cellSnapshot.layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
+    cellSnapshot.layer.shadowRadius = 8.0
+    cellSnapshot.layer.shadowOpacity = 0.3
+    return cellSnapshot
+  }
+
+  @objc private func longPressed(gesture: UILongPressGestureRecognizer) {
+    let locationInView = gesture.location(in: self.tableView)
+    let indexPath = self.tableView.indexPathForRow(at: locationInView)
+    
+    struct My {
+      static var cellSnapshot : UIView? = nil
+    }
+    struct Path {
+      static var initialIndexPath : IndexPath? = nil
+    }
+    
+    switch gesture.state {
+      
+    case .began:
+      if let indexPath = indexPath, let cell = self.tableView.cellForRow(at: indexPath) {
+        var center = cell.center
+        
+        Path.initialIndexPath = indexPath
+        My.cellSnapshot = snapshot(view: cell)
+        My.cellSnapshot!.center = center
+        My.cellSnapshot!.alpha = 0.0
+        self.tableView.addSubview(My.cellSnapshot!)
+        
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        
+        UIView.animate(withDuration: 0.1,
+                       animations: { () -> Void in
+                        center.y = locationInView.y
+                        My.cellSnapshot!.center = center
+                        My.cellSnapshot!.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                        My.cellSnapshot!.alpha = 0.98
+                        cell.alpha = 0.0
+        }, completion: { (finished) -> Void in
+          if finished {
+            cell.isHidden = true
+          }
+        })
+      }
+
+    case .changed:
+      var center = My.cellSnapshot!.center
+      center.y = locationInView.y
+      My.cellSnapshot!.center = center
+      
+      if let indexPath = indexPath, indexPath != Path.initialIndexPath {
+        let peerAddr = neutrinoPeerAddrs.remove(at: Path.initialIndexPath!.row)
+        neutrinoPeerAddrs.insert(peerAddr, at: indexPath.row)
+        
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        
+        self.tableView.moveRow(at: Path.initialIndexPath!, to: indexPath)
+        Path.initialIndexPath = indexPath
+      }
+      
+    default:
+      if let cell = self.tableView.cellForRow(at: Path.initialIndexPath!) {
+        cell.isHidden = false
+        cell.alpha = 0.0
+        
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        
+        UIView.animate(withDuration: 0.1, animations: { () -> Void in
+          My.cellSnapshot!.center = (cell.center)
+          My.cellSnapshot!.transform = CGAffineTransform.identity
+          My.cellSnapshot!.alpha = 0.0
+          cell.alpha = 1.0
+        }, completion: { (finished) -> Void in
+          if finished {
+            Path.initialIndexPath = nil
+            My.cellSnapshot!.removeFromSuperview()
+            My.cellSnapshot = nil
+          }
+        })
+      }
+    }
+  }
+  
+  
+  // MARK: Varible length table
+  
+  private func delayedRelayout() {
+    self.tableView.invalidateIntrinsicContentSize()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+      UIView.animate(withDuration: SLDesign.Constants.defaultTransitionDuration) {
+        self.layoutStack.layoutIfNeeded()
+      }
+    }
+  }
+  
+  
   // MARK: TableView Delegates
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -92,59 +209,150 @@ class NeutrinoPeersViewController: SLViewController, NeutrinoPeersDisplayLogic, 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return neutrinoPeerAddrs.count
   }
-  
+
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.peerCellReuseID, for: indexPath) as? PeerAddrTableViewCell else {
       SLLog.fatal("Dequeued cell with identifier \(Constants.peerCellReuseID) not of PeerAddrTableViewCell type")
     }
-    
-    cell.setPeerAddrLabel(withIdx: indexPath.row + 1)
+    let backgroundView = UIView()
+    backgroundView.backgroundColor = UIColor.clear
+    cell.selectedBackgroundView = backgroundView
     cell.peerAddrTextField.text = neutrinoPeerAddrs[indexPath.row]
+    cell.peerAddrTextField.delegate = self
     return cell
   }
   
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    if let cell = tableView.cellForRow(at: indexPath) as? PeerAddrTableViewCell {
+      cell.peerAddrTextField.becomeFirstResponder()
+    }
+  }
+
   
   // MARK: TextField Delegates
   
-  func textFieldDidEndEditing(_ textField: UITextField) {
-
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    // Prevent add/reorder when editing
+    addButton.isEnabled = false
+    addButton.tintColor = UIColor.clear
+    longPressGesture.isEnabled = false
   }
   
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    
+    // Resume add/reorder since stopped editing
+    addButton.isEnabled = true
+    addButton.tintColor = UIColor.normalText
+    longPressGesture.isEnabled = true
+    
+    for cell in tableView.visibleCells {
+      if let cell = cell as? PeerAddrTableViewCell, cell.peerAddrTextField === textField, let indexPath = tableView.indexPath(for: cell) {
+        neutrinoPeerAddrs[indexPath.row] = textField.text ?? ""
+      }
+    }
+    
+    // Find empty rows to remove
+    var rowsToRemove = [Int]()
+    for (index, peerAddr) in neutrinoPeerAddrs.enumerated() {
+      if peerAddr.isEmpty {
+        rowsToRemove.append(index)
+      }
+    }
+    
+    // Remove from model in decrement order
+    rowsToRemove.sort(by: { $0 > $1 })
+    for row in rowsToRemove {
+      neutrinoPeerAddrs.remove(at: row)
+    }
+    
+    // Remove from table in decrement roder
+    tableView.deleteRows(at: rowsToRemove.map({ IndexPath.init(row: $0, section: 0) }), with: .automatic)
+    
+    // Reindex, Relayout
+    delayedRelayout()
+  }
+  
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return true
+  }
+  
+  func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return true
+  }
   
   // MARK: Fetch Current Peers
   
-  var neutrinoPeerAddrs = [String]()
+  private var neutrinoPeerAddrs = [String]()
   
   func displayCurrentPeers(viewModel: NeutrinoPeers.CurrentPeers.ViewModel) {
-    
+    DispatchQueue.main.async {
+      self.neutrinoPeerAddrs = viewModel.peers
+      var newIndexPaths = [IndexPath]()
+      for (index, _) in viewModel.peers.enumerated() {
+        newIndexPaths.append(IndexPath(row: index, section: 0))
+      }
+      self.tableView.insertRows(at: newIndexPaths, with: .automatic)
+      self.delayedRelayout()
+    }
   }
   
   
   // MARK: Add Neutrino Peer
   
   @IBAction func addPeersTapped(_ sender: UIBarButtonItem) {
-
+    // Add to local model first
+    neutrinoPeerAddrs.append("")
+    let newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+    
+    // Update the table
+    tableView.insertRows(at: [newIndexPath], with: .bottom)
+    delayedRelayout()
+    
+    // Will become first responder
+    tableView.scrollToRow(at: newIndexPath, at: .bottom, animated: true)
+    UIView.animate(withDuration: SLDesign.Constants.defaultTransitionDuration + 0.1) {
+      self.tableView.delegate?.tableView?(self.tableView, didSelectRowAt: newIndexPath)
+    }
   }
  
-  
-  // MARK: Remove Peer
-  
   
   // MARK: Write Neutrino Peers
   
   @IBAction func updatePeersTapped(_ sender: SLBarButton) {
+    let request = NeutrinoPeers.WritePeers.Request(peers: neutrinoPeerAddrs)
+    interactor?.writePeers(request: request)
   }
   
   func displayPeersWritten(viewModel: NeutrinoPeers.WritePeers.ViewModel) {
-    
+    DispatchQueue.main.async {
+      let alertDialog = UIAlertController(title: viewModel.dialogTitle,
+                                          message: viewModel.dialogMsg,
+                                          preferredStyle: .alert).addAction(title: "OK", style: .default) { action in
+        self.router?.routeToSettingsMain()
+      }
+      self.present(alertDialog, animated: true, completion: nil)
+    }
   }
   
-  // MARK: Display Error Dialog
+  
+  // MARK: Error Dialog
+  
+  func displayError(viewModel: NeutrinoPeers.ErrorVM) {
+    DispatchQueue.main.async {
+      let alertDialog = UIAlertController(title: viewModel.errTitle,
+                                          message: viewModel.errMsg,
+                                          preferredStyle: .alert).addAction(title: "OK", style: .default)
+      self.present(alertDialog, animated: true, completion: nil)
+    }
+  }
   
   
   // MARK: Close Cross Tapped
   
   @IBAction func closeCrossTapped(_ sender: UIBarButtonItem) {
+    router?.routeToSettingsMain()
   }
   
 }
