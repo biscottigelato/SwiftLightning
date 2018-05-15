@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -40,7 +41,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="fpC-Ib-WbT">
                                         <rect key="frame" x="67.666666666666686" y="138.33333333333334" width="240" height="385.33333333333326"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningLogo" translatesAutoresizingMaskIntoConstraints="NO" id="a7X-bd-peU">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningVector4" translatesAutoresizingMaskIntoConstraints="NO" id="a7X-bd-peU">
                                                 <rect key="frame" x="18" y="0.0" width="204" height="204"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="a7X-bd-peU" secondAttribute="height" id="46m-a3-WdK"/>
@@ -73,8 +74,50 @@
                                             </label>
                                         </subviews>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="eHH-hT-y2m">
+                                        <rect key="frame" x="15" y="638.66666666666663" width="345" height="99"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-A9-PER" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="345" height="42"/>
+                                                <color key="backgroundColor" name="LightAzureBlue"/>
+                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                                <state key="normal" title="Create New Wallet">
+                                                    <color key="titleColor" name="NormalText"/>
+                                                    <color key="titleShadowColor" name="LightAzureBlueShadow"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
+                                                        <integer key="value" value="0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="createNewWalletTapped:" destination="Me3-dU-md1" eventType="touchUpInside" id="5MX-Zm-y5d"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQF-OK-Hbl" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="57" width="345" height="42"/>
+                                                <color key="backgroundColor" name="MedAquamarine"/>
+                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                                <state key="normal" title="Recover Wallet">
+                                                    <color key="titleColor" name="DisabledText"/>
+                                                    <color key="titleShadowColor" name="MedAquamarineShadow"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
+                                                        <integer key="value" value="0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="recoverWalletTapped:" destination="Me3-dU-md1" eventType="touchUpInside" id="ySU-K2-8xu"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="eHH-hT-y2m" firstAttribute="centerX" secondItem="Pxr-H6-pN1" secondAttribute="centerX" id="Lwn-bz-LTg"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="topGradientColor">
                                         <color key="value" red="0.12549019610000001" green="0.21960784310000001" blue="0.34509803919999998" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
@@ -90,40 +133,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-A9-PER" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="15.666666666666657" y="639" width="345" height="42"/>
-                                <color key="backgroundColor" name="LightAzureBlue"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                                <state key="normal" title="Create New Wallet">
-                                    <color key="titleColor" name="NormalText"/>
-                                    <color key="titleShadowColor" name="LightAzureBlueShadow"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
-                                        <integer key="value" value="0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="createNewWalletTapped:" destination="Me3-dU-md1" eventType="touchUpInside" id="5MX-Zm-y5d"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQF-OK-Hbl" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="15" y="696" width="345" height="42"/>
-                                <color key="backgroundColor" name="MedAquamarine"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                                <state key="normal" title="Recover Wallet">
-                                    <color key="titleColor" name="NormalText"/>
-                                    <color key="titleShadowColor" name="MedAquamarineShadow"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
-                                        <integer key="value" value="0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="recoverWalletTapped:" destination="Me3-dU-md1" eventType="touchUpInside" id="ySU-K2-8xu"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -131,17 +140,14 @@
                             <constraint firstAttribute="trailing" secondItem="Pxr-H6-pN1" secondAttribute="trailing" id="NDc-3t-f8K"/>
                             <constraint firstItem="Pxr-H6-pN1" firstAttribute="leading" secondItem="XiV-3x-Db3" secondAttribute="leading" id="NPH-vz-QNj"/>
                             <constraint firstItem="fpC-Ib-WbT" firstAttribute="centerY" secondItem="NYs-8G-VAs" secondAttribute="centerY" constant="-80" id="O7E-QR-yNz"/>
-                            <constraint firstItem="6VG-A9-PER" firstAttribute="centerX" secondItem="NYs-8G-VAs" secondAttribute="centerX" id="RDx-22-KPG"/>
-                            <constraint firstItem="DQF-OK-Hbl" firstAttribute="top" secondItem="6VG-A9-PER" secondAttribute="bottom" constant="15" id="SgL-nU-xQZ"/>
                             <constraint firstItem="9FZ-7v-kjG" firstAttribute="leading" secondItem="XiV-3x-Db3" secondAttribute="leading" id="TnZ-fd-zPd"/>
                             <constraint firstItem="9FZ-7v-kjG" firstAttribute="top" secondItem="XiV-3x-Db3" secondAttribute="top" id="UGZ-yh-g0M"/>
-                            <constraint firstItem="NYs-8G-VAs" firstAttribute="bottom" secondItem="DQF-OK-Hbl" secondAttribute="bottom" constant="40" id="gKw-4r-Ouz"/>
                             <constraint firstItem="Pxr-H6-pN1" firstAttribute="bottom" secondItem="XiV-3x-Db3" secondAttribute="bottom" id="nYN-7a-Rxt"/>
                             <constraint firstAttribute="trailing" secondItem="9FZ-7v-kjG" secondAttribute="trailing" id="oQd-2y-nQJ"/>
                             <constraint firstItem="a7X-bd-peU" firstAttribute="height" secondItem="XiV-3x-Db3" secondAttribute="height" multiplier="0.25" constant="1" id="pH7-Rp-QzM"/>
                             <constraint firstAttribute="top" secondItem="Pxr-H6-pN1" secondAttribute="top" id="pY7-q7-sAH"/>
                             <constraint firstItem="fpC-Ib-WbT" firstAttribute="centerX" secondItem="NYs-8G-VAs" secondAttribute="centerX" id="sGx-vo-Qhf"/>
-                            <constraint firstItem="DQF-OK-Hbl" firstAttribute="centerX" secondItem="NYs-8G-VAs" secondAttribute="centerX" id="vKd-6Y-k76"/>
+                            <constraint firstItem="NYs-8G-VAs" firstAttribute="bottom" secondItem="eHH-hT-y2m" secondAttribute="centerY" constant="90" id="y1x-vQ-diA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NYs-8G-VAs"/>
                     </view>
@@ -152,8 +158,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LightningLogo" width="205" height="205"/>
+        <image name="LightningVector4" width="200" height="200"/>
         <image name="OnboardBackgroundTemp" width="1333" height="2000"/>
+        <namedColor name="DisabledText">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="LightAzureBlue">
             <color red="0.4823529411764706" green="0.71372549019607845" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

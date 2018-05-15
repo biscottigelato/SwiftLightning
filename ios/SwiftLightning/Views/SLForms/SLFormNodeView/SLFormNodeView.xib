@@ -54,7 +54,7 @@
                                     <color key="textColor" name="LightTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Node Pub Key Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SN-dz-tkR">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SN-dz-tkR">
                                     <rect key="frame" x="59" y="12" width="299" height="18"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                     <color key="textColor" name="DarkTextBlue"/>
@@ -78,7 +78,7 @@
                                     <color key="textColor" name="LightTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Some Node Alias Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azZ-qq-CE0">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azZ-qq-CE0">
                                     <rect key="frame" x="38.5" y="12" width="319.5" height="18"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                     <color key="textColor" name="DarkTextBlue"/>
@@ -94,7 +94,7 @@
                             <rect key="frame" x="0.0" y="90" width="358" height="30"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pCK-gl-rU0">
-                                    <rect key="frame" x="0.0" y="12" width="161" height="18"/>
+                                    <rect key="frame" x="0.0" y="12" width="139" height="18"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" text="IP" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hx6-qP-zTs" userLabel="IP">
                                             <rect key="frame" x="0.0" y="0.0" width="11.5" height="18"/>
@@ -102,8 +102,8 @@
                                             <color key="textColor" name="LightTextGray"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wTf-4m-4C3" userLabel="Address">
-                                            <rect key="frame" x="21.5" y="0.0" width="139.5" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wTf-4m-4C3" userLabel="Address">
+                                            <rect key="frame" x="21.5" y="0.0" width="117.5" height="18"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                             <color key="textColor" name="DarkTextBlue"/>
                                             <nil key="highlightedColor"/>
@@ -111,7 +111,7 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6NU-fV-pgO">
-                                    <rect key="frame" x="161" y="12" width="197" height="18"/>
+                                    <rect key="frame" x="139" y="12" width="219" height="18"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" text="Port" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZw-UX-k98" userLabel="Port">
                                             <rect key="frame" x="0.0" y="0.0" width="26" height="18"/>
@@ -119,8 +119,8 @@
                                             <color key="textColor" name="LightTextGray"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ss3-7Z-3A9" userLabel="Number">
-                                            <rect key="frame" x="36" y="0.0" width="161" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ss3-7Z-3A9" userLabel="Number">
+                                            <rect key="frame" x="36" y="0.0" width="183" height="18"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                                             <color key="textColor" name="DarkTextBlue"/>
                                             <nil key="highlightedColor"/>
@@ -169,7 +169,7 @@
     </objects>
     <resources>
         <namedColor name="DarkTextBlue">
-            <color red="0.20000000000000001" green="0.2470588235" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.25098039215686274" green="0.2627450980392157" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="LightTextGray">
             <color red="0.66666666669999997" green="0.66274509800000003" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

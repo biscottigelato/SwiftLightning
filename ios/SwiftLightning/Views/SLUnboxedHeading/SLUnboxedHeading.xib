@@ -29,8 +29,8 @@
             <rect key="frame" x="0.0" y="0.0" width="294" height="463"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" verticalHuggingPriority="500" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jab-wR-we5">
-                    <rect key="frame" x="51" y="213.5" width="193.5" height="36"/>
+                <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jab-wR-we5">
+                    <rect key="frame" x="59" y="213.5" width="178" height="36"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LightningVector4" translatesAutoresizingMaskIntoConstraints="NO" id="6Qg-rm-841" customClass="SLLogoView" customModule="SwiftLightning" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
@@ -40,7 +40,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" text="Swiftning  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VgX-3d-2aC">
-                            <rect key="frame" x="46" y="1" width="147.5" height="34.5"/>
+                            <rect key="frame" x="46" y="1.5" width="132" height="33"/>
                             <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="28"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -54,11 +54,11 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Lsy-G0-sSx" secondAttribute="trailing" id="ItQ-UP-F93"/>
-                <constraint firstItem="Lsy-G0-sSx" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Lxj-B2-YPJ"/>
+                <constraint firstAttribute="trailing" secondItem="Lsy-G0-sSx" secondAttribute="trailing" id="8Xz-RV-Cif"/>
+                <constraint firstItem="Lsy-G0-sSx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OmU-Fs-N9L"/>
+                <constraint firstAttribute="bottom" secondItem="Lsy-G0-sSx" secondAttribute="bottom" id="R5A-fz-NtH"/>
+                <constraint firstItem="Lsy-G0-sSx" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="VSK-wH-zz3"/>
                 <constraint firstItem="Jab-wR-we5" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="bn1-Jx-0kH"/>
-                <constraint firstItem="Lsy-G0-sSx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="f6a-Cj-jPv"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Lsy-G0-sSx" secondAttribute="bottom" id="lZd-Ef-RAA"/>
                 <constraint firstItem="Jab-wR-we5" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="qBC-sv-MBP"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

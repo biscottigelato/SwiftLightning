@@ -59,6 +59,8 @@ class WalletNavigationController: UINavigationController {
             headingView.title.text = "Sync - \(percentText)   "  // add 3 spaces after to center
           }
         }
+        headingView.invalidateIntrinsicContentSize()
+        headingView.layoutIfNeeded()
       }
     }
     

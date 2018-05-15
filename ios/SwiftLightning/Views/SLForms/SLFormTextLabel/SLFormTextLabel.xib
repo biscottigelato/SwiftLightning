@@ -29,7 +29,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ZSX-oG-NmP">
                     <rect key="frame" x="0.0" y="65.5" width="375" height="30"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="600" verticalHuggingPriority="600" text="TextTextText" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AfG-jC-Hdy">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="600" verticalHuggingPriority="600" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AfG-jC-Hdy">
                             <rect key="frame" x="0.0" y="9.5" width="375" height="20.5"/>
                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                             <color key="textColor" name="DarkTextBlue"/>

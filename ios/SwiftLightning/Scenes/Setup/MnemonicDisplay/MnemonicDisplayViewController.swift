@@ -86,6 +86,20 @@ class MnemonicDisplayViewController: UIViewController, MnemonicDisplayDisplayLog
     interactor?.startButtonTimer(request: timerRequest)
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    // Prevent phone from sleeping
+    UIApplication.shared.isIdleTimerDisabled = true
+  }
+  
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    
+    // Allow phone to sleep
+    UIApplication.shared.isIdleTimerDisabled = false
+  }
+  
   
   // MARK: Display Mnemonic
   

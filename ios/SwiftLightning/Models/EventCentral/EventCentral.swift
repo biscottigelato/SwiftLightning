@@ -6,7 +6,8 @@
 //  Copyright © 2018 BiscottiGelato. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
 
 class EventCentral {
   
@@ -85,15 +86,14 @@ class EventCentral {
         
         self.eventQueue.async {
           if info.syncedToChain {
-            SLLog.debug("Synced to chain, invalidating Timer")
+            timer?.suspend()
             
-            if let timer = timer {
-              timer.suspend()
-              
-              // Need to nil both to break reference loop
-              timer.eventHandler = nil
-              self.syncTimer = nil
+            // Allow phone to sleep if done syncing
+            DispatchQueue.main.async {
+              UIApplication.shared.isIdleTimerDisabled = false
             }
+            
+            SLLog.debug("Synced to chain!")
             
             for callback in self.syncUpdateCallbacks {
               callback.value(true, 1.0, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))
@@ -102,6 +102,13 @@ class EventCentral {
             self.startEventRelayer()
             
           } else {
+            timer?.resume()
+            
+            // Prevent phone from sleeping if syncing
+            DispatchQueue.main.async {
+              UIApplication.shared.isIdleTimerDisabled = true
+            }
+            
             // Update progress with callback until syncedToChain = true
             let estimate = self.estimatePercentage(blockTimestamp: info.bestHeaderTimestamp, blockHeight: info.blockHeight)
             

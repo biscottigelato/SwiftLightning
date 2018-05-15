@@ -15,7 +15,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SLFormCompactView" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SLFormCompactView" customModule="SwiftLightning" customModuleProvider="target">
             <connections>
                 <outlet property="singleLabelHeight" destination="gS4-th-a66" id="wyT-Je-4AE"/>
                 <outlet property="textLabel" destination="AfG-jC-Hdy" id="7ya-rG-xXn"/>
@@ -30,14 +30,14 @@
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ZSX-oG-NmP">
                     <rect key="frame" x="0.0" y="65.5" width="375" height="30"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g8W-1p-cNZ">
-                            <rect key="frame" x="0.0" y="9.5" width="30" height="20.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g8W-1p-cNZ">
+                            <rect key="frame" x="0.0" y="9.5" width="4" height="20.5"/>
                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                             <color key="textColor" name="LightTextGray"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="600" verticalHuggingPriority="600" text="TextTextText" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AfG-jC-Hdy">
-                            <rect key="frame" x="45" y="9.5" width="330" height="20.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="600" verticalHuggingPriority="600" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AfG-jC-Hdy">
+                            <rect key="frame" x="19" y="9.5" width="356" height="20.5"/>
                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                             <color key="textColor" name="DarkTextBlue"/>
                             <nil key="highlightedColor"/>
@@ -70,7 +70,7 @@
     </objects>
     <resources>
         <namedColor name="DarkTextBlue">
-            <color red="0.20000000000000001" green="0.24705882352941178" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.25098039215686274" green="0.2627450980392157" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="LightTextGray">
             <color red="0.66666666666666663" green="0.66274509803921566" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

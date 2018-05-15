@@ -19,9 +19,18 @@ import UIKit
   
   override var intrinsicContentSize: CGSize {
     let logoHeight = logoHeightConstraint.constant
-
-    let width = stackView.intrinsicContentSize.width
-    let height = max(logoHeight, stackView.intrinsicContentSize.height)
+    let logoWidth = logoHeight
+    
+    var width: CGFloat
+    var height: CGFloat
+    
+    if title.isHidden {
+      width = logoWidth
+      height = logoHeight
+    } else {
+      width = logoWidth + stackView.spacing + title.intrinsicContentSize.width
+      height = max(logoHeight, title.intrinsicContentSize.height)
+    }
     
     return CGSize(width: width, height: height)
   }

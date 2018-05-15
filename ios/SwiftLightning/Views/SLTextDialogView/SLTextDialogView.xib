@@ -31,8 +31,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eM8-0z-KkO">
-                                <rect key="frame" x="164.5" y="59.5" width="46" height="23.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eM8-0z-KkO">
+                                <rect key="frame" x="185.5" y="59.5" width="4.5" height="24"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="17"/>
                                 <color key="textColor" name="DarkTextBlue"/>
@@ -63,7 +63,7 @@
     </objects>
     <resources>
         <namedColor name="DarkTextBlue">
-            <color red="0.20000000000000001" green="0.24705882352941178" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.25098039215686274" green="0.2627450980392157" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

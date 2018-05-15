@@ -19,7 +19,7 @@ protocol NeutrinoPeersDisplayLogic: class {
 }
 
 
-class NeutrinoPeersViewController: SLViewController, NeutrinoPeersDisplayLogic, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class NeutrinoPeersViewController: SLViewController, NeutrinoPeersDisplayLogic, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate {
   var interactor: NeutrinoPeersBusinessLogic?
   var router: (NSObjectProtocol & NeutrinoPeersRoutingLogic & NeutrinoPeersDataPassing)?
 
@@ -94,7 +94,7 @@ class NeutrinoPeersViewController: SLViewController, NeutrinoPeersDisplayLogic, 
   
   // MARK: Cell Reordering
 
-  let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(gesture:)))
+  private let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(gesture:)))
   
   private func snapshot(view inputView: UIView) -> UIView {
     UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0.0)

@@ -85,6 +85,9 @@ class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLog
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
+    // Prevent phone from sleeping
+    UIApplication.shared.isIdleTimerDisabled = true
+    
     let genIndicesRequest = MnemonicConfirm.GenRandomIndices.Request(numToGen: 3)
     interactor?.genRandomIndices(request: genIndicesRequest)
     
@@ -101,6 +104,12 @@ class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLog
     view.endEditing(true)
   }
   
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    
+    // Allow phone to sleep
+    UIApplication.shared.isIdleTimerDisabled = false
+  }
   
   // MARK: Text Fields
   

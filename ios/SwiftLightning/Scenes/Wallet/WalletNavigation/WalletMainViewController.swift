@@ -156,11 +156,11 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
           self.channelView.leftButton.backgroundColor = UIColor.disabledGray
           self.channelView.leftButton.shadowColor = UIColor.disabledGrayShadow
           self.channelView.leftButton.setTitleColor(UIColor.disabledText, for: .normal)
+          
+          // Balance Tap Recognizers should be disabled by the storyboard on start. But leave them enabled if they got enabled once?
         }
       }
     }
-    
-    
   }
   
   override func viewDidDisappear(_ animated: Bool) {

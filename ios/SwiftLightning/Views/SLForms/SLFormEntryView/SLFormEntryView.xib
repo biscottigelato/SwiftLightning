@@ -49,14 +49,14 @@
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tx9-cS-DjK" userLabel="Title Stack">
                             <rect key="frame" x="0.0" y="8" width="612" height="30"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" text="Field Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjh-EZ-r1q">
-                                    <rect key="frame" x="0.0" y="4" width="71" height="22"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjh-EZ-r1q">
+                                    <rect key="frame" x="0.0" y="4" width="4.5" height="22"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                     <color key="textColor" name="LightTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xce-b4-Klc" userLabel="Error Label">
-                                    <rect key="frame" x="71" y="0.0" width="541" height="30"/>
+                                    <rect key="frame" x="4.5" y="0.0" width="607.5" height="30"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                                     <color key="textColor" name="JellyBeanRed"/>
                                     <nil key="highlightedColor"/>
@@ -72,7 +72,7 @@
                             <rect key="frame" x="0.0" y="38" width="612" height="30"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="800" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wzT-qJ-2VO">
-                                    <rect key="frame" x="0.0" y="10" width="569" height="20"/>
+                                    <rect key="frame" x="0.0" y="10" width="577" height="20"/>
                                     <color key="textColor" name="DarkTextBlue"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -81,16 +81,16 @@
                                     </connections>
                                 </textField>
                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~777.7 USD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2O-UY-DAR">
-                                    <rect key="frame" x="571.5" y="13.5" width="0.0" height="16.5"/>
+                                    <rect key="frame" x="579.5" y="13.5" width="0.0" height="16.5"/>
                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                                     <color key="textColor" name="MediumTextGray"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="900" verticalHuggingPriority="900" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sfy-P4-gv3" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                    <rect key="frame" x="574" y="3" width="38" height="27"/>
+                                    <rect key="frame" x="582" y="3" width="30" height="27"/>
                                     <color key="backgroundColor" name="GenericGray"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <state key="normal" title="Button">
+                                    <state key="normal" title=" ">
                                         <color key="titleColor" name="NormalText"/>
                                         <color key="titleShadowColor" name="GenericGrayShadow"/>
                                     </state>
