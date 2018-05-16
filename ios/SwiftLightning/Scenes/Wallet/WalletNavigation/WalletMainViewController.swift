@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import SafariServices
 
 protocol WalletMainDisplayLogic: class {
   func displayBalances(viewModel: WalletMain.UpdateBalances.ViewModel)
@@ -69,6 +70,7 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
   
   @IBOutlet weak var totalBalanceLabel: UILabel!
   @IBOutlet weak var channelBalanceLabel: UILabel!
+  @IBOutlet weak var walletSyncView: WalletSyncView!
   @IBOutlet weak var pagingScrollView: UIScrollView!
   @IBOutlet weak var transactionView: WalletPageView!
   @IBOutlet weak var channelView: WalletPageView!
@@ -92,10 +94,19 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
     transactionView.leftButton.addTarget(self, action: #selector(payTapped), for: .touchUpInside)
     transactionView.rightButton.addTarget(self, action:#selector(receiveTapped), for: .touchUpInside)
     channelView.leftButton.addTarget(self, action: #selector(openChannelTapped), for: .touchUpInside)
+    walletSyncView.receiveButton.addTarget(self, action: #selector(receiveTapped), for: .touchUpInside)
+    
+    // Welcome view faucet links
+    walletSyncView.testnetFaucetLink1.addTarget(self, action: #selector(faucetLink1Tapped), for: .touchUpInside)
+    walletSyncView.testnetFaucetLink2.addTarget(self, action: #selector(faucetLink2Tapped), for: .touchUpInside)
     
     // Setup Table Views
     setupTransactionTableView()
     setupChannelTableView()
+    
+    // Show Wallet Sync View by default on first start. But don't show again subsequently
+    walletSyncView.isHidden = false
+    pagingScrollView.isHidden = true
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -105,6 +116,11 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
     syncHandle = EventCentral.shared.subscribeToSync { (synced, percentage, date) in
       if synced {
         DispatchQueue.main.async {
+          
+          // Make sure transaciton/channel pages are shown
+          self.walletSyncView.isHidden = true
+          self.pagingScrollView.isHidden = false
+          
           // Enable Pay & Manual Open Channel
           self.transactionView.leftButton.isEnabled = true
           self.transactionView.leftButton.backgroundColor = UIColor.lightAzureBlue
@@ -144,7 +160,6 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
         }
       } else {
         DispatchQueue.main.async {
-          // TODO: Display views in place of Transaction/Channel View
           
           // Disable Pay & Manual Open
           self.transactionView.leftButton.isEnabled = false
@@ -432,5 +447,29 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
   
   @IBAction func channelBalanceTapped(_ sender: UITapGestureRecognizer) {
     router?.routeToWalletBalance()
+  }
+  
+  
+  // MARK: Faucet Links
+  
+  @objc private func faucetLink1Tapped(sender: UIButton) {
+    displaySafariView(on: "https://testnet.manu.backend.hamburg/faucet")
+  }
+  
+  @objc private func faucetLink2Tapped(sender: UIButton) {
+    displaySafariView(on: "https://testnet.coinfaucet.eu/en/")
+  }
+  
+  private func displaySafariView(on urlString: String) {
+    // This shall be directly called by IBAction, or might crash from not being Main thread
+    let url = URL(string: urlString)!
+    SLLog.info("Opening Safari View for \(url)")
+    
+    let safariViewController = SFSafariViewController(url: url)
+    safariViewController.dismissButtonStyle = .done
+    safariViewController.preferredBarTintColor = UIColor.spaceCadetBlue
+    safariViewController.preferredControlTintColor = UIColor.normalText
+    // safariViewController.modalPresentationStyle = .overCurrentContext
+    present(safariViewController, animated: true, completion: nil)
   }
 }

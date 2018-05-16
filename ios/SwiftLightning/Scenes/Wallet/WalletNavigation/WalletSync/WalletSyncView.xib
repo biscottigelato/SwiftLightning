@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WalletSyncView" customModule="SwiftLightning" customModuleProvider="target">
+            <connections>
+                <outlet property="receiveButton" destination="bli-a0-JL7" id="EeE-Vh-4kk"/>
+                <outlet property="testnetFaucetLink1" destination="5lZ-Br-ZVE" id="8Af-so-FfI"/>
+                <outlet property="testnetFaucetLink2" destination="YEZ-ZE-BfO" id="UOO-Dp-52v"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="916"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="06H-pu-1I7" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
+                    <rect key="frame" x="10" y="32" width="355" height="687"/>
+                    <subviews>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KY5-ma-Awq">
+                            <rect key="frame" x="0.0" y="0.0" width="355" height="687"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GZA-UH-SPQ" userLabel="Content View">
+                                    <rect key="frame" x="0.0" y="0.0" width="355" height="687"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="66G-k6-9xE">
+                                            <rect key="frame" x="15" y="0.0" width="325" height="687"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="XNd-P1-8v4" userLabel="Header Space">
+                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="40"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="2ls-r9-TNN"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="5Ew-cZ-EZB" userLabel="Top Space">
+                                                    <rect key="frame" x="0.0" y="40" width="325" height="15"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="eE3-ck-FOl"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6f-Rj-X3P">
+                                                    <rect key="frame" x="0.0" y="55" width="325" height="511"/>
+                                                    <string key="text">To enable Lightning fast and secure payments, we need to first sync against the Bitcoin testnet blockchain.
+
+Unfortunately, due to limitations by the operating system on background processing, if your phone sleeps, or if the app is backgrounded, we will not be able to keep performing the sync.
+
+As such, we recommend you to find a time when your phone can be put down for 30 minutes to do this.
+
+While syncing, we will make sure your phone will not sleep. Once sync is complete, we will automatically return your phone to your normal sleep settings.
+
+Meanwhile, we encourage you to get your wallet funded by getting a new wallet address by clicking Receive.
+
+Testnet coins can be obtained using the following links:</string>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                                    <color key="textColor" name="DarkTextBlue"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKL-LU-FqI" userLabel="Spacer">
+                                                    <rect key="frame" x="0.0" y="566" width="325" height="20"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="Mmz-fU-Frf"/>
+                                                    </constraints>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5lZ-Br-ZVE">
+                                                    <rect key="frame" x="0.0" y="586" width="325" height="33"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                                    <state key="normal" title="Bitcoin TestNet Sandbox Faucet"/>
+                                                </button>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="civ-N4-49h" userLabel="Spacer">
+                                                    <rect key="frame" x="0.0" y="619" width="325" height="5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="5" id="hCQ-9o-8sL"/>
+                                                    </constraints>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEZ-ZE-BfO">
+                                                    <rect key="frame" x="0.0" y="624" width="325" height="33"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                                    <state key="normal" title="Bitcoin testnet3 faucet"/>
+                                                </button>
+                                                <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="uGi-5S-sdF" userLabel="Bottom Space">
+                                                    <rect key="frame" x="0.0" y="657" width="325" height="30"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="ceL-ld-lAZ"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="66G-k6-9xE" firstAttribute="top" secondItem="GZA-UH-SPQ" secondAttribute="top" id="01M-cc-ajD"/>
+                                        <constraint firstAttribute="bottom" secondItem="66G-k6-9xE" secondAttribute="bottom" id="VzS-ha-5lB"/>
+                                        <constraint firstAttribute="trailing" secondItem="66G-k6-9xE" secondAttribute="trailing" constant="15" id="nxX-L7-uJd"/>
+                                        <constraint firstItem="66G-k6-9xE" firstAttribute="leading" secondItem="GZA-UH-SPQ" secondAttribute="leading" constant="15" id="tad-gE-TWY"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="GZA-UH-SPQ" secondAttribute="bottom" id="CwJ-St-2Rq"/>
+                                <constraint firstItem="GZA-UH-SPQ" firstAttribute="leading" secondItem="KY5-ma-Awq" secondAttribute="leading" id="F1C-Ha-yiz"/>
+                                <constraint firstItem="GZA-UH-SPQ" firstAttribute="top" secondItem="KY5-ma-Awq" secondAttribute="top" id="PQc-qY-sNA"/>
+                                <constraint firstAttribute="trailing" secondItem="GZA-UH-SPQ" secondAttribute="trailing" id="eeL-my-IU0"/>
+                            </constraints>
+                        </scrollView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOF-gW-7R3" customClass="SLFormHeaderView" customModule="SwiftLightning" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="355" height="40"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="iconIndex">
+                                    <integer key="value" value="0"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="headerTitle" value=" Welcome!"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="KY5-ma-Awq" secondAttribute="trailing" id="4gE-zw-N27"/>
+                        <constraint firstItem="iOF-gW-7R3" firstAttribute="top" secondItem="06H-pu-1I7" secondAttribute="top" id="9n2-1N-hhS"/>
+                        <constraint firstAttribute="trailing" secondItem="iOF-gW-7R3" secondAttribute="trailing" id="Awq-Y3-KgW"/>
+                        <constraint firstItem="GZA-UH-SPQ" firstAttribute="width" secondItem="06H-pu-1I7" secondAttribute="width" id="CDv-gu-fA1"/>
+                        <constraint firstAttribute="bottom" secondItem="KY5-ma-Awq" secondAttribute="bottom" id="DVf-3a-v5w"/>
+                        <constraint firstItem="KY5-ma-Awq" firstAttribute="leading" secondItem="06H-pu-1I7" secondAttribute="leading" id="K4u-WJ-XRg"/>
+                        <constraint firstItem="KY5-ma-Awq" firstAttribute="top" secondItem="06H-pu-1I7" secondAttribute="top" id="ejj-NB-YO1"/>
+                        <constraint firstItem="iOF-gW-7R3" firstAttribute="leading" secondItem="06H-pu-1I7" secondAttribute="leading" id="lzz-0q-Njp"/>
+                        <constraint firstItem="GZA-UH-SPQ" firstAttribute="height" secondItem="06H-pu-1I7" secondAttribute="height" priority="800" id="vxx-36-uvg"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g6x-Ae-iND" userLabel="Button View">
+                    <rect key="frame" x="10" y="729" width="355" height="60"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bli-a0-JL7" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="9" width="355" height="42"/>
+                            <color key="backgroundColor" name="MedAquamarine"/>
+                            <state key="normal" title="Receive">
+                                <color key="titleColor" name="NormalText"/>
+                                <color key="titleShadowColor" name="MedAquamarineShadow"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="sizeIndex">
+                                    <integer key="value" value="0"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="bli-a0-JL7" firstAttribute="centerX" secondItem="g6x-Ae-iND" secondAttribute="centerX" id="Eij-xu-AWD"/>
+                        <constraint firstAttribute="height" constant="60" id="fOb-lD-tkI"/>
+                        <constraint firstItem="bli-a0-JL7" firstAttribute="centerY" secondItem="g6x-Ae-iND" secondAttribute="centerY" id="xKN-fK-fe7"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="g6x-Ae-iND" secondAttribute="bottom" constant="20" id="3Gy-2S-lBb"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="g6x-Ae-iND" secondAttribute="trailing" constant="10" id="BMp-f8-F0d"/>
+                <constraint firstItem="g6x-Ae-iND" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="N95-sz-Z9M"/>
+                <constraint firstItem="bli-a0-JL7" firstAttribute="leading" secondItem="06H-pu-1I7" secondAttribute="leading" id="PwO-W6-QPS"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="06H-pu-1I7" secondAttribute="trailing" constant="10" id="fsE-qH-1Jd"/>
+                <constraint firstItem="06H-pu-1I7" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="jNi-pd-TeS"/>
+                <constraint firstItem="06H-pu-1I7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="lP2-2a-HWU"/>
+                <constraint firstItem="g6x-Ae-iND" firstAttribute="top" secondItem="06H-pu-1I7" secondAttribute="bottom" constant="10" id="zon-Lc-CUR"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="25.5" y="315"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="DarkTextBlue">
+            <color red="0.25098039215686274" green="0.2627450980392157" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="MedAquamarine">
+            <color red="0.50588235294117645" green="0.83921568627450982" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="MedAquamarineShadow">
+            <color red="0.30588235294117649" green="0.50588235294117645" blue="0.44705882352941179" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="NormalText">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

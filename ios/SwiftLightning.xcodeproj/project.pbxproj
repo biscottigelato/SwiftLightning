@@ -261,6 +261,8 @@
 		8C82760820912A750029BE7E /* SLFormPaySummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C82760720912A750029BE7E /* SLFormPaySummaryView.xib */; };
 		8C82760A20912A890029BE7E /* SLFormPaySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82760920912A890029BE7E /* SLFormPaySummaryView.swift */; };
 		8C82761D20916FA40029BE7E /* BitcoinTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82761C20916FA40029BE7E /* BitcoinTest.swift */; };
+		8C854BE120ABA9C800E454A6 /* WalletSyncView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C854BE020ABA9C800E454A6 /* WalletSyncView.xib */; };
+		8C854BE320ABA9DE00E454A6 /* WalletSyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C854BE220ABA9DE00E454A6 /* WalletSyncView.swift */; };
 		8C8E4E65208C0C040017BAB2 /* SLSpinnerDialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */; };
 		8C8E4E67208C0C240017BAB2 /* SLSpinnerDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */; };
 		8C90C94A209D70ED00D6E7A8 /* ChannelVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */; };
@@ -565,6 +567,8 @@
 		8C82761020916CF10029BE7E /* SwiftLightningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftLightningTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C82761420916CF10029BE7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C82761C20916FA40029BE7E /* BitcoinTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinTest.swift; sourceTree = "<group>"; };
+		8C854BE020ABA9C800E454A6 /* WalletSyncView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSyncView.xib; sourceTree = "<group>"; };
+		8C854BE220ABA9DE00E454A6 /* WalletSyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSyncView.swift; sourceTree = "<group>"; };
 		8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLSpinnerDialogView.xib; sourceTree = "<group>"; };
 		8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSpinnerDialogView.swift; sourceTree = "<group>"; };
 		8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVM.swift; sourceTree = "<group>"; };
@@ -1045,6 +1049,7 @@
 		8C6B7556208B17A700B751A2 /* WalletNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				8C854BDF20ABA9B000E454A6 /* WalletSync */,
 				8C77459A209BD6A2004EBA69 /* WalletPages */,
 				8C7745A4209BF78A004EBA69 /* TableCells */,
 				8C6B7563208B17CB00B751A2 /* WalletNavigation.storyboard */,
@@ -1404,6 +1409,15 @@
 			path = SwiftLightningTests;
 			sourceTree = "<group>";
 		};
+		8C854BDF20ABA9B000E454A6 /* WalletSync */ = {
+			isa = PBXGroup;
+			children = (
+				8C854BE020ABA9C800E454A6 /* WalletSyncView.xib */,
+				8C854BE220ABA9DE00E454A6 /* WalletSyncView.swift */,
+			);
+			path = WalletSync;
+			sourceTree = "<group>";
+		};
 		8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialog */ = {
 			isa = PBXGroup;
 			children = (
@@ -1761,6 +1775,7 @@
 				8C33E72620A95D2A00C31F33 /* SLLineView.xib in Resources */,
 				8C36A049209696A0003BEFB6 /* lnd.conf in Resources */,
 				8C090E2520885C84009B8B8D /* OpenSans-Italic.ttf in Resources */,
+				8C854BE120ABA9C800E454A6 /* WalletSyncView.xib in Resources */,
 				8C18828C20868545002E2835 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
 				8C18828920868545002E2835 /* Montserrat-Bold.ttf in Resources */,
 				8C33E70C20A90FFA00C31F33 /* WalletInfo.storyboard in Resources */,
@@ -2056,6 +2071,7 @@
 				8C33E6E720A7B67300C31F33 /* LogConsoleRouter.swift in Sources */,
 				8C33E6FD20A8EC9A00C31F33 /* WalletBalanceInteractor.swift in Sources */,
 				8C33E70820A90FEE00C31F33 /* WalletInfoModels.swift in Sources */,
+				8C854BE320ABA9DE00E454A6 /* WalletSyncView.swift in Sources */,
 				8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */,
 				8C1AE37A2095A81500A4D9BF /* SecureHash.swift in Sources */,
 				8C090E1E20885295009B8B8D /* UIFont+Extension.swift in Sources */,

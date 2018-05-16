@@ -89,6 +89,10 @@
                                     <outletCollection property="gestureRecognizers" destination="a8x-Zi-6q3" appends="YES" id="7zO-gf-t93"/>
                                 </connections>
                             </stackView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XMi-o2-tbP" customClass="WalletSyncView" customModule="SwiftLightning" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="53.5" width="375" height="549.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhM-12-US3">
                                 <rect key="frame" x="0.0" y="53.5" width="375" height="549.5"/>
                                 <subviews>
@@ -129,16 +133,20 @@
                         </subviews>
                         <color key="backgroundColor" name="SpaceCadetBlue"/>
                         <constraints>
+                            <constraint firstItem="XMi-o2-tbP" firstAttribute="top" secondItem="AlB-OF-a1v" secondAttribute="bottom" id="3E5-Xi-IfV"/>
                             <constraint firstItem="z5t-Y1-iMe" firstAttribute="trailing" secondItem="zkY-WT-qcP" secondAttribute="trailing" constant="15" id="55H-TV-vCZ"/>
                             <constraint firstItem="AlB-OF-a1v" firstAttribute="height" secondItem="zkY-WT-qcP" secondAttribute="height" id="8Wt-dl-9DC"/>
                             <constraint firstItem="AlB-OF-a1v" firstAttribute="leading" secondItem="z5t-Y1-iMe" secondAttribute="leading" constant="15" id="KZ0-kU-cdx"/>
                             <constraint firstItem="z5t-Y1-iMe" firstAttribute="trailing" secondItem="nhM-12-US3" secondAttribute="trailing" id="RZl-RF-ugU"/>
+                            <constraint firstItem="XMi-o2-tbP" firstAttribute="leading" secondItem="z5t-Y1-iMe" secondAttribute="leading" id="V01-oa-U1a"/>
                             <constraint firstItem="z5t-Y1-iMe" firstAttribute="bottom" secondItem="nhM-12-US3" secondAttribute="bottom" id="WlV-rw-dmv"/>
                             <constraint firstItem="DHY-EV-q61" firstAttribute="firstBaseline" secondItem="Ub3-sF-TqS" secondAttribute="baseline" id="XHe-Bm-D14"/>
                             <constraint firstItem="nhM-12-US3" firstAttribute="top" secondItem="AlB-OF-a1v" secondAttribute="bottom" id="YYR-mN-2gt"/>
                             <constraint firstItem="zkY-WT-qcP" firstAttribute="top" secondItem="z5t-Y1-iMe" secondAttribute="top" constant="5" id="bgu-iQ-5Ex"/>
+                            <constraint firstItem="XMi-o2-tbP" firstAttribute="bottom" secondItem="z5t-Y1-iMe" secondAttribute="bottom" id="eYo-ji-hCM"/>
                             <constraint firstItem="AlB-OF-a1v" firstAttribute="top" secondItem="z5t-Y1-iMe" secondAttribute="top" constant="5" id="iQ3-yx-ASc"/>
                             <constraint firstItem="nhM-12-US3" firstAttribute="leading" secondItem="z5t-Y1-iMe" secondAttribute="leading" id="kpN-Ii-c3A"/>
+                            <constraint firstItem="XMi-o2-tbP" firstAttribute="trailing" secondItem="z5t-Y1-iMe" secondAttribute="trailing" id="m0c-Zr-JdH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="z5t-Y1-iMe"/>
                     </view>
@@ -187,6 +195,7 @@
                         <outlet property="totalBalanceLabel" destination="DHY-EV-q61" id="7Ck-RV-Ggg"/>
                         <outlet property="totalBalanceTapRecognizer" destination="EeH-3f-v2I" id="G4h-of-d08"/>
                         <outlet property="transactionView" destination="Swd-QE-PAo" id="WhL-1f-kYn"/>
+                        <outlet property="walletSyncView" destination="XMi-o2-tbP" id="dfI-1N-k1d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bWG-0Q-vOB" userLabel="First Responder" sceneMemberID="firstResponder"/>
