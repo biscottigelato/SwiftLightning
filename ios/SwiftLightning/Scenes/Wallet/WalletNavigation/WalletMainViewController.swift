@@ -453,23 +453,10 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
   // MARK: Faucet Links
   
   @objc private func faucetLink1Tapped(sender: UIButton) {
-    displaySafariView(on: "https://testnet.manu.backend.hamburg/faucet")
+    SLSafariWebViewer.display(on: "https://testnet.manu.backend.hamburg/faucet", from: self)
   }
   
   @objc private func faucetLink2Tapped(sender: UIButton) {
-    displaySafariView(on: "https://testnet.coinfaucet.eu/en/")
-  }
-  
-  private func displaySafariView(on urlString: String) {
-    // This shall be directly called by IBAction, or might crash from not being Main thread
-    let url = URL(string: urlString)!
-    SLLog.info("Opening Safari View for \(url)")
-    
-    let safariViewController = SFSafariViewController(url: url)
-    safariViewController.dismissButtonStyle = .done
-    safariViewController.preferredBarTintColor = UIColor.spaceCadetBlue
-    safariViewController.preferredControlTintColor = UIColor.normalText
-    // safariViewController.modalPresentationStyle = .overCurrentContext
-    present(safariViewController, animated: true, completion: nil)
+    SLSafariWebViewer.display(on: "https://testnet.coinfaucet.eu/en/", from: self)
   }
 }

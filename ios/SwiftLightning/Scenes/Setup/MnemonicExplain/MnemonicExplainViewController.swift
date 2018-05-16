@@ -88,21 +88,7 @@ class MnemonicExplainViewController: UIViewController, MnemonicExplainDisplayLog
   // MARK: How to keep my backup safe?
   
   @IBAction func howToTapped(_ sender: SLBarButton) {
-    displaySafariView()
-  }
-  
-  func displaySafariView() {
-    
-    // This shall be directly called by IBAction, or might crash from not being Main thread
-    let url = URL(string: "https://en.bitcoin.it/wiki/Mnemonic_phrase")!
-    SLLog.info("Opening Safari View for \(url)")
-      
-    let safariViewController = SFSafariViewController(url: url)
-    safariViewController.dismissButtonStyle = .done
-    safariViewController.preferredBarTintColor = UIColor.spaceCadetBlue
-    safariViewController.preferredControlTintColor = UIColor.normalText
-    // safariViewController.modalPresentationStyle = .overCurrentContext
-    present(safariViewController, animated: true, completion: nil)
+    SLSafariWebViewer.display(on: "https://en.bitcoin.it/wiki/Mnemonic_phrase", from: self)
   }
   
   

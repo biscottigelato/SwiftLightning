@@ -27,16 +27,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gjI-aH-5s5" customClass="SLFormBackingView" customModule="SwiftLightning" customModuleProvider="target">
-                                <rect key="frame" x="10" y="100" width="355" height="213"/>
+                                <rect key="frame" x="10" y="100" width="355" height="295"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kF-wb-tDU">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="213"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="295"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UmZ-E4-3xP" userLabel="Content View">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="213"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="295"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jk0-5G-205">
-                                                        <rect key="frame" x="10" y="0.0" width="335" height="213"/>
+                                                        <rect key="frame" x="10" y="0.0" width="335" height="295"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="rYk-AA-NN4" userLabel="Header Spacer">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
@@ -45,7 +45,7 @@
                                                                     <constraint firstAttribute="height" constant="40" id="0hr-Kh-2O9"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="YxP-if-miW" userLabel="Top Spacer">
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="YxP-if-miW" userLabel="Divider Spacer">
                                                                 <rect key="frame" x="0.0" y="40" width="335" height="10"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -190,8 +190,81 @@
                                                                     <outletCollection property="gestureRecognizers" destination="Y3Y-Y7-F75" appends="YES" id="dA9-tV-K0p"/>
                                                                 </connections>
                                                             </stackView>
-                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="pmD-pu-T1L" userLabel="Header Spacer">
-                                                                <rect key="frame" x="0.0" y="203" width="335" height="10"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qsj-KV-jO4" userLabel="Line">
+                                                                <rect key="frame" x="0.0" y="203" width="335" height="1"/>
+                                                                <color key="backgroundColor" name="FormLineGray"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="1" id="pz1-UU-ZOO"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Bv6-FJ-hyc" userLabel="Divider Spacer">
+                                                                <rect key="frame" x="0.0" y="204" width="335" height="10"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="10" id="F0n-wp-hQy"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0w8-XZ-LLh" userLabel="About Header">
+                                                                <rect key="frame" x="0.0" y="214" width="335" height="30"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1gF-mT-VC7" userLabel="Spacer">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="30"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="5" id="ShN-Eb-cAR"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SpW-ZD-yxw" userLabel="Debug">
+                                                                        <rect key="frame" x="5" y="6.6666666666666856" width="330" height="16.666666666666668"/>
+                                                                        <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="12"/>
+                                                                        <color key="textColor" name="MediumTextGray"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="30" id="0W9-dU-glC"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eb-Nd-2tb" userLabel="Line">
+                                                                <rect key="frame" x="0.0" y="244" width="335" height="1"/>
+                                                                <color key="backgroundColor" name="FormLineGray"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="1" id="bBT-Ud-AtC"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9fd-WK-WQf" userLabel="Website">
+                                                                <rect key="frame" x="0.0" y="245" width="335" height="40"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hDo-7d-1g6" userLabel="Spacer">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="40"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Website" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VVO-Xu-Xam" userLabel="Our Website">
+                                                                        <rect key="frame" x="5" y="10.333333333333313" width="301" height="19.333333333333329"/>
+                                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                                                        <color key="textColor" name="DarkTextBlue"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" verticalHuggingPriority="251" image="ThinRightArrowDark" translatesAutoresizingMaskIntoConstraints="NO" id="3bK-SW-0A3">
+                                                                        <rect key="frame" x="306" y="8" width="24" height="24"/>
+                                                                        <color key="tintColor" name="GenericGray"/>
+                                                                    </imageView>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VrK-cJ-ZHf" userLabel="Spacer">
+                                                                        <rect key="frame" x="330" y="0.0" width="5" height="40"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </view>
+                                                                </subviews>
+                                                                <gestureRecognizers/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="OEW-F7-TtO"/>
+                                                                    <constraint firstItem="VrK-cJ-ZHf" firstAttribute="width" secondItem="hDo-7d-1g6" secondAttribute="width" id="SAT-ft-o02"/>
+                                                                </constraints>
+                                                                <connections>
+                                                                    <outletCollection property="gestureRecognizers" destination="Eme-gV-Qku" appends="YES" id="5le-t2-X4p"/>
+                                                                </connections>
+                                                            </stackView>
+                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="pmD-pu-T1L" userLabel="Bottom Spacer">
+                                                                <rect key="frame" x="0.0" y="285" width="335" height="10"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="10" id="YFB-GI-efO"/>
@@ -199,6 +272,7 @@
                                                             </view>
                                                         </subviews>
                                                         <constraints>
+                                                            <constraint firstItem="hDo-7d-1g6" firstAttribute="width" secondItem="roz-9h-KQf" secondAttribute="width" id="B3g-pf-JqO"/>
                                                             <constraint firstItem="roz-9h-KQf" firstAttribute="width" secondItem="S4I-Cq-aLt" secondAttribute="width" id="FCV-Sb-jaJ"/>
                                                             <constraint firstItem="xIM-ww-uhk" firstAttribute="width" secondItem="roz-9h-KQf" secondAttribute="width" id="Wq7-oO-xum"/>
                                                             <constraint firstItem="roz-9h-KQf" firstAttribute="width" secondItem="S4I-Cq-aLt" secondAttribute="width" id="qRd-KJ-9qT"/>
@@ -281,6 +355,11 @@
                         <action selector="logConsoleTapped:" destination="R2z-Ve-YpG" id="BeL-Dv-DC2"/>
                     </connections>
                 </tapGestureRecognizer>
+                <tapGestureRecognizer id="Eme-gV-Qku">
+                    <connections>
+                        <action selector="websiteTapped:" destination="R2z-Ve-YpG" id="u0W-OF-ijm"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="960.79999999999995" y="38.23088455772114"/>
         </scene>
@@ -291,11 +370,26 @@
         <namedColor name="DarkTextBlue">
             <color red="0.25098039220000001" green="0.26274509800000001" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <namedColor name="DarkTextBlue">
+            <color red="0.25098039220000001" green="0.26274509800000001" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="FormLineGray">
+            <color red="0.86666666670000003" green="0.86274509799999999" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="FormLineGray">
+            <color red="0.86666666670000003" green="0.86274509799999999" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="FormLineGray">
             <color red="0.86666666670000003" green="0.86274509799999999" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="GenericGray">
             <color red="0.66666666669999997" green="0.66274509800000003" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="GenericGray">
+            <color red="0.66666666669999997" green="0.66274509800000003" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="MediumTextGray">
+            <color red="0.53333333329999999" green="0.52941176469999995" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="MediumTextGray">
             <color red="0.53333333333333333" green="0.52941176470588236" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

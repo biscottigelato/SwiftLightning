@@ -72,6 +72,12 @@ class SettingsMainViewController: SLViewController, SettingsMainDisplayLogic {
     router?.routeToLogConsole()
   }
   
+  @IBAction func websiteTapped(_ sender: UITapGestureRecognizer) {
+    SLSafariWebViewer.display(on: "https://swiftlightning.io", from: self)
+  }
+  
+  
+  
   
   // MARK: Close Cross Tapped
   

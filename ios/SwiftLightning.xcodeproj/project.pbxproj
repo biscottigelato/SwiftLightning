@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C02085820ACDB2E0089CF1B /* SLSafariWebViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C02085720ACDB2E0089CF1B /* SLSafariWebViewer.swift */; };
 		8C090DEB2086F92A009B8B8D /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090DEA2086F92A009B8B8D /* UITextField+Extension.swift */; };
 		8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090DED2086FF5C009B8B8D /* SLViewController.swift */; };
 		8C090DF420870DB9009B8B8D /* LNDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090DF320870DB9009B8B8D /* LNDefinitions.swift */; };
@@ -307,6 +308,7 @@
 /* Begin PBXFileReference section */
 		099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftLightning.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8292E2C0A97224CAF9B4332E /* Pods-SwiftLightning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLightning.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning.release.xcconfig"; sourceTree = "<group>"; };
+		8C02085720ACDB2E0089CF1B /* SLSafariWebViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSafariWebViewer.swift; sourceTree = "<group>"; };
 		8C090DEA2086F92A009B8B8D /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		8C090DED2086FF5C009B8B8D /* SLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLViewController.swift; sourceTree = "<group>"; };
 		8C090DF320870DB9009B8B8D /* LNDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNDefinitions.swift; sourceTree = "<group>"; };
@@ -677,6 +679,7 @@
 				8C7D310720755CE00068F2BD /* SLLog.swift */,
 				8C090E4F20895CA9009B8B8D /* SLRandValues.swift */,
 				8C70EC12208E511900D658DC /* SLRetry.swift */,
+				8C02085720ACDB2E0089CF1B /* SLSafariWebViewer.swift */,
 				8C77AD6820A249030094D733 /* RepeatingTimer.swift */,
 			);
 			path = Shared;
@@ -1973,6 +1976,7 @@
 				8C33E6FC20A8EC9A00C31F33 /* WalletBalanceViewController.swift in Sources */,
 				8CFA16A52082EF3A00813EA6 /* CreateRecoverViewController.swift in Sources */,
 				8C33E69C20A560B200C31F33 /* BasicDirection.swift in Sources */,
+				8C02085820ACDB2E0089CF1B /* SLSafariWebViewer.swift in Sources */,
 				8C33E6FA20A8EC9A00C31F33 /* WalletBalanceRouter.swift in Sources */,
 				8C1AE3832095BF4000A4D9BF /* Bech32.swift in Sources */,
 				8C090E042087F28D009B8B8D /* LNManager.swift in Sources */,
@@ -2261,7 +2265,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -2285,7 +2289,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.BiscottiGelato.SwiftLightning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
