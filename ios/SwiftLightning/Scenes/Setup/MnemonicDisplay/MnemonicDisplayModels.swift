@@ -15,11 +15,8 @@ import UIKit
 enum MnemonicDisplay
 {
   struct Constants {
-    #if DEBUG
-      static let minWaitTime = 3
-    #else
-      static let minWaitTime = 20
-    #endif
+    static let minWaitTime = 3
+    // TODO: For Mainnet + Release, change to 20 seconds!
   }
   
   enum ShowMnemonic

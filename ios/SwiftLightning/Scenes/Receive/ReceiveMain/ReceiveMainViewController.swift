@@ -59,8 +59,7 @@ class ReceiveMainViewController: SLViewController, ReceiveMainDisplayLogic {
     super.viewDidLoad()
     
     // Generate a new Address everytime on load
-    let request = ReceiveMain.GenerateOnChain.Request()
-    interactor?.generateOnChain(request: request)
+    generateOnChainAddr()
   }
   
   
@@ -68,6 +67,14 @@ class ReceiveMainViewController: SLViewController, ReceiveMainDisplayLogic {
   
   @IBOutlet weak var qrImageView: UIImageView!
   @IBOutlet weak var addressLabel: UILabel!
+  
+  private var activityIndicator = SLSpinnerDialogView()
+  
+  private func generateOnChainAddr() {
+    activityIndicator.show(on: view)
+    let request = ReceiveMain.GenerateOnChain.Request()
+    interactor?.generateOnChain(request: request)
+  }
   
   func displayOnChainAddress(viewModel: ReceiveMain.GenerateOnChain.ViewModel) {
     DispatchQueue.main.async {
@@ -79,12 +86,14 @@ class ReceiveMainViewController: SLViewController, ReceiveMainDisplayLogic {
       } else {
         self.shareBarButton.isEnabled = false
       }
+      self.activityIndicator.remove()
     }
   }
   
   func displayGenerateOnChainFailure(viewModel: ReceiveMain.GenerateOnChain.ViewModel) {
     let alertDialog = UIAlertController(title: viewModel.errTitle, message: viewModel.errMsg, preferredStyle: .alert).addAction(title: "OK", style: .default)
     DispatchQueue.main.async {
+      self.activityIndicator.remove()
       self.present(alertDialog, animated: true, completion: nil)
     }
   }

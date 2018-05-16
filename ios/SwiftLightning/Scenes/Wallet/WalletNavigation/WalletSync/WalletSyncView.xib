@@ -55,17 +55,17 @@
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6f-Rj-X3P">
                                                     <rect key="frame" x="0.0" y="55" width="325" height="511"/>
-                                                    <string key="text">To enable Lightning fast and secure payments, we need to first sync against the Bitcoin testnet blockchain.
+                                                    <mutableString key="text">To enable Lightning fast and secure payments, we need to first sync against the Bitcoin testnet blockchain.
 
 Unfortunately, due to limitations by the operating system on background processing, if your phone sleeps, or if the app is backgrounded, we will not be able to keep performing the sync.
 
-As such, we recommend you to find a time when your phone can be put down for 30 minutes to do this.
+As such, we recommend you to find a time when your phone can be put down for about an hour to get this completed.
 
 While syncing, we will make sure your phone will not sleep. Once sync is complete, we will automatically return your phone to your normal sleep settings.
 
 Meanwhile, we encourage you to get your wallet funded by getting a new wallet address by clicking Receive.
 
-Testnet coins can be obtained using the following links:</string>
+Testnet coins can be obtained using the following links:</mutableString>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                     <color key="textColor" name="DarkTextBlue"/>
                                                     <nil key="highlightedColor"/>

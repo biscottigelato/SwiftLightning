@@ -24,9 +24,12 @@ import SnapKit
   
   func show(on view: UIView) {    
     UIApplication.shared.beginIgnoringInteractionEvents()
-    view.addSubview(self)
+    let displayView = UIApplication.shared.keyWindow ?? view
+    displayView.addSubview(self)
+    
     self.snp.makeConstraints { (make) in
-      make.center.equalTo(view.window ?? view)
+      make.centerX.equalTo(displayView)
+      make.centerY.equalTo(displayView).offset(-20)
     }
   }
   
