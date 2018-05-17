@@ -216,9 +216,9 @@ class EventCentral {
       LNServices.subscribeChannelGraph(completion: topologyNotify)
     }
     
-    // Start Periodic Pull Update
+    // TODO: Re-enable Periodic Pull Update
     periodicTimer.eventHandler = { self.periodicNotify() }
-    periodicTimer.resume()
+    // periodicTimer.resume()  // Seems to decrease stability at this point. Disabling for now.
   }
 
   

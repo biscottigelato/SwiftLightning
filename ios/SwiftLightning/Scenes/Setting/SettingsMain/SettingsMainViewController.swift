@@ -52,8 +52,18 @@ class SettingsMainViewController: SLViewController, SettingsMainDisplayLogic {
   
   // MARK: View lifecycle
   
+  @IBOutlet weak var neutrinoPeersLine: UIView!
+  @IBOutlet weak var neutrinoPeersStack: UIStackView!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    // !!!! Hide Neutrino settings on Release. This is because any bad host
+    // setting would lead LND to not being able to start at all again !!!!
+    #if DEBUG
+    neutrinoPeersLine.isHidden = false
+    neutrinoPeersStack.isHidden = false
+    #endif
   }
   
   

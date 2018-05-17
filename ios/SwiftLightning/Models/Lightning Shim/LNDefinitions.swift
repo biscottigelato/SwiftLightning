@@ -19,7 +19,7 @@ struct LNConstants {
   static let minChannelSize = Bitcoin(inSatoshi: 20000)
   static let defaultRetryCount: Int = 5
   static let defaultRetryDelay: Double = 1
-  static let defaultChannelOpTimeout: TimeInterval = 60  // seconds
+  static let defaultChannelOpTimeout: TimeInterval = 200  // seconds
 }
 
 

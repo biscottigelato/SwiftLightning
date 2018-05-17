@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -22,15 +22,15 @@
             <objects>
                 <viewController storyboardIdentifier="CameraMainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Uxg-JY-Bce" customClass="CameraMainViewController" customModule="SwiftLightning" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Tb-zq-FJx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PYD-9C-EKR" userLabel="Camera View">
-                                <rect key="frame" x="0.0" y="72" width="375" height="525"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="594"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aM0-Z0-w9b">
-                                <rect key="frame" x="0.0" y="597" width="375" height="70"/>
+                                <rect key="frame" x="0.0" y="666" width="414" height="70"/>
                                 <items>
                                     <barButtonItem title="Item" image="CloseCrossLight" id="13k-fb-Qvk">
                                         <color key="tintColor" name="NormalText"/>
@@ -49,37 +49,37 @@
                                 <color key="barTintColor" name="SpaceCadetBlue"/>
                             </toolbar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Hyg-Bi-iPE">
-                                <rect key="frame" x="12" y="72" width="351" height="525"/>
+                                <rect key="frame" x="12" y="72" width="390" height="594"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NnC-kr-4nP" userLabel="Spacer">
-                                        <rect key="frame" x="27.5" y="0.0" width="296" height="88"/>
+                                        <rect key="frame" x="47" y="0.0" width="296" height="105.33333333333333"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ScanFrame" translatesAutoresizingMaskIntoConstraints="NO" id="vrX-qB-2l7" userLabel="Scan Frame">
-                                        <rect key="frame" x="53" y="88" width="245" height="245.5"/>
+                                        <rect key="frame" x="58.666666666666686" y="105.33333333333334" width="273" height="273.66666666666663"/>
                                         <color key="tintColor" name="NormalText"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="vrX-qB-2l7" secondAttribute="height" multiplier="1:1" id="o2x-m0-mcx"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VMa-Gv-Xh7" userLabel="Spacer">
-                                        <rect key="frame" x="27.5" y="333.5" width="296" height="87.5"/>
+                                        <rect key="frame" x="47" y="379" width="296" height="105"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WLD-Mu-dxd" userLabel="QR Dialog View">
-                                        <rect key="frame" x="0.0" y="421" width="351" height="70"/>
+                                        <rect key="frame" x="0.0" y="484" width="390" height="70"/>
                                         <subviews>
                                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ro-72-4kb">
-                                                <rect key="frame" x="0.0" y="0.0" width="351" height="70"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="390" height="70"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9fa-74-YKf">
-                                                    <rect key="frame" x="0.0" y="0.0" width="351" height="70"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="390" height="70"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vCm-KF-GFC">
-                                                            <rect key="frame" x="18" y="18" width="315" height="34"/>
+                                                            <rect key="frame" x="18" y="18" width="354" height="34"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="700" verticalHuggingPriority="700" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Nf-WN-0gx">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="271" height="34"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="310" height="34"/>
                                                                     <string key="text">Please scan a QR code containing
 Lightning Peer Node info</string>
                                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
@@ -87,7 +87,7 @@ Lightning Peer Node info</string>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="800" verticalHuggingPriority="800" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" image="QRCode" translatesAutoresizingMaskIntoConstraints="NO" id="K8c-cH-6Ls">
-                                                                    <rect key="frame" x="281" y="0.0" width="34" height="34"/>
+                                                                    <rect key="frame" x="320" y="0.0" width="34" height="34"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="K8c-cH-6Ls" secondAttribute="height" id="bGc-Rv-2w7"/>
                                                                     </constraints>
@@ -115,7 +115,7 @@ Lightning Peer Node info</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EaQ-wt-oGF" userLabel="Spacer">
-                                        <rect key="frame" x="27.5" y="491" width="296" height="34"/>
+                                        <rect key="frame" x="47" y="554" width="296" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
@@ -128,14 +128,14 @@ Lightning Peer Node info</string>
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FQ8-Vm-4Nh" userLabel="Scan Horizontal Line">
-                                <rect key="frame" x="156.5" y="282" width="61.5" height="2"/>
+                                <rect key="frame" x="172.66666666666666" y="313.33333333333331" width="68.333333333333343" height="2"/>
                                 <color key="backgroundColor" name="JellyBeanRed"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="dZL-s7-baN"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="enF-Bf-kkf" userLabel="Scan Vertical Line">
-                                <rect key="frame" x="187" y="252.5" width="2" height="61"/>
+                                <rect key="frame" x="206.66666666666666" y="280.33333333333331" width="2" height="68"/>
                                 <color key="backgroundColor" name="JellyBeanRed"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="2" id="MXp-kJ-FuS"/>
@@ -190,9 +190,6 @@ Lightning Peer Node info</string>
         </namedColor>
         <namedColor name="JellyBeanRed">
             <color red="0.792156862745098" green="0.40784313725490196" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="NormalText">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="NormalText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

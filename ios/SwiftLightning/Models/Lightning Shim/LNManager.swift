@@ -359,7 +359,7 @@ class LNManager {
       // Find a line that contains 'SwiftLightning'
       lndConfText.enumerateLines { (line, stop) in
         lndConfStrings.append(line)
-        if line.range(of:"SwiftLightning") != nil {
+        if line.range(of:"[SwiftLightning]") != nil {
           swiftLightningLineNum = lndConfStrings.count - 1
         }
       }

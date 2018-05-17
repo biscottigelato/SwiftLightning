@@ -71,7 +71,7 @@ class LNServices {
         
         // Compare SwiftLightning lnd.conf versions
         if let bundleVersion = LNManager.getLndConfVersion(for: lndSourceURL),
-           bundleVersion > (diskVersion ?? 0) {
+          bundleVersion > (diskVersion ?? 0) {
           
           let lndTempURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("lnd.temp", isDirectory: false)
         
@@ -1017,7 +1017,7 @@ class LNServices {
     }
     func timeout() {
       timeoutSemaphore.wait()
-      completion?({ throw LNError.closeChannelTimeoutError })
+      completion?({ throw LNError.openChannelTimeoutError })
       completion = nil
       timeoutWorkItem = nil
       timeoutSemaphore.signal()
