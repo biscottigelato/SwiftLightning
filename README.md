@@ -8,7 +8,17 @@
 
 # Getting Started
 
+## Building LND
+
+A LND branch with support for direct functional bindings is required to build SwiftLighting. An example of that can be found at https://github.com/halseth/lnd/tree/mobile-test-5. You should be able to generate Lndmobile.framework with mobile-test-5 branch by running
+```
+$ ./lnd/mobile/build_mobile.sh
+```
+Lndmobile.framework should then be found under /lnd/mobile/build/ios/. Please see the instruction in the [LND Github page](https://github.com/lightningnetwork/lnd) for further details. Once Lndmobile.framework is generated, copy it to /SwiftLightning/ios/Lndmobile.framework.
+
 ## Build & Install
+
+Make sure Lndmobile.framework is placed under /SwiftLightning/ios/
 
 Install all Cocoapod dependencies
 ```
@@ -21,15 +31,9 @@ Start Xcode!
 $ xcode ios/SwiftLightning.xcworkspace
 ```
 
-# Updating LND
-
-A LND branch with support for direct functional bindings is required for LND to work as a library inside SwiftLighting. An example of that can be found at https://github.com/halseth/lnd/tree/mobile-test-5. You should be able to regenerate Lndmobile.framework in the mobile-test-5 branch of LND by running
-```
-$ ./lnd/mobile/build_mobile.sh
-```
-Lndmobile.framework should then be found under lnd/mobile/build/ios/. Please see the instruction in the [LND Github page](https://github.com/lightningnetwork/lnd) for further details.
-
 ## Reconverting LND .proto files into Swift
+
+If there is change to the LND .proto files, you might need to regenerate the Swift proto bindings.
 
 Install Go Lang from https://golang.org/
 
@@ -48,4 +52,3 @@ You will need to have LND in your GOPATH for this script to work
 ```
 $ ./gen_protos.sh
 ```
-
