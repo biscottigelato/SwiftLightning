@@ -1,4 +1,4 @@
-<img src="https://www.swiftlightning.io/img/SwiftLightningProject.png" alt="Swift Lightning Project Logo" height="80" >
+<img src="https://www.swiftlightning.io/img/SwiftLightningProject.png" alt="Swift Lightning Project Logo">
 
 # SwiftLightning
 
