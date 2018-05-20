@@ -1,30 +1,37 @@
+<img src="https://www.swiftlightning.io/img/SwiftLightningProject.png" alt="Swift Lightning Project Logo" height="80" >
+
 # SwiftLightning
 
 **A Lightning Network light wallet implementation on native iOS using Swift**
 
-SwiftLightning is a work-in-progress codename for a Lightning Network light wallet implementation. This project is meant to focus on a native Swift implemenation focused on iOS, but potentially also for native Mac OSX in the future.
+[SwiftLightning](https://swiftlightning.io) is a work-in-progress codename for a [Lightning Network](https://lightning.network) light wallet implementation based on the open sourced [LND - Lightning Network Daemon](https://github.com/lightningnetwork/lnd). This project is written in native Swift for iOS. By being an early implementation of a mobile Lighting wallet, it is hoped that SwiftLightning can act as a test harness to help accelerate LND's features and reliability for iOS.
 
 # Getting Started
 
-## Tools & Libraries
+## Build & Install
+
+Install all Cocoapod dependencies
+```
+$ cd ios
+$ pod install
+```
+
+Start Xcode!
+```
+$ xcode ios/SwiftLightning.xcworkspace
+```
+
+# Updating LND
+
+A LND branch with support for direct functional bindings is required for LND to work as a library inside SwiftLighting. An example of that can be found at https://github.com/halseth/lnd/tree/mobile-test-5. You should be able to regenerate Lndmobile.framework in the mobile-test-5 branch of LND by running
+```
+$ ./lnd/mobile/build_mobile.sh
+```
+Lndmobile.framework should then be found under lnd/mobile/build/ios/. Please see the instruction in the [LND Github page](https://github.com/lightningnetwork/lnd) for further details.
+
+## Reconverting LND .proto files into Swift
 
 Install Go Lang from https://golang.org/
-
-Install Go Dep
-```
-$ brew install dep
-```
-
-Get gomobile
-```
-$ go get golang.org/x/mobile/cmd/gomobile
-$ gomobile init # it might take a few minutes
-```
-
-Get GSED
-```
-$ brew install gnu-sed
-```
 
 Install Swift Protobuf
 ```
@@ -37,30 +44,8 @@ $ git clone https://www.github.com/grpc/grpc-swift
 make install
 ```
 
-## Build & Install
-
-Get Swift Lightning
-```
-$ go get github.com/biscottigelato/SwiftLightning
-```
-
-Package LND Framework
-```
-$ ./packagelnd.sh --init
-```
-
-Convert rpc.proto to Swift
+You will need to have LND in your GOPATH for this script to work
 ```
 $ ./gen_protos.sh
 ```
 
-Install all Cocoapod dependencies
-```
-$ cd ios
-$ pod install
-```
-
-Finall, Start Xcode!
-```
-$ xcode ios/SwiftLightning.xcworkspace
-```

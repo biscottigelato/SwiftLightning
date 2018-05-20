@@ -75,10 +75,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="eHH-hT-y2m">
-                                        <rect key="frame" x="15.333333333333343" y="638.66666666666663" width="345" height="99"/>
+                                        <rect key="frame" x="124" y="671.66666666666663" width="128" height="33"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6VG-A9-PER" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="345" height="42"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="128" height="33"/>
                                                 <color key="backgroundColor" name="LightAzureBlue"/>
                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                 <state key="normal" title="Create New Wallet">
@@ -94,8 +94,8 @@
                                                     <action selector="createNewWalletTapped:" destination="Me3-dU-md1" eventType="touchUpInside" id="5MX-Zm-y5d"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQF-OK-Hbl" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="57" width="345" height="42"/>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQF-OK-Hbl" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="-671.66666666666663" width="128" height="33"/>
                                                 <color key="backgroundColor" name="MedAquamarine"/>
                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                                 <state key="normal" title="Recover Wallet">
@@ -171,9 +171,6 @@
         </namedColor>
         <namedColor name="MedAquamarineShadow">
             <color red="0.30588235294117649" green="0.50588235294117645" blue="0.44705882352941179" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="NormalText">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="NormalText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

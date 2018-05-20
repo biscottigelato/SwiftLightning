@@ -12,12 +12,12 @@
 
 import UIKit
 
-protocol WalletMainPresentationLogic
-{
+protocol WalletMainPresentationLogic {
   func presentUpdatedBalances(response: WalletMain.UpdateBalances.Response)
   func presentUpdatedChannels(response: WalletMain.UpdateChannels.Response)
   func presentUpdatedTransactions(response: WalletMain.UpdateTransactions.Response)
 }
+
 
 class WalletMainPresenter: WalletMainPresentationLogic {
   weak var viewController: WalletMainDisplayLogic?
@@ -30,7 +30,6 @@ class WalletMainPresenter: WalletMainPresentationLogic {
   // MARK: Update Balances
   
   func presentUpdatedBalances(response: WalletMain.UpdateBalances.Response) {
-    
     guard let onChainBalance = response.onChainBalance, let channelBalance = response.channelBalance else {
       let viewModel = WalletMain.UpdateBalances.ErrorVM(errTitle: "Balance Error",
                                                         errMsg: "Cannot get Wallet and Channel Balance. Consider restarting the app to recover")
@@ -135,7 +134,7 @@ class WalletMainPresenter: WalletMainPresentationLogic {
         }
         
         // Amount & fee
-        let amount = Bitcoin(inSatoshi: lnPayment.value)
+        let amount = Bitcoin(inSatoshi: -lnPayment.value)  // Payment is always negative
         let fee = Bitcoin(inSatoshi: lnPayment.fee)
         
         // Determine date
