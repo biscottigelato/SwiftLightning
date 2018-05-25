@@ -86,7 +86,12 @@ class EventCentral {
         
         self.eventQueue.async {
           if info.syncedToChain {
-            timer?.suspend()
+            if let timer = timer {
+              timer.suspend()
+            } else {
+              SLLog.warning("syncTimer = nil")
+            }
+            
             
             // Allow phone to sleep if done syncing
             DispatchQueue.main.async {
@@ -102,7 +107,11 @@ class EventCentral {
             self.startEventRelayer()
             
           } else {
-            timer?.resume()
+            if let timer = timer {
+              timer.resume()
+            } else {
+              SLLog.warning("syncTimer = nil")
+            }
             
             // Prevent phone from sleeping if syncing
             DispatchQueue.main.async {
@@ -216,9 +225,9 @@ class EventCentral {
       LNServices.subscribeChannelGraph(completion: topologyNotify)
     }
     
-    // TODO: Re-enable Periodic Pull Update
+    // Periodic Pull Update
     periodicTimer.eventHandler = { self.periodicNotify() }
-    // periodicTimer.resume()  // Seems to decrease stability at this point. Disabling for now.
+    periodicTimer.resume()
   }
 
   

@@ -76,7 +76,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     SLLog.verbose("applicationWillTerminate")
     
     LNServices.stopDaemon { _ in SLLog.debug("LND Terminating...") }
-    kill(0, SIGINT)  // Double Kill
     SLLog.debug("Pending Termination Clean-up for 1s")
     sleep(1)
     SLLog.debug("Ready for Termination")

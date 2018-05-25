@@ -55,7 +55,7 @@
                                                                 <rect key="frame" x="0.0" y="101" width="325" height="100"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a2V-lt-883" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.66666666666665719" y="29" width="325" height="42"/>
+                                                                        <rect key="frame" x="0.0" y="29" width="325" height="42"/>
                                                                         <color key="backgroundColor" name="MedAquamarine"/>
                                                                         <state key="normal" title="Change Debug Level">
                                                                             <color key="titleColor" name="NormalText"/>
@@ -101,7 +101,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="headerTitle" value="LND Debug Level"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="headerTitle" value="Daemon Debug Level"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="iconIndex">
                                                 <integer key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
@@ -157,9 +157,6 @@
         </namedColor>
         <namedColor name="MedAquamarineShadow">
             <color red="0.30588235294117649" green="0.50588235294117645" blue="0.44705882352941179" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="NormalText">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="NormalText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
