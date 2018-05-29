@@ -53,9 +53,10 @@ class Bitcoin: Money<XBT> {
   
   class var satoshiFormatter: NumberFormatter {
     let _formatter = self.formatter
-    _formatter.currencySymbol = "" //ṡ
-    _formatter.currencyCode = "sats"
-
+//    _formatter.currencySymbol = "" //ṡ
+//    _formatter.currencyCode = "sats"
+    _formatter.numberStyle = .decimal  // Change to decimal since no currency symbol anyways
+    
     _formatter.multiplier = NSNumber(value: pow(10.0,8.0))
     
     _formatter.minimumFractionDigits = 0

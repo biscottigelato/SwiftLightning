@@ -180,6 +180,8 @@ import UIKit
       if let text = sender.text,
         let amount = Bitcoin(inSatoshi: text.trimmingCharacters(in: .whitespacesAndNewlines)) {
         
+        // TODO: This algorithm will cause problems if the user changes to a unit+locale combo where
+        // the currency symbol follows the digits. Especially in the case when the user tries to backspace
         sender.text = amount.formattedInSatoshis()
       }
       
