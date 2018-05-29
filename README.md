@@ -8,10 +8,19 @@
 
 # Getting Started
 
+## Tools & Pre-requisites
+
+The Go Lang toolchain, along with Go Dep, are required. This is in addition to of course the Xcode toolchain on MacOS. You can get:
+
+Go Lang from https://golang.org/
+
+Go Dep from https://github.com/golang/dep
+
 ## Building LND
 
-A LND branch with support for direct functional bindings is required to build SwiftLighting. An example of that can be found at https://github.com/halseth/lnd/tree/mobile-test-5. You should be able to generate Lndmobile.framework with mobile-test-5 branch by running
+A LND branch with support for direct functional bindings is required to build SwiftLighting. An example of that can be found at https://github.com/biscottigelato/lnd/tree/mobile-support. You should be able to generate Lndmobile.framework with mobile-support branch by just executing
 ```
+$ ./lnd/mobile/dep ensure
 $ ./lnd/mobile/build_mobile.sh
 ```
 Lndmobile.framework should then be found under /lnd/mobile/build/ios/. Please see the instruction in the [LND Github page](https://github.com/lightningnetwork/lnd) for further details. Once Lndmobile.framework is generated, copy it to /SwiftLightning/ios/Lndmobile.framework.
@@ -33,9 +42,7 @@ $ xcode ios/SwiftLightning.xcworkspace
 
 ## Reconverting LND .proto files into Swift
 
-If there is change to the LND .proto files, you might need to regenerate the Swift proto bindings.
-
-Install Go Lang from https://golang.org/
+If there are changes to the LND .proto files, you might need to regenerate the Swift proto bindings.
 
 Install Swift Protobuf
 ```

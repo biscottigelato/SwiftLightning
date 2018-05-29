@@ -100,45 +100,79 @@ class LNServices {
     // GRPC Core will expand the Cipher Suite set
     setenv("GRPC_SSL_CIPHER_SUITES", "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384", 1)
   }
-  
-  
-  // MARK: Wallet Unlocker Service
-  
-  static var walletUnlockerService: Lnrpc_WalletUnlockerServiceClient?
-  
-  private static func prepareWalletUnlockerService() throws {
-    if walletUnlockerService == nil {
-      let tlsCertURL = URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("tls.cert")
-      let tlsCert = try String(contentsOf: tlsCertURL)
-      
-      walletUnlockerService = Lnrpc_WalletUnlockerServiceClient(address: "localhost:\(LNServices.rpcListenPort)", certificates: tlsCert, host: nil)
-    }
-  }
 
   
   // MARK: Generate Seed
   
-  static func generateSeed(completion: @escaping (() throws -> ([String])) -> Void) throws {
-    try prepareWalletUnlockerService()
+  private class GenerateSeed: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> ([String])) -> Void
+    let retry = SLRetry()
     
-    SLLog.debug("LN Generate Seed thru GRPC")
+    init(_ completion: @escaping (() throws -> ([String])) -> Void) {
+      self.completion = completion
+    }
     
-    // Unary GRPC
-    _ = try walletUnlockerService!.genSeed(Lnrpc_GenSeedRequest()) { (response, result) in
-      if let response = response {
-        SLLog.debug("LN Generate Seed Success!")
+    func onResponse(_ p0: Data!) {
+      SLLog.debug("LN Generate Seed Success!")
+      retry.success()
+      
+      do {
+        let response = try Lnrpc_GenSeedResponse(serializedData: p0)
         completion({ return response.cipherSeedMnemonic })
-        
-      } else {
-        let message = result.statusMessage ?? result.description
-        SLLog.warning("LN Generate Seed Failed - \(message)")
-        completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
+      } catch {
+        completion({ throw error })
       }
     }
+    
+    func onError(_ p0: Error!) {
+      retry.attempt(error: p0)
+    }
+  }
+  
+  static func generateSeed(retryCount: Int = LNConstants.defaultRetryCount,
+                           retryDelay: Double = LNConstants.defaultRetryDelay,
+                           completion: @escaping (() throws -> ([String])) -> Void) throws {
+    
+    let lndOp = GenerateSeed(completion)
+    
+    let task = {
+      do {
+        SLLog.debug("LN Generate Seed Request")
+        
+        let request = try Lnrpc_GenSeedRequest().serializedData()
+        LndmobileGenSeed(request, lndOp)
+      } catch {
+        completion({ throw error })
+      }
+    }
+    
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Generate Seed Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    lndOp.retry.start("LN Generate Seed", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
   // MARK: Create Wallet
+  
+  private class CreateWallet: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> ()) -> Void
+    
+    init(_ completion: @escaping (() throws -> ()) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      SLLog.debug("LN Create Wallet Success!")
+      completion({ return })
+    }
+    
+    func onError(_ p0: Error!) {
+      completion({ throw p0 })
+    }
+  }
   
   static func createWallet(walletPassword: String,
                            cipherSeedMnemonic: [String],
@@ -154,31 +188,46 @@ class LNServices {
       throw LNError.createWalletInvalidPassword
     }
     
-    try prepareWalletUnlockerService()
+    let lndOp = CreateWallet(completion)
     
-    var request = Lnrpc_InitWalletRequest()
-    request.cipherSeedMnemonic = cipherSeedMnemonic
-    request.walletPassword = passwordData
-    
-    SLLog.debug("LN Create Wallet thru GRPC")
-    
-    // Unary GRPC
-    _ = try walletUnlockerService!.initWallet(request) { (response, result) in
-      if response != nil {
-        SLLog.debug("LN Create Wallet Success!")
-        completion({ return })
-      } else {
-        let message = result.statusMessage ?? result.description
-        SLLog.warning("LN Create Wallet Failed - \(message)")
-        completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
-      }
+    do {
+      SLLog.debug("LN Create Wallet Request")
+      
+      var request = Lnrpc_InitWalletRequest()
+      request.cipherSeedMnemonic = cipherSeedMnemonic
+      request.walletPassword = passwordData
+      
+      let serialReq = try request.serializedData()
+      LndmobileInitWallet(serialReq, lndOp)
+    } catch {
+      completion({ throw error })
     }
   }
   
   
   // MARK: Unlock Wallet
   
+  private class UnlockWallet: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> ()) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> ()) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      SLLog.debug("LN Unlock Wallet Success!")
+      retry.success()
+      completion({ return })
+    }
+    
+    func onError(_ p0: Error!) {
+      retry.attempt(error: p0)
+    }
+  }
+  
   static func unlockWallet(walletPassword: String,
+                           retryCount: Int = LNConstants.defaultRetryCount,
+                           retryDelay: Double = LNConstants.defaultRetryDelay,
                            completion: @escaping (() throws -> ()) -> Void) throws {
     
     guard let passwordData = walletPassword.data(using: .utf8) else {
@@ -186,24 +235,28 @@ class LNServices {
       throw LNError.unlockWalletInvalidPassword
     }
     
-    try prepareWalletUnlockerService()
+    let lndOp = UnlockWallet(completion)
     
-    SLLog.debug("LN Unlock Wallet thru GRPC")
-    
-    var request = Lnrpc_UnlockWalletRequest()
-    request.walletPassword = passwordData
-    
-    // Unary GRPC
-    _ = try walletUnlockerService!.unlockWallet(request) { (response, result) in
-      if response != nil {
-        SLLog.debug("LN Unlock Wallet Success!")
-        completion({ return })
-      } else {
-        let message = result.statusMessage ?? result.description
-        SLLog.warning("LN Unlock Wallet Failed - \(message)")
-        completion({ throw GRPCResultError(code: result.statusCode.rawValue, message: message) })
+    let task = {
+      do {
+        SLLog.debug("LN Unlock Wallet Request")
+        
+        var request = Lnrpc_UnlockWalletRequest()
+        request.walletPassword = passwordData
+        
+        let serialReq = try request.serializedData()
+        LndmobileUnlockWallet(serialReq, lndOp)
+      } catch {
+        completion({ throw error })
       }
     }
+    
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Unlock Wallet Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    lndOp.retry.start("LN Unlock Wallet", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   
@@ -424,8 +477,6 @@ class LNServices {
   }
   
   static func sendCoins(address: String, amount: Int, targetConf: Int? = nil, satPerByte: Int? = nil,
-                        retryCount: Int = LNConstants.defaultRetryCount,
-                        retryDelay: Double = LNConstants.defaultRetryDelay,
                         completion: @escaping (() throws -> (String)) -> Void) {
     
     // Not retrying anything that draws funds
