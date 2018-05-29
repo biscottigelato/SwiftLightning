@@ -484,7 +484,7 @@
 		8C6B755C208B17BD00B751A2 /* WalletMainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMainInteractor.swift; sourceTree = "<group>"; };
 		8C6B7563208B17CB00B751A2 /* WalletNavigation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WalletNavigation.storyboard; sourceTree = "<group>"; };
 		8C6B7565208BB9CF00B751A2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8C6B7567208BBA6E00B751A2 /* UnlockApp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UnlockApp.storyboard; path = /Users/biscottigelato/gocode/src/github.com/biscottigelato/SwiftLightning/ios/SwiftLightning/Scenes/Unlock/UnlockApp/UnlockApp.storyboard; sourceTree = "<absolute>"; };
+		8C6B7567208BBA6E00B751A2 /* UnlockApp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UnlockApp.storyboard; sourceTree = "<group>"; };
 		8C6D039720A170ED00C31F7F /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		8C70EBC7208C345B00D658DC /* ReceiveMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveMainPresenter.swift; sourceTree = "<group>"; };
 		8C70EBC8208C345B00D658DC /* ReceiveMainWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveMainWorker.swift; sourceTree = "<group>"; };
