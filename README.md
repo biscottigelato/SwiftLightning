@@ -10,11 +10,15 @@
 
 ## Tools & Pre-requisites
 
-The Go Lang toolchain, along with Go Dep, are required. This is in addition to of course the Xcode toolchain on MacOS. You can get:
+The Go (lang) toolchain, including Go Dep and Gomobile, along with the Google Protocol Buffer Compiler are required. This is in addition to of course the Xcode toolchain on MacOS. You can get these tools respectively at
 
-Go Lang from https://golang.org/
+Go from https://golang.org/
 
 Go Dep from https://github.com/golang/dep
+
+Gomobile from https://github.com/golang/go/wiki/Mobile
+
+Protoc from https://github.com/google/protobuf
 
 ## Building LND with mobile support
 
