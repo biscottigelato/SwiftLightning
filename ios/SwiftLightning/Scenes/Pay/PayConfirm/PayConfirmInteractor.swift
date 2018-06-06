@@ -120,8 +120,19 @@ class PayConfirmInteractor: PayConfirmBusinessLogic, PayConfirmDataStore {
           let response = PayConfirm.SendPayment.Response(result: Result.success(()))
           self.presenter?.presentSendPayment(response: response)
         } catch {
-          let response = PayConfirm.SendPayment.Response(result: Result.failure(error))
-          self.presenter?.presentSendPayment(response: response)
+          let errorDescription = error.localizedDescription
+          
+          // HACK: if a transaction already exist, it's not an error! Hopefully will be fixed at the LND layer eventually
+          if errorDescription.range(of:"already have transaction") != nil {
+            SLLog.warning(errorDescription)
+            let response = PayConfirm.SendPayment.Response(result: Result.success(()))
+            self.presenter?.presentSendPayment(response: response)
+            return
+          }
+          else {
+            let response = PayConfirm.SendPayment.Response(result: Result.failure(error))
+            self.presenter?.presentSendPayment(response: response)
+          }
         }
       }
     }
