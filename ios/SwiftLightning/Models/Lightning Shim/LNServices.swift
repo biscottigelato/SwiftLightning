@@ -30,7 +30,6 @@ class LNServices {
   static var restListenPort: UInt = 8080
 
   static var directoryPath: String = ""
-  static var lndQueue: DispatchQueue?
   
   static func initialize() {
     
@@ -89,12 +88,8 @@ class LNServices {
     // BTCD can throw SIGPIPEs. Ignoring according to https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/NetworkingOverview/CommonPitfalls/CommonPitfalls.html for now
     signal(SIGPIPE, SIG_IGN)
     
-    // Start LND on it's own thread
-    lndQueue = DispatchQueue(label: "LNDQueue", qos: .background, attributes: .concurrent)
-    
-    lndQueue!.async {
-      LndmobileStart(directoryPath, LNDMobileStartCallback())
-    }
+    // Start LND
+    LndmobileStart(directoryPath, LNDMobileStartCallback())
     
     // For some reason GRPC Core have a very limited Cipher Suite set for SSL connections. This sets the environmental variable so
     // GRPC Core will expand the Cipher Suite set

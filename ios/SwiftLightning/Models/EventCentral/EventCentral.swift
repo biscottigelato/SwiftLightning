@@ -49,7 +49,11 @@ class EventCentral {
   
   // syncUpdateCallbacks is guarenteed to be called at least once
   private var syncUpdateCallbacks = [Handle: (Bool, Double, Date) -> ()]()
-  private var syncTimer: RepeatingTimer?
+  private lazy var syncTimer: RepeatingTimer = {
+    let timer = RepeatingTimer(timeInterval: Constants.syncMonitorInterval)
+    timer.eventHandler = { self.syncTimerHandler() }
+    return timer
+  }()
   
   
   func start(proceed: @escaping (Result<Void>) -> ()) {
@@ -65,11 +69,7 @@ class EventCentral {
           
         } else {
           // Start Sync Progress Monitor
-          self.syncTimer = RepeatingTimer(timeInterval: Constants.syncMonitorInterval)
-          self.syncTimer!.eventHandler = {
-            self.syncTimerHandler(for: self.syncTimer)
-          }
-          self.syncTimer!.resume()
+          self.syncTimer.resume()
         }
         proceed(Result<Void>.success(()))
         
@@ -79,19 +79,14 @@ class EventCentral {
     }
   }
   
-  private func syncTimerHandler(for timer: RepeatingTimer?) {
+  private func syncTimerHandler() {
     LNServices.getInfo(retryCount: 0, retryDelay: 1.0) { (responder) in
       do {
         let info = try responder()
         
         self.eventQueue.async {
           if info.syncedToChain {
-            if let timer = timer {
-              timer.suspend()
-            } else {
-              SLLog.warning("syncTimer = nil")
-            }
-            
+            self.syncTimer.suspend()
             
             // Allow phone to sleep if done syncing
             DispatchQueue.main.async {
@@ -107,11 +102,7 @@ class EventCentral {
             self.startEventRelayer()
             
           } else {
-            if let timer = timer {
-              timer.resume()
-            } else {
-              SLLog.warning("syncTimer = nil")
-            }
+            self.syncTimer.resume()
             
             // Prevent phone from sleeping if syncing
             DispatchQueue.main.async {
@@ -161,7 +152,7 @@ class EventCentral {
       self.syncUpdateCallbacks[handle] = callback
     
       // Make sure syncUpdateCallbacks gets called at least once
-      self.syncTimerHandler(for: nil)
+      self.syncTimerHandler()
     }
     return handle
   }
