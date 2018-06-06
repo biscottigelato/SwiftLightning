@@ -78,29 +78,8 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
   
   func openChannel(request: ChannelConfirm.OpenChannel.Request) {
     guard let nodePubKeyString = nodePubKey, let nodeIP = nodeIP, let nodePort = nodePort,
-      fundingAmt != nil, initPayAmt != nil else {
-        SLLog.fatal("1 or more entry in ChannelConfirmDataStore is nil")
-    }
-
-    guard Data(hexString: nodePubKeyString) != nil else {
-      SLLog.fatal("Node Pub Key should have been validated ahead of time")
-    }
-
-    LNServices.connectPeer(pubKey: nodePubKeyString, hostAddr: nodeIP, hostPort: nodePort) { (responder) in
-      do {
-        try responder()
-        self.checkPeerConnect(pubKey: nodePubKeyString)
-        
-      } catch {
-        let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
-        self.presenter?.presentOpenChannel(response: response)
-      }
-    }
-  }
-
-  
-  private func checkPeerConnect(pubKey: String) {
-    guard let nodePubKeyString = nodePubKey, let fundingAmt = fundingAmt, let initPayAmt = initPayAmt else {
+          let fundingAmt = fundingAmt, let initPayAmt = initPayAmt else
+    {
       SLLog.fatal("1 or more entry in ChannelConfirmDataStore is nil")
     }
     
@@ -114,7 +93,7 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
       LNServices.listPeers() { (responder) in
         do {
           let peers = try responder()
-          if peers.contains(where: { $0.pubKey == pubKey }) {
+          if peers.contains(where: { $0.pubKey == nodePubKeyString }) {
             
             // This is the actual request that opens the channel
             LNServices.openChannel(nodePubKey: nodePubKeyData,
@@ -123,7 +102,16 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
                                    targetConf: LNConstants.defaultChannelConfirmation,
                                    completion: self.openChannelCompletion)
           } else {
-            retry.attempt(error: ChannelConfirm.OpenChannel.Error.peerNotConnected)
+            // Try to connect if failed
+            LNServices.connectPeer(pubKey: nodePubKeyString, hostAddr: nodeIP, hostPort: nodePort) { (responder) in
+              do {
+                try responder()
+                retry.attempt(error: ChannelConfirm.OpenChannel.Error.peerNotConnected)
+                
+              } catch {
+                retry.attempt(error: error)
+              }
+            }
           }
         } catch {
           let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(error))
@@ -131,6 +119,7 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
         }
       }
     }
+    
     let fail = { (failError: Error) -> () in
       let response = ChannelConfirm.OpenChannel.Response(result: Result<Void>.failure(failError))
       self.presenter?.presentOpenChannel(response: response)

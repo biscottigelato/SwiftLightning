@@ -64,6 +64,9 @@ class EventCentral {
         let info = try responder()
         
         if info.syncedToChain {
+          // Reconnect all Channels if disconnected
+          LNManager.reconnectAllChannels()
+          
           // Just directly start Event Relayer
           self.startEventRelayer()
           
@@ -98,6 +101,10 @@ class EventCentral {
             for callback in self.syncUpdateCallbacks {
               callback.value(true, 1.0, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))
             }
+            
+            // Reconnect all Channels if disconnected
+            LNManager.reconnectAllChannels()
+            
             // Start Event Relayer if not already started
             self.startEventRelayer()
             

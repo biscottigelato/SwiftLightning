@@ -93,6 +93,8 @@ class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
   // MARK: Update Channels
   
   func updateChannels(request: WalletMain.UpdateChannels.Request) {
+    // Try to reconnect any channels not already connected first
+    LNManager.reconnectAllChannels()
     
     ChannelVM.getFromLN { (responder) in
       do {
@@ -113,6 +115,9 @@ class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
   // MARK: Update Channels & Transactions with no sort options
   
   func updateChTx() {
+    // Try to reconnect any channels not already connected first
+    LNManager.reconnectAllChannels()
+    
     ChannelVM.getFromLN { (responder) in
       do {
         let channels = try responder()
