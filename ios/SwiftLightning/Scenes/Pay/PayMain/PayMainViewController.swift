@@ -14,6 +14,7 @@ import UIKit
 
 protocol PayMainDisplayLogic: class {
   func updateInvalidity(addr: Bool?, amt: Bool?, route: Bool?)
+  func displayIncomingURL(urlString: String)
   func displayConfirmPayment()
   func displayUpdate(viewModel: PayMain.UpdateVM)
   func displayAddressWarning(viewModel: PayMain.AddressVM)
@@ -91,6 +92,9 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     addressEntryView.textField.becomeFirstResponder()
+    
+    let request = PayMain.CheckURL.Request()
+    interactor?.checkURL(request: request)
   }
   
   
@@ -135,6 +139,14 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
     default:
       SLLog.assert("Unreognized textfield returned - \(textField)")
     }
+  }
+  
+  
+  // MARK: Process incoming URL
+  
+  func displayIncomingURL(urlString: String) {
+    addressEntryView.textField.text = urlString
+    textFieldDidEndEditing(addressEntryView.textField)
   }
   
   

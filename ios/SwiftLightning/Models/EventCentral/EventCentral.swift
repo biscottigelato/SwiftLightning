@@ -353,4 +353,21 @@ class EventCentral {
   }
   
 
+  // MARK: URL Open Events
+  private var openEventURL: URL?
+  
+  func bufferOpenEvent(on url: URL) {
+    if let openEventURL = openEventURL {
+      SLLog.warning("openEventURL \(openEventURL.absoluteString) being overwritten by \(url.absoluteString)")
+    }
+    openEventURL = url
+  }
+  
+  func readOpenEventURL() -> URL? {
+    return openEventURL
+  }
+  
+  func clearOpenEventURL() {
+    openEventURL = nil
+  }
 }

@@ -14,6 +14,7 @@ import UIKit
 
 protocol PayMainPresentationLogic
 {
+  func presentCheckURL(response: PayMain.CheckURL.Response)
   func presentValidate(response: PayMain.Response)
   func presentConfirmPayment(response: PayMain.Response)
 }
@@ -21,6 +22,16 @@ protocol PayMainPresentationLogic
 class PayMainPresenter: PayMainPresentationLogic
 {
   weak var viewController: PayMainDisplayLogic?
+  
+  
+  // MARK: Check Incoming URL
+  
+  func presentCheckURL(response: PayMain.CheckURL.Response) {
+    if let url = response.url {
+      viewController?.displayIncomingURL(urlString: url.absoluteString)
+    }
+  }
+  
   
   // MARK: Validate Address & Amount
   

@@ -178,6 +178,19 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
     }
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    if let eventURL = EventCentral.shared.readOpenEventURL() {
+      EventCentral.shared.clearOpenEventURL()
+      
+      // TOOD: Only support lightning URL for now. bitcoin URL in the future
+      if eventURL.absoluteString.range(of:"lightning:") != nil {
+        router?.routeToPayMain(url: eventURL)
+      }
+    }
+  }
+  
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
     
@@ -391,7 +404,7 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
   // MARK: Pay
   
   @objc private func payTapped(_ sender: SLBarButton) {
-    router?.routeToPayMain()
+    router?.routeToPayMain(url: nil)
   }
   
   

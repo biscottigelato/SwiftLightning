@@ -116,6 +116,17 @@ enum PayMain {
   }
   
   
+  enum CheckURL {
+    struct Request {}
+    struct Response {
+      var url: URL?
+    }
+    struct ViewModel {
+      var paymentURL: String
+    }
+  }
+  
+  
   // MARK: Confirm Payment
   
   enum ConfirmPayment {

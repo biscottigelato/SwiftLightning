@@ -11,7 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-  static var rootViewController: RootViewController!
+  static var rootViewController: RootViewController?
   var window: UIWindow?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       SLLog.fatal("ViewController initiated not of RootViewController Class!!")
     }
 
+    SLLog.debug("Applciation did finish launching with options")
     AppDelegate.rootViewController = viewController
 
     // Launch Playground
@@ -79,6 +80,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     SLLog.debug("Pending Termination Clean-up for 1s")
     sleep(1)
     SLLog.debug("Ready for Termination")
+  }
+  
+  
+  // MARK: Handle Custom URL Schemes
+  
+  func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    EventCentral.shared.bufferOpenEvent(on: url)
+    SLLog.debug("Applciation open URL with options")
+    
+    // Pop to Root and then start again
+    AppDelegate.rootViewController?.dismiss(animated: false) {
+      AppDelegate.rootViewController?.checkWalletUnlocked()
+    }
+    
+    return true
   }
 }
 

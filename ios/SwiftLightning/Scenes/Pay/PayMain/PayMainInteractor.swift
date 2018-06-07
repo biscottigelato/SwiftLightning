@@ -13,12 +13,14 @@
 import UIKit
 
 protocol PayMainBusinessLogic {
+  func checkURL(request: PayMain.CheckURL.Request)
   func confirmPayment(request: PayMain.ConfirmPayment.Request)
   func validate(request: PayMain.Validate.Request)
 }
 
 
 protocol PayMainDataStore {
+  var paymentURL: URL? { get set }
   var address: String { get }
   var amount: Bitcoin { get }
   var description: String { get }
@@ -34,6 +36,8 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
   
   
   // MARK: Data Store
+  
+  var paymentURL: URL?
   
   private var _address: String?
   private var _amount: Bitcoin?
@@ -65,6 +69,14 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
   
   var paymentType: BitcoinPaymentType? {
     return _paymentType
+  }
+  
+  
+  // MARK: Check Incoming URL
+  
+  func checkURL(request: PayMain.CheckURL.Request) {
+    let response = PayMain.CheckURL.Response(url: paymentURL)
+    presenter?.presentCheckURL(response: response)
   }
   
   

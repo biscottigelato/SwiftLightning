@@ -32,12 +32,17 @@ class RootPresenter: RootPresentationLogic
       viewController?.displayErrorStatus(viewModel: viewModel)
       return
     }
-
-    switch walletPresent {
-      case true:
-      viewController?.displayUnlockScenes()
-      case false:
+    
+    let walletUnlocked = response.walletUnlocked
+    
+    if !walletPresent {
       viewController?.displaySetupScenes()
+    }
+    else if walletUnlocked {
+      viewController?.displayWalletNavigation()
+    }
+    else {
+      viewController?.displayUnlockScenes()
     }
   }
   

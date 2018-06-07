@@ -31,9 +31,13 @@ class UnlockAppRouter: NSObject, UnlockAppRoutingLogic, UnlockAppDataPassing
   // MARK: Routing
   
   func routeToWalletThruRoot() {
+    guard let rootViewController = AppDelegate.rootViewController else {
+      SLLog.fatal("RootViewController = nil")
+    }
+    
     // Take a detour. Ask the RootViewController to do the work
-    AppDelegate.rootViewController.dismiss(animated: false) {
-      AppDelegate.rootViewController.goWalletNavigation()
+    rootViewController.dismiss(animated: false) {
+      rootViewController.goWalletNavigation()
     }
   }
   

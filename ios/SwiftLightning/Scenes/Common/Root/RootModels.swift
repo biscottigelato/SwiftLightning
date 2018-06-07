@@ -25,6 +25,7 @@ enum Root
     struct Response
     {
       var walletPresent: Bool?
+      var walletUnlocked: Bool
     }
     struct ViewModel
     {

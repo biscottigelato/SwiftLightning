@@ -14,7 +14,7 @@ import UIKit
 
 protocol RootBusinessLogic
 {
-  func checkWalletPresence(request: Root.WalletPresenceRouting.Request)
+  func checkWalletUnlocked(request: Root.WalletPresenceRouting.Request)
   func confirmWalletUnlock(request: Root.ConfirmWalletUnlock.Request)
 }
 
@@ -27,14 +27,18 @@ class RootInteractor: RootBusinessLogic, RootDataStore
   var presenter: RootPresentationLogic?
   var worker = RootWorker()
   
-  func checkWalletPresence(request: Root.WalletPresenceRouting.Request) {
-//    worker.checkWalletPresenceViaUnlock { [unowned self] (walletPresent) in
-//      let response = Root.WalletPresenceRouting.Response(walletPresent: walletPresent)
-//      self.presenter?.presentWalletPresenceRouting(response: response)
-//    }
+  private var walletUnlocked = false
+  
+  func checkWalletUnlocked(request: Root.WalletPresenceRouting.Request) {
+    guard worker.checkWalletPresenceViaFile() else {
+      let response = Root.WalletPresenceRouting.Response(walletPresent: false,
+                                                         walletUnlocked: false)
+      self.presenter?.presentWalletPresenceRouting(response: response)
+      return
+    }
     
-    let walletPresent = worker.checkWalletPresenceViaFile()
-    let response = Root.WalletPresenceRouting.Response(walletPresent: walletPresent)
+    let response = Root.WalletPresenceRouting.Response(walletPresent: true,
+                                                       walletUnlocked: walletUnlocked)
     self.presenter?.presentWalletPresenceRouting(response: response)
   }
   
@@ -45,6 +49,9 @@ class RootInteractor: RootBusinessLogic, RootDataStore
     LNServices.getInfo(retryCount: 20, retryDelay: 0.5) { (completion) in
       do {
         _ = try completion()
+        
+        // Track that wallet is unlocked
+        self.walletUnlocked = true
         
         // Start Wallet Event Central
         EventCentral.shared.start { (result) in

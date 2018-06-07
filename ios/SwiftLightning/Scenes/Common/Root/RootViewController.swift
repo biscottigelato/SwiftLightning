@@ -63,8 +63,7 @@ class RootViewController: UIViewController, RootDisplayLogic {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    let request = Root.WalletPresenceRouting.Request()
-    interactor?.checkWalletPresence(request: request)
+    checkWalletUnlocked()
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -75,6 +74,14 @@ class RootViewController: UIViewController, RootDisplayLogic {
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
     logoImageView.popAnimate()
+  }
+  
+  
+  // MARK: Check Wallet Status for routing
+
+  func checkWalletUnlocked() {
+    let request = Root.WalletPresenceRouting.Request()
+    interactor?.checkWalletUnlocked(request: request)
   }
   
   

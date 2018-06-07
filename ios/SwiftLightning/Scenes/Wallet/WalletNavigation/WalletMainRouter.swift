@@ -13,7 +13,7 @@
 import UIKit
 
 protocol WalletMainRoutingLogic {
-  func routeToPayMain()
+  func routeToPayMain(url: URL?)
   func routeToReceiveMain()
   func routeToChannelOpen()
   func routeToChannelDetails(channelPoint: String)
@@ -33,11 +33,11 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
   
   // MARK: Routing
   
-  func routeToPayMain() {
+  func routeToPayMain(url: URL? = nil) {
     let storyboard = UIStoryboard(name: "PayMain", bundle: nil)
     let destinationVC = storyboard.instantiateViewController(withIdentifier: "PayMainViewController") as! PayMainViewController
     var destinationDS = destinationVC.router!.dataStore!
-    passDataToPayMain(source: dataStore!, destination: &destinationDS)
+    passDataToPayMain(url: url, destination: &destinationDS)
     navigateToPayMain(source: viewController!, destination: destinationVC)
   }
   
@@ -165,8 +165,8 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
   
   // MARK: Passing data
   
-  func passDataToPayMain(source: WalletMainDataStore, destination: inout PayMainDataStore) {
-    // destination.name = source.name
+  func passDataToPayMain(url: URL?, destination: inout PayMainDataStore) {
+    destination.paymentURL = url
   }
   
   func passDataToReceiveMain(source: WalletMainDataStore, destination: inout ReceiveMainDataStore) {
