@@ -99,7 +99,6 @@ class ChannelConfirmInteractor: ChannelConfirmBusinessLogic, ChannelConfirmDataS
             LNServices.openChannel(nodePubKey: nodePubKeyData,
                                    localFundingAmt: fundingAmt.integerInSatoshis,
                                    pushSat: initPayAmt.integerInSatoshis,
-                                   targetConf: LNConstants.defaultChannelConfirmation,
                                    completion: self.openChannelCompletion)
           } else {
             // Try to connect if failed

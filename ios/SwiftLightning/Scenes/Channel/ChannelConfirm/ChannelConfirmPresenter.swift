@@ -48,9 +48,8 @@ class ChannelConfirmPresenter: ChannelConfirmPresentationLogic {
     
     switch response.result {
     case .success:
-      let numConf = LNConstants.defaultChannelConfirmation
       let viewModel = ChannelConfirm.OpenChannel.ViewModel(alertTitle: "Open Broadcasted",
-                                                           alertMsg: "Lightning channel opening transaction have been broadcasted. It will take \(numConf) confirmations before the channel can start to be used")
+                                                           alertMsg: "Lightning channel opening transaction have been broadcasted. It will take 3 confirmations before the channel can start to be used")
       viewController?.displayOpenChannelSubmitted(viewModel: viewModel)
       
     case .failure(let error):
