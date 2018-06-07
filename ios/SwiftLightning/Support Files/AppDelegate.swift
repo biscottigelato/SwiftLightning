@@ -96,5 +96,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     return true
   }
+  
+  
+  // MARK: Disable Custom Keyboards
+  
+  func application(_ application: UIApplication, shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplicationExtensionPointIdentifier) -> Bool {
+    if extensionPointIdentifier == UIApplicationExtensionPointIdentifier.keyboard {
+      return false
+    }
+    return true
+  }
 }
 
