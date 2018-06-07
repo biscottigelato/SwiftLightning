@@ -64,6 +64,10 @@ class EventCentral {
         let info = try responder()
         
         if info.syncedToChain {
+          
+          // Mark Synced to Chain
+          PersistentData.shared.set(true, forKey: .achievedFirstSync)
+          
           // Reconnect all Channels if disconnected
           LNManager.reconnectAllChannels()
           
@@ -97,6 +101,9 @@ class EventCentral {
             }
             
             SLLog.debug("Synced to chain!")
+            
+            // Mark Synced to Chain before calling back
+            PersistentData.shared.set(true, forKey: .achievedFirstSync)
             
             for callback in self.syncUpdateCallbacks {
               callback.value(true, 1.0, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))

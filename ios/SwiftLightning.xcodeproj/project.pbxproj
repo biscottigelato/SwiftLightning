@@ -266,6 +266,7 @@
 		8C8E4E65208C0C040017BAB2 /* SLSpinnerDialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */; };
 		8C8E4E67208C0C240017BAB2 /* SLSpinnerDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */; };
 		8C8FE3F220C35EA300185DD4 /* Lndmobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8FE3F120C35EA300185DD4 /* Lndmobile.framework */; };
+		8C8FE3F520C8F8F500185DD4 /* PersistentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8FE3F420C8F8F300185DD4 /* PersistentData.swift */; };
 		8C90C94A209D70ED00D6E7A8 /* ChannelVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */; };
 		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
 		8CB3CF7E20AA773900D1E28D /* PeerAddrTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB3CF7D20AA773900D1E28D /* PeerAddrTableViewCell.swift */; };
@@ -573,6 +574,7 @@
 		8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLSpinnerDialogView.xib; sourceTree = "<group>"; };
 		8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSpinnerDialogView.swift; sourceTree = "<group>"; };
 		8C8FE3F120C35EA300185DD4 /* Lndmobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Lndmobile.framework; sourceTree = "<group>"; };
+		8C8FE3F420C8F8F300185DD4 /* PersistentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentData.swift; sourceTree = "<group>"; };
 		8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVM.swift; sourceTree = "<group>"; };
 		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		8CB3CF7D20AA773900D1E28D /* PeerAddrTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerAddrTableViewCell.swift; sourceTree = "<group>"; };
@@ -645,6 +647,7 @@
 				8C1AE3712095A55800A4D9BF /* BitcoinKit */,
 				8C8275DA208FF1AD0029BE7E /* Money */,
 				8C7745B7209D30B2004EBA69 /* EventCentral */,
+				8C8FE3F320C8F6DE00185DD4 /* PersistentData */,
 				8C090DF020870AE7009B8B8D /* Lightning Shim */,
 			);
 			path = Models;
@@ -1422,6 +1425,14 @@
 			path = SLSpinnerDialog;
 			sourceTree = "<group>";
 		};
+		8C8FE3F320C8F6DE00185DD4 /* PersistentData */ = {
+			isa = PBXGroup;
+			children = (
+				8C8FE3F420C8F8F300185DD4 /* PersistentData.swift */,
+			);
+			path = PersistentData;
+			sourceTree = "<group>";
+		};
 		8C90C948209D70BE00D6E7A8 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1988,6 +1999,7 @@
 				8C6B7545208AF33200B751A2 /* RootViewController.swift in Sources */,
 				8C090E332088612B009B8B8D /* MnemonicDisplayWorker.swift in Sources */,
 				8C090E7420899DA6009B8B8D /* PlaygroundViewController.swift in Sources */,
+				8C8FE3F520C8F8F500185DD4 /* PersistentData.swift in Sources */,
 				8CFA16AC2082FF4F00813EA6 /* UIView+Extension.swift in Sources */,
 				8CD063A7209563BC00D2B66B /* PayConfirmWorker.swift in Sources */,
 				8C6B7552208AFEC800B751A2 /* UnlockAppViewController.swift in Sources */,

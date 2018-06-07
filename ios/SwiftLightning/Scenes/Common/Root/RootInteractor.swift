@@ -33,6 +33,9 @@ class RootInteractor: RootBusinessLogic, RootDataStore
     guard worker.checkWalletPresenceViaFile() else {
       let response = Root.WalletPresenceRouting.Response(walletPresent: false,
                                                          walletUnlocked: false)
+      // If wallet is not present, just treat as if sync have never been achieved
+      PersistentData.shared.set(false, forKey: .achievedFirstSync)
+      
       self.presenter?.presentWalletPresenceRouting(response: response)
       return
     }

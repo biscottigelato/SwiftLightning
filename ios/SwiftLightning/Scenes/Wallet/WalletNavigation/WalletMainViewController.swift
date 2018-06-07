@@ -114,7 +114,9 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
     
     // Check chain for sync
     syncHandle = EventCentral.shared.subscribeToSync { (synced, percentage, date) in
-      if synced {
+      
+      // Open some UI up if the wallet even have achieved sync once
+      if PersistentData.shared.get(forKey: .achievedFirstSync)! {
         DispatchQueue.main.async {
           
           // Make sure transaciton/channel pages are shown
@@ -131,7 +133,28 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
           self.channelView.leftButton.backgroundColor = UIColor.lightAzureBlue
           self.channelView.leftButton.shadowColor = UIColor.lightAzureBlueShadow
           self.channelView.leftButton.setTitleColor(UIColor.normalText, for: .normal)
+        }
+      } else {
+        DispatchQueue.main.async {
           
+          // Disable Pay & Manual Open
+          self.transactionView.leftButton.isEnabled = false
+          self.transactionView.leftButton.backgroundColor = UIColor.disabledGray
+          self.transactionView.leftButton.shadowColor = UIColor.disabledGrayShadow
+          self.transactionView.leftButton.setTitleColor(UIColor.disabledText, for: .normal)
+          
+          self.channelView.leftButton.isEnabled = false
+          self.channelView.leftButton.backgroundColor = UIColor.disabledGray
+          self.channelView.leftButton.shadowColor = UIColor.disabledGrayShadow
+          self.channelView.leftButton.setTitleColor(UIColor.disabledText, for: .normal)
+          
+          // Balance Tap Recognizers should be disabled by the storyboard on start. But leave them enabled if they got enabled once?
+        }
+      }
+      
+      if synced {
+        // Only open the remaining UI up upon Sync completion
+        DispatchQueue.main.async {
           self.totalBalanceTapRecognizer.isEnabled = true
           self.channelBalanceTapRecognizer.isEnabled = true
         }
@@ -157,22 +180,6 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
           default:
             SLLog.assert("Do not expect unsubscribed message types")
           }
-        }
-      } else {
-        DispatchQueue.main.async {
-          
-          // Disable Pay & Manual Open
-          self.transactionView.leftButton.isEnabled = false
-          self.transactionView.leftButton.backgroundColor = UIColor.disabledGray
-          self.transactionView.leftButton.shadowColor = UIColor.disabledGrayShadow
-          self.transactionView.leftButton.setTitleColor(UIColor.disabledText, for: .normal)
-          
-          self.channelView.leftButton.isEnabled = false
-          self.channelView.leftButton.backgroundColor = UIColor.disabledGray
-          self.channelView.leftButton.shadowColor = UIColor.disabledGrayShadow
-          self.channelView.leftButton.setTitleColor(UIColor.disabledText, for: .normal)
-          
-          // Balance Tap Recognizers should be disabled by the storyboard on start. But leave them enabled if they got enabled once?
         }
       }
     }
