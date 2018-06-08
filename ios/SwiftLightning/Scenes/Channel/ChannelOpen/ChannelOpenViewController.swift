@@ -101,6 +101,8 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, Came
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    
+    // TODO: Check if synced, if not defer update on chain confirmation
     updateOnChainedConfirmedBalance()
   }
   

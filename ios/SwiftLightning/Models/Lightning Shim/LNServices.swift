@@ -43,7 +43,7 @@ class LNServices {
 
     // Get handles to source and destination lnd.conf URLs
     guard let lndSourceURL = Bundle.main.url(forResource: "lnd", withExtension: "conf") else {
-      SLLog.fatal("Cannot get in Bundle lnd.conf")
+      SLLog.fatal("Cannot get lnd.conf from Bundle")
     }
     let lndDestinationURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("lnd.conf", isDirectory: false)
 
@@ -82,6 +82,29 @@ class LNServices {
       } catch {
         let nsError = error as NSError
         SLLog.assert("Failed to replace lnd.conf. \(nsError.domain): \(nsError.code) - \(nsError.localizedDescription)")
+      }
+    }
+    
+    // Get handles to source and destination peers.json
+    guard let peersSourceURL = Bundle.main.url(forResource: "peers", withExtension: "json") else {
+      SLLog.fatal("Cannot get peers.json from Bundle")
+    }
+    let peersFolderURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("data/chain/bitcoin/testnet", isDirectory: true)  // TODO: Make configurable between Mainnet & Testnnet
+    let peersDestinationURL = peersFolderURL.appendingPathComponent("peers.json", isDirectory: false)
+
+    // Check if file and directory. Create/copy as necassary
+    if !FileManager.default.fileExists(atPath: peersDestinationURL.path) {
+      do {
+        if !FileManager.default.fileExists(atPath: peersFolderURL.path, isDirectory: nil) {
+          try FileManager.default.createDirectory(atPath: peersFolderURL.path, withIntermediateDirectories: true)
+        }
+        try FileManager.default.copyItem(at: peersSourceURL, to: peersDestinationURL)
+        usleep(100000)  // Sleep for 100ms for file to settle
+      } catch CocoaError.fileWriteFileExists {
+        SLLog.assert("peers.json already exist at \(peersFolderURL.absoluteString)")
+      } catch {
+        let nsError = error as NSError
+        SLLog.fatal("Failed to copy peers.json from bundle to \(peersDestinationURL.absoluteString).\(nsError.domain): \(nsError.code) - \(nsError.localizedDescription)")
       }
     }
     
@@ -1619,6 +1642,68 @@ class LNServices {
     }
     
     lndOp.retry.start("LN List Payments", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
+  }
+  
+  
+  // MARK: Get Network Info
+  
+  private class GetNetworkInfo: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> (LNDNetworkInfo)) -> Void
+    let retry = SLRetry()
+    init(_ completion: @escaping (() throws -> (LNDNetworkInfo)) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      SLLog.debug("LN Get Network Info Success!")
+      
+      // Success! - dereference retry
+      retry.success()
+      
+      do {
+        let response = try Lnrpc_NetworkInfo(serializedData: p0)
+        
+        let networkInfo = LNDNetworkInfo(graphDiameter: UInt(response.graphDiameter),
+                                         avgOutDegree: Double(response.avgOutDegree),
+                                         maxOutDegree: UInt(response.maxOutDegree),
+                                         numNodes: UInt(response.numNodes),
+                                         numChannels: UInt(response.numChannels),
+                                         totalNetworkCapacity: Int(response.totalNetworkCapacity),
+                                         avgChannelSize: Double(response.avgChannelSize),
+                                         minChannelSize: Int(response.minChannelSize),
+                                         maxChannelSize: Int(response.maxChannelSize))
+        
+        SLLog.verbose(String(describing: networkInfo))
+        
+        completion({ return networkInfo })
+      } catch {
+        completion({ throw error })
+      }
+    }
+    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+  }
+  
+  static func getNetworkInfo(retryCount: Int = LNConstants.defaultRetryCount,
+                             retryDelay: Double = LNConstants.defaultRetryDelay,
+                             completion: @escaping (() throws -> (LNDNetworkInfo)) -> Void) {
+    let lndOp = GetNetworkInfo(completion)
+    
+    let task = {
+      do {
+        SLLog.debug("LN Get Network Info Request")
+        let request = try Lnrpc_NetworkInfoRequest().serializedData()
+        LndmobileGetNetworkInfo(request, lndOp)
+      } catch {
+        completion({ throw error })
+      }
+    }
+    
+    let fail = { (error: Error) -> () in
+      SLLog.warning("LN Get Network Info Failed - \(error.localizedDescription)")
+      completion({ throw error })
+    }
+    
+    lndOp.retry.start("LN Get Network Info", withCountOf: retryCount, withDelayOf: retryDelay, taskBlock: task, failBlock: fail)
   }
   
   

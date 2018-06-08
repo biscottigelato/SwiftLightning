@@ -267,6 +267,7 @@
 		8C8E4E67208C0C240017BAB2 /* SLSpinnerDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */; };
 		8C8FE3F220C35EA300185DD4 /* Lndmobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8FE3F120C35EA300185DD4 /* Lndmobile.framework */; };
 		8C8FE3F520C8F8F500185DD4 /* PersistentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8FE3F420C8F8F300185DD4 /* PersistentData.swift */; };
+		8C8FE3F720CA601900185DD4 /* peers.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C8FE3F620CA601800185DD4 /* peers.json */; };
 		8C90C94A209D70ED00D6E7A8 /* ChannelVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */; };
 		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
 		8CB3CF7E20AA773900D1E28D /* PeerAddrTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB3CF7D20AA773900D1E28D /* PeerAddrTableViewCell.swift */; };
@@ -575,6 +576,7 @@
 		8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSpinnerDialogView.swift; sourceTree = "<group>"; };
 		8C8FE3F120C35EA300185DD4 /* Lndmobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Lndmobile.framework; sourceTree = "<group>"; };
 		8C8FE3F420C8F8F300185DD4 /* PersistentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentData.swift; sourceTree = "<group>"; };
+		8C8FE3F620CA601800185DD4 /* peers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = peers.json; sourceTree = "<group>"; };
 		8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVM.swift; sourceTree = "<group>"; };
 		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		8CB3CF7D20AA773900D1E28D /* PeerAddrTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerAddrTableViewCell.swift; sourceTree = "<group>"; };
@@ -980,6 +982,7 @@
 		8C36A03920968DC0003BEFB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8C8FE3F620CA601800185DD4 /* peers.json */,
 				8C36A04820969694003BEFB6 /* lnd.conf */,
 			);
 			path = Resources;
@@ -1789,6 +1792,7 @@
 				8C2FC70D2073513700966D31 /* Root.storyboard in Resources */,
 				8C8275B1208EA1920029BE7E /* ChannelOpen.storyboard in Resources */,
 				8C70EC09208D8A2000D658DC /* SLFormHeaderView.xib in Resources */,
+				8C8FE3F720CA601900185DD4 /* peers.json in Resources */,
 				8C090E4C20894A85009B8B8D /* SLSeedField.xib in Resources */,
 				8C70EBD4208C346C00D658DC /* ReceiveMain.storyboard in Resources */,
 				8C090E3920886143009B8B8D /* MnemonicDisplay.storyboard in Resources */,

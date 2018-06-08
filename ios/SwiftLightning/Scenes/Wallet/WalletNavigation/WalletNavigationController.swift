@@ -43,11 +43,19 @@ class WalletNavigationController: UINavigationController {
     percentageFormatter.maximumFractionDigits = 0
     
     // Keep the header view updated to sync progress
-    _ = EventCentral.shared.subscribeToSync { (synced, percentage, date) in
+    _ = EventCentral.shared.subscribeToSync { (synced, percentage, networked, nodes, date) in
       DispatchQueue.main.async {
-        if synced {
+        if synced && networked {
           headingView.logo.popAnimate()
           headingView.title.isHidden = true
+          
+        } else if synced {
+          if !headingView.logo.isAnimating {
+            headingView.logo.pushAnimate()
+          }
+          headingView.title.isHidden = false
+          headingView.title.text = "\(nodes)/\(LNConstants.minNodesForLightningOperation) Nodes "  // add 1 space after to center
+          
         } else {
           if !headingView.logo.isAnimating {
             headingView.logo.pushAnimate()

@@ -19,6 +19,7 @@ struct LNConstants {
   static let defaultRetryCount: Int = 5
   static let defaultRetryDelay: Double = 1
   static let defaultChannelOpTimeout: TimeInterval = 200  // seconds
+  static let minNodesForLightningOperation: UInt = 100
 }
 
 
@@ -383,6 +384,34 @@ struct LNDInfo: CustomStringConvertible {
     URIs:                  \(uris.joined(separator: ", "))
     Best Header Timestamp: \(bestHeaderTimestamp)
     Version:               \(version)
+    """
+  }
+}
+
+struct LNDNetworkInfo: CustomStringConvertible {
+  var graphDiameter: UInt
+  var avgOutDegree: Double
+  var maxOutDegree: UInt
+  var numNodes: UInt
+  var numChannels: UInt
+  var totalNetworkCapacity: Int
+  var avgChannelSize: Double
+  var minChannelSize: Int
+  var maxChannelSize: Int
+  
+  var description: String {
+    return """
+    
+    LND Network Info -
+    Graph Diameter:         \(graphDiameter)
+    Avg Out Degree:         \(avgOutDegree)
+    Max Out Degree:         \(maxOutDegree)
+    Number of Nodes:        \(numNodes)
+    Number of Channels:     \(numChannels)
+    Total Network Capacity: \(totalNetworkCapacity)
+    Avg Channel Size:       \(avgChannelSize)
+    Min Channel Size:       \(minChannelSize)
+    Max Channel Size:       \(maxChannelSize)
     """
   }
 }

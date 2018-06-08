@@ -48,7 +48,7 @@ class EventCentral {
   // MARK: Sync Progress Monitoring
   
   // syncUpdateCallbacks is guarenteed to be called at least once
-  private var syncUpdateCallbacks = [Handle: (Bool, Double, Date) -> ()]()
+  private var syncUpdateCallbacks = [Handle: (Bool, Double, Bool, UInt, Date) -> ()]()
   private lazy var syncTimer: RepeatingTimer = {
     let timer = RepeatingTimer(timeInterval: Constants.syncMonitorInterval)
     timer.eventHandler = { self.syncTimerHandler() }
@@ -87,35 +87,12 @@ class EventCentral {
   }
   
   private func syncTimerHandler() {
-    LNServices.getInfo(retryCount: 0, retryDelay: 1.0) { (responder) in
+    LNServices.getInfo(retryCount: 0, retryDelay: 1.0) { (infoResponse) in
       do {
-        let info = try responder()
+        let info = try infoResponse()
         
-        self.eventQueue.async {
-          if info.syncedToChain {
-            self.syncTimer.suspend()
-            
-            // Allow phone to sleep if done syncing
-            DispatchQueue.main.async {
-              UIApplication.shared.isIdleTimerDisabled = false
-            }
-            
-            SLLog.debug("Synced to chain!")
-            
-            // Mark Synced to Chain before calling back
-            PersistentData.shared.set(true, forKey: .achievedFirstSync)
-            
-            for callback in self.syncUpdateCallbacks {
-              callback.value(true, 1.0, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))
-            }
-            
-            // Reconnect all Channels if disconnected
-            LNManager.reconnectAllChannels()
-            
-            // Start Event Relayer if not already started
-            self.startEventRelayer()
-            
-          } else {
+        guard info.syncedToChain else {
+          self.eventQueue.async {
             self.syncTimer.resume()
             
             // Prevent phone from sleeping if syncing
@@ -129,10 +106,56 @@ class EventCentral {
             SLLog.verbose("Sycn progress estimated at \(estimate * 100.0)%")
             
             for callback in self.syncUpdateCallbacks {
-              callback.value(false, estimate, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))
+              callback.value(false, estimate, false, 0, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))
             }
           }
+          return
         }
+        
+        SLLog.debug("Synced to chain!")
+        
+        // Mark Synced to Chain before calling back
+        PersistentData.shared.set(true, forKey: .achievedFirstSync)
+        
+        // Reconnect all Channels if disconnected
+        LNManager.reconnectAllChannels()
+        
+        // Start Event Relayer if not already started
+        self.startEventRelayer()
+        
+        LNServices.getNetworkInfo() { (networkResponse) in
+          do {
+            let network = try networkResponse()
+            let sufficientNodes = (network.numNodes > LNConstants.minNodesForLightningOperation)
+            
+            self.eventQueue.async {
+              if sufficientNodes {
+                
+                SLLog.debug("Discovered \(network.numNodes) Lightning Nodes!")
+                self.syncTimer.suspend()
+                
+                // Allow phone to sleep if done syncing
+                DispatchQueue.main.async {
+                  UIApplication.shared.isIdleTimerDisabled = false
+                }
+              } else {
+                self.syncTimer.resume()
+                
+                // Prevent phone from sleeping if syncing
+                DispatchQueue.main.async {
+                  UIApplication.shared.isIdleTimerDisabled = true
+                }
+              }
+              
+              for callback in self.syncUpdateCallbacks {
+                callback.value(true, 1.0, sufficientNodes, network.numNodes, Date(timeIntervalSince1970: TimeInterval(info.bestHeaderTimestamp)))
+              }
+            }
+          } catch {
+            SLLog.warning("SyncTimer expiry cannot GetNetworkInfo with error - \(error.localizedDescription)")
+          }
+        }
+          
       } catch {
         SLLog.warning("SyncTimer expiry cannot GetInfo with error - \(error.localizedDescription)")
       }
@@ -159,7 +182,7 @@ class EventCentral {
     return estimate
   }
   
-  func subscribeToSync(with callback: @escaping (Bool, Double, Date) -> ()) -> Handle {
+  func subscribeToSync(with callback: @escaping (Bool, Double, Bool, UInt, Date) -> ()) -> Handle {
     let handle: Handle = getAtomicID()
     
     eventQueue.async {

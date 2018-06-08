@@ -113,7 +113,7 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
     super.viewWillAppear(animated)
     
     // Check chain for sync
-    syncHandle = EventCentral.shared.subscribeToSync { (synced, percentage, date) in
+    syncHandle = EventCentral.shared.subscribeToSync { (synced, _, _, _, date) in
       
       // Open some UI up if the wallet even have achieved sync once
       if PersistentData.shared.get(forKey: .achievedFirstSync)! {
