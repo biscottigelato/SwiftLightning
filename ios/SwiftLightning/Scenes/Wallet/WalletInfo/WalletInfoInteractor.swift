@@ -27,16 +27,27 @@ class WalletInfoInteractor: WalletInfoBusinessLogic, WalletInfoDataStore {
   // MARK: Refresh
   
   func refresh(request: WalletInfo.Refresh.Request) {
-    LNServices.getInfo { (responder) in
+    LNServices.getInfo { (infoResponse) in
       do {
-        let info = try responder()
+        let info = try infoResponse()
         
-        let result = Result<LNDInfo>.success(info)
-        let response = WalletInfo.Refresh.Response(result: result)
-        self.presenter?.presentRefresh(response: response)
+        LNServices.getNetworkInfo { (networkResponse) in
+          do {
+            let networkInfo = try networkResponse()
+            
+            let result = Result<LNDInfo>.success(info)
+            let response = WalletInfo.Refresh.Response(result: result, networkInfo: networkInfo)
+            self.presenter?.presentRefresh(response: response)
+            
+          } catch {
+            let result = Result<LNDInfo>.success(info)
+            let response = WalletInfo.Refresh.Response(result: result, networkInfo: nil)
+            self.presenter?.presentRefresh(response: response)
+          }
+        }
       } catch {
         let result = Result<LNDInfo>.failure(error)
-        let response = WalletInfo.Refresh.Response(result: result)
+        let response = WalletInfo.Refresh.Response(result: result, networkInfo: nil)
         self.presenter?.presentRefresh(response: response)
       }
     }

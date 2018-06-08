@@ -67,6 +67,10 @@ class WalletInfoViewController: SLViewController, WalletInfoDisplayLogic {
   @IBOutlet weak var pendingChsView: SLFormCompactView!
   @IBOutlet weak var activeChsView: SLFormCompactView!
   @IBOutlet weak var peersView: SLFormCompactView!
+  @IBOutlet weak var nodesView: SLFormCompactView!
+  @IBOutlet weak var nodesSpacer: UIView!
+  @IBOutlet weak var channelsView: SLFormCompactView!
+  @IBOutlet weak var channelsSpacer: UIView!
   @IBOutlet weak var blockHeightView: SLFormCompactView!
   @IBOutlet weak var blockHashView: SLFormLabelView!
   @IBOutlet weak var bestBlockView: SLFormLabelView!
@@ -84,6 +88,24 @@ class WalletInfoViewController: SLViewController, WalletInfoDisplayLogic {
       self.blockHashView.textLabel.text = viewModel.blockHash
       self.bestBlockView.textLabel.text = viewModel.bestHdrTimestamp
       self.syncStatusLabel.text = viewModel.syncedChain
+      
+      if let numNodes = viewModel.numNodes {
+        self.nodesView.isHidden = false
+        self.nodesSpacer.isHidden = false
+        self.nodesView.textLabel.text = numNodes
+      } else {
+        self.nodesView.isHidden = true
+        self.nodesSpacer.isHidden = true
+      }
+      
+      if let numChannels = viewModel.numChannels {
+        self.channelsView.isHidden = false
+        self.channelsSpacer.isHidden = false
+        self.channelsView.textLabel.text = numChannels
+      } else {
+        self.channelsView.isHidden = true
+        self.channelsSpacer.isHidden = true
+      }
     }
   }
   

@@ -20,6 +20,7 @@ enum WalletInfo {
     struct Request { }
     struct Response {
       var result: Result<LNDInfo>
+      var networkInfo: LNDNetworkInfo?
     }
     struct ViewModel {
       var idPubKey: String
@@ -27,6 +28,8 @@ enum WalletInfo {
       var pendingChs: String
       var activeChs: String
       var numPeers: String
+      var numNodes: String?
+      var numChannels: String?
       var blockHeight: String
       var blockHash: String
       var bestHdrTimestamp: String

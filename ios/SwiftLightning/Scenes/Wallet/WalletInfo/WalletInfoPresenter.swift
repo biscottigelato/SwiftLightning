@@ -38,11 +38,21 @@ class WalletInfoPresenter: WalletInfoPresentationLogic {
       syncedToChain += info.testnet ? "testnet of " : "mainnet of "
       syncedToChain += info.chains.joined(separator: ", ")
       
+      var numNodesString: String?
+      var numChannelsString: String?
+      
+      if let networkInfo = response.networkInfo {
+        numNodesString = "\(networkInfo.numNodes)"
+        numChannelsString = "\(networkInfo.numChannels)"
+      }
+      
       let viewModel = WalletInfo.Refresh.ViewModel(idPubKey: info.identityPubkey,
                                                    alias: info.alias,
                                                    pendingChs: "\(info.numPendingChannels)",
                                                    activeChs: "\(info.numActiveChannels)",
                                                    numPeers: "\(info.numPeers)",
+                                                   numNodes: numNodesString,
+                                                   numChannels: numChannelsString,
                                                    blockHeight: "\(info.blockHeight)",
                                                    blockHash: "\(info.blockHash)",
                                                    bestHdrTimestamp: bestHdrTimestamp,
