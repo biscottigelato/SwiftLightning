@@ -141,11 +141,20 @@ class CameraMainViewController: SLViewController, CameraMainDisplayLogic {
       return
     }
     
+    
+
+    
     do {
+      // Configure the Capture Device
+      try captureDevice.lockForConfiguration()
+      captureDevice.videoZoomFactor = 1.5  // Improves scanning of small QR codes
+      captureDevice.setExposureTargetBias(-0.5, completionHandler: nil)  // Improve scanning in situations with glare
+      captureDevice.unlockForConfiguration()
+      
       // Get an instance of the AVCaptureDeviceInput class using the previous device object.
       let input = try AVCaptureDeviceInput(device: captureDevice)
       
-      // Set the input device on the capture session.
+      // Set input device & configure the capture session.
       captureSession.addInput(input)
       
       // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.

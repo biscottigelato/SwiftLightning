@@ -28,7 +28,7 @@ class UnlockAppInteractor: UnlockAppBusinessLogic, UnlockAppDataStore
   func checkPassword(request: UnlockApp.CheckPassword.Request)
   {
     do {
-      try LNServices.unlockWallet(walletPassword: request.passwordText) { (result) in
+      try LNServices.unlockWallet(walletPassword: request.passwordText, retryCount: 2, retryDelay: 0.5) { (result) in
         do {
           try result()  // Does not return. But if error free, that means password is correct
           let response = UnlockApp.CheckPassword.Response(errorDescription: nil)

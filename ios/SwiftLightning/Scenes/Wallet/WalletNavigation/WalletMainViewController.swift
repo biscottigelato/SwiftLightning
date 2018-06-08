@@ -163,22 +163,24 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
         self.updateBalances()
         self.interactor?.updateChTx()  // Ordered channel first, tx second initial fetch
         
-        // Re-subscribe to events
-        self.updateEventHandle = EventCentral.shared.subscribe(to: [.periodicUpdate, .transaction, .openUpdate, .closeUpdate]) { message in
-          self.updateBalances()
-          
-          switch message {
-          case .transaction:
-            self.fetchTransactions()
+        // Re-subscribe to events, only if not already subscribed
+        if self.updateEventHandle == nil {
+          self.updateEventHandle = EventCentral.shared.subscribe(to: [.periodicUpdate, .transaction, .openUpdate, .closeUpdate]) { message in
+            self.updateBalances()
             
-          case .openUpdate, .closeUpdate:
-            self.fetchChannels()
-            
-          case .periodicUpdate:
-            self.interactor?.updateChTx()  // Ordered channel first, tx second initial fetch
-            
-          default:
-            SLLog.assert("Do not expect unsubscribed message types")
+            switch message {
+            case .transaction:
+              self.fetchTransactions()
+              
+            case .openUpdate, .closeUpdate:
+              self.fetchChannels()
+              
+            case .periodicUpdate:
+              self.interactor?.updateChTx()  // Ordered channel first, tx second initial fetch
+              
+            default:
+              SLLog.assert("Do not expect unsubscribed message types")
+            }
           }
         }
       }
