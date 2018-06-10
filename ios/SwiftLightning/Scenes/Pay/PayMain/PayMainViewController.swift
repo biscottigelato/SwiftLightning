@@ -87,11 +87,12 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
     
     addressEntryView.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     amountEntryView.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    
+    addressEntryView.textField.becomeFirstResponder()
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    addressEntryView.textField.becomeFirstResponder()
     
     let request = PayMain.CheckURL.Request()
     interactor?.checkURL(request: request)
@@ -288,13 +289,13 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
   // MARK: Camera
   
   @IBAction func cameraTapped(_ sender: UIBarButtonItem) {
+    view.endEditing(true)
     router?.routeToCameraMain()
   }
   
   func qrCodeScanned(address: String) {
     if let addrTextField = addressEntryView.textField {
       addrTextField.text = address
-      addrTextField.becomeFirstResponder()
       addrTextField.delegate?.textFieldDidEndEditing?(addrTextField)
     }
   }

@@ -97,6 +97,8 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, Came
     nodePortIPEntryView.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     fundingEntryView.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     initPaymentEntryView.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    
+    nodePubKeyEntryView.textField.becomeFirstResponder()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -104,11 +106,6 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, Came
     
     // TODO: Check if synced, if not defer update on chain confirmation
     updateOnChainedConfirmedBalance()
-  }
-  
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    nodePubKeyEntryView.textField.becomeFirstResponder()
   }
   
   
@@ -323,13 +320,13 @@ class ChannelOpenViewController: SLViewController, ChannelOpenDisplayLogic, Came
   // MARK: Camera
   
   @IBAction func cameraTapped(_ sender: UIBarButtonItem) {
+    view.endEditing(true)
     router?.routeToCameraMain()
   }
   
   func qrCodeScanned(address: String) {
     if let pubKeyTextField = nodePubKeyEntryView.textField {
       pubKeyTextField.text = address
-      pubKeyTextField.becomeFirstResponder()
       pubKeyTextField.delegate?.textFieldDidEndEditing?(pubKeyTextField)
     }
   }
