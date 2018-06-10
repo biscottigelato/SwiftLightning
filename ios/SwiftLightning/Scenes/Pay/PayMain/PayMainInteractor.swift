@@ -158,7 +158,7 @@ class PayMainInteractor: PayMainBusinessLogic, PayMainDataStore {
         
         // For Lightning requests, the amount fields must match.
         // For Bitcoin on chain, will only hit this case if a pay req is put in last.
-        //   If the amount is put in last, won't have a problem with mismatch
+        // If the amount is put in last, won't have a problem with mismatch
         // So just enforce the match for both cases here
         guard amount == inputAmount else {
           result.amountError = PayMain.AmountError.amtMismatch

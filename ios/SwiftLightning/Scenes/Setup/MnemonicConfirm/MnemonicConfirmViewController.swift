@@ -171,9 +171,9 @@ class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLog
   // MARK: Confirm
   
   @IBAction func confirmTapped(_ sender: SLBarButton) {
-    let request = MnemonicConfirm.ConfirmSeedWords.Request(seedWords: [confirmField1.textField.text ?? "",
-                                                                       confirmField2.textField.text ?? "",
-                                                                       confirmField3.textField.text ?? ""])
+    let request = MnemonicConfirm.ConfirmSeedWords.Request(seedWords: [confirmField1.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "",
+                                                                       confirmField2.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "",
+                                                                       confirmField3.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""])
     interactor?.confirmSeedWords(request: request)
   }
   

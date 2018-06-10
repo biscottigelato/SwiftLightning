@@ -124,7 +124,7 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
     case addressEntryView.textField:
       addressEntryView.textField.text = addressEntryView.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
       let request = PayMain.Validate.Request(rawAddressString: addressEntryView.textField.text ?? "",
-                                             rawAmountString: amountEntryView.textField.text ?? "")
+                                             rawAmountString: "")  // If it's a Pay Req, will overwrite amount. If not will leave it untouched
       interactor?.validate(request: request)
       
     case amountEntryView.textField:
