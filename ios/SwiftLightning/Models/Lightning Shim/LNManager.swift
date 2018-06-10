@@ -232,6 +232,35 @@ class LNManager {
   }
   
   
+  // MARK: BootstrapPeers Connect
+  
+  static func connectBootstrapPeers() {
+    LNServices.listPeers { (peersResponse) in
+      do {
+        let connectedPeers = try peersResponse()
+        let peerNodePubKeys = connectedPeers.map({ $0.pubKey })
+        
+        for bootstrapPeer in BootstrapPeer.list {
+          if !peerNodePubKeys.contains(bootstrapPeer.nodePubKey) {
+            LNServices.connectPeer(pubKey: bootstrapPeer.nodePubKey,
+                                   hostAddr: bootstrapPeer.nodeAddr,
+                                   hostPort: bootstrapPeer.port) { response in
+              do {
+                _ = try response()
+                SLLog.info("Bootstrapped with LN node \(bootstrapPeer.nodePubKey):\(bootstrapPeer.nodeAddr)@\(bootstrapPeer.port)")
+              } catch {
+                SLLog.warning("Bootstrap failed with LN node \(bootstrapPeer.nodePubKey):\(bootstrapPeer.nodeAddr)@\(bootstrapPeer.port)")
+              }
+            }
+          }
+        }
+      } catch {
+        SLLog.warning("List Peers for Bootstrap Failed!")
+      }
+    }
+  }
+  
+  
   // MARK: Reconnect Disconnected Channels
 
   static func reconnectAllChannels() {

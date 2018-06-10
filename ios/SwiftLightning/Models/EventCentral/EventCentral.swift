@@ -29,6 +29,8 @@ class EventCentral {
   private let eventQueue = DispatchQueue(label: "EventRelay", qos: .background)  // not concurrent, so serial
   
   
+  
+  
   // MARK: Atomic infinitely incrementing identifier for handles
   
   typealias Handle = Int
@@ -45,6 +47,29 @@ class EventCentral {
   }
   
   
+  // MARK: Wallet Bootstrap
+  
+  private var bootstrapped = false
+  
+  private func bootstrap() {
+    if !bootstrapped {
+      
+      // Mark Synced to Chain
+      PersistentData.shared.set(true, forKey: .achievedFirstSync)
+      
+      LNManager.connectBootstrapPeers()
+      
+      // Reconnect all Channels if disconnected
+      LNManager.reconnectAllChannels()
+      
+      // Start Event Relayer if not already started
+      startEventRelayer()
+      
+      bootstrapped = true
+    }
+  }
+  
+  
   // MARK: Sync Progress Monitoring
   
   // syncUpdateCallbacks is guarenteed to be called at least once
@@ -54,7 +79,7 @@ class EventCentral {
     timer.eventHandler = { self.syncTimerHandler() }
     return timer
   }()
-  
+
   
   func start(proceed: @escaping (Result<Void>) -> ()) {
     // Increase retry count because unlock can take a while
@@ -64,15 +89,8 @@ class EventCentral {
         let info = try responder()
         
         if info.syncedToChain {
-          
-          // Mark Synced to Chain
-          PersistentData.shared.set(true, forKey: .achievedFirstSync)
-          
-          // Reconnect all Channels if disconnected
-          LNManager.reconnectAllChannels()
-          
-          // Just directly start Event Relayer
-          self.startEventRelayer()
+          // Bootstrap if needed
+          self.bootstrap()
           
         } else {
           // Start Sync Progress Monitor
@@ -114,14 +132,8 @@ class EventCentral {
         
         SLLog.debug("Synced to chain!")
         
-        // Mark Synced to Chain before calling back
-        PersistentData.shared.set(true, forKey: .achievedFirstSync)
-        
-        // Reconnect all Channels if disconnected
-        LNManager.reconnectAllChannels()
-        
-        // Start Event Relayer if not already started
-        self.startEventRelayer()
+        // Bootstrap if needed
+        self.bootstrap()
         
         LNServices.getNetworkInfo() { (networkResponse) in
           do {

@@ -113,7 +113,7 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
     super.viewWillAppear(animated)
     
     // Check chain for sync
-    syncHandle = EventCentral.shared.subscribeToSync { (synced, _, _, _, date) in
+    syncHandle = EventCentral.shared.subscribeToSync { (synced, _, connected, _, date) in
       
       // Open some UI up if the wallet even have achieved sync once
       if PersistentData.shared.get(forKey: .achievedFirstSync)! {
@@ -159,12 +159,13 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
           self.channelBalanceTapRecognizer.isEnabled = true
         }
         
-        // Do an immediate update
-        self.updateBalances()
-        self.interactor?.updateChTx()  // Ordered channel first, tx second initial fetch
-        
         // Re-subscribe to events, only if not already subscribed
         if self.updateEventHandle == nil {
+          
+          // Do an update when first synced
+          self.updateBalances()
+          self.interactor?.updateChTx()  // Ordered channel first, tx second initial fetch
+          
           self.updateEventHandle = EventCentral.shared.subscribe(to: [.periodicUpdate, .transaction, .openUpdate, .closeUpdate]) { message in
             self.updateBalances()
             
@@ -182,6 +183,10 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
               SLLog.assert("Do not expect unsubscribed message types")
             }
           }
+        } else if connected {
+          // Do an update when first connected
+          self.updateBalances()
+          self.interactor?.updateChTx()  // Ordered channel first, tx second initial fetch
         }
       }
     }
@@ -376,6 +381,27 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
     cell.nodePubKeyLabel.text = channels[indexPath.row].nodePubKey
     cell.statusLabel.text = channels[indexPath.row].statusText
     cell.statusLabel.textColor = channels[indexPath.row].statusColor
+    
+    // Try to get alias from Node Info if possible
+    LNServices.getNodeInfo(pubKey: channels[indexPath.row].nodePubKey) { (infoResponse) in
+      do {
+        let info = try infoResponse()
+        
+        DispatchQueue.main.async {
+          if let cell = self.channelView.tableView.cellForRow(at: indexPath) as? ChTableViewCell {
+            cell.nodePubKeyLabel.text = info.alias
+            cell.nodePubKeyLabel.font = UIFont.mediumFont(13)
+            // cell.nodePubKeyLabel.textColor = UIColor.from(hex: info.color)
+            self.channels[indexPath.row].alias = info.alias
+          } else {
+            cell.nodePubKeyLabel.font = UIFont.regularFont(12)
+            // cell.nodePubKeyLabel.textColor = UIColor.mediumTextGray
+          }
+        }
+      } catch {
+        // Do Nothing
+      }
+    }
     
     return cell
   }

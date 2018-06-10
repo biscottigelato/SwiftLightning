@@ -108,6 +108,17 @@ class LNServices {
       }
     }
     
+    // Prevent the entire lnd directory from being backed-up
+    var directoryURL = URL(fileURLWithPath: directoryPath, isDirectory: true)
+    var resourceValues = URLResourceValues()
+    resourceValues.isExcludedFromBackup = true
+    
+    do {
+      try directoryURL.setResourceValues(resourceValues)
+    } catch {
+      SLLog.assert("Cannot set Resource Value for LND Directory to exclude from Backup")
+    }
+    
     // BTCD can throw SIGPIPEs. Ignoring according to https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/NetworkingOverview/CommonPitfalls/CommonPitfalls.html for now
     signal(SIGPIPE, SIG_IGN)
     

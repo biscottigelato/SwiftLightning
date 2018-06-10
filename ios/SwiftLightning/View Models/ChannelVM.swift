@@ -37,6 +37,7 @@ struct ChannelVM {
   var statusText: String
   var statusColor: UIColor
   
+  var alias: String?
   var addlInfo: AddlInfo?
   
   
@@ -72,14 +73,15 @@ struct ChannelVM {
               let canRcvAmt = Bitcoin(inSatoshi: openedChannel.remoteBalance)
               
               let channel = ChannelVM(canPayAmt: canPayAmt.formattedInSatoshis(),
-                                            canRcvAmt: canRcvAmt.formattedInSatoshis(),
-                                            capacity: Bitcoin(inSatoshi: openedChannel.capacity),
-                                            nodePubKey: openedChannel.remotePubKey,
-                                            channelPoint: openedChannel.channelPoint,
-                                            state: state,
-                                            statusText: statusText,
-                                            statusColor: statusColor,
-                                            addlInfo: nil)
+                                      canRcvAmt: canRcvAmt.formattedInSatoshis(),
+                                      capacity: Bitcoin(inSatoshi: openedChannel.capacity),
+                                      nodePubKey: openedChannel.remotePubKey,
+                                      channelPoint: openedChannel.channelPoint,
+                                      state: state,
+                                      statusText: statusText,
+                                      statusColor: statusColor,
+                                      alias: nil,
+                                      addlInfo: nil)
               channels.append(channel)
             }
             
@@ -92,14 +94,15 @@ struct ChannelVM {
               let addlInfo = AddlInfo.pendingOpen(UInt(pendingOpenChannel.confirmationHeight))
               
               let channel = ChannelVM(canPayAmt: canPayAmt.formattedInSatoshis(),
-                                            canRcvAmt: canRcvAmt.formattedInSatoshis(),
-                                            capacity: Bitcoin(inSatoshi: pendingOpenChannel.channel.capacity),
-                                            nodePubKey: pendingOpenChannel.channel.remoteNodePub,
-                                            channelPoint: pendingOpenChannel.channel.channelPoint,
-                                            state: ChannelVM.State.pendingOpen,
-                                            statusText: statusText,
-                                            statusColor: statusColor,
-                                            addlInfo: addlInfo)
+                                      canRcvAmt: canRcvAmt.formattedInSatoshis(),
+                                      capacity: Bitcoin(inSatoshi: pendingOpenChannel.channel.capacity),
+                                      nodePubKey: pendingOpenChannel.channel.remoteNodePub,
+                                      channelPoint: pendingOpenChannel.channel.channelPoint,
+                                      state: ChannelVM.State.pendingOpen,
+                                      statusText: statusText,
+                                      statusColor: statusColor,
+                                      alias: nil,
+                                      addlInfo: addlInfo)
               channels.append(channel)
             }
             
@@ -112,14 +115,15 @@ struct ChannelVM {
               let addlInfo = AddlInfo.pendingClose(pendingCloseChannel.closingTxID)
               
               let channel = ChannelVM(canPayAmt: canPayAmt.formattedInSatoshis(),
-                                            canRcvAmt: canRcvAmt.formattedInSatoshis(),
-                                            capacity: Bitcoin(inSatoshi: pendingCloseChannel.channel.capacity),
-                                            nodePubKey: pendingCloseChannel.channel.remoteNodePub,
-                                            channelPoint: pendingCloseChannel.channel.channelPoint,
-                                            state: ChannelVM.State.pendingClose,
-                                            statusText: statusText,
-                                            statusColor: statusColor,
-                                            addlInfo: addlInfo)
+                                      canRcvAmt: canRcvAmt.formattedInSatoshis(),
+                                      capacity: Bitcoin(inSatoshi: pendingCloseChannel.channel.capacity),
+                                      nodePubKey: pendingCloseChannel.channel.remoteNodePub,
+                                      channelPoint: pendingCloseChannel.channel.channelPoint,
+                                      state: ChannelVM.State.pendingClose,
+                                      statusText: statusText,
+                                      statusColor: statusColor,
+                                      alias: nil,
+                                      addlInfo: addlInfo)
               channels.append(channel)
             }
             
@@ -133,14 +137,15 @@ struct ChannelVM {
                                                  pendingForceCloseChannel.closingTxID)
               
               let channel = ChannelVM(canPayAmt: canPayAmt.formattedInSatoshis(),
-                                            canRcvAmt: canRcvAmt.formattedInSatoshis(),
-                                            capacity: Bitcoin(inSatoshi: pendingForceCloseChannel.channel.capacity),
-                                            nodePubKey: pendingForceCloseChannel.channel.remoteNodePub,
-                                            channelPoint: pendingForceCloseChannel.channel.channelPoint,
-                                            state: ChannelVM.State.pendingForceClose,
-                                            statusText: statusText,
-                                            statusColor: statusColor,
-                                            addlInfo: addlInfo)
+                                      canRcvAmt: canRcvAmt.formattedInSatoshis(),
+                                      capacity: Bitcoin(inSatoshi: pendingForceCloseChannel.channel.capacity),
+                                      nodePubKey: pendingForceCloseChannel.channel.remoteNodePub,
+                                      channelPoint: pendingForceCloseChannel.channel.channelPoint,
+                                      state: ChannelVM.State.pendingForceClose,
+                                      statusText: statusText,
+                                      statusColor: statusColor,
+                                      alias: nil,
+                                      addlInfo: addlInfo)
               channels.append(channel)
             }
             
@@ -152,14 +157,15 @@ struct ChannelVM {
               let canRcvAmt = Bitcoin(inSatoshi: waitingCloseChannel.channel.remoteBalance)
               
               let channel = ChannelVM(canPayAmt: canPayAmt.formattedInSatoshis(),
-                                            canRcvAmt: canRcvAmt.formattedInSatoshis(),
-                                            capacity: Bitcoin(inSatoshi: waitingCloseChannel.channel.capacity),
-                                            nodePubKey: waitingCloseChannel.channel.remoteNodePub,
-                                            channelPoint: waitingCloseChannel.channel.channelPoint,
-                                            state: ChannelVM.State.waitingClose,
-                                            statusText: statusText,
-                                            statusColor: statusColor,
-                                            addlInfo: nil)
+                                      canRcvAmt: canRcvAmt.formattedInSatoshis(),
+                                      capacity: Bitcoin(inSatoshi: waitingCloseChannel.channel.capacity),
+                                      nodePubKey: waitingCloseChannel.channel.remoteNodePub,
+                                      channelPoint: waitingCloseChannel.channel.channelPoint,
+                                      state: ChannelVM.State.waitingClose,
+                                      statusText: statusText,
+                                      statusColor: statusColor,
+                                      alias: nil,
+                                      addlInfo: nil)
               channels.append(channel)
             }
             
