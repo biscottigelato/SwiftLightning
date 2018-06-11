@@ -148,6 +148,7 @@ class PayMainViewController: SLViewController, PayMainDisplayLogic, CameraReturn
   func displayIncomingURL(urlString: String) {
     addressEntryView.textField.text = urlString
     textFieldDidEndEditing(addressEntryView.textField)
+    view.endEditing(true)
   }
   
   

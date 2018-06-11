@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		8C02085820ACDB2E0089CF1B /* SLSafariWebViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C02085720ACDB2E0089CF1B /* SLSafariWebViewer.swift */; };
+		8C0509F220CE09E300F4AC9D /* AutopilotPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0509EC20CE09E300F4AC9D /* AutopilotPresenter.swift */; };
+		8C0509F320CE09E300F4AC9D /* AutopilotWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0509ED20CE09E300F4AC9D /* AutopilotWorker.swift */; };
+		8C0509F420CE09E300F4AC9D /* AutopilotRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0509EE20CE09E300F4AC9D /* AutopilotRouter.swift */; };
+		8C0509F520CE09E300F4AC9D /* AutopilotModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0509EF20CE09E300F4AC9D /* AutopilotModels.swift */; };
+		8C0509F620CE09E300F4AC9D /* AutopilotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0509F020CE09E300F4AC9D /* AutopilotViewController.swift */; };
+		8C0509F720CE09E300F4AC9D /* AutopilotInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0509F120CE09E300F4AC9D /* AutopilotInteractor.swift */; };
+		8C0509F920CE09F700F4AC9D /* Autopilot.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C0509F820CE09F700F4AC9D /* Autopilot.storyboard */; };
 		8C090DEB2086F92A009B8B8D /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090DEA2086F92A009B8B8D /* UITextField+Extension.swift */; };
 		8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090DED2086FF5C009B8B8D /* SLViewController.swift */; };
 		8C090DF420870DB9009B8B8D /* LNDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090DF320870DB9009B8B8D /* LNDefinitions.swift */; };
@@ -224,6 +231,8 @@
 		8C77AD8C20A2DBCE0094D733 /* SLFormTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD8820A2DB6F0094D733 /* SLFormTitleLabel.swift */; };
 		8C77AD8D20A2DBD20094D733 /* SLFormTextLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C77AD8920A2DB720094D733 /* SLFormTextLabel.xib */; };
 		8C77AD8E20A2DBD50094D733 /* SLFormTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD8A20A2DB720094D733 /* SLFormTextLabel.swift */; };
+		8C7A96DC20CE234700C089D6 /* SLSliderConfigView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C7A96DB20CE234700C089D6 /* SLSliderConfigView.xib */; };
+		8C7A96DE20CE236D00C089D6 /* SLSliderConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7A96DD20CE236D00C089D6 /* SLSliderConfigView.swift */; };
 		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SLLog.swift */; };
 		8C7EC53220950449001C8FD6 /* PayMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */; };
@@ -312,6 +321,13 @@
 		099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftLightning.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8292E2C0A97224CAF9B4332E /* Pods-SwiftLightning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLightning.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning.release.xcconfig"; sourceTree = "<group>"; };
 		8C02085720ACDB2E0089CF1B /* SLSafariWebViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSafariWebViewer.swift; sourceTree = "<group>"; };
+		8C0509EC20CE09E300F4AC9D /* AutopilotPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutopilotPresenter.swift; sourceTree = "<group>"; };
+		8C0509ED20CE09E300F4AC9D /* AutopilotWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutopilotWorker.swift; sourceTree = "<group>"; };
+		8C0509EE20CE09E300F4AC9D /* AutopilotRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutopilotRouter.swift; sourceTree = "<group>"; };
+		8C0509EF20CE09E300F4AC9D /* AutopilotModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutopilotModels.swift; sourceTree = "<group>"; };
+		8C0509F020CE09E300F4AC9D /* AutopilotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutopilotViewController.swift; sourceTree = "<group>"; };
+		8C0509F120CE09E300F4AC9D /* AutopilotInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutopilotInteractor.swift; sourceTree = "<group>"; };
+		8C0509F820CE09F700F4AC9D /* Autopilot.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Autopilot.storyboard; sourceTree = "<group>"; };
 		8C090DEA2086F92A009B8B8D /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		8C090DED2086FF5C009B8B8D /* SLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLViewController.swift; sourceTree = "<group>"; };
 		8C090DF320870DB9009B8B8D /* LNDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNDefinitions.swift; sourceTree = "<group>"; };
@@ -532,6 +548,8 @@
 		8C77AD8820A2DB6F0094D733 /* SLFormTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLFormTitleLabel.swift; sourceTree = "<group>"; };
 		8C77AD8920A2DB720094D733 /* SLFormTextLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLFormTextLabel.xib; sourceTree = "<group>"; };
 		8C77AD8A20A2DB720094D733 /* SLFormTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLFormTextLabel.swift; sourceTree = "<group>"; };
+		8C7A96DB20CE234700C089D6 /* SLSliderConfigView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLSliderConfigView.xib; sourceTree = "<group>"; };
+		8C7A96DD20CE236D00C089D6 /* SLSliderConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSliderConfigView.swift; sourceTree = "<group>"; };
 		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLog.swift; sourceTree = "<group>"; };
 		8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainPresenter.swift; sourceTree = "<group>"; };
@@ -635,6 +653,20 @@
 				099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8C0509EB20CE09BE00F4AC9D /* Autopilot */ = {
+			isa = PBXGroup;
+			children = (
+				8C0509F820CE09F700F4AC9D /* Autopilot.storyboard */,
+				8C0509EC20CE09E300F4AC9D /* AutopilotPresenter.swift */,
+				8C0509ED20CE09E300F4AC9D /* AutopilotWorker.swift */,
+				8C0509EE20CE09E300F4AC9D /* AutopilotRouter.swift */,
+				8C0509EF20CE09E300F4AC9D /* AutopilotModels.swift */,
+				8C0509F020CE09E300F4AC9D /* AutopilotViewController.swift */,
+				8C0509F120CE09E300F4AC9D /* AutopilotInteractor.swift */,
+			);
+			path = Autopilot;
 			sourceTree = "<group>";
 		};
 		8C090DEC2086FF3D009B8B8D /* Templates */ = {
@@ -1214,6 +1246,15 @@
 			path = SLFormTextLabel;
 			sourceTree = "<group>";
 		};
+		8C7A96DA20CE231500C089D6 /* SLSliderConfigView */ = {
+			isa = PBXGroup;
+			children = (
+				8C7A96DB20CE234700C089D6 /* SLSliderConfigView.xib */,
+				8C7A96DD20CE236D00C089D6 /* SLSliderConfigView.swift */,
+			);
+			path = SLSliderConfigView;
+			sourceTree = "<group>";
+		};
 		8C7D30FE207542090068F2BD /* Protobuf */ = {
 			isa = PBXGroup;
 			children = (
@@ -1248,6 +1289,7 @@
 				8C70EC0C208DBC3B00D658DC /* SLTextDialogView */,
 				8C8E4E63208C0BE60017BAB2 /* SLSpinnerDialog */,
 				8CB3CF8320AA939D00D1E28D /* SLTableView */,
+				8C7A96DA20CE231500C089D6 /* SLSliderConfigView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1279,6 +1321,7 @@
 		8C8275A2208EA14A0029BE7E /* Channel */ = {
 			isa = PBXGroup;
 			children = (
+				8C0509EB20CE09BE00F4AC9D /* Autopilot */,
 				8C8275A3208EA1650029BE7E /* ChannelOpen */,
 				8C8275E820910F810029BE7E /* ChannelConfirm */,
 				8C7745BB209D3DDE004EBA69 /* ChannelDetails */,
@@ -1656,6 +1699,7 @@
 				8C2FC7022073513600966D31 /* Resources */,
 				7DC2F53F6532F2C474D27B21 /* [CP] Embed Pods Frameworks */,
 				8C7D3109207575B00068F2BD /* Fabric Run Script */,
+				EA9A15E3C5A97FFFC28BE9D9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1745,6 +1789,7 @@
 				8C18829120868545002E2835 /* Montserrat-Thin.ttf in Resources */,
 				8C18828F20868545002E2835 /* Montserrat-Italic.ttf in Resources */,
 				8C090E2720885C84009B8B8D /* OpenSans-LightItalic.ttf in Resources */,
+				8C7A96DC20CE234700C089D6 /* SLSliderConfigView.xib in Resources */,
 				8C7745B0209BF839004EBA69 /* TxnTableViewCell.xib in Resources */,
 				8C8275C6208EA62C0029BE7E /* SLFormEntryView.xib in Resources */,
 				8C090E1220882552009B8B8D /* MnemonicExplain.storyboard in Resources */,
@@ -1802,6 +1847,7 @@
 				8C70EC0E208DBC7A00D658DC /* SLTextDialogView.xib in Resources */,
 				8C33E6F120A8EC8600C31F33 /* WalletBalance.storyboard in Resources */,
 				8C090E2420885C84009B8B8D /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				8C0509F920CE09F700F4AC9D /* Autopilot.storyboard in Resources */,
 				8C33E6DB20A664D700C31F33 /* SLFormDebugLevelView.xib in Resources */,
 				8C33E6EC20A7B78300C31F33 /* LogConsole.storyboard in Resources */,
 				8C33E71720A954B500C31F33 /* NeutrinoPeers.storyboard in Resources */,
@@ -1832,6 +1878,7 @@
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftRangeSlider/SwiftRangeSlider.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -1842,6 +1889,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftGRPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftRangeSlider.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -1882,6 +1930,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EA9A15E3C5A97FFFC28BE9D9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1906,6 +1969,7 @@
 				8C090E322088612B009B8B8D /* MnemonicDisplayPresenter.swift in Sources */,
 				8C090E4520894801009B8B8D /* MnemonicConfirmModels.swift in Sources */,
 				8C7D310820755CE00068F2BD /* SLLog.swift in Sources */,
+				8C0509F220CE09E300F4AC9D /* AutopilotPresenter.swift in Sources */,
 				8C70EBD2208C345B00D658DC /* ReceiveMainInteractor.swift in Sources */,
 				8C8E4E67208C0C240017BAB2 /* SLSpinnerDialogView.swift in Sources */,
 				8C33E6DD20A664EB00C31F33 /* SLFormDebugLevelView.swift in Sources */,
@@ -1963,6 +2027,7 @@
 				8C090DEB2086F92A009B8B8D /* UITextField+Extension.swift in Sources */,
 				8C77AD8120A2C9530094D733 /* TransactionDetailsRouter.swift in Sources */,
 				8C6D039820A170ED00C31F7F /* Date+Extension.swift in Sources */,
+				8C0509F320CE09E300F4AC9D /* AutopilotWorker.swift in Sources */,
 				8C70EBD1208C345B00D658DC /* ReceiveMainViewController.swift in Sources */,
 				8C33E69820A5607900C31F33 /* PercentInteractor.swift in Sources */,
 				8C1882A120868EBE002E2835 /* PasswordCreateViewController.swift in Sources */,
@@ -1983,10 +2048,12 @@
 				8C7745B9209D3258004EBA69 /* EventCentral.swift in Sources */,
 				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
 				8C8275FC209118250029BE7E /* SLFormLabelView.swift in Sources */,
+				8C0509F420CE09E300F4AC9D /* AutopilotRouter.swift in Sources */,
 				8C7EC53320950449001C8FD6 /* PayMainWorker.swift in Sources */,
 				8C33E6FC20A8EC9A00C31F33 /* WalletBalanceViewController.swift in Sources */,
 				8CFA16A52082EF3A00813EA6 /* CreateRecoverViewController.swift in Sources */,
 				8C33E69C20A560B200C31F33 /* BasicDirection.swift in Sources */,
+				8C0509F520CE09E300F4AC9D /* AutopilotModels.swift in Sources */,
 				8C02085820ACDB2E0089CF1B /* SLSafariWebViewer.swift in Sources */,
 				8C33E6FA20A8EC9A00C31F33 /* WalletBalanceRouter.swift in Sources */,
 				8C1AE3832095BF4000A4D9BF /* Bech32.swift in Sources */,
@@ -2002,6 +2069,7 @@
 				8C68653C209A6E87001E41DA /* CameraMainPresenter.swift in Sources */,
 				8C090E5020895CA9009B8B8D /* SLRandValues.swift in Sources */,
 				8C33E6F920A8EC9A00C31F33 /* WalletBalanceWorker.swift in Sources */,
+				8C7A96DE20CE236D00C089D6 /* SLSliderConfigView.swift in Sources */,
 				8C33E6FB20A8EC9A00C31F33 /* WalletBalanceModels.swift in Sources */,
 				8C1882B220869699002E2835 /* SLPasswordField.swift in Sources */,
 				8C6B7545208AF33200B751A2 /* RootViewController.swift in Sources */,
@@ -2061,6 +2129,7 @@
 				8C6B7551208AFEC800B751A2 /* UnlockAppModels.swift in Sources */,
 				8C8275BD208EA1B30029BE7E /* ChannelOpenInteractor.swift in Sources */,
 				8C18829D20868EBE002E2835 /* PasswordCreatePresenter.swift in Sources */,
+				8C0509F720CE09E300F4AC9D /* AutopilotInteractor.swift in Sources */,
 				8C7745C5209D3E39004EBA69 /* ChannelDetailsPresenter.swift in Sources */,
 				8C090DFF2087DEAA009B8B8D /* MnemonicExplainRouter.swift in Sources */,
 				8C686540209A6E87001E41DA /* CameraMainViewController.swift in Sources */,
@@ -2077,6 +2146,7 @@
 				8C6B754F208AFEC800B751A2 /* UnlockAppWorker.swift in Sources */,
 				8C33E72120A954C900C31F33 /* NeutrinoPeersModels.swift in Sources */,
 				8C090DEE2086FF5C009B8B8D /* SLViewController.swift in Sources */,
+				8C0509F620CE09E300F4AC9D /* AutopilotViewController.swift in Sources */,
 				8C090E352088612B009B8B8D /* MnemonicDisplayModels.swift in Sources */,
 				8C70EC10208DBCDF00D658DC /* SLTextDialogView.swift in Sources */,
 				8C70EBD0208C345B00D658DC /* ReceiveMainModels.swift in Sources */,

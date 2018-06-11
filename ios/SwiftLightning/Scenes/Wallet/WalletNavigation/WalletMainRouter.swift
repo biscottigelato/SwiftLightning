@@ -16,6 +16,7 @@ protocol WalletMainRoutingLogic {
   func routeToPayMain(url: URL?)
   func routeToReceiveMain()
   func routeToChannelOpen()
+  func routeToAutopilot()
   func routeToChannelDetails(channelPoint: String)
   func routeToTransactionDetails(type: BitcoinPaymentType, hash: String)
   func routeToSettingsMain()
@@ -55,6 +56,14 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
     var destinationDS = destinationVC.router!.dataStore!
     passDataToChannelOpen(source: dataStore!, destination: &destinationDS)
     navigateToChannelOpen(source: viewController!, destination: destinationVC)
+  }
+  
+  func routeToAutopilot() {
+    let storyboard = UIStoryboard(name: "Autopilot", bundle: nil)
+    let destinationVC = storyboard.instantiateViewController(withIdentifier: "AutopilotViewController") as! AutopilotViewController
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToAutopilot(source: dataStore!, destination: &destinationDS)
+    navigateToAutopilot(source: viewController!, destination: destinationVC)
   }
 
   func routeToChannelDetails(channelPoint: String) {
@@ -122,6 +131,16 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
     navigationController.pushViewController(destination, animated: true)
   }
   
+  func navigateToAutopilot(source: WalletMainViewController, destination: AutopilotViewController) {
+    guard let navigationController = source.navigationController else {
+      SLLog.assert("\(type(of: source)).navigationController = nil")
+      return
+    }
+    destination.setPopTransition(dismissIsInteractive: false)
+    navigationController.delegate = destination
+    navigationController.pushViewController(destination, animated: true)
+  }
+  
   func navigateToChannelDetails(source: WalletMainViewController, destination: ChannelDetailsViewController) {
     guard let navigationController = source.navigationController else {
       SLLog.assert("\(type(of: source)).navigationController = nil")
@@ -174,6 +193,10 @@ class WalletMainRouter: WalletMainRoutingLogic, WalletMainDataPassing {
   }
   
   func passDataToChannelOpen(source: WalletMainDataStore, destination: inout ChannelOpenDataStore) {
+    // destination.name = source.name
+  }
+  
+  func passDataToAutopilot(source: WalletMainDataStore, destination: inout AutopilotDataStore) {
     // destination.name = source.name
   }
   

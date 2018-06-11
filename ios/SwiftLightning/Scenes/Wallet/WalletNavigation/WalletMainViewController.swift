@@ -94,6 +94,8 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
     transactionView.leftButton.addTarget(self, action: #selector(payTapped), for: .touchUpInside)
     transactionView.rightButton.addTarget(self, action:#selector(receiveTapped), for: .touchUpInside)
     channelView.leftButton.addTarget(self, action: #selector(openChannelTapped), for: .touchUpInside)
+    channelView.rightButton.addTarget(self, action: #selector(autopilotTapped), for: .touchUpInside)
+    
     walletSyncView.receiveButton.addTarget(self, action: #selector(receiveTapped), for: .touchUpInside)
     
     // Welcome view faucet links
@@ -133,6 +135,11 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
           self.channelView.leftButton.backgroundColor = UIColor.lightAzureBlue
           self.channelView.leftButton.shadowColor = UIColor.lightAzureBlueShadow
           self.channelView.leftButton.setTitleColor(UIColor.normalText, for: .normal)
+          
+          self.channelView.rightButton.isEnabled = true
+          self.channelView.rightButton.backgroundColor = UIColor.sandyOrange  // Orange if autopilot off, Green if autopilot on
+          self.channelView.rightButton.shadowColor = UIColor.sandyOrangeShadow
+          self.channelView.rightButton.setTitleColor(UIColor.normalText, for: .normal)
         }
       } else {
         DispatchQueue.main.async {
@@ -147,6 +154,11 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
           self.channelView.leftButton.backgroundColor = UIColor.disabledGray
           self.channelView.leftButton.shadowColor = UIColor.disabledGrayShadow
           self.channelView.leftButton.setTitleColor(UIColor.disabledText, for: .normal)
+          
+          self.channelView.rightButton.isEnabled = false
+          self.channelView.rightButton.backgroundColor = UIColor.disabledGray
+          self.channelView.rightButton.shadowColor = UIColor.disabledGrayShadow
+          self.channelView.rightButton.setTitleColor(UIColor.disabledText, for: .normal)
           
           // Balance Tap Recognizers should be disabled by the storyboard on start. But leave them enabled if they got enabled once?
         }
@@ -454,6 +466,13 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
   
   @objc private func openChannelTapped(_ sender: SLBarButton) {
     router?.routeToChannelOpen()
+  }
+  
+  
+  // MARK: Autopilot
+  
+  @objc private func autopilotTapped(_ sender: SLBarButton) {
+    router?.routeToAutopilot()
   }
   
   

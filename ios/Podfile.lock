@@ -30,6 +30,7 @@ PODS:
     - gRPC-Core (~> 1.9.1)
     - SwiftProtobuf (~> 1.0.2)
   - SwiftProtobuf (1.0.3)
+  - SwiftRangeSlider (2.0.0)
 
 DEPENDENCIES:
   - CocoaLumberjack/Swift (~> 3.4.1)
@@ -39,16 +40,7 @@ DEPENDENCIES:
   - SnapKit (~> 4.0.0)
   - SwiftGRPC (from `https://github.com/grpc/grpc-swift`)
   - SwiftProtobuf (~> 1.0)
-
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - BoringSSL
-    - CocoaLumberjack
-    - Crashlytics
-    - Fabric
-    - nanopb
-    - SnapKit
-    - SwiftProtobuf
+  - SwiftRangeSlider
 
 EXTERNAL SOURCES:
   gRPC-Core:
@@ -75,7 +67,8 @@ SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftGRPC: 4bf6815db518c7921023274a7b4bbad462786f48
   SwiftProtobuf: 5ccc0e4054e37c75800e5744acb2aa80bb72b39c
+  SwiftRangeSlider: f86e3b637c961120158fa1a89277c8343845cbe4
 
-PODFILE CHECKSUM: 79668c66ca4511adfaf547acb1bb0873cd4d5078
+PODFILE CHECKSUM: 83355d08edc4e7137b85bd9394d21e23e749f23f
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.4.0
