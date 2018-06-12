@@ -42,7 +42,7 @@ class Bitcoin: Money<XBT> {
     _formatter.currencySymbol = "ƀ"
     _formatter.currencyCode = "bits"
 
-    _formatter.multiplier = NSNumber(value: pow(10.0,6.0))
+    _formatter.multiplier = pow(Decimal(10), 6) as NSNumber
     
     _formatter.minimumFractionDigits = 0
     _formatter.maximumFractionDigits = 4
@@ -57,7 +57,7 @@ class Bitcoin: Money<XBT> {
 //    _formatter.currencyCode = "sats"
     _formatter.numberStyle = .decimal  // Change to decimal since no currency symbol anyways
     
-    _formatter.multiplier = NSNumber(value: pow(10.0,8.0))
+    _formatter.multiplier = pow(Decimal(10), 8) as NSNumber
     
     _formatter.minimumFractionDigits = 0
     _formatter.maximumFractionDigits = 2

@@ -53,8 +53,8 @@ class WalletNavigationController: UINavigationController {
           if !headingView.logo.isAnimating {
             headingView.logo.pushAnimate()
           }
-          headingView.title.isHidden = false
-          headingView.title.text = "\(nodes)/\(LNConstants.minNodesForLightningOperation) Nodes "  // add 1 space after to center
+          headingView.title.isHidden = true
+          // headingView.title.text = "\(nodes)/\(LNConstants.minNodesForLightningOperation) Nodes "  // add 1 space after to center
           
         } else {
           if !headingView.logo.isAnimating {

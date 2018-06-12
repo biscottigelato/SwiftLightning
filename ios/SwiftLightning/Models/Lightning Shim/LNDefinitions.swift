@@ -16,6 +16,8 @@ struct LNConstants {
   static let maxValidLightningPort = 65535
   static let minValidLightningPort = 1
   static let minChannelSize = Bitcoin(inSatoshi: 20000)
+  static let maxAutoChannelSize = Bitcoin(inSatoshi: 16000000)
+  static let maxAutoChannels = 20
   static let defaultRetryCount: Int = 5
   static let defaultRetryDelay: Double = 1
   static let defaultChannelOpTimeout: TimeInterval = 200  // seconds
@@ -534,6 +536,26 @@ enum LNGraphTopologyUpdate: CustomStringConvertible {
     case .closedChannel(let channelPoint):
       return "Graph Topology Close Channel Update -  channelPoint: \(channelPoint)"
     }
+  }
+}
+
+struct LNAutopilotConfig: CustomStringConvertible {
+  var active: Bool
+  var fundAllocation: Double
+  var minChannelValue: Int  // in Satoshi
+  var maxChannelValue: Int  // in Satoshi
+  var maxNumChannels: Int
+  
+  var description: String {
+    return """
+
+    LN Autopilot configuration -
+    Active:            \(active)
+    Fund Allocation %: \(fundAllocation)
+    Min Channel Value: \(minChannelValue)
+    Max Channel Value: \(maxChannelValue)
+    Max # of Channels: \(maxNumChannels)
+    """
   }
 }
 

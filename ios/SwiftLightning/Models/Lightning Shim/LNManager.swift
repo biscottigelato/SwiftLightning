@@ -152,16 +152,15 @@ class LNManager {
     // Deal with Payment Requests first
 
     // Lightning Invoice? Processing ends inside if so
-    if inputString.hasPrefix(PayReqPrefixes.lnbtc.rawValue) || inputString.hasPrefix(PayReqPrefixes.lightning.rawValue) {
+    if inputString.lowercased().hasPrefix(PayReqPrefixes.lnbtc.rawValue) || inputString.lowercased().hasPrefix(PayReqPrefixes.lightning.rawValue) {
       paymentType = BitcoinPaymentType.lightning
       
-      address = inputString
-      if inputString.hasPrefix(PayReqPrefixes.lightning.rawValue) {
-        address = String(inputString.dropFirst(PayReqPrefixes.lightning.rawValue.count))
-      }
+      let lightningString = inputString.lowercased()
+      address = lightningString
       
-      // LND barfs if there are differing cases
-      address = address!.lowercased()
+      if lightningString.hasPrefix(PayReqPrefixes.lightning.rawValue) {
+        address = String(lightningString.dropFirst(PayReqPrefixes.lightning.rawValue.count))
+      }
       
       LNServices.decodePayReq(address!) { (responder) in
         do {
@@ -327,6 +326,112 @@ class LNManager {
     } catch {
       throw LNError.lndConfLNDCofRWError(error.localizedDescription)
     }
+  }
+  
+  
+  // MARK: Autopilot Configurations
+  
+  static func getAutopilotSettings(andChangeTo autopilotConfig: LNAutopilotConfig? = nil) throws -> LNAutopilotConfig {
+    let lndConfURL = URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("lnd.conf", isDirectory: false)
+    let tempLndConfURL = URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("lnd.temp", isDirectory: false)
+    
+    // Default values
+    var autopilotActive = false
+    var autopilotAllocation: Double = 0.6
+    var autopilotMinChanSize = LNConstants.minChannelSize.integerInSatoshis
+    var autopilotMaxChanSize = LNConstants.maxAutoChannelSize.integerInSatoshis
+    var autopilotMaxNumChannels = LNConstants.maxAutoChannels
+    
+    
+    let lndConfText = try String(contentsOf: lndConfURL, encoding: .utf8)
+    var newLndConfText: String = ""
+    
+    // Find lines that contains autopilot settings
+    lndConfText.enumerateLines { (line, stop) in
+      var newLine = line
+      
+      if let range = newLine.range(of:"autopilot.active=") {
+        var readLine = newLine
+        readLine.removeSubrange(newLine.startIndex..<range.upperBound)
+        let autopilotActiveRaw = readLine.trimmingCharacters(in: .whitespacesAndNewlines)
+        autopilotActive = (autopilotActiveRaw == "1")
+        
+        if let config = autopilotConfig {
+          newLine = "autopilot.active=\(config.active ? "1" : "0")"
+        }
+      }
+        
+      else if let range = newLine.range(of:"autopilot.allocation=") {
+        var readLine = newLine
+        readLine.removeSubrange(newLine.startIndex..<range.upperBound)
+        let autopilotAllocationRaw = readLine.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let autopilotAllocationDouble = Double(autopilotAllocationRaw) {
+          autopilotAllocation = autopilotAllocationDouble
+        }
+        
+        if let config = autopilotConfig {
+          newLine = "autopilot.allocation=\(config.fundAllocation)"
+        }
+      }
+
+      else if let range = newLine.range(of:"autopilot.maxchannels=") {
+        var readLine = newLine
+        readLine.removeSubrange(newLine.startIndex..<range.upperBound)
+        let autopilotMaxChannelsRaw = readLine.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let autopilotMaxChannelsInt = Int(autopilotMaxChannelsRaw) {
+          autopilotMaxNumChannels = autopilotMaxChannelsInt
+        }
+        
+        if let config = autopilotConfig {
+          newLine = "autopilot.maxchannels=\(config.maxNumChannels)"
+        }
+      }
+      
+      else if let range = newLine.range(of:"autopilot.minchanssize=") {
+        var readLine = newLine
+        readLine.removeSubrange(newLine.startIndex..<range.upperBound)
+        let autopilotMinChanSizeRaw = readLine.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let autopilotMinChanSizeInt = Int(autopilotMinChanSizeRaw) {
+          autopilotMinChanSize = autopilotMinChanSizeInt
+        }
+        
+        if let config = autopilotConfig {
+          newLine = "autopilot.minchanssize=\(config.minChannelValue)"
+        }
+      }
+      
+      else if let range = newLine.range(of:"autopilot.maxchanssize=") {
+        var readLine = newLine
+        readLine.removeSubrange(newLine.startIndex..<range.upperBound)
+        let autopilotMaxChanSizeRaw = readLine.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let autopilotMaxChanSizeInt = Int(autopilotMaxChanSizeRaw) {
+          autopilotMaxChanSize = autopilotMaxChanSizeInt
+        }
+        
+        if let config = autopilotConfig {
+          newLine = "autopilot.maxchanssize=\(config.maxChannelValue)"
+        }
+      }
+      
+      newLndConfText += newLine
+      newLndConfText += "\n"
+    }
+      
+    if autopilotConfig != nil {
+      do {
+        // Create a new file, and then replace the original lnd.conf
+        try newLndConfText.write(to: tempLndConfURL, atomically: true, encoding: .utf8)
+        _ = try FileManager.default.replaceItemAt(lndConfURL, withItemAt: tempLndConfURL, backupItemName: "lnd.bak")
+      } catch {
+        throw LNError.lndConfLNDCofRWError(error.localizedDescription)
+      }
+    }
+    
+    return LNAutopilotConfig(active: autopilotActive,
+                             fundAllocation: autopilotAllocation,
+                             minChannelValue: autopilotMinChanSize,
+                             maxChannelValue: autopilotMaxChanSize,
+                             maxNumChannels: autopilotMaxNumChannels)
   }
   
   

@@ -12,20 +12,32 @@
 
 import UIKit
 
-protocol AutopilotPresentationLogic
-{
-  func presentSomething(response: Autopilot.Something.Response)
+protocol AutopilotPresentationLogic {
+  func presentReadConfig(response: Autopilot.ReadConfig.Response)
+  func presentWriteConfig(response: Autopilot.WriteConfig.Response)
 }
 
-class AutopilotPresenter: AutopilotPresentationLogic
-{
+class AutopilotPresenter: AutopilotPresentationLogic {
   weak var viewController: AutopilotDisplayLogic?
   
-  // MARK: Do something
+  func presentReadConfig(response: Autopilot.ReadConfig.Response) {
+    
+    switch response.result {
+    case .success(let config):
+      let viewModel = Autopilot.ReadConfig.ViewModel(active: config.active,
+                                                     fundAlloc: config.fundAllocation,
+                                                     minChanSize: Bitcoin(inSatoshi: config.minChannelValue),
+                                                     maxChanSize: Bitcoin(inSatoshi: config.maxChannelValue),
+                                                     maxChanNum: config.maxNumChannels)
+      viewController?.displayConfig(viewModel: viewModel)
+      
+    case .failure(let error):
+      let errorVM = Autopilot.ErrorVM(errTitle: "Cannot Read Config",
+                                      errMsg: error.localizedDescription)
+      viewController?.displayError(viewModel: errorVM)
+    }
+  }
   
-  func presentSomething(response: Autopilot.Something.Response)
-  {
-    let viewModel = Autopilot.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+  func presentWriteConfig(response: Autopilot.WriteConfig.Response) {
   }
 }

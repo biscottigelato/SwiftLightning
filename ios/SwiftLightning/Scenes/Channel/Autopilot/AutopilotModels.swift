@@ -12,20 +12,46 @@
 
 import UIKit
 
-enum Autopilot
-{
-  // MARK: Use cases
+enum Autopilot {
+
+  enum Constants {
+    static let minFundAlloc = 0.2
+    static let maxFundAlloc = 1.0
+    static let minChannelSize = LNConstants.minChannelSize
+    static let maxChannelSize = LNConstants.maxAutoChannelSize
+    static let minNumChannels = 0
+    static let maxNumChannels = LNConstants.maxAutoChannels
+  }
   
-  enum Something
-  {
-    struct Request
-    {
+  enum ReadConfig {
+    struct Request { }
+    struct Response {
+      var result: Result<LNAutopilotConfig>
     }
-    struct Response
-    {
+    struct ViewModel {
+      var active: Bool
+      var fundAlloc: Double
+      var minChanSize: Bitcoin
+      var maxChanSize: Bitcoin
+      var maxChanNum: Int
     }
-    struct ViewModel
-    {
+  }
+  
+  enum WriteConfig {
+    struct Request {
+      var active: Bool
+      var fundAlloc: Double
+      var minChanSize: Bitcoin
+      var maxChanSize: Bitcoin
+      var maxChanNum: Int
     }
+    struct Response {
+      var result: Result<Void>
+    }
+  }
+  
+  struct ErrorVM {
+    var errTitle: String
+    var errMsg: String
   }
 }

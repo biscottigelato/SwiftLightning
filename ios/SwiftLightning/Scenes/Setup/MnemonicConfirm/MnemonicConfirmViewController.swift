@@ -146,9 +146,9 @@ class MnemonicConfirmViewController: SLViewController, MnemonicConfirmDisplayLog
   @IBOutlet weak var confirmButton: SLBarButton!
   
   @objc private func checkSeedWords() {
-    let request = MnemonicConfirm.CheckSeedWords.Request(seedWords: [confirmField1.textField.text ?? "",
-                                                                     confirmField2.textField.text ?? "",
-                                                                     confirmField3.textField.text ?? ""])
+    let request = MnemonicConfirm.CheckSeedWords.Request(seedWords: [confirmField1.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "",
+                                                                     confirmField2.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "",
+                                                                     confirmField3.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""])
     interactor?.checkSeedWords(request: request)
   }
   

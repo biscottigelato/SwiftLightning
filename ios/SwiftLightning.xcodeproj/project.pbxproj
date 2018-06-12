@@ -95,6 +95,7 @@
 		8C1AE37A2095A81500A4D9BF /* SecureHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AE3792095A81500A4D9BF /* SecureHash.swift */; };
 		8C1AE3832095BF4000A4D9BF /* Bech32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AE3822095BF4000A4D9BF /* Bech32.swift */; };
 		8C1AE3852095BF6E00A4D9BF /* SegwitAddrCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AE3842095BF6E00A4D9BF /* SegwitAddrCoder.swift */; };
+		8C1D6BD820CF5B48001EDF73 /* SLSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1D6BD720CF5B48001EDF73 /* SLSelectButton.swift */; };
 		8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FC7072073513700966D31 /* AppDelegate.swift */; };
 		8C2FC70D2073513700966D31 /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70B2073513700966D31 /* Root.storyboard */; };
 		8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70E2073513800966D31 /* Assets.xcassets */; };
@@ -410,6 +411,7 @@
 		8C1AE37B2095ACCA00A4D9BF /* SwiftLightning-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftLightning-Bridging-Header.h"; sourceTree = "<group>"; };
 		8C1AE3822095BF4000A4D9BF /* Bech32.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bech32.swift; sourceTree = "<group>"; };
 		8C1AE3842095BF6E00A4D9BF /* SegwitAddrCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegwitAddrCoder.swift; sourceTree = "<group>"; };
+		8C1D6BD720CF5B48001EDF73 /* SLSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSelectButton.swift; sourceTree = "<group>"; };
 		8C2FC7042073513700966D31 /* SwiftLightning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftLightning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C2FC7072073513700966D31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C2FC70C2073513700966D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Root.storyboard; sourceTree = "<group>"; };
@@ -824,6 +826,14 @@
 				8C1AE3842095BF6E00A4D9BF /* SegwitAddrCoder.swift */,
 			);
 			path = BitcoinKit;
+			sourceTree = "<group>";
+		};
+		8C1D6BD420CF5A9E001EDF73 /* SLSelectButton */ = {
+			isa = PBXGroup;
+			children = (
+				8C1D6BD720CF5B48001EDF73 /* SLSelectButton.swift */,
+			);
+			path = SLSelectButton;
 			sourceTree = "<group>";
 		};
 		8C2FC6FB2073513600966D31 = {
@@ -1282,6 +1292,7 @@
 				8C8275BE208EA4E40029BE7E /* SLForms */,
 				8CE3AE5F2086AED6007D1065 /* SLUnboxedHeading */,
 				8CFA16E120854C3C00813EA6 /* SLBarButton */,
+				8C1D6BD420CF5A9E001EDF73 /* SLSelectButton */,
 				8C1882B52086A193002E2835 /* SLIcon30Button */,
 				8C33E72420A95CDF00C31F33 /* SLLineView */,
 				8C1882AB20869313002E2835 /* SLPasswordField */,
@@ -2062,6 +2073,7 @@
 				8C33E70520A90FEE00C31F33 /* WalletInfoPresenter.swift in Sources */,
 				8C8275F320910FA40029BE7E /* ChannelConfirmViewController.swift in Sources */,
 				8CD063AB209563BC00D2B66B /* PayConfirmInteractor.swift in Sources */,
+				8C1D6BD820CF5B48001EDF73 /* SLSelectButton.swift in Sources */,
 				8C33E70920A90FEE00C31F33 /* WalletInfoViewController.swift in Sources */,
 				8C68653F209A6E87001E41DA /* CameraMainModels.swift in Sources */,
 				8C090E2020885772009B8B8D /* URL+Extension.swift in Sources */,

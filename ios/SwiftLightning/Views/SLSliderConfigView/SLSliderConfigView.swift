@@ -7,15 +7,26 @@
 //
 
 import UIKit
+import SwiftRangeSlider
 
 @IBDesignable class SLSliderConfigView: NibView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
+  // MARK: - IBOutlet
+  
+  @IBOutlet weak var titleLabel: UILabel!
+  @IBOutlet weak var valueLabel: UILabel!
+  
+  @IBOutlet weak var rangeSlider: RangeSlider!
+  @IBOutlet weak var slider: UISlider!
+  
+  @IBOutlet weak var minMarkLabel: UILabel!
+  @IBOutlet weak var secondMarkLabel: UILabel!
+  @IBOutlet weak var thirdMarkLabel: UILabel!
+  @IBOutlet weak var fourthMarkLabel: UILabel!
+  @IBOutlet weak var maxMarkLabel: UILabel!
+  
+  override func layoutSubviews() {
+    rangeSlider.layoutIfNeeded()
+    rangeSlider.updateLayerFramesAndPositions()
+  }
 }

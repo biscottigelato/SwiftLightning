@@ -12,30 +12,33 @@
 
 import UIKit
 
-protocol AutopilotBusinessLogic
-{
-  func doSomething(request: Autopilot.Something.Request)
+protocol AutopilotBusinessLogic {
+  func readConfig(request: Autopilot.ReadConfig.Request)
+  func writeConfig(request: Autopilot.WriteConfig.Request)
 }
 
-protocol AutopilotDataStore
-{
-  //var name: String { get set }
+protocol AutopilotDataStore {
 }
 
 class AutopilotInteractor: AutopilotBusinessLogic, AutopilotDataStore
 {
   var presenter: AutopilotPresentationLogic?
-  var worker: AutopilotWorker?
-  //var name: String = ""
+
+  func readConfig(request: Autopilot.ReadConfig.Request) {
+    do {
+      let config = try LNManager.getAutopilotSettings()
+      
+      let result = Result<LNAutopilotConfig>.success(config)
+      let response = Autopilot.ReadConfig.Response(result: result)
+      presenter?.presentReadConfig(response: response)
+      
+    } catch {
+      let result = Result<LNAutopilotConfig>.failure(error)
+      let response = Autopilot.ReadConfig.Response(result: result)
+      presenter?.presentReadConfig(response: response)
+    }
+  }
   
-  // MARK: Do something
-  
-  func doSomething(request: Autopilot.Something.Request)
-  {
-    worker = AutopilotWorker()
-    worker?.doSomeWork()
-    
-    let response = Autopilot.Something.Response()
-    presenter?.presentSomething(response: response)
+  func writeConfig(request: Autopilot.WriteConfig.Request) {
   }
 }
