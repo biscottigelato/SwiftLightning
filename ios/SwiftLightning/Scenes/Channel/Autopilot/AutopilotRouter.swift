@@ -14,6 +14,7 @@ import UIKit
 
 @objc protocol AutopilotRoutingLogic {
   func routeToWalletMain()
+  func routeToRootLocked()
 }
 
 protocol AutopilotDataPassing {
@@ -33,6 +34,14 @@ class AutopilotRouter: NSObject, AutopilotRoutingLogic, AutopilotDataPassing {
     navigateToWalletMain(source: viewController!)
   }
 
+  func routeToRootLocked() {
+    let destinationVC = AppDelegate.rootViewController!
+    var destinationDS = destinationVC.router!.dataStore!
+    passDataToRootLocked(source: dataStore!, destination: &destinationDS)
+    navigateToRoot(source: viewController!)
+  }
+  
+  
   // MARK: Navigation
   
   func navigateToWalletMain(source: AutopilotViewController) {
@@ -43,7 +52,19 @@ class AutopilotRouter: NSObject, AutopilotRoutingLogic, AutopilotDataPassing {
     navigationController.popViewController(animated: true)
   }
   
+  func navigateToRoot(source: AutopilotViewController) {
+    // Pop to Root and then start again
+    AppDelegate.rootViewController?.dismiss(animated: false) {
+      AppDelegate.rootViewController?.checkWalletUnlocked()
+    }
+  }
+  
+  
   // MARK: Passing data
   
   func passDataToWalletMain(source: AutopilotDataStore, destination: inout WalletMainDataStore) { }
+  
+  func passDataToRootLocked(source: AutopilotDataStore, destination: inout RootDataStore) {
+    destination.walletUnlocked = false
+  }
 }

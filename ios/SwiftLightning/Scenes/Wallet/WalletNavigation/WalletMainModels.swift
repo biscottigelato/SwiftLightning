@@ -14,6 +14,18 @@ import UIKit
 
 enum WalletMain {
   
+  // MARK: Check Autopilot
+  enum CheckAutopilot {
+    struct Request { }
+    struct Response {
+      var result: Result<Bool>
+    }
+    struct ViewModel {
+      var engaged: Bool
+    }
+  }
+  
+  
   // MARK: Update Balances
   enum UpdateBalances {
     struct Request { }
@@ -24,10 +36,6 @@ enum WalletMain {
     struct ViewModel {
       var totalBalanceString: String
       var channelBalanceString: String
-    }
-    struct ErrorVM {
-      var errTitle: String
-      var errMsg: String
     }
   }
   
@@ -58,10 +66,6 @@ enum WalletMain {
     struct ViewModel {
       var transactions: [Transaction]
     }
-    struct ErrorVM {
-      var errTitle: String
-      var errMsg: String
-    }
   }
   
   
@@ -76,9 +80,10 @@ enum WalletMain {
     struct ViewModel {
       var channels: [ChannelVM]
     }
-    struct ErrorVM {
-      var errTitle: String
-      var errMsg: String
-    }
+  }
+  
+  struct ErrorVM {
+    var errTitle: String
+    var errMsg: String
   }
 }

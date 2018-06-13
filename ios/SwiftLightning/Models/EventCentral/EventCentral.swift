@@ -35,7 +35,7 @@ class EventCentral {
   
   typealias Handle = Int
   
-  private let idLock = DispatchSemaphore(value: 1)
+  private var idLock = DispatchSemaphore(value: 1)
   private var identifier = 0
   
   private func getAtomicID() -> Int {
@@ -103,6 +103,26 @@ class EventCentral {
       }
     }
   }
+  
+  
+  func stop() {
+    // Suspend all timers
+    syncTimer.suspend()
+    periodicTimer.suspend()
+    
+    // Clear variables
+    idLock = DispatchSemaphore(value: 1)
+    identifier = 0
+    bootstrapped = false
+    relayerStarted = false
+    openEventURL = nil
+    
+    // Unsubscribe all handles
+    syncUpdateCallbacks.removeAll()
+    listeners.removeAll()
+  }
+  
+  
   
   private func syncTimerHandler() {
     LNServices.getInfo(retryCount: 0, retryDelay: 1.0) { (infoResponse) in

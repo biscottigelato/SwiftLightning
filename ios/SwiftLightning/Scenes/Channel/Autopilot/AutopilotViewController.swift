@@ -16,6 +16,8 @@ import SwiftRangeSlider
 protocol AutopilotDisplayLogic: class {
   func displayConfig(viewModel: Autopilot.ReadConfig.ViewModel)
   func displayError(viewModel: Autopilot.ErrorVM)
+  func restartToApplyConfig()
+  func restartApp()
 }
 
 
@@ -97,7 +99,7 @@ class AutopilotViewController: SLViewController, AutopilotDisplayLogic {
                                         action: #selector(updateSliderValue(sender:forEvent:)),
                                         for: .valueChanged)
     
-    fundPercentageView.titleLabel.text = "Funds for autopilot channels:  "
+    fundPercentageView.titleLabel.text = "Fund allocation for autopilot:  "
     fundPercentageView.minMarkLabel.text = minFundMarkString
     fundPercentageView.secondMarkLabel.text = ""
     fundPercentageView.thirdMarkLabel.text = midFundMarkString
@@ -110,7 +112,7 @@ class AutopilotViewController: SLViewController, AutopilotDisplayLogic {
                                             action: #selector(updateRangeSliderValue(sender:forEvent:)),
                                             for: .valueChanged)
     
-    channelMaxMinView.titleLabel.text = "Channel value range:  "
+    channelMaxMinView.titleLabel.text = "Per channel limit:  "
     channelMaxMinView.minMarkLabel.text = Autopilot.Constants.minChannelSize.formattedInSatoshis()
     channelMaxMinView.secondMarkLabel.text = ""
     channelMaxMinView.thirdMarkLabel.text = ""
@@ -140,6 +142,11 @@ class AutopilotViewController: SLViewController, AutopilotDisplayLogic {
     disengageButton.selectedColor = UIColor.sandyOrange
     disengageButton.selectedShadowColor = UIColor.sandyOrangeShadow
     disengageButton.selectedTextColor = UIColor.normalText
+  }
+  
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     
     // Get the current Autopilot Configuration from LND for display purposes
     let request = Autopilot.ReadConfig.Request()
@@ -194,44 +201,53 @@ class AutopilotViewController: SLViewController, AutopilotDisplayLogic {
   
   @IBOutlet weak var disengageButton: SLSelectButton!
   
+  private var autopilotActive: Bool = false
+  
   @IBAction func engageTapped(_ sender: SLSelectButton) {
     engageButton.selectedAppearance()
     disengageButton.deselectedAppearance()
+    autopilotActive = true
   }
   
   @IBAction func disengageTapped(_ sender: SLSelectButton) {
     engageButton.deselectedAppearance()
     disengageButton.selectedAppearance()
+    autopilotActive = false
   }
   
   
   // MARK: Read & Display Config
   
   func displayConfig(viewModel: Autopilot.ReadConfig.ViewModel) {
-    let fundRange = Float(Autopilot.Constants.maxFundAlloc - Autopilot.Constants.minFundAlloc)
-    let fundPercentageValue = Float(viewModel.fundAlloc - Autopilot.Constants.minFundAlloc) / fundRange
-    fundPercentageView.slider.setValue(fundPercentageValue, animated: true)
-    fundPercentageView.valueLabel.text = percentFormatter.string(from: NSNumber(value: viewModel.fundAlloc))
+    DispatchQueue.main.async {
+      let fundRange = Float(Autopilot.Constants.maxFundAlloc - Autopilot.Constants.minFundAlloc)
+      let fundPercentageValue = Float(viewModel.fundAlloc - Autopilot.Constants.minFundAlloc) / fundRange
+      self.fundPercentageView.slider.setValue(fundPercentageValue, animated: true)
+      self.fundPercentageView.valueLabel.text = self.percentFormatter.string(from: NSNumber(value: viewModel.fundAlloc))
 
-    let chValueRange = Double(Autopilot.Constants.maxChannelSize.integerInSatoshis -
-      Autopilot.Constants.minChannelSize.integerInSatoshis)
-    let minChValue = Double(viewModel.minChanSize.integerInSatoshis - Autopilot.Constants.minChannelSize.integerInSatoshis) / chValueRange
-    let maxChValue = Double(viewModel.maxChanSize.integerInSatoshis - Autopilot.Constants.minChannelSize.integerInSatoshis) / chValueRange
-    channelMaxMinView.rangeSlider.lowerValue = minChValue
-    channelMaxMinView.rangeSlider.upperValue = maxChValue
-    channelMaxMinView.valueLabel.text = "\(viewModel.minChanSize.formattedInSatoshis()) - \(viewModel.maxChanSize.formattedInSatoshis()) sats"
-    
-    let channelsRange = Float(Autopilot.Constants.maxNumChannels - Autopilot.Constants.minNumChannels)
-    let numChannelsValue = Float(viewModel.maxChanNum - Autopilot.Constants.minNumChannels) / channelsRange
-    maxChannelsView.slider.setValue(numChannelsValue, animated: true)
-    maxChannelsView.valueLabel.text = "\(viewModel.maxChanNum)"
-    
-    if viewModel.active {
-      engageButton.selectedAppearance()
-      disengageButton.deselectedAppearance()
-    } else {
-      engageButton.deselectedAppearance()
-      disengageButton.selectedAppearance()
+      let chValueRange = Double(Autopilot.Constants.maxChannelSize.integerInSatoshis -
+        Autopilot.Constants.minChannelSize.integerInSatoshis)
+      let minChValue = Double(viewModel.minChanSize.integerInSatoshis - Autopilot.Constants.minChannelSize.integerInSatoshis) / chValueRange
+      let maxChValue = Double(viewModel.maxChanSize.integerInSatoshis - Autopilot.Constants.minChannelSize.integerInSatoshis) / chValueRange
+      self.channelMaxMinView.rangeSlider.lowerValue = minChValue
+      self.channelMaxMinView.rangeSlider.upperValue = maxChValue
+      self.channelMaxMinView.valueLabel.text = "\(viewModel.minChanSize.formattedInSatoshis()) - \(viewModel.maxChanSize.formattedInSatoshis()) sats"
+      
+      let channelsRange = Float(Autopilot.Constants.maxNumChannels - Autopilot.Constants.minNumChannels)
+      let numChannelsValue = Float(viewModel.maxChanNum - Autopilot.Constants.minNumChannels) / channelsRange
+      self.maxChannelsView.slider.setValue(numChannelsValue, animated: true)
+      self.maxChannelsView.valueLabel.text = "\(viewModel.maxChanNum)"
+      
+      self.autopilotActive = viewModel.active
+      if self.autopilotActive {
+        self.engageButton.setTitle("Autopilot Engaged", for: .normal)
+        self.engageButton.selectedAppearance()
+        self.disengageButton.deselectedAppearance()
+      } else {
+        self.disengageButton.setTitle("Autopilot Disengaged", for: .normal)
+        self.engageButton.deselectedAppearance()
+        self.disengageButton.selectedAppearance()
+      }
     }
   }
   
@@ -240,15 +256,54 @@ class AutopilotViewController: SLViewController, AutopilotDisplayLogic {
   
   @IBOutlet weak var restartButton: SLBarButton!
   
+  private let activityIndicator = SLSpinnerDialogView()
+  
   @IBAction func restartTapped(_ sender: SLBarButton) {
+    SLLog.info("Applying Autopilot Configuration")
+    
+    activityIndicator.show(on: view)
+    
+    let request = Autopilot.WriteConfig.Request(active: autopilotActive,
+                                                fundAlloc: convertToAlloc(from: fundPercentageView.slider.value),
+                                                minChanSize: convertToChValue(from: channelMaxMinView.rangeSlider.lowerValue),
+                                                maxChanSize: convertToChValue(from: channelMaxMinView.rangeSlider.upperValue),
+                                                maxChanNum: convertToNumChs(from: maxChannelsView.slider.value))
+    interactor?.writeConfig(request: request)
   }
   
+  
+  
+  func restartToApplyConfig() {
+    SLLog.info("Autopilot Configuration Applied")
+    
+    let request = Autopilot.RestartDaemon.Request()
+    self.interactor?.restartDaemon(request: request)
+  }
+  
+  func restartApp() {
+    DispatchQueue.main.async {
+      self.activityIndicator.remove()
+      
+      let alertDialog = UIAlertController(title: "Autopilot",
+                                          message: "Please restart the app to apply new Autopilot settings", preferredStyle: .alert).addAction(title: "OK", style: .default) { _ in
+        fatalError("Killing app to force User to restart")
+      }
+      
+      self.present(alertDialog, animated: true)
+      
+      // TODO: LND currently have trouble really cleanly kill all Daemon servers. BTCN, CRTR continues to be active after stopDaemon. Wallet Unlocker is also not responsive.
+//      self.router?.routeToRootLocked()
+    }
+  }
   
   
   // MARK: Error Display
   
   func displayError(viewModel: Autopilot.ErrorVM) {
-    
+    let alertDialog = UIAlertController(title: viewModel.errTitle, message: viewModel.errMsg, preferredStyle: .alert).addAction(title: "OK", style: .default)
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true, completion: nil)
+    }
   }
   
   

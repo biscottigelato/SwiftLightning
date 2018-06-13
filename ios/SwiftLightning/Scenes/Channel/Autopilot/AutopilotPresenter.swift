@@ -15,13 +15,13 @@ import UIKit
 protocol AutopilotPresentationLogic {
   func presentReadConfig(response: Autopilot.ReadConfig.Response)
   func presentWriteConfig(response: Autopilot.WriteConfig.Response)
+  func presentRestartDaemon(response: Autopilot.RestartDaemon.Response)
 }
 
 class AutopilotPresenter: AutopilotPresentationLogic {
   weak var viewController: AutopilotDisplayLogic?
   
   func presentReadConfig(response: Autopilot.ReadConfig.Response) {
-    
     switch response.result {
     case .success(let config):
       let viewModel = Autopilot.ReadConfig.ViewModel(active: config.active,
@@ -39,5 +39,27 @@ class AutopilotPresenter: AutopilotPresentationLogic {
   }
   
   func presentWriteConfig(response: Autopilot.WriteConfig.Response) {
+    switch response.result {
+    case .success:
+      viewController?.restartToApplyConfig()
+      
+    case .failure(let error):
+      let errorVM = Autopilot.ErrorVM(errTitle: "Cannot Write Config",
+                                      errMsg: error.localizedDescription)
+      viewController?.displayError(viewModel: errorVM)
+    }
+  }
+  
+  func presentRestartDaemon(response: Autopilot.RestartDaemon.Response) {
+    switch response.result {
+    case .success:
+      viewController?.restartApp()
+      
+    case .failure(let error):
+      let errorVM = Autopilot.ErrorVM(errTitle: "Cannot Restart Daemon",
+                                      errMsg: error.localizedDescription)
+      viewController?.displayError(viewModel: errorVM)
+      viewController?.restartApp()
+    }
   }
 }

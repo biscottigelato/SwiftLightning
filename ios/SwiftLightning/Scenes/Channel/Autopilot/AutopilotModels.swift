@@ -21,6 +21,7 @@ enum Autopilot {
     static let maxChannelSize = LNConstants.maxAutoChannelSize
     static let minNumChannels = 0
     static let maxNumChannels = LNConstants.maxAutoChannels
+    static let daemonRestartWait: UInt32 = 5  // seconds
   }
   
   enum ReadConfig {
@@ -45,6 +46,13 @@ enum Autopilot {
       var maxChanSize: Bitcoin
       var maxChanNum: Int
     }
+    struct Response {
+      var result: Result<Void>
+    }
+  }
+  
+  enum RestartDaemon {
+    struct Request { }
     struct Response {
       var result: Result<Void>
     }

@@ -43,7 +43,7 @@
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ovd-PV-s1N">
                                                 <rect key="frame" x="15" y="0.0" width="290" height="72.5"/>
-                                                <string key="text">Autopilot automatically open channels with suitable lightining nodes. You can fine-tune Autopilot behavior with the following options. Any changes to Autopilot settings requires an app restart.</string>
+                                                <string key="text">Autopilot automatically open channels with suitable lightining nodes. You can fine-tune Autopilot behavior with the following options. An app restart is required to apply any Autopilot changes.</string>
                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                                                 <color key="textColor" name="NormalText"/>
                                                 <nil key="highlightedColor"/>
@@ -170,14 +170,14 @@
                                         <rect key="frame" x="0.0" y="480" width="320" height="42"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="8ZK-sd-GXi" userLabel="Spacer">
-                                                <rect key="frame" x="0.0" y="0.0" width="116" height="42"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="139" height="42"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NJu-d5-ulQ" customClass="SLBarButton" customModule="SwiftLightning" customModuleProvider="target">
-                                                <rect key="frame" x="116" y="0.0" width="88" height="42"/>
+                                                <rect key="frame" x="139" y="0.0" width="42" height="42"/>
                                                 <color key="backgroundColor" name="LightAzureBlue"/>
                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
-                                                <state key="normal" title="Restart App">
+                                                <state key="normal" title="Apply">
                                                     <color key="titleColor" name="NormalText"/>
                                                     <color key="titleShadowColor" name="LightAzureBlueShadow"/>
                                                 </state>
@@ -191,7 +191,7 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="10" verticalHuggingPriority="10" horizontalCompressionResistancePriority="10" verticalCompressionResistancePriority="10" translatesAutoresizingMaskIntoConstraints="NO" id="18U-Fq-zBQ" userLabel="Spacer">
-                                                <rect key="frame" x="204" y="0.0" width="116" height="42"/>
+                                                <rect key="frame" x="181" y="0.0" width="139" height="42"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
@@ -259,9 +259,6 @@
         </namedColor>
         <namedColor name="LightAzureBlueShadow">
             <color red="0.2627450980392157" green="0.3843137254901961" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="NormalText">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="NormalText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

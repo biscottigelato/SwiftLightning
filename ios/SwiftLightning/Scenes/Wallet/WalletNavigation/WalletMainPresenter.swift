@@ -13,6 +13,7 @@
 import UIKit
 
 protocol WalletMainPresentationLogic {
+  func presentCheckAutopilot(response: WalletMain.CheckAutopilot.Response)
   func presentUpdatedBalances(response: WalletMain.UpdateBalances.Response)
   func presentUpdatedChannels(response: WalletMain.UpdateChannels.Response)
   func presentUpdatedTransactions(response: WalletMain.UpdateTransactions.Response)
@@ -27,12 +28,26 @@ class WalletMainPresenter: WalletMainPresentationLogic {
   private var channelCloseTxIDs = Set<String>()
   
   
+  // MARK: Check Autopilot
+  
+  func presentCheckAutopilot(response: WalletMain.CheckAutopilot.Response) {
+    switch response.result {
+    case .success(let engaged):
+      let viewModel = WalletMain.CheckAutopilot.ViewModel(engaged: engaged)
+      viewController?.displayAutopilot(viewModel: viewModel)
+    case .failure(let error):
+      let errorVM = WalletMain.ErrorVM(errTitle: "Autopilot Status", errMsg: error.localizedDescription)
+      viewController?.displayError(viewModel: errorVM)
+    }
+  }
+  
+  
   // MARK: Update Balances
   
   func presentUpdatedBalances(response: WalletMain.UpdateBalances.Response) {
     guard let onChainBalance = response.onChainBalance, let channelBalance = response.channelBalance else {
-      let viewModel = WalletMain.UpdateBalances.ErrorVM(errTitle: "Balance Error",
-                                                        errMsg: "Cannot get Wallet and Channel Balance. Consider restarting the app to recover")
+      let viewModel = WalletMain.ErrorVM(errTitle: "Balance Error",
+                                         errMsg: "Cannot get Wallet and Channel Balance. Consider restarting the app to recover")
       viewController?.displayBalancesError(viewModel: viewModel)
       return
     }
@@ -172,8 +187,8 @@ class WalletMainPresenter: WalletMainPresentationLogic {
       viewController?.updateTransactions(viewModel: viewModel)
       
     case .failure(let error):
-      let viewModel = WalletMain.UpdateTransactions.ErrorVM(errTitle: "Transactions Error",
-                                                            errMsg: error.localizedDescription)
+      let viewModel = WalletMain.ErrorVM(errTitle: "Transactions Error",
+                                         errMsg: error.localizedDescription)
       viewController?.displayTransactionsError(viewModel: viewModel)
     }
   }
@@ -223,8 +238,8 @@ class WalletMainPresenter: WalletMainPresentationLogic {
       viewController?.updateChannels(viewModel: viewModel)
       
     case .failure(let error):
-      let viewModel = WalletMain.UpdateChannels.ErrorVM(errTitle: "Channels Error",
-                                                        errMsg: error.localizedDescription)
+      let viewModel = WalletMain.ErrorVM(errTitle: "Channels Error",
+                                         errMsg: error.localizedDescription)
       viewController?.displayChannelsError(viewModel: viewModel)
     }
   }

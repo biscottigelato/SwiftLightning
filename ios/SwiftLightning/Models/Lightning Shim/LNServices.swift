@@ -10,17 +10,6 @@ import Foundation
 import Lndmobile
 
 
-class LNDMobileStartCallback: NSObject, LndmobileCallbackProtocol {
-  func onError(_ p0: Error!) {
-    SLLog.verbose("LND Start called back with Error \(p0.localizedDescription)")
-  }
-  
-  func onResponse(_ p0: Data!) {
-    SLLog.verbose("LND Start called back with Data")
-  }
-}
-
-
 class LNServices {
   
   // MARK: Initialization
@@ -123,13 +112,44 @@ class LNServices {
     signal(SIGPIPE, SIG_IGN)
     
     // Start LND
-    LndmobileStart(directoryPath, LNDMobileStartCallback())
+    lndStart() { _ in }
     
     // For some reason GRPC Core have a very limited Cipher Suite set for SSL connections. This sets the environmental variable so
     // GRPC Core will expand the Cipher Suite set
     setenv("GRPC_SSL_CIPHER_SUITES", "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384", 1)
   }
 
+  
+  // MARK: LND Start
+  
+  private class LndStart: NSObject, LndmobileCallbackProtocol {
+    private var completion: (() throws -> ()) -> Void
+    init(_ completion: @escaping (() throws -> ()) -> Void) {
+      self.completion = completion
+    }
+    
+    func onResponse(_ p0: Data!) {
+      SLLog.debug("LND Start Success!")
+      completion({ return })
+    }
+    
+    func onError(_ p0: Error!) {
+      SLLog.warning("LND Start Failed - \(p0?.localizedDescription ?? "")")
+      completion({ throw p0 })
+    }
+  }
+  
+  static func lndStart(completion: @escaping (() throws -> ()) -> Void) {
+    // Obtain the path to Application Support
+    guard let appSupportPath = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.path else {
+      SLLog.fatal("Cannot get Application Support Folder URL")
+    }
+    directoryPath = appSupportPath + "/lnd"
+    
+    SLLog.debug("LND Start Request")
+    LndmobileStart(directoryPath, LndStart(completion))
+  }
+  
   
   // MARK: Generate Seed
   

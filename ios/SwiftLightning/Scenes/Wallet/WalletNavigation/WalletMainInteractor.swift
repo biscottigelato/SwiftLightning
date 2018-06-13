@@ -13,6 +13,7 @@
 import UIKit
 
 protocol WalletMainBusinessLogic {
+  func checkAutopilot(request: WalletMain.CheckAutopilot.Request)
   func updateBalances(request: WalletMain.UpdateBalances.Request)
   func updateChannels(request: WalletMain.UpdateChannels.Request)
   func updateTransactions(request: WalletMain.UpdateTransactions.Request)
@@ -25,6 +26,23 @@ protocol WalletMainDataStore {
 
 class WalletMainInteractor: WalletMainBusinessLogic, WalletMainDataStore {
   var presenter: WalletMainPresentationLogic?
+  
+  
+  // MARK: Check Autopilot
+  
+  func checkAutopilot(request: WalletMain.CheckAutopilot.Request) {
+    do {
+      let config = try LNManager.getAutopilotSettings()
+      let result = Result<Bool>.success(config.active)
+      let response = WalletMain.CheckAutopilot.Response(result: result)
+      presenter?.presentCheckAutopilot(response: response)
+    } catch {
+      let result = Result<Bool>.failure(error)
+      let response = WalletMain.CheckAutopilot.Response(result: result)
+      presenter?.presentCheckAutopilot(response: response)
+    }
+  }
+  
   
   // MARK: Update Balances
   

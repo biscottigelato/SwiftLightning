@@ -20,6 +20,7 @@ protocol RootBusinessLogic
 
 protocol RootDataStore
 {
+  var walletUnlocked: Bool { get set }
 }
 
 class RootInteractor: RootBusinessLogic, RootDataStore
@@ -27,7 +28,7 @@ class RootInteractor: RootBusinessLogic, RootDataStore
   var presenter: RootPresentationLogic?
   var worker = RootWorker()
   
-  private var walletUnlocked = false
+  var walletUnlocked = false
   
   func checkWalletUnlocked(request: Root.WalletPresenceRouting.Request) {
     guard worker.checkWalletPresenceViaFile() else {

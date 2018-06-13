@@ -387,7 +387,7 @@ class LNManager {
         }
       }
       
-      else if let range = newLine.range(of:"autopilot.minchanssize=") {
+      else if let range = newLine.range(of:"autopilot.minchansize=") {
         var readLine = newLine
         readLine.removeSubrange(newLine.startIndex..<range.upperBound)
         let autopilotMinChanSizeRaw = readLine.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -396,11 +396,11 @@ class LNManager {
         }
         
         if let config = autopilotConfig {
-          newLine = "autopilot.minchanssize=\(config.minChannelValue)"
+          newLine = "autopilot.minchansize=\(config.minChannelValue)"
         }
       }
       
-      else if let range = newLine.range(of:"autopilot.maxchanssize=") {
+      else if let range = newLine.range(of:"autopilot.maxchansize=") {
         var readLine = newLine
         readLine.removeSubrange(newLine.startIndex..<range.upperBound)
         let autopilotMaxChanSizeRaw = readLine.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -409,7 +409,7 @@ class LNManager {
         }
         
         if let config = autopilotConfig {
-          newLine = "autopilot.maxchanssize=\(config.maxChannelValue)"
+          newLine = "autopilot.maxchansize=\(config.maxChannelValue)"
         }
       }
       

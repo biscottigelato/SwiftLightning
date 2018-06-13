@@ -14,14 +14,17 @@ import UIKit
 import SafariServices
 
 protocol WalletMainDisplayLogic: class {
+  func displayAutopilot(viewModel: WalletMain.CheckAutopilot.ViewModel)
+  func displayError(viewModel: WalletMain.ErrorVM)
+  
   func displayBalances(viewModel: WalletMain.UpdateBalances.ViewModel)
-  func displayBalancesError(viewModel: WalletMain.UpdateBalances.ErrorVM)
+  func displayBalancesError(viewModel: WalletMain.ErrorVM)
   
   func updateChannels(viewModel: WalletMain.UpdateChannels.ViewModel)
-  func displayChannelsError(viewModel: WalletMain.UpdateChannels.ErrorVM)
+  func displayChannelsError(viewModel: WalletMain.ErrorVM)
   
   func updateTransactions(viewModel: WalletMain.UpdateTransactions.ViewModel)
-  func displayTransactionsError(viewModel: WalletMain.UpdateTransactions.ErrorVM)
+  func displayTransactionsError(viewModel: WalletMain.ErrorVM)
 }
 
 
@@ -80,7 +83,8 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
   
   var updateEventHandle: EventCentral.Handle?
   var syncHandle: EventCentral.Handle?
-    
+  
+  
   // MARK: View lifecycle
   
   override func viewDidLoad() {
@@ -109,6 +113,11 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
     // Show Wallet Sync View by default on first start. But don't show again subsequently
     walletSyncView.isHidden = false
     pagingScrollView.isHidden = true
+    
+    // Get Autopilot Status
+    let request = WalletMain.CheckAutopilot.Request()
+    interactor?.checkAutopilot(request: request)
+    
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -136,10 +145,7 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
           self.channelView.leftButton.shadowColor = UIColor.lightAzureBlueShadow
           self.channelView.leftButton.setTitleColor(UIColor.normalText, for: .normal)
           
-          self.channelView.rightButton.isEnabled = true
-          self.channelView.rightButton.backgroundColor = UIColor.sandyOrange  // Orange if autopilot off, Green if autopilot on
-          self.channelView.rightButton.shadowColor = UIColor.sandyOrangeShadow
-          self.channelView.rightButton.setTitleColor(UIColor.normalText, for: .normal)
+          self.updateAutopilotButton(enabled: true)
         }
       } else {
         DispatchQueue.main.async {
@@ -155,10 +161,7 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
           self.channelView.leftButton.shadowColor = UIColor.disabledGrayShadow
           self.channelView.leftButton.setTitleColor(UIColor.disabledText, for: .normal)
           
-          self.channelView.rightButton.isEnabled = false
-          self.channelView.rightButton.backgroundColor = UIColor.disabledGray
-          self.channelView.rightButton.shadowColor = UIColor.disabledGrayShadow
-          self.channelView.rightButton.setTitleColor(UIColor.disabledText, for: .normal)
+          self.updateAutopilotButton(enabled: false)
           
           // Balance Tap Recognizers should be disabled by the storyboard on start. But leave them enabled if they got enabled once?
         }
@@ -354,7 +357,7 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
     }
   }
   
-  func displayTransactionsError(viewModel: WalletMain.UpdateTransactions.ErrorVM) {
+  func displayTransactionsError(viewModel: WalletMain.ErrorVM) {
     let alertDialog = UIAlertController(title: viewModel.errTitle,
                                         message: viewModel.errMsg,
                                         preferredStyle: .alert).addAction(title: "OK", style: .default, handler: nil)
@@ -435,7 +438,7 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
     }
   }
   
-  func displayChannelsError(viewModel: WalletMain.UpdateChannels.ErrorVM) {
+  func displayChannelsError(viewModel: WalletMain.ErrorVM) {
     let alertDialog = UIAlertController(title: viewModel.errTitle,
                                         message: viewModel.errMsg,
                                         preferredStyle: .alert).addAction(title: "OK", style: .default, handler: nil)
@@ -490,9 +493,54 @@ class WalletMainViewController: SLViewController, WalletMainDisplayLogic, UITabl
     }
   }
   
-  func displayBalancesError(viewModel: WalletMain.UpdateBalances.ErrorVM) {
+  func displayBalancesError(viewModel: WalletMain.ErrorVM) {
     let alertDialog = UIAlertController(title: viewModel.errTitle, message: viewModel.errMsg, preferredStyle: .alert).addAction(title: "OK", style: .default)
     
+    DispatchQueue.main.async {
+      self.present(alertDialog, animated: true, completion: nil)
+    }
+  }
+  
+  
+  // MARK: Update Autopilot
+  
+  private var autopilotEngaged = false
+  
+  private func updateAutopilotButton(enabled: Bool?) {
+    DispatchQueue.main.async {
+      
+      if self.autopilotEngaged {
+        self.channelView.rightButton.backgroundColor = UIColor.medAquamarine
+        self.channelView.rightButton.shadowColor = UIColor.medAquamarineShadow
+        self.channelView.rightButton.setTitle("Autopilot On", for: .normal)
+      } else {
+        self.channelView.rightButton.backgroundColor = UIColor.sandyOrange
+        self.channelView.rightButton.shadowColor = UIColor.sandyOrangeShadow
+        self.channelView.rightButton.setTitle("Autopilot Off", for: .normal)
+      }
+      
+      if let buttoneEnabled = enabled {
+        self.channelView.rightButton.isEnabled = buttoneEnabled
+        
+        if buttoneEnabled {
+          self.channelView.rightButton.setTitleColor(UIColor.normalText, for: .normal)
+        } else {
+          self.channelView.rightButton.backgroundColor = UIColor.disabledGray
+          self.channelView.rightButton.shadowColor = UIColor.disabledGrayShadow
+          self.channelView.rightButton.setTitle("Autopilot", for: .normal)
+          self.channelView.rightButton.setTitleColor(UIColor.disabledText, for: .normal)
+        }
+      }
+    }
+  }
+  
+  func displayAutopilot(viewModel: WalletMain.CheckAutopilot.ViewModel) {
+    autopilotEngaged = viewModel.engaged
+    updateAutopilotButton(enabled: nil)  // Do not change if the button is enabled
+  }
+  
+  func displayError(viewModel: WalletMain.ErrorVM) {
+    let alertDialog = UIAlertController(title: viewModel.errTitle, message: viewModel.errMsg, preferredStyle: .alert).addAction(title: "OK", style: .default)
     DispatchQueue.main.async {
       self.present(alertDialog, animated: true, completion: nil)
     }

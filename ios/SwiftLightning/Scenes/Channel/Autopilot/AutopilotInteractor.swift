@@ -15,6 +15,7 @@ import UIKit
 protocol AutopilotBusinessLogic {
   func readConfig(request: Autopilot.ReadConfig.Request)
   func writeConfig(request: Autopilot.WriteConfig.Request)
+  func restartDaemon(request: Autopilot.RestartDaemon.Request)
 }
 
 protocol AutopilotDataStore {
@@ -40,5 +41,65 @@ class AutopilotInteractor: AutopilotBusinessLogic, AutopilotDataStore
   }
   
   func writeConfig(request: Autopilot.WriteConfig.Request) {
+    let config = LNAutopilotConfig(active: request.active,
+                                   fundAllocation: request.fundAlloc,
+                                   minChannelValue: request.minChanSize.integerInSatoshis,
+                                   maxChannelValue: request.maxChanSize.integerInSatoshis,
+                                   maxNumChannels: request.maxChanNum)
+    
+    do {
+      _ = try LNManager.getAutopilotSettings(andChangeTo: config)
+      
+      let result = Result<Void>.success(())
+      let response = Autopilot.WriteConfig.Response(result: result)
+      presenter?.presentWriteConfig(response: response)
+      
+    } catch {
+      let result = Result<Void>.failure(error)
+      let response = Autopilot.WriteConfig.Response(result: result)
+      presenter?.presentWriteConfig(response: response)
+    }
+  }
+  
+  func restartDaemon(request: Autopilot.RestartDaemon.Request) {
+    
+    // Stop Event Central first
+    EventCentral.shared.stop()
+    
+    // Shutdown LN Daemon
+    LNServices.stopDaemon() { (response) in
+      do {
+        _ = try response()
+        
+        // Pause 5 seconds to wait for Daemon to cleanly stop
+        sleep(Autopilot.Constants.daemonRestartWait)
+        
+        let result = Result<Void>.success(())
+        let response = Autopilot.RestartDaemon.Response(result: result)
+        self.presenter?.presentRestartDaemon(response: response)
+        
+        // TODO: LND currently have trouble really cleanly kill all Daemon servers. BTCN, CRTR continues to be active after stopDaemon. Wallet Unlocker is also not responsive.
+        // Try to restart the Daemon
+//        LNServices.lndStart() { (response) in
+//          do {
+//            _ = try response()
+//
+//            let result = Result<Void>.success(())
+//            let response = Autopilot.RestartDaemon.Response(result: result)
+//            self.presenter?.presentRestartDaemon(response: response)
+//
+//          } catch {
+//            let result = Result<Void>.failure(error)
+//            let response = Autopilot.RestartDaemon.Response(result: result)
+//            self.presenter?.presentRestartDaemon(response: response)
+//          }
+//        }
+        
+      } catch {
+        let result = Result<Void>.failure(error)
+        let response = Autopilot.RestartDaemon.Response(result: result)
+        self.presenter?.presentRestartDaemon(response: response)
+      }
+    }
   }
 }
