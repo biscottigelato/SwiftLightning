@@ -285,9 +285,12 @@ class AutopilotViewController: SLViewController, AutopilotDisplayLogic {
       self.activityIndicator.remove()
       
       let alertDialog = UIAlertController(title: "Autopilot",
-                                          message: "Please restart the app to apply new Autopilot settings", preferredStyle: .alert).addAction(title: "OK", style: .default) { _ in
-        fatalError("Killing app to force User to restart")
-      }
+                                          message: "Please force close and restart the app to apply new Autopilot settings", preferredStyle: .alert)
+      
+      // Optional: Kill app to force user to restart
+//        .addAction(title: "OK", style: .default) { _ in
+//        fatalError("Killing app to force User to restart")
+//      }
       
       self.present(alertDialog, animated: true)
       

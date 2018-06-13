@@ -10,30 +10,46 @@ import Foundation
 
 
 struct XBT: Currency {
-  static let code = "XBT"
-  static let symbol = "₿"
-  static let baseUnit = "BTC"
+  static let code = ""  // For msat...
+  static let symbol = ""
+  static let baseUnit = ""
 }
 
 
 class Bitcoin: Money<XBT> {
   
   struct Constants {
-    static let magnitudeOfSatoshi = -8
-    static let magnitudeOfBit = -6
+    static let magnitudeOfBtcToMsat: Double = 11.0
+    static let magnitudeOfBitToMsat: Double = 5.0
+    static let magnitudeOfSatToMsat: Double = 3.0
   }
   
   
   // MARK: Number Formatters
   
-  override class var formatter: NumberFormatter {
+  override class var formatter: NumberFormatter {  // denominate BTC in msat
     let _formatter = super.formatter
-    _formatter.minimumFractionDigits = 0
-    _formatter.maximumFractionDigits = 10
-    _formatter.maximumIntegerDigits = 6  // 1 million bitcoins?
+    _formatter.numberStyle = .decimal
     
-    _formatter.usesSignificantDigits = true
-    _formatter.maximumSignificantDigits = 12
+    _formatter.minimumFractionDigits = 0
+    _formatter.maximumFractionDigits = 0
+    _formatter.maximumIntegerDigits = 17  // 1 million bitcoins?
+    
+    return _formatter
+  }
+  
+  class var btcFormatter: NumberFormatter {
+    let _formatter = self.formatter
+    _formatter.currencySymbol = "₿"
+    _formatter.currencyCode = "XBT"
+    _formatter.numberStyle = .currency
+    
+    _formatter.multiplier = pow(10.0, -Constants.magnitudeOfBtcToMsat) as NSNumber
+    
+    _formatter.minimumFractionDigits = 0
+    _formatter.maximumFractionDigits = 11
+    _formatter.maximumIntegerDigits = 6  // 1 million bitcoins
+    
     return _formatter
   }
   
@@ -41,11 +57,12 @@ class Bitcoin: Money<XBT> {
     let _formatter = self.formatter
     _formatter.currencySymbol = "ƀ"
     _formatter.currencyCode = "bits"
+    _formatter.numberStyle = .currency
 
-    _formatter.multiplier = pow(Decimal(10), 6) as NSNumber
+    _formatter.multiplier = pow(10.0, -Constants.magnitudeOfBitToMsat) as NSNumber
     
     _formatter.minimumFractionDigits = 0
-    _formatter.maximumFractionDigits = 4
+    _formatter.maximumFractionDigits = 5
     _formatter.maximumIntegerDigits = 12  // 1 million bitcoins?
     
     return _formatter
@@ -57,17 +74,17 @@ class Bitcoin: Money<XBT> {
 //    _formatter.currencyCode = "sats"
     _formatter.numberStyle = .decimal  // Change to decimal since no currency symbol anyways
     
-    _formatter.multiplier = pow(Decimal(10), 8) as NSNumber
+    _formatter.multiplier = pow(10.0, -Constants.magnitudeOfSatToMsat) as NSNumber
     
     _formatter.minimumFractionDigits = 0
-    _formatter.maximumFractionDigits = 2
+    _formatter.maximumFractionDigits = 3
     _formatter.maximumIntegerDigits = 14  // 1 million bitcoins?
     
     return _formatter
   }
   
   class var limitedFormatter: NumberFormatter {
-    let _formatter = self.formatter
+    let _formatter = Bitcoin.btcFormatter
 
     _formatter.usesSignificantDigits = true
     _formatter.maximumSignificantDigits = 5
@@ -78,11 +95,15 @@ class Bitcoin: Money<XBT> {
   // MARK: Convert to fundamental types
   
   var integerInSatoshis: Int {
-    return Int(truncating: (amount as NSDecimalNumber).multiplying(byPowerOf10: -Int16(Constants.magnitudeOfSatoshi)))
+    return Int(truncating: (amount as NSDecimalNumber).multiplying(byPowerOf10: Int16(-Constants.magnitudeOfSatToMsat)))
   }
   
   var integerInBits: Int {
-    return Int(truncating: (amount as NSDecimalNumber).multiplying(byPowerOf10: -Int16(Constants.magnitudeOfBit)))
+    return Int(truncating: (amount as NSDecimalNumber).multiplying(byPowerOf10: Int16(-Constants.magnitudeOfBitToMsat)))
+  }
+  
+  var integerInBtc: Int {
+    return Int(truncating: (amount as NSDecimalNumber).multiplying(byPowerOf10: Int16(-Constants.magnitudeOfBtcToMsat)))
   }
   
   
@@ -93,7 +114,7 @@ class Bitcoin: Money<XBT> {
   }
   
   convenience init(inSatoshi integer: IntegerLiteralType) {
-    self.init(integerLiteral: integer, magnitudeFromBaseUnit: Constants.magnitudeOfSatoshi)
+    self.init(integerLiteral: integer, magnitudeFromBaseUnit: Int(Constants.magnitudeOfSatToMsat))
   }
   
   convenience init?(inSatoshi string: String) {
@@ -101,11 +122,19 @@ class Bitcoin: Money<XBT> {
   }
   
   convenience init(inBits integer: IntegerLiteralType) {
-    self.init(integerLiteral: integer, magnitudeFromBaseUnit: Constants.magnitudeOfBit)
+    self.init(integerLiteral: integer, magnitudeFromBaseUnit: Int(Constants.magnitudeOfBitToMsat))
   }
   
   convenience init?(inBits string: String) {
     self.init(string, formatter: Bitcoin.bitFormatter)
+  }
+  
+  convenience init?(inBtc integer: IntegerLiteralType) {
+    self.init(integerLiteral: integer, magnitudeFromBaseUnit: Int(Constants.magnitudeOfBtcToMsat))
+  }
+  
+  convenience init?(inBtc string: String) {
+    self.init(string, formatter: Bitcoin.btcFormatter)
   }
   
   
@@ -143,6 +172,10 @@ class Bitcoin: Money<XBT> {
   }
   
   func formattedInBits(using formatter: NumberFormatter = Bitcoin.bitFormatter) -> String {
+    return formatter.string(from: amount as NSDecimalNumber)!
+  }
+  
+  func formattedInBtcs(using formatter: NumberFormatter = Bitcoin.btcFormatter) -> String {
     return formatter.string(from: amount as NSDecimalNumber)!
   }
 }

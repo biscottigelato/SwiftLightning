@@ -22,7 +22,7 @@ class Money<C: Currency>: MoneyType {
     _formatter.currencyCode = C.code
     
     _formatter.isLenient = true
-    _formatter.generatesDecimalNumbers = false  // True makes things worse for some reason @@. And that it doesn't actually give a clean NSDecimalNumber when on.
+    _formatter.generatesDecimalNumbers = true
     return _formatter
   }
   
@@ -43,11 +43,12 @@ class Money<C: Currency>: MoneyType {
   }
 
   init?(_ string: String, formatter: NumberFormatter = Money<C>.formatter) {
-    guard let formattedNumber = formatter.number(from: string) else {
+    guard let nsDecimal = formatter.number(from: string) as? NSDecimalNumber,
+      nsDecimal != NSDecimalNumber.notANumber else {
       SLLog.debug("String is not of valid numerical value")
       return nil
     }
-    self.amount = Decimal(formattedNumber.doubleValue)  // HACK: ???? Any better way?
+    self.amount = nsDecimal as Decimal
   }
   
   

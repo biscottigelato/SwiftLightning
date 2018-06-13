@@ -21,7 +21,8 @@ struct LNConstants {
   static let defaultRetryCount: Int = 5
   static let defaultRetryDelay: Double = 1
   static let defaultChannelOpTimeout: TimeInterval = 200  // seconds
-  static let minNodesForLightningOperation: UInt = 100
+  static let nodesThresholdForCfilterCompl: UInt = 30
+  static let minNodesForLightningOperation: UInt = 1000
 }
 
 
