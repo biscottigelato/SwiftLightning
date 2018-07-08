@@ -1,0 +1,6 @@
+framework module SwiftRangeSlider {
+  umbrella header "SwiftRangeSlider-umbrella.h"
+
+  export *
+  module * { export * }
+}
