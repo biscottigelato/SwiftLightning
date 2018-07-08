@@ -1,0 +1,38 @@
+{
+  "name": "SwiftGRPC",
+  "version": "0.3.3",
+  "license": "New BSD",
+  "summary": "Swift gRPC code generator plugin and runtime library",
+  "homepage": "http://www.grpc.io",
+  "authors": {
+    "The gRPC contributors": "grpc-packages@google.com"
+  },
+  "source": {
+    "git": "https://github.com/grpc/grpc-swift.git",
+    "tag": "0.3.3"
+  },
+  "requires_arc": true,
+  "source_files": [
+    "Sources/SwiftGRPC/*.swift",
+    "Sources/SwiftGRPC/**/*.swift",
+    "Sources/CgRPC/shim/*.[ch]"
+  ],
+  "public_header_files": "Sources/CgRPC/shim/cgrpc.h",
+  "dependencies": {
+    "gRPC-Core": [
+      "~> 1.9.1"
+    ],
+    "BoringSSL": [
+      "~> 9.1"
+    ],
+    "SwiftProtobuf": [
+      "~> 1.0.2"
+    ]
+  },
+  "platforms": {
+    "osx": null,
+    "ios": null,
+    "tvos": null,
+    "watchos": null
+  }
+}
