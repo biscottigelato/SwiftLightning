@@ -1,6 +1,0 @@
-framework module Pods_SwiftLightning {
-  umbrella header "Pods-SwiftLightning-umbrella.h"
-
-  export *
-  module * { export * }
-}
