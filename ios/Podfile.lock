@@ -42,6 +42,17 @@ DEPENDENCIES:
   - SwiftProtobuf (~> 1.0)
   - SwiftRangeSlider
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - BoringSSL
+    - CocoaLumberjack
+    - Crashlytics
+    - Fabric
+    - nanopb
+    - SnapKit
+    - SwiftProtobuf
+    - SwiftRangeSlider
+
 EXTERNAL SOURCES:
   gRPC-Core:
     :branch: fix-cocoapods-swift
@@ -71,4 +82,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 83355d08edc4e7137b85bd9394d21e23e749f23f
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3
