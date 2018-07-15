@@ -70,6 +70,7 @@ $ brew install swift-protobuf
 Install Swift GRPC. The following sometimes doesn't work. So follow the instructions on the Swift GRPC Github for the most accurate instructions
 ```
 $ git clone https://www.github.com/grpc/grpc-swift
+$ git checkout tags/0.4.0
 make install
 ```
 
