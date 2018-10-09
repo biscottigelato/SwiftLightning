@@ -278,7 +278,6 @@
 		8C8FE3F520C8F8F500185DD4 /* PersistentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8FE3F420C8F8F300185DD4 /* PersistentData.swift */; };
 		8C8FE3F720CA601900185DD4 /* peers.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C8FE3F620CA601800185DD4 /* peers.json */; };
 		8C8FE3FB20CBAC2400185DD4 /* BootstrapPeers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8FE3FA20CBAC2300185DD4 /* BootstrapPeers.swift */; };
-		8C8FE3FD20CBBC2900185DD4 /* Lndmobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8FE3FC20CBBC2900185DD4 /* Lndmobile.framework */; };
 		8C90C94A209D70ED00D6E7A8 /* ChannelVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */; };
 		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
 		8CB3CF7E20AA773900D1E28D /* PeerAddrTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB3CF7D20AA773900D1E28D /* PeerAddrTableViewCell.swift */; };
@@ -599,7 +598,6 @@
 		8C8FE3F420C8F8F300185DD4 /* PersistentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentData.swift; sourceTree = "<group>"; };
 		8C8FE3F620CA601800185DD4 /* peers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = peers.json; sourceTree = "<group>"; };
 		8C8FE3FA20CBAC2300185DD4 /* BootstrapPeers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BootstrapPeers.swift; sourceTree = "<group>"; };
-		8C8FE3FC20CBBC2900185DD4 /* Lndmobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Lndmobile.framework; sourceTree = "<group>"; };
 		8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVM.swift; sourceTree = "<group>"; };
 		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		8CB3CF7D20AA773900D1E28D /* PeerAddrTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerAddrTableViewCell.swift; sourceTree = "<group>"; };
@@ -633,8 +631,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C8FE3FD20CBBC2900185DD4 /* Lndmobile.framework in Frameworks */,
-				D270B17867F6D7B87E543614 /* Pods_SwiftLightning.framework in Frameworks */,
+				B6B514D5D47CE23C7C8010FE /* Pods_SwiftLightning.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,8 +648,7 @@
 		54857E4EC15F1FF28D39F6FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8C8FE3FC20CBBC2900185DD4 /* Lndmobile.framework */,
-				5276E99B0E61A749748D28F5 /* Pods_SwiftLightning.framework */,
+				099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1709,7 +1705,6 @@
 				8C2FC7012073513600966D31 /* Frameworks */,
 				8C2FC7022073513600966D31 /* Resources */,
 				8C7D3109207575B00068F2BD /* Fabric Run Script */,
-				1DC6D44C79E413580143AAF7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1745,7 +1740,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = BiscottiGelato;
 				TargetAttributes = {
 					8C2FC7032073513600966D31 = {
@@ -1885,22 +1880,30 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftRangeSlider/SwiftRangeSlider.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftGRPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftRangeSlider.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1909,6 +1912,20 @@
 			showEnvVarsInLog = 0;
 		};
 		7CD9EE03B18C7EBAB92DF6C9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fabric Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 1da5cda251ab04004b33cd509f646eea4502ec5f c9b33ad9bb930a99b625e2d5783a8af4cc5dd757c721dd6ff0366da4f03c847e\n";
+		};
+		D139D666AEE5A8757029721C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1925,20 +1942,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		8C7D3109207575B00068F2BD /* Fabric Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Fabric Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 1da5cda251ab04004b33cd509f646eea4502ec5f c9b33ad9bb930a99b625e2d5783a8af4cc5dd757c721dd6ff0366da4f03c847e";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2209,6 +2212,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2271,6 +2275,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2336,6 +2341,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "SwiftLightning/Support Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2360,6 +2366,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "SwiftLightning/Support Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

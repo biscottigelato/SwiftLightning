@@ -49,18 +49,20 @@ class WalletNavigationController: UINavigationController {
           headingView.logo.popAnimate()
           headingView.title.isHidden = true
           
-        } else if synced {
+        }
+        // TODO: Once LND v0.5 fixes getting compact filters, Re-enable display for Getting Filters/Discovering Nodes
+        else if synced {
           if !headingView.logo.isAnimating {
             headingView.logo.pushAnimate()
           }
-          headingView.title.isHidden = false
-          if nodes < LNConstants.nodesThresholdForCfilterCompl {
-            headingView.title.text = "Getting Filters... "  // add 1 space after to center
-          } else {
-            headingView.title.text = "\(nodes) Nodes found  "  // add 2 spaces after to center
-          }
-          
-        } else {
+          headingView.title.isHidden = true // false
+//          if nodes < LNConstants.nodesThresholdForCfilterCompl {
+//            headingView.title.text = "Getting Filters... "  // add 1 space after to center
+//          } else {
+//            headingView.title.text = "\(nodes) Nodes found  "  // add 2 spaces after to center
+//          }
+        }
+        else {
           if !headingView.logo.isAnimating {
             headingView.logo.pushAnimate()
           }

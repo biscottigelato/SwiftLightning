@@ -217,7 +217,7 @@ class PlaygroundViewController: SLViewController {
       let tlsCertURL = URL(fileURLWithPath: LNServices.directoryPath).appendingPathComponent("tls.cert")
       let tlsCert = try! String(contentsOf: tlsCertURL)
       
-      walletUnlockerService = Lnrpc_WalletUnlockerServiceClient(address: "localhost:\(LNServices.rpcListenPort)", certificates: tlsCert, host: nil)
+      //walletUnlockerService = Lnrpc_WalletUnlockerServiceClient(address: "localhost:\(LNServices.rpcListenPort)", certificates: tlsCert, host: nil)
     }
   }
   
@@ -231,8 +231,8 @@ class PlaygroundViewController: SLViewController {
       let macaroonBinary = try! Data(contentsOf: macaroonURL)  // TODO: Error Handling
       let macaroonHexString = macaroonBinary.hexEncodedString()
       
-      lightningService = Lnrpc_LightningServiceClient(address: "localhost:\(LNServices.rpcListenPort)", certificates: tlsCert, host: nil)
-      lightningService!.metadata.add(key: "macaroon", value: macaroonHexString)
+      //lightningService = Lnrpc_LightningServiceClient(address: "localhost:\(LNServices.rpcListenPort)", certificates: tlsCert, host: nil)
+      //lightningService!.metadata.add(key: "macaroon", value: macaroonHexString)
     }
   }
   

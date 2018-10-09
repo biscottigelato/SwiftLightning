@@ -12,8 +12,8 @@ target 'SwiftLightning' do
   pod 'Crashlytics', '~> 3.10'
   pod 'CocoaLumberjack/Swift', '~> 3.4.1', :inhibit_warnings => true
   pod 'SwiftProtobuf', '~> 1.0'
-  pod 'gRPC-Core', :git => 'https://github.com/mrmage/grpc', :branch => 'fix-cocoapods-swift'
-  pod 'SwiftGRPC', :git => 'https://github.com/grpc/grpc-swift', :inhibit_warnings => true
+  pod 'gRPC-ProtoRPC'
+  pod 'SwiftGRPC'
   pod 'SnapKit', '~> 4.0.0'
   pod 'SwiftRangeSlider'
   
