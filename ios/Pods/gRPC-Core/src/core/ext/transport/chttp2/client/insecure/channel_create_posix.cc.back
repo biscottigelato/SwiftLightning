@@ -16,10 +16,11 @@
  *
  */
 
+#include <grpc/support/port_platform.h>
+
 #include <grpc/grpc.h>
 #include <grpc/grpc_posix.h>
 #include <grpc/support/log.h>
-#include <grpc/support/port_platform.h>
 
 #ifdef GPR_SUPPORT_CHANNELS_FROM_FD
 
@@ -28,7 +29,6 @@
 #include "src/core/ext/transport/chttp2/transport/chttp2_transport.h"
 #include "src/core/lib/channel/channel_args.h"
 #include "src/core/lib/iomgr/endpoint.h"
-#include "src/core/lib/iomgr/exec_ctx.h"
 #include "src/core/lib/iomgr/tcp_client_posix.h"
 #include "src/core/lib/iomgr/tcp_posix.h"
 #include "src/core/lib/surface/api_trace.h"

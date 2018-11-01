@@ -16,6 +16,8 @@
  *
  */
 
+#include <grpc/support/port_platform.h>
+
 #include "src/core/ext/filters/client_channel/client_channel_factory.h"
 #include "src/core/lib/channel/channel_args.h"
 
@@ -39,12 +41,14 @@ grpc_channel* grpc_client_channel_factory_create_channel(
 }
 
 static void* factory_arg_copy(void* factory) {
-  grpc_client_channel_factory_ref((grpc_client_channel_factory*)factory);
+  grpc_client_channel_factory_ref(
+      static_cast<grpc_client_channel_factory*>(factory));
   return factory;
 }
 
 static void factory_arg_destroy(void* factory) {
-  grpc_client_channel_factory_unref((grpc_client_channel_factory*)factory);
+  grpc_client_channel_factory_unref(
+      static_cast<grpc_client_channel_factory*>(factory));
 }
 
 static int factory_arg_cmp(void* factory1, void* factory2) {

@@ -19,13 +19,14 @@
 #ifndef GRPC_CORE_LIB_IOMGR_CALL_COMBINER_H
 #define GRPC_CORE_LIB_IOMGR_CALL_COMBINER_H
 
+#include <grpc/support/port_platform.h>
+
 #include <stddef.h>
 
 #include <grpc/support/atm.h>
 
 #include "src/core/lib/gpr/mpscq.h"
 #include "src/core/lib/iomgr/closure.h"
-#include "src/core/lib/iomgr/exec_ctx.h"
 
 // A simple, lock-free mechanism for serializing activity related to a
 // single call.  This is similar to a combiner but is more lightweight.

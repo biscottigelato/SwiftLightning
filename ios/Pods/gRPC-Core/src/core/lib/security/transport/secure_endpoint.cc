@@ -20,6 +20,8 @@
    using that endpoint. Because of various transitive includes in uv.h,
    including windows.h on Windows, uv.h must be included before other system
    headers. Therefore, sockaddr.h must always be included first */
+#include <grpc/support/port_platform.h>
+
 #include "src/core/lib/iomgr/sockaddr.h"
 
 #include <grpc/slice.h>
@@ -131,7 +133,7 @@ static void call_read_cb(secure_endpoint* ep, grpc_error* error) {
     for (i = 0; i < ep->read_buffer->count; i++) {
       char* data = grpc_dump_slice(ep->read_buffer->slices[i],
                                    GPR_DUMP_HEX | GPR_DUMP_ASCII);
-      gpr_log(GPR_DEBUG, "READ %p: %s", ep, data);
+      gpr_log(GPR_INFO, "READ %p: %s", ep, data);
       gpr_free(data);
     }
   }
@@ -144,7 +146,7 @@ static void on_read(void* user_data, grpc_error* error) {
   unsigned i;
   uint8_t keep_looping = 0;
   tsi_result result = TSI_OK;
-  secure_endpoint* ep = (secure_endpoint*)user_data;
+  secure_endpoint* ep = static_cast<secure_endpoint*>(user_data);
   uint8_t* cur = GRPC_SLICE_START_PTR(ep->read_staging_buffer);
   uint8_t* end = GRPC_SLICE_END_PTR(ep->read_staging_buffer);
 
@@ -168,7 +170,7 @@ static void on_read(void* user_data, grpc_error* error) {
       size_t message_size = GRPC_SLICE_LENGTH(encrypted);
 
       while (message_size > 0 || keep_looping) {
-        size_t unprotected_buffer_size_written = (size_t)(end - cur);
+        size_t unprotected_buffer_size_written = static_cast<size_t>(end - cur);
         size_t processed_message_size = message_size;
         gpr_mu_lock(&ep->protector_mu);
         result = tsi_frame_protector_unprotect(
@@ -205,7 +207,8 @@ static void on_read(void* user_data, grpc_error* error) {
           ep->read_buffer,
           grpc_slice_split_head(
               &ep->read_staging_buffer,
-              (size_t)(cur - GRPC_SLICE_START_PTR(ep->read_staging_buffer))));
+              static_cast<size_t>(
+                  cur - GRPC_SLICE_START_PTR(ep->read_staging_buffer))));
     }
   }
 
@@ -226,7 +229,7 @@ static void on_read(void* user_data, grpc_error* error) {
 
 static void endpoint_read(grpc_endpoint* secure_ep, grpc_slice_buffer* slices,
                           grpc_closure* cb) {
-  secure_endpoint* ep = (secure_endpoint*)secure_ep;
+  secure_endpoint* ep = reinterpret_cast<secure_endpoint*>(secure_ep);
   ep->read_cb = cb;
   ep->read_buffer = slices;
   grpc_slice_buffer_reset_and_unref_internal(ep->read_buffer);
@@ -252,11 +255,11 @@ static void flush_write_staging_buffer(secure_endpoint* ep, uint8_t** cur,
 
 static void endpoint_write(grpc_endpoint* secure_ep, grpc_slice_buffer* slices,
                            grpc_closure* cb) {
-  GPR_TIMER_BEGIN("secure_endpoint.endpoint_write", 0);
+  GPR_TIMER_SCOPE("secure_endpoint.endpoint_write", 0);
 
   unsigned i;
   tsi_result result = TSI_OK;
-  secure_endpoint* ep = (secure_endpoint*)secure_ep;
+  secure_endpoint* ep = reinterpret_cast<secure_endpoint*>(secure_ep);
   uint8_t* cur = GRPC_SLICE_START_PTR(ep->write_staging_buffer);
   uint8_t* end = GRPC_SLICE_END_PTR(ep->write_staging_buffer);
 
@@ -266,7 +269,7 @@ static void endpoint_write(grpc_endpoint* secure_ep, grpc_slice_buffer* slices,
     for (i = 0; i < slices->count; i++) {
       char* data =
           grpc_dump_slice(slices->slices[i], GPR_DUMP_HEX | GPR_DUMP_ASCII);
-      gpr_log(GPR_DEBUG, "WRITE %p: %s", ep, data);
+      gpr_log(GPR_INFO, "WRITE %p: %s", ep, data);
       gpr_free(data);
     }
   }
@@ -282,7 +285,7 @@ static void endpoint_write(grpc_endpoint* secure_ep, grpc_slice_buffer* slices,
       uint8_t* message_bytes = GRPC_SLICE_START_PTR(plain);
       size_t message_size = GRPC_SLICE_LENGTH(plain);
       while (message_size > 0) {
-        size_t protected_buffer_size_to_send = (size_t)(end - cur);
+        size_t protected_buffer_size_to_send = static_cast<size_t>(end - cur);
         size_t processed_message_size = message_size;
         gpr_mu_lock(&ep->protector_mu);
         result = tsi_frame_protector_protect(ep->protector, message_bytes,
@@ -307,7 +310,7 @@ static void endpoint_write(grpc_endpoint* secure_ep, grpc_slice_buffer* slices,
     if (result == TSI_OK) {
       size_t still_pending_size;
       do {
-        size_t protected_buffer_size_to_send = (size_t)(end - cur);
+        size_t protected_buffer_size_to_send = static_cast<size_t>(end - cur);
         gpr_mu_lock(&ep->protector_mu);
         result = tsi_frame_protector_protect_flush(
             ep->protector, cur, &protected_buffer_size_to_send,
@@ -324,8 +327,8 @@ static void endpoint_write(grpc_endpoint* secure_ep, grpc_slice_buffer* slices,
             &ep->output_buffer,
             grpc_slice_split_head(
                 &ep->write_staging_buffer,
-                (size_t)(cur -
-                         GRPC_SLICE_START_PTR(ep->write_staging_buffer))));
+                static_cast<size_t>(
+                    cur - GRPC_SLICE_START_PTR(ep->write_staging_buffer))));
       }
     }
   }
@@ -336,55 +339,53 @@ static void endpoint_write(grpc_endpoint* secure_ep, grpc_slice_buffer* slices,
     GRPC_CLOSURE_SCHED(
         cb, grpc_set_tsi_error_result(
                 GRPC_ERROR_CREATE_FROM_STATIC_STRING("Wrap failed"), result));
-    GPR_TIMER_END("secure_endpoint.endpoint_write", 0);
     return;
   }
 
   grpc_endpoint_write(ep->wrapped_ep, &ep->output_buffer, cb);
-  GPR_TIMER_END("secure_endpoint.endpoint_write", 0);
 }
 
 static void endpoint_shutdown(grpc_endpoint* secure_ep, grpc_error* why) {
-  secure_endpoint* ep = (secure_endpoint*)secure_ep;
+  secure_endpoint* ep = reinterpret_cast<secure_endpoint*>(secure_ep);
   grpc_endpoint_shutdown(ep->wrapped_ep, why);
 }
 
 static void endpoint_destroy(grpc_endpoint* secure_ep) {
-  secure_endpoint* ep = (secure_endpoint*)secure_ep;
+  secure_endpoint* ep = reinterpret_cast<secure_endpoint*>(secure_ep);
   SECURE_ENDPOINT_UNREF(ep, "destroy");
 }
 
 static void endpoint_add_to_pollset(grpc_endpoint* secure_ep,
                                     grpc_pollset* pollset) {
-  secure_endpoint* ep = (secure_endpoint*)secure_ep;
+  secure_endpoint* ep = reinterpret_cast<secure_endpoint*>(secure_ep);
   grpc_endpoint_add_to_pollset(ep->wrapped_ep, pollset);
 }
 
 static void endpoint_add_to_pollset_set(grpc_endpoint* secure_ep,
                                         grpc_pollset_set* pollset_set) {
-  secure_endpoint* ep = (secure_endpoint*)secure_ep;
+  secure_endpoint* ep = reinterpret_cast<secure_endpoint*>(secure_ep);
   grpc_endpoint_add_to_pollset_set(ep->wrapped_ep, pollset_set);
 }
 
 static void endpoint_delete_from_pollset_set(grpc_endpoint* secure_ep,
                                              grpc_pollset_set* pollset_set) {
-  secure_endpoint* ep = (secure_endpoint*)secure_ep;
+  secure_endpoint* ep = reinterpret_cast<secure_endpoint*>(secure_ep);
   grpc_endpoint_delete_from_pollset_set(ep->wrapped_ep, pollset_set);
 }
 
 static char* endpoint_get_peer(grpc_endpoint* secure_ep) {
-  secure_endpoint* ep = (secure_endpoint*)secure_ep;
+  secure_endpoint* ep = reinterpret_cast<secure_endpoint*>(secure_ep);
   return grpc_endpoint_get_peer(ep->wrapped_ep);
 }
 
 static int endpoint_get_fd(grpc_endpoint* secure_ep) {
-  secure_endpoint* ep = (secure_endpoint*)secure_ep;
+  secure_endpoint* ep = reinterpret_cast<secure_endpoint*>(secure_ep);
   return grpc_endpoint_get_fd(ep->wrapped_ep);
 }
 
 static grpc_resource_user* endpoint_get_resource_user(
     grpc_endpoint* secure_ep) {
-  secure_endpoint* ep = (secure_endpoint*)secure_ep;
+  secure_endpoint* ep = reinterpret_cast<secure_endpoint*>(secure_ep);
   return grpc_endpoint_get_resource_user(ep->wrapped_ep);
 }
 
@@ -405,7 +406,8 @@ grpc_endpoint* grpc_secure_endpoint_create(
     grpc_endpoint* transport, grpc_slice* leftover_slices,
     size_t leftover_nslices) {
   size_t i;
-  secure_endpoint* ep = (secure_endpoint*)gpr_malloc(sizeof(secure_endpoint));
+  secure_endpoint* ep =
+      static_cast<secure_endpoint*>(gpr_malloc(sizeof(secure_endpoint)));
   ep->base.vtable = &vtable;
   ep->wrapped_ep = transport;
   ep->protector = protector;

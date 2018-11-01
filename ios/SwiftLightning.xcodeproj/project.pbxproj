@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32D141C40B74A5332D4C173A /* Pods_SwiftLightning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F52A96800347F86A8BC579E9 /* Pods_SwiftLightning.framework */; };
 		8C02085820ACDB2E0089CF1B /* SLSafariWebViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C02085720ACDB2E0089CF1B /* SLSafariWebViewer.swift */; };
 		8C0509F220CE09E300F4AC9D /* AutopilotPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0509EC20CE09E300F4AC9D /* AutopilotPresenter.swift */; };
 		8C0509F320CE09E300F4AC9D /* AutopilotWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0509ED20CE09E300F4AC9D /* AutopilotWorker.swift */; };
@@ -304,7 +305,6 @@
 		8CFA16E32085510600813EA6 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CFA16E22085510600813EA6 /* Colors.xcassets */; };
 		8CFA16E420856E6800813EA6 /* SLBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFA16B32085305500813EA6 /* SLBarButton.swift */; };
 		8CFA16E620856E9800813EA6 /* CreateRecover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CFA16E520856E9800813EA6 /* CreateRecover.storyboard */; };
-		D270B17867F6D7B87E543614 /* Pods_SwiftLightning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5276E99B0E61A749748D28F5 /* Pods_SwiftLightning.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -318,7 +318,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5276E99B0E61A749748D28F5 /* Pods_SwiftLightning.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftLightning.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A8516869F7F1E9FE484ACA6 /* Pods-SwiftLightning.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLightning.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning.debug.xcconfig"; sourceTree = "<group>"; };
 		6004ADE36F4CE966930E2CD8 /* Pods-SwiftLightning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLightning.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning.release.xcconfig"; sourceTree = "<group>"; };
 		8C02085720ACDB2E0089CF1B /* SLSafariWebViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSafariWebViewer.swift; sourceTree = "<group>"; };
@@ -624,6 +623,7 @@
 		8CFA16B32085305500813EA6 /* SLBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLBarButton.swift; sourceTree = "<group>"; };
 		8CFA16E22085510600813EA6 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8CFA16E520856E9800813EA6 /* CreateRecover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateRecover.storyboard; sourceTree = "<group>"; };
+		F52A96800347F86A8BC579E9 /* Pods_SwiftLightning.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftLightning.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -631,7 +631,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6B514D5D47CE23C7C8010FE /* Pods_SwiftLightning.framework in Frameworks */,
+				32D141C40B74A5332D4C173A /* Pods_SwiftLightning.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,7 +648,7 @@
 		54857E4EC15F1FF28D39F6FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				099CDE225581DAF3DD2A9ECF /* Pods_SwiftLightning.framework */,
+				F52A96800347F86A8BC579E9 /* Pods_SwiftLightning.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1700,11 +1700,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8C2FC7162073513900966D31 /* Build configuration list for PBXNativeTarget "SwiftLightning" */;
 			buildPhases = (
-				7CD9EE03B18C7EBAB92DF6C9 /* [CP] Check Pods Manifest.lock */,
+				F6E4A18FA9FFCDCF92F4BA1C /* [CP] Check Pods Manifest.lock */,
+				7CD9EE03B18C7EBAB92DF6C9 /* Fabric Run Script */,
 				8C2FC7002073513600966D31 /* Sources */,
 				8C2FC7012073513600966D31 /* Frameworks */,
 				8C2FC7022073513600966D31 /* Resources */,
-				8C7D3109207575B00068F2BD /* Fabric Run Script */,
+				F4DF236EFFE20CF5DCC3051C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1871,7 +1872,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1DC6D44C79E413580143AAF7 /* [CP] Embed Pods Frameworks */ = {
+		7CD9EE03B18C7EBAB92DF6C9 /* Fabric Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fabric Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 1da5cda251ab04004b33cd509f646eea4502ec5f c9b33ad9bb930a99b625e2d5783a8af4cc5dd757c721dd6ff0366da4f03c847e\n";
+		};
+		F4DF236EFFE20CF5DCC3051C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1911,21 +1926,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7CD9EE03B18C7EBAB92DF6C9 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Fabric Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 1da5cda251ab04004b33cd509f646eea4502ec5f c9b33ad9bb930a99b625e2d5783a8af4cc5dd757c721dd6ff0366da4f03c847e\n";
-		};
-		D139D666AEE5A8757029721C /* [CP] Check Pods Manifest.lock */ = {
+		F6E4A18FA9FFCDCF92F4BA1C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (

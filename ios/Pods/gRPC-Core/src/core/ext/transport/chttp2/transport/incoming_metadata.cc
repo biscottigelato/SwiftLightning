@@ -16,6 +16,8 @@
  *
  */
 
+#include <grpc/support/port_platform.h>
+
 #include "src/core/ext/transport/chttp2/transport/incoming_metadata.h"
 
 #include <string.h>
@@ -42,8 +44,8 @@ grpc_error* grpc_chttp2_incoming_metadata_buffer_add(
   buffer->size += GRPC_MDELEM_LENGTH(elem);
   return grpc_metadata_batch_add_tail(
       &buffer->batch,
-      (grpc_linked_mdelem*)gpr_arena_alloc(buffer->arena,
-                                           sizeof(grpc_linked_mdelem)),
+      static_cast<grpc_linked_mdelem*>(
+          gpr_arena_alloc(buffer->arena, sizeof(grpc_linked_mdelem))),
       elem);
 }
 
@@ -67,6 +69,5 @@ void grpc_chttp2_incoming_metadata_buffer_set_deadline(
 
 void grpc_chttp2_incoming_metadata_buffer_publish(
     grpc_chttp2_incoming_metadata_buffer* buffer, grpc_metadata_batch* batch) {
-  *batch = buffer->batch;
-  grpc_metadata_batch_init(&buffer->batch);
+  grpc_metadata_batch_move(&buffer->batch, batch);
 }

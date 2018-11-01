@@ -28,11 +28,11 @@
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>
 #include <grpc/support/sync.h>
-#include <grpc/support/thd.h>
-#include <grpc/support/useful.h>
 
 #include "src/core/lib/gpr/env.h"
 #include "src/core/lib/gpr/string.h"
+#include "src/core/lib/gpr/useful.h"
+#include "src/core/lib/gprpp/thd.h"
 #include "src/core/lib/iomgr/exec_ctx.h"
 #include "src/core/lib/iomgr/executor.h"
 #include "src/core/lib/iomgr/iomgr_internal.h"
@@ -47,6 +47,7 @@ static grpc_iomgr_object g_root_object;
 
 void grpc_iomgr_init() {
   grpc_core::ExecCtx exec_ctx;
+  grpc_determine_iomgr_platform();
   g_shutdown = 0;
   gpr_mu_init(&g_mu);
   gpr_cv_init(&g_rcv);

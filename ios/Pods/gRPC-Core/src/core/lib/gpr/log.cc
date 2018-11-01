@@ -16,10 +16,11 @@
  *
  */
 
+#include <grpc/support/port_platform.h>
+
 #include <grpc/support/alloc.h>
 #include <grpc/support/atm.h>
 #include <grpc/support/log.h>
-#include <grpc/support/port_platform.h>
 
 #include "src/core/lib/gpr/env.h"
 #include "src/core/lib/gpr/string.h"
@@ -43,9 +44,16 @@ const char* gpr_log_severity_string(gpr_log_severity severity) {
   GPR_UNREACHABLE_CODE(return "UNKNOWN");
 }
 
+int gpr_should_log(gpr_log_severity severity) {
+  return static_cast<gpr_atm>(severity) >=
+                 gpr_atm_no_barrier_load(&g_min_severity_to_print)
+             ? 1
+             : 0;
+}
+
 void gpr_log_message(const char* file, int line, gpr_log_severity severity,
                      const char* message) {
-  if ((gpr_atm)severity < gpr_atm_no_barrier_load(&g_min_severity_to_print)) {
+  if (gpr_should_log(severity) == 0) {
     return;
   }
 
@@ -70,11 +78,11 @@ void gpr_log_verbosity_init() {
   gpr_atm min_severity_to_print = GPR_LOG_SEVERITY_ERROR;
   if (verbosity != nullptr) {
     if (gpr_stricmp(verbosity, "DEBUG") == 0) {
-      min_severity_to_print = (gpr_atm)GPR_LOG_SEVERITY_DEBUG;
+      min_severity_to_print = static_cast<gpr_atm>(GPR_LOG_SEVERITY_DEBUG);
     } else if (gpr_stricmp(verbosity, "INFO") == 0) {
-      min_severity_to_print = (gpr_atm)GPR_LOG_SEVERITY_INFO;
+      min_severity_to_print = static_cast<gpr_atm>(GPR_LOG_SEVERITY_INFO);
     } else if (gpr_stricmp(verbosity, "ERROR") == 0) {
-      min_severity_to_print = (gpr_atm)GPR_LOG_SEVERITY_ERROR;
+      min_severity_to_print = static_cast<gpr_atm>(GPR_LOG_SEVERITY_ERROR);
     }
     gpr_free(verbosity);
   }

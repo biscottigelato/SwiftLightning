@@ -19,6 +19,8 @@
 #ifndef GRPC_GRPC_SECURITY_H
 #define GRPC_GRPC_SECURITY_H
 
+#include <grpc/support/port_platform.h>
+
 #include <grpc/grpc.h>
 #include <grpc/grpc_security_constants.h>
 #include <grpc/status.h>
@@ -97,6 +99,25 @@ GRPCAPI void grpc_auth_context_add_cstring_property(grpc_auth_context* ctx,
    (which means that no property with this name exists). */
 GRPCAPI int grpc_auth_context_set_peer_identity_property_name(
     grpc_auth_context* ctx, const char* name);
+
+/** --- SSL Session Cache. ---
+
+    A SSL session cache object represents a way to cache client sessions
+    between connections. Only ticket-based resumption is supported. */
+
+typedef struct grpc_ssl_session_cache grpc_ssl_session_cache;
+
+/** Create LRU cache for client-side SSL sessions with the given capacity.
+    If capacity is < 1, a default capacity is used instead. */
+GRPCAPI grpc_ssl_session_cache* grpc_ssl_session_cache_create_lru(
+    size_t capacity);
+
+/** Destroy SSL session cache. */
+GRPCAPI void grpc_ssl_session_cache_destroy(grpc_ssl_session_cache* cache);
+
+/** Create a channel arg with the given cache object. */
+GRPCAPI grpc_arg
+grpc_ssl_session_cache_create_channel_arg(grpc_ssl_session_cache* cache);
 
 /** --- grpc_channel_credentials object. ---
 
@@ -300,7 +321,13 @@ GRPCAPI grpc_call_credentials* grpc_metadata_credentials_create_from_plugin(
 
 /** --- Secure channel creation. --- */
 
-/** Creates a secure channel using the passed-in credentials. */
+/** Creates a secure channel using the passed-in credentials. Additional
+    channel level configuration MAY be provided by grpc_channel_args, though
+    the expectation is that most clients will want to simply pass NULL. The
+    user data in 'args' need only live through the invocation of this function.
+    However, if any args of the 'pointer' type are passed, then the referenced
+    vtable must be maintained by the caller until grpc_channel_destroy
+    terminates. See grpc_channel_args definition for more on this. */
 GRPCAPI grpc_channel* grpc_secure_channel_create(
     grpc_channel_credentials* creds, const char* target,
     const grpc_channel_args* args, void* reserved);
@@ -460,6 +487,76 @@ typedef struct {
 
 GRPCAPI void grpc_server_credentials_set_auth_metadata_processor(
     grpc_server_credentials* creds, grpc_auth_metadata_processor processor);
+
+/** --- ALTS channel/server credentials --- **/
+
+/**
+ * Main interface for ALTS credentials options. The options will contain
+ * information that will be passed from grpc to TSI layer such as RPC protocol
+ * versions. ALTS client (channel) and server credentials will have their own
+ * implementation of this interface. The APIs listed in this header are
+ * thread-compatible. It is used for experimental purpose for now and subject
+ * to change.
+ */
+typedef struct grpc_alts_credentials_options grpc_alts_credentials_options;
+
+/**
+ * This method creates a grpc ALTS credentials client options instance.
+ * It is used for experimental purpose for now and subject to change.
+ */
+GRPCAPI grpc_alts_credentials_options*
+grpc_alts_credentials_client_options_create();
+
+/**
+ * This method creates a grpc ALTS credentials server options instance.
+ * It is used for experimental purpose for now and subject to change.
+ */
+GRPCAPI grpc_alts_credentials_options*
+grpc_alts_credentials_server_options_create();
+
+/**
+ * This method adds a target service account to grpc client's ALTS credentials
+ * options instance. It is used for experimental purpose for now and subject
+ * to change.
+ *
+ * - options: grpc ALTS credentials options instance.
+ * - service_account: service account of target endpoint.
+ */
+GRPCAPI void grpc_alts_credentials_client_options_add_target_service_account(
+    grpc_alts_credentials_options* options, const char* service_account);
+
+/**
+ * This method destroys a grpc_alts_credentials_options instance by
+ * de-allocating all of its occupied memory. It is used for experimental purpose
+ * for now and subject to change.
+ *
+ * - options: a grpc_alts_credentials_options instance that needs to be
+ *   destroyed.
+ */
+GRPCAPI void grpc_alts_credentials_options_destroy(
+    grpc_alts_credentials_options* options);
+
+/**
+ * This method creates an ALTS channel credential object. It is used for
+ * experimental purpose for now and subject to change.
+ *
+ * - options: grpc ALTS credentials options instance for client.
+ *
+ * It returns the created ALTS channel credential object.
+ */
+GRPCAPI grpc_channel_credentials* grpc_alts_credentials_create(
+    const grpc_alts_credentials_options* options);
+
+/**
+ * This method creates an ALTS server credential object. It is used for
+ * experimental purpose for now and subject to change.
+ *
+ * - options: grpc ALTS credentials options instance for server.
+ *
+ * It returns the created ALTS server credential object.
+ */
+GRPCAPI grpc_server_credentials* grpc_alts_server_credentials_create(
+    const grpc_alts_credentials_options* options);
 
 #ifdef __cplusplus
 }

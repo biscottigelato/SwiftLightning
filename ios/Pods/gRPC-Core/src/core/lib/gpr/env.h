@@ -19,6 +19,8 @@
 #ifndef GRPC_CORE_LIB_GPR_ENV_H
 #define GRPC_CORE_LIB_GPR_ENV_H
 
+#include <grpc/support/port_platform.h>
+
 #include <stdio.h>
 
 /* Env utility functions */
@@ -29,7 +31,7 @@
    variable exists). */
 char* gpr_getenv(const char* name);
 
-/* Sets the the environment with the specified name to the specified value. */
+/* Sets the environment with the specified name to the specified value. */
 void gpr_setenv(const char* name, const char* value);
 
 /* This is a version of gpr_getenv that does not produce any output if it has to

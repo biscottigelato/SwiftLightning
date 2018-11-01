@@ -19,11 +19,13 @@
 #ifndef GRPC_CORE_LIB_TRANSPORT_METADATA_H
 #define GRPC_CORE_LIB_TRANSPORT_METADATA_H
 
+#include <grpc/support/port_platform.h>
+
 #include <grpc/grpc.h>
 #include <grpc/slice.h>
-#include <grpc/support/useful.h>
 
-#include "src/core/lib/iomgr/exec_ctx.h"
+#include "src/core/lib/debug/trace.h"
+#include "src/core/lib/gpr/useful.h"
 
 extern grpc_core::DebugOnlyTraceFlag grpc_trace_metadata;
 

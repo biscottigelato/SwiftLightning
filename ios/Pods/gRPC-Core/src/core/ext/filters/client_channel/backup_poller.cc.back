@@ -1,6 +1,6 @@
 /*
  *
- * Copyright 2015 gRPC authors.
+ * Copyright 2017 gRPC authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  * limitations under the License.
  *
  */
+
+#include <grpc/support/port_platform.h>
 
 #include "src/core/ext/filters/client_channel/backup_poller.h"
 
@@ -80,7 +82,7 @@ static void backup_poller_shutdown_unref(backup_poller* p) {
 }
 
 static void done_poller(void* arg, grpc_error* error) {
-  backup_poller_shutdown_unref((backup_poller*)arg);
+  backup_poller_shutdown_unref(static_cast<backup_poller*>(arg));
 }
 
 static void g_poller_unref() {
@@ -102,7 +104,7 @@ static void g_poller_unref() {
 }
 
 static void run_poller(void* arg, grpc_error* error) {
-  backup_poller* p = (backup_poller*)arg;
+  backup_poller* p = static_cast<backup_poller*>(arg);
   if (error != GRPC_ERROR_NONE) {
     if (error != GRPC_ERROR_CANCELLED) {
       GRPC_LOG_IF_ERROR("run_poller", GRPC_ERROR_REF(error));
@@ -125,16 +127,11 @@ static void run_poller(void* arg, grpc_error* error) {
                   &p->run_poller_closure);
 }
 
-void grpc_client_channel_start_backup_polling(
-    grpc_pollset_set* interested_parties) {
-  gpr_once_init(&g_once, init_globals);
-  if (g_poll_interval_ms == 0) {
-    return;
-  }
-  gpr_mu_lock(&g_poller_mu);
+static void g_poller_init_locked() {
   if (g_poller == nullptr) {
-    g_poller = (backup_poller*)gpr_zalloc(sizeof(backup_poller));
-    g_poller->pollset = (grpc_pollset*)gpr_zalloc(grpc_pollset_size());
+    g_poller = static_cast<backup_poller*>(gpr_zalloc(sizeof(backup_poller)));
+    g_poller->pollset =
+        static_cast<grpc_pollset*>(gpr_zalloc(grpc_pollset_size()));
     g_poller->shutting_down = false;
     grpc_pollset_init(g_poller->pollset, &g_poller->pollset_mu);
     gpr_ref_init(&g_poller->refs, 0);
@@ -146,7 +143,16 @@ void grpc_client_channel_start_backup_polling(
                     grpc_core::ExecCtx::Get()->Now() + g_poll_interval_ms,
                     &g_poller->run_poller_closure);
   }
+}
 
+void grpc_client_channel_start_backup_polling(
+    grpc_pollset_set* interested_parties) {
+  gpr_once_init(&g_once, init_globals);
+  if (g_poll_interval_ms == 0) {
+    return;
+  }
+  gpr_mu_lock(&g_poller_mu);
+  g_poller_init_locked();
   gpr_ref(&g_poller->refs);
   /* Get a reference to g_poller->pollset before releasing g_poller_mu to make
    * TSAN happy. Otherwise, reading from g_poller (i.e g_poller->pollset) after

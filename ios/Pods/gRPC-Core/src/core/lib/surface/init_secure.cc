@@ -27,9 +27,9 @@
 #include "src/core/lib/security/context/security_context.h"
 #include "src/core/lib/security/credentials/credentials.h"
 #include "src/core/lib/security/credentials/plugin/plugin_credentials.h"
+#include "src/core/lib/security/security_connector/security_connector.h"
 #include "src/core/lib/security/transport/auth_filters.h"
 #include "src/core/lib/security/transport/secure_endpoint.h"
-#include "src/core/lib/security/transport/security_connector.h"
 #include "src/core/lib/security/transport/security_handshaker.h"
 #include "src/core/lib/surface/channel_init.h"
 #include "src/core/tsi/transport_security_interface.h"
@@ -67,9 +67,12 @@ static bool maybe_prepend_server_auth_filter(
 }
 
 void grpc_register_security_filters(void) {
-  grpc_channel_init_register_stage(GRPC_CLIENT_SUBCHANNEL, INT_MAX,
+  // Register the auth client with a priority < INT_MAX to allow the authority
+  // filter -on which the auth filter depends- to be higher on the channel
+  // stack.
+  grpc_channel_init_register_stage(GRPC_CLIENT_SUBCHANNEL, INT_MAX - 1,
                                    maybe_prepend_client_auth_filter, nullptr);
-  grpc_channel_init_register_stage(GRPC_CLIENT_DIRECT_CHANNEL, INT_MAX,
+  grpc_channel_init_register_stage(GRPC_CLIENT_DIRECT_CHANNEL, INT_MAX - 1,
                                    maybe_prepend_client_auth_filter, nullptr);
   grpc_channel_init_register_stage(GRPC_SERVER_CHANNEL, INT_MAX,
                                    maybe_prepend_server_auth_filter, nullptr);

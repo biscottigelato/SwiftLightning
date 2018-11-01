@@ -1,44 +1,56 @@
 PODS:
-  - BoringSSL (9.2):
-    - BoringSSL/Implementation (= 9.2)
-    - BoringSSL/Interface (= 9.2)
-  - BoringSSL/Implementation (9.2):
-    - BoringSSL/Interface (= 9.2)
-  - BoringSSL/Interface (9.2)
+  - BoringSSL (10.0.6):
+    - BoringSSL/Implementation (= 10.0.6)
+    - BoringSSL/Interface (= 10.0.6)
+  - BoringSSL/Implementation (10.0.6):
+    - BoringSSL/Interface (= 10.0.6)
+  - BoringSSL/Interface (10.0.6)
   - CocoaLumberjack/Default (3.4.1)
   - CocoaLumberjack/Swift (3.4.1):
     - CocoaLumberjack/Default
   - Crashlytics (3.10.1):
     - Fabric (~> 1.7.5)
   - Fabric (1.7.6)
-  - gRPC-Core (1.9.1):
-    - gRPC-Core/Implementation (= 1.9.1)
-    - gRPC-Core/Interface (= 1.9.1)
-  - gRPC-Core/Implementation (1.9.1):
-    - BoringSSL (~> 9.0)
-    - gRPC-Core/Interface (= 1.9.1)
+  - gRPC (1.12.0):
+    - gRPC-RxLibrary (= 1.12.0)
+    - gRPC/Main (= 1.12.0)
+  - gRPC-Core (1.12.0):
+    - gRPC-Core/Implementation (= 1.12.0)
+    - gRPC-Core/Interface (= 1.12.0)
+  - gRPC-Core/Implementation (1.12.0):
+    - BoringSSL (~> 10.0)
+    - gRPC-Core/Interface (= 1.12.0)
     - nanopb (~> 0.3)
-  - gRPC-Core/Interface (1.9.1)
+  - gRPC-Core/Interface (1.12.0)
+  - gRPC-ProtoRPC (1.12.0):
+    - gRPC (= 1.12.0)
+    - gRPC-RxLibrary (= 1.12.0)
+    - Protobuf (~> 3.0)
+  - gRPC-RxLibrary (1.12.0)
+  - gRPC/Main (1.12.0):
+    - gRPC-Core (= 1.12.0)
+    - gRPC-RxLibrary (= 1.12.0)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - Protobuf (3.6.1)
   - SnapKit (4.0.0)
-  - SwiftGRPC (0.3.3):
-    - BoringSSL (~> 9.1)
-    - gRPC-Core (~> 1.9.1)
-    - SwiftProtobuf (~> 1.0.2)
-  - SwiftProtobuf (1.0.3)
+  - SwiftGRPC (0.6.0):
+    - BoringSSL (~> 10.0)
+    - gRPC-Core (~> 1.12.0)
+    - SwiftProtobuf (~> 1.1.1)
+  - SwiftProtobuf (1.1.2)
   - SwiftRangeSlider (2.0.0)
 
 DEPENDENCIES:
   - CocoaLumberjack/Swift (~> 3.4.1)
   - Crashlytics (~> 3.10)
   - Fabric (~> 1.7.6)
-  - gRPC-Core (from `https://github.com/mrmage/grpc`, branch `fix-cocoapods-swift`)
+  - gRPC-ProtoRPC
   - SnapKit (~> 4.0.0)
-  - SwiftGRPC (from `https://github.com/grpc/grpc-swift`)
+  - SwiftGRPC
   - SwiftProtobuf (~> 1.0)
   - SwiftRangeSlider
 
@@ -48,38 +60,33 @@ SPEC REPOS:
     - CocoaLumberjack
     - Crashlytics
     - Fabric
+    - gRPC
+    - gRPC-Core
+    - gRPC-ProtoRPC
+    - gRPC-RxLibrary
     - nanopb
+    - Protobuf
     - SnapKit
+    - SwiftGRPC
     - SwiftProtobuf
     - SwiftRangeSlider
 
-EXTERNAL SOURCES:
-  gRPC-Core:
-    :branch: fix-cocoapods-swift
-    :git: https://github.com/mrmage/grpc
-  SwiftGRPC:
-    :git: https://github.com/grpc/grpc-swift
-
-CHECKOUT OPTIONS:
-  gRPC-Core:
-    :commit: 21897a698fb9f69d78e928f61bd996989c5a292f
-    :git: https://github.com/mrmage/grpc
-  SwiftGRPC:
-    :commit: 5ebf7a333c07f38b5d7a9b5da4b555734da9bccd
-    :git: https://github.com/grpc/grpc-swift
-
 SPEC CHECKSUMS:
-  BoringSSL: f3d6b8ce199b9c450a8cfc14895d07a2627fc232
+  BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
   Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
-  gRPC-Core: 66413bf1f2d038a6221bc7bfcbeeaa5a117cee29
+  gRPC: 9362451032695e2dfb7bafcd3740e3a27939e4ff
+  gRPC-Core: 9696b220565b283e021cf2722d473a4a74b7622a
+  gRPC-ProtoRPC: a1bd56fb1991a8dae4581250d7259eddabb66779
+  gRPC-RxLibrary: 1ed5314e8b38cd6e55c9bfa048387136ae925ce9
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  SwiftGRPC: 4bf6815db518c7921023274a7b4bbad462786f48
-  SwiftProtobuf: 5ccc0e4054e37c75800e5744acb2aa80bb72b39c
+  SwiftGRPC: 465792c0e09dcb083d19d97137cee71b4f4f8b6f
+  SwiftProtobuf: 7147b8ec19c8c0694a45155d989ea9e6dedaf51f
   SwiftRangeSlider: f86e3b637c961120158fa1a89277c8343845cbe4
 
-PODFILE CHECKSUM: 83355d08edc4e7137b85bd9394d21e23e749f23f
+PODFILE CHECKSUM: a9fe8e85d0a81367658f137df4948fb96840ba64
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.2

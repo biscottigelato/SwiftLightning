@@ -19,6 +19,8 @@
 #ifndef GRPC_CORE_LIB_IOMGR_TCP_SERVER_H
 #define GRPC_CORE_LIB_IOMGR_TCP_SERVER_H
 
+#include <grpc/support/port_platform.h>
+
 #include <grpc/grpc.h>
 
 #include "src/core/lib/iomgr/closure.h"
@@ -42,6 +44,24 @@ typedef struct grpc_tcp_server_acceptor {
 typedef void (*grpc_tcp_server_cb)(void* arg, grpc_endpoint* ep,
                                    grpc_pollset* accepting_pollset,
                                    grpc_tcp_server_acceptor* acceptor);
+
+typedef struct grpc_tcp_server_vtable {
+  grpc_error* (*create)(grpc_closure* shutdown_complete,
+                        const grpc_channel_args* args,
+                        grpc_tcp_server** server);
+  void (*start)(grpc_tcp_server* server, grpc_pollset** pollsets,
+                size_t pollset_count, grpc_tcp_server_cb on_accept_cb,
+                void* cb_arg);
+  grpc_error* (*add_port)(grpc_tcp_server* s, const grpc_resolved_address* addr,
+                          int* out_port);
+  unsigned (*port_fd_count)(grpc_tcp_server* s, unsigned port_index);
+  int (*port_fd)(grpc_tcp_server* s, unsigned port_index, unsigned fd_index);
+  grpc_tcp_server* (*ref)(grpc_tcp_server* s);
+  void (*shutdown_starting_add)(grpc_tcp_server* s,
+                                grpc_closure* shutdown_starting);
+  void (*unref)(grpc_tcp_server* s);
+  void (*shutdown_listeners)(grpc_tcp_server* s);
+} grpc_tcp_server_vtable;
 
 /* Create a server, initially not bound to any ports. The caller owns one ref.
    If shutdown_complete is not NULL, it will be used by
@@ -94,5 +114,9 @@ void grpc_tcp_server_unref(grpc_tcp_server* s);
 
 /* Shutdown the fds of listeners. */
 void grpc_tcp_server_shutdown_listeners(grpc_tcp_server* s);
+
+void grpc_tcp_server_global_init();
+
+void grpc_set_tcp_server_impl(grpc_tcp_server_vtable* impl);
 
 #endif /* GRPC_CORE_LIB_IOMGR_TCP_SERVER_H */
