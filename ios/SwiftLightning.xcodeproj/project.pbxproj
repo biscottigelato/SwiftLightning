@@ -1701,11 +1701,11 @@
 			buildConfigurationList = 8C2FC7162073513900966D31 /* Build configuration list for PBXNativeTarget "SwiftLightning" */;
 			buildPhases = (
 				F6E4A18FA9FFCDCF92F4BA1C /* [CP] Check Pods Manifest.lock */,
-				7CD9EE03B18C7EBAB92DF6C9 /* Fabric Run Script */,
 				8C2FC7002073513600966D31 /* Sources */,
 				8C2FC7012073513600966D31 /* Frameworks */,
 				8C2FC7022073513600966D31 /* Resources */,
 				F4DF236EFFE20CF5DCC3051C /* [CP] Embed Pods Frameworks */,
+				7CD9EE03B18C7EBAB92DF6C9 /* Fabric Run Script */,
 			);
 			buildRules = (
 			);
