@@ -55,12 +55,12 @@ class WalletNavigationController: UINavigationController {
           if !headingView.logo.isAnimating {
             headingView.logo.pushAnimate()
           }
-          headingView.title.isHidden = true // false
-//          if nodes < LNConstants.nodesThresholdForCfilterCompl {
-//            headingView.title.text = "Getting Filters... "  // add 1 space after to center
-//          } else {
-//            headingView.title.text = "\(nodes) Nodes found  "  // add 2 spaces after to center
-//          }
+          headingView.title.isHidden =  false
+          if nodes < LNConstants.nodesThresholdForCfilterCompl {
+            headingView.title.text = "Getting Filters... "  // add 1 space after to center
+          } else {
+            headingView.title.text = "\(nodes) Nodes found  "  // add 2 spaces after to center
+          }
         }
         else {
           if !headingView.logo.isAnimating {
