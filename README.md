@@ -32,8 +32,9 @@ Under your $GOPATH where lnd was retrieved, you can change the remote to point t
 ```
 $ git remote add biscottigelato https://github.com/biscottigelato/lnd
 ```
-Finally, checkout the mobile support branch
+Finally, fetch & checkout the mobile support branch
 ```
+$ git fetch biscottigelato
 $ git checkout -b mobile-tip biscottigelato/mobile-tip
 ```
 You should be able to generate Lndmobile.framework with mobile support branch by just executing
