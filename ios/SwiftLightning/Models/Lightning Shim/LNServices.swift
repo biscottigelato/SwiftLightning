@@ -28,7 +28,7 @@ class LNServices {
     guard let appSupportPath = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.path else {
       SLLog.fatal("Cannot get Application Support Folder URL")
     }
-    directoryPath = appSupportPath + "/lnd"
+    directoryPath = appSupportPath + "/Lnd"
 
     // Get handles to source and destination lnd.conf URLs
     guard let lndSourceURL = Bundle.main.url(forResource: "lnd", withExtension: "conf") else {
@@ -128,14 +128,14 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("LND Start Success!")
       completion({ return })
     }
     
-    func onError(_ p0: Error!) {
+    func onError(_ p0: Error?) {
       SLLog.warning("LND Start Failed - \(p0?.localizedDescription ?? "")")
-      completion({ throw p0 })
+      completion({ throw p0 ?? LNError.responseNilError })
     }
   }
   
@@ -144,10 +144,11 @@ class LNServices {
     guard let appSupportPath = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.path else {
       SLLog.fatal("Cannot get Application Support Folder URL")
     }
-    directoryPath = appSupportPath + "/lnd"
+    directoryPath = appSupportPath + "/Lnd"
     
     SLLog.debug("LND Start Request")
-    LndmobileStart(directoryPath, LndStart(completion))
+    let extraArgs = "--bitcoin.testnet --lnddir=\"\(directoryPath)\" --profile=5050"
+    LndmobileStart(extraArgs, LndStart(completion), nil)
   }
   
   
@@ -161,20 +162,22 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("LN Generate Seed Success!")
       retry.success()
       
+      guard let data = p0 else { return }
+      
       do {
-        let response = try Lnrpc_GenSeedResponse(serializedData: p0)
+        let response = try Lnrpc_GenSeedResponse(serializedData: data)
         completion({ return response.cipherSeedMnemonic })
       } catch {
         completion({ throw error })
       }
     }
     
-    func onError(_ p0: Error!) {
-      retry.attempt(error: p0)
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
     }
   }
   
@@ -213,13 +216,13 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("LN Create Wallet Success!")
       completion({ return })
     }
     
-    func onError(_ p0: Error!) {
-      completion({ throw p0 })
+    func onError(_ p0: Error?) {
+      completion({ throw p0 ?? LNError.responseNilError })
     }
   }
   
@@ -263,14 +266,14 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("LN Unlock Wallet Success!")
       retry.success()
       completion({ return })
     }
     
-    func onError(_ p0: Error!) {
-      retry.attempt(error: p0)
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
     }
   }
   
@@ -318,7 +321,7 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("LN Wallet Balance Success!")
       
       // Dereference retry
@@ -345,7 +348,10 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   
@@ -383,7 +389,7 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("LN Channel Balance Success!")
       
       // Dereference retry
@@ -403,7 +409,10 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    
+    func onError(_ p0: Error?) {
+        retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func channelBalance(retryCount: Int = LNConstants.defaultRetryCount,
@@ -439,7 +448,7 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("Get Bitcoin Transactions Success!")
       
       // Dereference retry
@@ -477,7 +486,10 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func getTransactions(retryCount: Int = LNConstants.defaultRetryCount,
@@ -508,21 +520,30 @@ class LNServices {
   
   private class SendCoins: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> (String)) -> Void
+    
     init(_ completion: @escaping (() throws -> (String)) -> Void) {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       do {
-        let response = try Lnrpc_SendCoinsResponse(serializedData: p0)
-        SLLog.debug("LN Send Coins Success!")
+        guard let data = p0 else {
+          completion({ throw LNError.responseNilData })
+          return
+        }
         
+        let response = try Lnrpc_SendCoinsResponse(serializedData: data)
+        SLLog.debug("LN Send Coins Success!")
+
         completion({ response.txid })
       } catch {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { completion({ throw p0 }) }
+    
+    func onError(_ p0: Error?) {
+      completion({ throw p0 ?? LNError.responseNilError })
+    }
   }
   
   static func sendCoins(address: String, amount: Int, targetConf: Int? = nil, satPerByte: Int? = nil,
@@ -550,16 +571,21 @@ class LNServices {
   
   // MARK: Subscribe Transactions
   
-  private class SubscribeTransactions: NSObject, LndmobileCallbackProtocol {
+  private class SubscribeTransactions: NSObject, LndmobileRecvStreamProtocol {
     private var completion: (() throws -> (BTCTransaction)) -> Void
     
     init(_ completion: @escaping (() throws -> (BTCTransaction)) -> Void) {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       do {
-        let transaction = try Lnrpc_Transaction(serializedData: p0)
+        guard let data = p0 else {
+          completion({ throw LNError.responseNilData })
+          return
+        }
+        
+        let transaction = try Lnrpc_Transaction(serializedData: data)
         SLLog.debug("LN Transaction Broadcasted")
         
         let btcTransaction = BTCTransaction(txHash: transaction.txHash,
@@ -578,9 +604,9 @@ class LNServices {
       }
     }
     
-    func onError(_ p0: Error!) {
-      if p0.localizedDescription != "EOF" {
-        completion({ throw p0 })
+    func onError(_ p0: Error?) {
+      if let error = p0, error.localizedDescription != "EOF" {
+        completion({ throw error })
       }
     }
   }
@@ -604,9 +630,14 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       do {
-        let response = try Lnrpc_NewAddressResponse(serializedData: p0)
+        guard let data = p0 else {
+          completion({ throw LNError.responseNilData })
+          return
+        }
+        
+        let response = try Lnrpc_NewAddressResponse(serializedData: data)
         SLLog.debug("LN New Address Success!")
         
         // Success! - dereference retry
@@ -616,7 +647,10 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func newAddress(type addressType: OnChainAddressType,
@@ -661,11 +695,12 @@ class LNServices {
   private class ConnectPeer: NSObject, LndmobileCallbackProtocol {
     private var completion: (() throws -> ()) -> Void
     let retry = SLRetry()
+    
     init(_ completion: @escaping (() throws -> ()) -> Void) {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       //!!! Connect Peer does not return any data
       SLLog.debug("LN Connect Peer Success!")
       
@@ -673,15 +708,20 @@ class LNServices {
       completion({ return })
     }
     
-    func onError(_ p0: Error!) {
-      if p0.localizedDescription.contains("already connected") {  // TODO: Hack: Is there a better way?
+    func onError(_ p0: Error?) {
+      guard let error = p0 else {
+        completion({ throw LNError.responseNilError })
+        return
+      }
+      
+      if error.localizedDescription.contains("already connected") {  // TODO: Hack: Is there a better way?
         // We won't retry anymore after getting here. Deference retry
         retry.success()
         
-        SLLog.warning(p0.localizedDescription)
+        SLLog.warning(error.localizedDescription)
         completion({ return })
       } else {
-        retry.attempt(error: p0)
+        retry.attempt(error: error)
       }
     }
   }
@@ -729,7 +769,7 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("LN List Peers Success!")
       
       // Success! - dereference retry
@@ -767,7 +807,10 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func listPeers(retryCount: Int = LNConstants.defaultRetryCount,
@@ -805,9 +848,14 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       do {
-        let response = try Lnrpc_GetInfoResponse(serializedData: p0)
+        guard let data = p0 else {
+          completion({ throw LNError.responseNilData })
+          return
+        }
+        
+        let response = try Lnrpc_GetInfoResponse(serializedData: data)
         SLLog.verbose("LN Get Info Success!")  // Changing to verbose because this can get triggered a lot
         
         let lndInfo = LNDInfo(identityPubkey: response.identityPubkey,
@@ -834,7 +882,9 @@ class LNServices {
       }
     }
     
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func getInfo(retryCount: Int = LNConstants.defaultRetryCount,
@@ -871,7 +921,7 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("LN Pending Channels Success!")
       
       // Dereference retry
@@ -983,7 +1033,9 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func pendingChannels(retryCount: Int = LNConstants.defaultRetryCount,
@@ -1023,7 +1075,7 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("LN List Channels Success!")
       
       // Dereference retry
@@ -1078,7 +1130,10 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func listChannels(retryCount: Int = LNConstants.defaultRetryCount,
@@ -1107,7 +1162,7 @@ class LNServices {
   
   // MARK: Open Channel
   
-  private class OpenChannel: NSObject, LndmobileCallbackProtocol {
+  private class OpenChannel: NSObject, LndmobileRecvStreamProtocol {
     var completion: ((() throws -> (LNOpenChannelUpdateType)) -> Void)?
     var timeoutSemaphore = DispatchSemaphore(value: 1)
     var timeoutWorkItem: DispatchWorkItem?
@@ -1128,12 +1183,17 @@ class LNServices {
       timeoutWorkItem = nil
       timeoutSemaphore.signal()
     }
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       // Got a response, cancel the timeout
       timeoutCancel()
       
       do {
-        let response = try Lnrpc_OpenStatusUpdate(serializedData: p0)
+        guard let data = p0 else {
+          completion?({ throw LNError.responseNilData })
+          return
+        }
+        
+        let response = try Lnrpc_OpenStatusUpdate(serializedData: data)
         SLLog.debug("Open Channel Status Update")
         
         guard let update = response.update else {
@@ -1169,12 +1229,16 @@ class LNServices {
       }
     }
     
-    func onError(_ p0: Error!) {
+    func onError(_ p0: Error?) {
       timeoutCancel()
+      guard let error = p0 else {
+        completion?({ throw LNError.responseNilError })
+        return
+      }
       
-      if p0.localizedDescription != "EOF" {
-        SLLog.warning("OpenChannel error response - \(p0.localizedDescription)")
-        completion?({ throw p0 })
+      if error.localizedDescription != "EOF" {
+        SLLog.warning("OpenChannel error response - \(error.localizedDescription)")
+        completion?({ throw error })
       } else {
         SLLog.info("Open Channel EOF")
       }
@@ -1212,7 +1276,7 @@ class LNServices {
 
   // MARK: Close Channel
   
-  private class CloseChannel: NSObject, LndmobileCallbackProtocol {
+  private class CloseChannel: NSObject, LndmobileRecvStreamProtocol {
     var completion: ((() throws -> (LNCloseChannelUpdateType)) -> Void)?
     var timeoutSemaphore = DispatchSemaphore(value: 1)
     var timeoutWorkItem: DispatchWorkItem?
@@ -1233,12 +1297,17 @@ class LNServices {
       timeoutWorkItem = nil
       timeoutSemaphore.signal()
     }
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       // Got a response, cancel the timeout
       timeoutCancel()
       
       do {
-        let response = try Lnrpc_CloseStatusUpdate(serializedData: p0)
+        guard let data = p0 else {
+          completion?({ throw LNError.responseNilData })
+          return
+        }
+        
+        let response = try Lnrpc_CloseStatusUpdate(serializedData: data)
         SLLog.debug("Close Channel Status Update")
         
         guard let update = response.update else {
@@ -1273,12 +1342,16 @@ class LNServices {
         completion?({ throw error })
       }
     }
-    func onError(_ p0: Error!) {
+    func onError(_ p0: Error?) {
       timeoutCancel()
+      guard let error = p0 else {
+        completion?({ throw LNError.responseNilError })
+        return
+      }
       
-      if p0.localizedDescription != "EOF" {
-        SLLog.warning("CloseChannel error response - \(p0.localizedDescription)")
-        completion?({ throw p0 })
+      if error.localizedDescription != "EOF" {
+        SLLog.warning("CloseChannel error response - \(error.localizedDescription)")
+        completion?({ throw error })
       } else {
         SLLog.info("Close Channel EOF")
       }
@@ -1326,9 +1399,14 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       do {
-        let response = try Lnrpc_SendResponse(serializedData: p0)
+        guard let data = p0 else {
+          completion({ throw LNError.responseNilData })
+          return
+        }
+        
+        let response = try Lnrpc_SendResponse(serializedData: data)
         SLLog.debug("LN Send Payment Sync Success!")
         
         var lnHops = [LNHop]()
@@ -1356,7 +1434,10 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { completion({ throw p0 }) }
+    
+    func onError(_ p0: Error?) {
+      completion({ throw p0 ?? LNError.responseNilError })
+    }
   }
   
   static func sendPaymentSync(dest: Data? = nil, amount: Int? = nil, payHash: Data? = nil, payReq: String? = nil, finalCLTVDelta: Int? = nil,
@@ -1398,9 +1479,14 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       do {
-        let response = try Lnrpc_NodeInfo(serializedData: p0)
+        guard let data = p0 else {
+          completion({ throw LNError.responseNilData })
+          return
+        }
+        
+        let response = try Lnrpc_NodeInfo(serializedData: data)
         SLLog.debug("LN Get Node Info Success!")
         
         let lnNode = LNNode(lastUpdate: UInt(response.node.lastUpdate),
@@ -1421,7 +1507,9 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func getNodeInfo(pubKey: String,
@@ -1461,7 +1549,7 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("LN Query Routes Success!")
       
       // Success! - dereference retry
@@ -1505,7 +1593,9 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func queryRoutes(pubKey: String, amt: Int, numRoutes: Int,
@@ -1548,9 +1638,14 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       do {
-        let payReq = try Lnrpc_PayReq(serializedData: p0)
+        guard let data = p0 else {
+          completion({ throw LNError.responseNilData })
+          return
+        }
+        
+        let payReq = try Lnrpc_PayReq(serializedData: data)
         SLLog.debug("LN Decode Pay Req Success!")
         
         let lnPayReq = LNPayReq(destination: payReq.destination,
@@ -1573,7 +1668,9 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func decodePayReq(_ payReqInput: String,
@@ -1613,7 +1710,7 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("List LN Payments Success!")
       
       // Success! - dereference retry
@@ -1649,7 +1746,9 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func listPayments(retryCount: Int = LNConstants.defaultRetryCount,
@@ -1685,15 +1784,19 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("LN Get Network Info Success!")
       
       // Success! - dereference retry
       retry.success()
       
       do {
-        let response = try Lnrpc_NetworkInfo(serializedData: p0)
+        guard let data = p0 else {
+          completion({ throw LNError.responseNilData })
+          return
+        }
         
+        let response = try Lnrpc_NetworkInfo(serializedData: data)
         let networkInfo = LNDNetworkInfo(graphDiameter: UInt(response.graphDiameter),
                                          avgOutDegree: Double(response.avgOutDegree),
                                          maxOutDegree: UInt(response.maxOutDegree),
@@ -1711,7 +1814,9 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func getNetworkInfo(retryCount: Int = LNConstants.defaultRetryCount,
@@ -1747,12 +1852,13 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       do {
-        if let p0 = p0 {
-          _ = try Lnrpc_StopResponse(serializedData: p0)
+        if let data = p0 {
+          _ = try Lnrpc_StopResponse(serializedData: data)
         } else {
           SLLog.warning("Stop Daemon response does not return any data!!!")
+          completion({ throw LNError.responseNilData })
         }
         SLLog.debug("Stop Daemon Success!")
         completion({ return })
@@ -1760,7 +1866,9 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func stopDaemon(retryCount: Int = LNConstants.defaultRetryCount,
@@ -1790,16 +1898,21 @@ class LNServices {
   
   // MARK: Subscribe Channel Graph
   
-  private class SubscribeChannelGraph: NSObject, LndmobileCallbackProtocol {
+  private class SubscribeChannelGraph: NSObject, LndmobileRecvStreamProtocol {
     private var completion: (() throws -> ([LNGraphTopologyUpdate])) -> Void
     
     init(_ completion: @escaping (() throws -> ([LNGraphTopologyUpdate])) -> Void) {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       do {
-        let graphTopologyUpdate = try Lnrpc_GraphTopologyUpdate(serializedData: p0)
+        guard let data = p0 else {
+          completion({ throw LNError.responseNilData })
+          return
+        }
+        
+        let graphTopologyUpdate = try Lnrpc_GraphTopologyUpdate(serializedData: data)
         SLLog.debug("LN Graph Topology Update Received")
         
         var lnUpdates = [LNGraphTopologyUpdate]()
@@ -1830,9 +1943,14 @@ class LNServices {
       }
     }
     
-    func onError(_ p0: Error!) {
-      if p0.localizedDescription != "EOF" {
-        completion({ throw p0 })
+    func onError(_ p0: Error?) {
+      guard let data = p0 else {
+        completion({ throw LNError.responseNilError })
+        return
+      }
+      
+      if data.localizedDescription != "EOF" {
+        completion({ throw data })
       }
     }
   }
@@ -1856,7 +1974,7 @@ class LNServices {
       self.completion = completion
     }
     
-    func onResponse(_ p0: Data!) {
+    func onResponse(_ p0: Data?) {
       SLLog.debug("LN Debug Level Success!")
       
       guard let data = p0 else {
@@ -1871,7 +1989,9 @@ class LNServices {
         completion({ throw error })
       }
     }
-    func onError(_ p0: Error!) { retry.attempt(error: p0) }
+    func onError(_ p0: Error?) {
+      retry.attempt(error: p0 ?? LNError.responseNilError)
+    }
   }
   
   static func debugLevel(show: Bool = false, levelSpec: String = "",

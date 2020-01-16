@@ -59,7 +59,6 @@
 		8C090E4E20894A94009B8B8D /* SLSeedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E4D20894A94009B8B8D /* SLSeedField.swift */; };
 		8C090E5020895CA9009B8B8D /* SLRandValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E4F20895CA9009B8B8D /* SLRandValues.swift */; };
 		8C090E7420899DA6009B8B8D /* PlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C090E7220899DA5009B8B8D /* PlaygroundViewController.swift */; };
-		8C090E7920899DB9009B8B8D /* Playground.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E7720899DB9009B8B8D /* Playground.storyboard */; };
 		8C188271208679BD002E2835 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C188270208679BD002E2835 /* GradientView.swift */; };
 		8C18828420868545002E2835 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827220868538002E2835 /* Montserrat-Light.ttf */; };
 		8C18828520868545002E2835 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */; };
@@ -100,6 +99,8 @@
 		8C2FC7082073513700966D31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FC7072073513700966D31 /* AppDelegate.swift */; };
 		8C2FC70D2073513700966D31 /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70B2073513700966D31 /* Root.storyboard */; };
 		8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70E2073513800966D31 /* Assets.xcassets */; };
+		8C30A1C623C2F7FC00C8B1C5 /* Playground.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E7820899DB9009B8B8D /* Playground.storyboard */; };
+		8C30A1CA23C7EFC100C8B1C5 /* Lndmobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C30A1C923C7EFC100C8B1C5 /* Lndmobile.framework */; };
 		8C33E69820A5607900C31F33 /* PercentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E69720A5607800C31F33 /* PercentInteractor.swift */; };
 		8C33E69A20A5608400C31F33 /* SlideTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E69920A5608400C31F33 /* SlideTransitionAnimator.swift */; };
 		8C33E69C20A560B200C31F33 /* BasicDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E69B20A560B200C31F33 /* BasicDirection.swift */; };
@@ -372,7 +373,7 @@
 		8C090E4F20895CA9009B8B8D /* SLRandValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLRandValues.swift; sourceTree = "<group>"; };
 		8C090E6220896172009B8B8D /* SLRandValuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLRandValuesTests.swift; sourceTree = "<group>"; };
 		8C090E7220899DA5009B8B8D /* PlaygroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaygroundViewController.swift; sourceTree = "<group>"; };
-		8C090E7820899DB9009B8B8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Playground.storyboard; sourceTree = "<group>"; };
+		8C090E7820899DB9009B8B8D /* Playground.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Playground.storyboard; sourceTree = "<group>"; };
 		8C188270208679BD002E2835 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		8C18827220868538002E2835 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		8C18827320868538002E2835 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -416,6 +417,7 @@
 		8C2FC70C2073513700966D31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Root.storyboard; sourceTree = "<group>"; };
 		8C2FC70E2073513800966D31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C2FC7132073513900966D31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C30A1C923C7EFC100C8B1C5 /* Lndmobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Lndmobile.framework; sourceTree = "<group>"; };
 		8C33E69720A5607800C31F33 /* PercentInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PercentInteractor.swift; sourceTree = "<group>"; };
 		8C33E69920A5608400C31F33 /* SlideTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideTransitionAnimator.swift; sourceTree = "<group>"; };
 		8C33E69B20A560B200C31F33 /* BasicDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicDirection.swift; sourceTree = "<group>"; };
@@ -632,6 +634,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32D141C40B74A5332D4C173A /* Pods_SwiftLightning.framework in Frameworks */,
+				8C30A1CA23C7EFC100C8B1C5 /* Lndmobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,7 +755,7 @@
 		8C090E7120899D71009B8B8D /* Playground */ = {
 			isa = PBXGroup;
 			children = (
-				8C090E7720899DB9009B8B8D /* Playground.storyboard */,
+				8C090E7820899DB9009B8B8D /* Playground.storyboard */,
 				8C090E7220899DA5009B8B8D /* PlaygroundViewController.swift */,
 			);
 			path = Playground;
@@ -1306,6 +1309,7 @@
 			children = (
 				8C2FC70E2073513800966D31 /* Assets.xcassets */,
 				8CFA16E22085510600813EA6 /* Colors.xcassets */,
+				8C30A1C923C7EFC100C8B1C5 /* Lndmobile.framework */,
 				8C18829620868559002E2835 /* Fonts */,
 			);
 			path = Assets;
@@ -1783,7 +1787,7 @@
 				8C33E6D820A6602100C31F33 /* LNDDebugLevel.storyboard in Resources */,
 				8C18828620868545002E2835 /* Montserrat-LightItalic.ttf in Resources */,
 				8C18828420868545002E2835 /* Montserrat-Light.ttf in Resources */,
-				8C090E7920899DB9009B8B8D /* Playground.storyboard in Resources */,
+				8C30A1C623C2F7FC00C8B1C5 /* Playground.storyboard in Resources */,
 				8C8275F620910FB10029BE7E /* ChannelConfirm.storyboard in Resources */,
 				8C18828B20868545002E2835 /* Montserrat-ExtraLightItalic.ttf in Resources */,
 				8C18828D20868545002E2835 /* Montserrat-BlackItalic.ttf in Resources */,
@@ -2190,14 +2194,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8C090E7720899DB9009B8B8D /* Playground.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8C090E7820899DB9009B8B8D /* Base */,
-			);
-			name = Playground.storyboard;
-			sourceTree = "<group>";
-		};
 		8C2FC70B2073513700966D31 /* Root.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2340,6 +2336,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/SwiftLightning/Support\\ Files",
+					"$(PROJECT_DIR)/SwiftLightning/Assets",
 				);
 				INFOPLIST_FILE = "SwiftLightning/Support Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2365,6 +2363,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/SwiftLightning/Support\\ Files",
+					"$(PROJECT_DIR)/SwiftLightning/Assets",
 				);
 				INFOPLIST_FILE = "SwiftLightning/Support Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

@@ -564,6 +564,8 @@ struct LNAutopilotConfig: CustomStringConvertible {
 // MARK: Errors
 
 enum LNError: LocalizedError {
+  case responseNilData
+  case responseNilError
   
   case createWalletInvalidCipherSeed
   case createWalletInvalidPassword
@@ -582,6 +584,11 @@ enum LNError: LocalizedError {
   
   var errorDescription: String? {
     switch self {
+      
+    case .responseNilData:
+      return NSLocalizedString("LN Service response data is nil", comment: "LN Error Type")
+    case .responseNilError:
+      return NSLocalizedString("LN Service response error is nil", comment: "LN Error Type")
       
     case .createWalletInvalidCipherSeed:
       return NSLocalizedString("Cipher seed invalid when creating wallet", comment: "LNError Type")
