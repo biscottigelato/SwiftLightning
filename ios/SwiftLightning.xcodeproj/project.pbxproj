@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -101,6 +101,7 @@
 		8C2FC70F2073513800966D31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FC70E2073513800966D31 /* Assets.xcassets */; };
 		8C30A1C623C2F7FC00C8B1C5 /* Playground.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C090E7820899DB9009B8B8D /* Playground.storyboard */; };
 		8C30A1CA23C7EFC100C8B1C5 /* Lndmobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C30A1C923C7EFC100C8B1C5 /* Lndmobile.framework */; };
+		8C30A1CC23C84ECA00C8B1C5 /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C30A1CB23C84EC900C8B1C5 /* rpc.pb.swift */; };
 		8C33E69820A5607900C31F33 /* PercentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E69720A5607800C31F33 /* PercentInteractor.swift */; };
 		8C33E69A20A5608400C31F33 /* SlideTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E69920A5608400C31F33 /* SlideTransitionAnimator.swift */; };
 		8C33E69C20A560B200C31F33 /* BasicDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E69B20A560B200C31F33 /* BasicDirection.swift */; };
@@ -159,7 +160,6 @@
 		8C36A03220966E6F003BEFB6 /* EncodingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A03120966E6F003BEFB6 /* EncodingTest.swift */; };
 		8C36A03420966F20003BEFB6 /* Bech32Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C36A03320966F20003BEFB6 /* Bech32Test.swift */; };
 		8C36A049209696A0003BEFB6 /* lnd.conf in Resources */ = {isa = PBXBuildFile; fileRef = 8C36A04820969694003BEFB6 /* lnd.conf */; };
-		8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */; };
 		8C4710FB2077E79C005D7ABC /* LNServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4710FA2077E79C005D7ABC /* LNServices.swift */; };
 		8C68653C209A6E87001E41DA /* CameraMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C686536209A6E87001E41DA /* CameraMainPresenter.swift */; };
 		8C68653D209A6E87001E41DA /* CameraMainWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C686537209A6E87001E41DA /* CameraMainWorker.swift */; };
@@ -236,7 +236,6 @@
 		8C77AD8E20A2DBD50094D733 /* SLFormTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C77AD8A20A2DB720094D733 /* SLFormTextLabel.swift */; };
 		8C7A96DC20CE234700C089D6 /* SLSliderConfigView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C7A96DB20CE234700C089D6 /* SLSliderConfigView.xib */; };
 		8C7A96DE20CE236D00C089D6 /* SLSliderConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7A96DD20CE236D00C089D6 /* SLSliderConfigView.swift */; };
-		8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D3100207542CA0068F2BD /* rpc.pb.swift */; };
 		8C7D310820755CE00068F2BD /* SLLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D310720755CE00068F2BD /* SLLog.swift */; };
 		8C7EC53220950449001C8FD6 /* PayMainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */; };
 		8C7EC53320950449001C8FD6 /* PayMainWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7EC52D20950449001C8FD6 /* PayMainWorker.swift */; };
@@ -278,7 +277,6 @@
 		8C8E4E65208C0C040017BAB2 /* SLSpinnerDialogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */; };
 		8C8E4E67208C0C240017BAB2 /* SLSpinnerDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */; };
 		8C8FE3F520C8F8F500185DD4 /* PersistentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8FE3F420C8F8F300185DD4 /* PersistentData.swift */; };
-		8C8FE3F720CA601900185DD4 /* peers.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C8FE3F620CA601800185DD4 /* peers.json */; };
 		8C8FE3FB20CBAC2400185DD4 /* BootstrapPeers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8FE3FA20CBAC2300185DD4 /* BootstrapPeers.swift */; };
 		8C90C94A209D70ED00D6E7A8 /* ChannelVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */; };
 		8C9A7BCA20783EF300A51DF5 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */; };
@@ -418,6 +416,7 @@
 		8C2FC70E2073513800966D31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C2FC7132073513900966D31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C30A1C923C7EFC100C8B1C5 /* Lndmobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Lndmobile.framework; sourceTree = "<group>"; };
+		8C30A1CB23C84EC900C8B1C5 /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C33E69720A5607800C31F33 /* PercentInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PercentInteractor.swift; sourceTree = "<group>"; };
 		8C33E69920A5608400C31F33 /* SlideTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideTransitionAnimator.swift; sourceTree = "<group>"; };
 		8C33E69B20A560B200C31F33 /* BasicDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicDirection.swift; sourceTree = "<group>"; };
@@ -476,7 +475,6 @@
 		8C36A03120966E6F003BEFB6 /* EncodingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingTest.swift; sourceTree = "<group>"; };
 		8C36A03320966F20003BEFB6 /* Bech32Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bech32Test.swift; sourceTree = "<group>"; };
 		8C36A04820969694003BEFB6 /* lnd.conf */ = {isa = PBXFileReference; lastKnownFileType = text; path = lnd.conf; sourceTree = "<group>"; };
-		8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.grpc.swift; sourceTree = "<group>"; };
 		8C4710FA2077E79C005D7ABC /* LNServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNServices.swift; sourceTree = "<group>"; };
 		8C686536209A6E87001E41DA /* CameraMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMainPresenter.swift; sourceTree = "<group>"; };
 		8C686537209A6E87001E41DA /* CameraMainWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMainWorker.swift; sourceTree = "<group>"; };
@@ -553,7 +551,6 @@
 		8C77AD8A20A2DB720094D733 /* SLFormTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLFormTextLabel.swift; sourceTree = "<group>"; };
 		8C7A96DB20CE234700C089D6 /* SLSliderConfigView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLSliderConfigView.xib; sourceTree = "<group>"; };
 		8C7A96DD20CE236D00C089D6 /* SLSliderConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSliderConfigView.swift; sourceTree = "<group>"; };
-		8C7D3100207542CA0068F2BD /* rpc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rpc.pb.swift; sourceTree = "<group>"; };
 		8C7D310720755CE00068F2BD /* SLLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLLog.swift; sourceTree = "<group>"; };
 		8C7EC52C20950449001C8FD6 /* PayMainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainPresenter.swift; sourceTree = "<group>"; };
 		8C7EC52D20950449001C8FD6 /* PayMainWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMainWorker.swift; sourceTree = "<group>"; };
@@ -597,7 +594,6 @@
 		8C8E4E64208C0C040017BAB2 /* SLSpinnerDialogView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLSpinnerDialogView.xib; sourceTree = "<group>"; };
 		8C8E4E66208C0C240017BAB2 /* SLSpinnerDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLSpinnerDialogView.swift; sourceTree = "<group>"; };
 		8C8FE3F420C8F8F300185DD4 /* PersistentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentData.swift; sourceTree = "<group>"; };
-		8C8FE3F620CA601800185DD4 /* peers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = peers.json; sourceTree = "<group>"; };
 		8C8FE3FA20CBAC2300185DD4 /* BootstrapPeers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BootstrapPeers.swift; sourceTree = "<group>"; };
 		8C90C949209D70ED00D6E7A8 /* ChannelVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVM.swift; sourceTree = "<group>"; };
 		8C9A7BC920783EF300A51DF5 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
@@ -1026,7 +1022,6 @@
 		8C36A03920968DC0003BEFB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8C8FE3F620CA601800185DD4 /* peers.json */,
 				8C36A04820969694003BEFB6 /* lnd.conf */,
 			);
 			path = Resources;
@@ -1267,8 +1262,7 @@
 		8C7D30FE207542090068F2BD /* Protobuf */ = {
 			isa = PBXGroup;
 			children = (
-				8C4710DE2076EA8A005D7ABC /* rpc.grpc.swift */,
-				8C7D3100207542CA0068F2BD /* rpc.pb.swift */,
+				8C30A1CB23C84EC900C8B1C5 /* rpc.pb.swift */,
 			);
 			path = Protobuf;
 			sourceTree = "<group>";
@@ -1850,7 +1844,6 @@
 				8C2FC70D2073513700966D31 /* Root.storyboard in Resources */,
 				8C8275B1208EA1920029BE7E /* ChannelOpen.storyboard in Resources */,
 				8C70EC09208D8A2000D658DC /* SLFormHeaderView.xib in Resources */,
-				8C8FE3F720CA601900185DD4 /* peers.json in Resources */,
 				8C090E4C20894A85009B8B8D /* SLSeedField.xib in Resources */,
 				8C70EBD4208C346C00D658DC /* ReceiveMain.storyboard in Resources */,
 				8C090E3920886143009B8B8D /* MnemonicDisplay.storyboard in Resources */,
@@ -1895,39 +1888,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftRangeSlider/SwiftRangeSlider.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftGRPC.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftRangeSlider.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SwiftLightning/Pods-SwiftLightning-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6E4A18FA9FFCDCF92F4BA1C /* [CP] Check Pods Manifest.lock */ = {
@@ -2011,6 +1981,7 @@
 				8C6B7561208B17BD00B751A2 /* WalletMainViewController.swift in Sources */,
 				8C8276002091183F0029BE7E /* SLFormNodeView.swift in Sources */,
 				8CFA16E420856E6800813EA6 /* SLBarButton.swift in Sources */,
+				8C30A1CC23C84ECA00C8B1C5 /* rpc.pb.swift in Sources */,
 				8C33E6E620A7B67300C31F33 /* LogConsoleWorker.swift in Sources */,
 				8C8275BB208EA1B30029BE7E /* ChannelOpenModels.swift in Sources */,
 				8C6B7544208AF33200B751A2 /* RootModels.swift in Sources */,
@@ -2049,7 +2020,6 @@
 				8C18829F20868EBE002E2835 /* PasswordCreateRouter.swift in Sources */,
 				8C33E6BA20A65D9D00C31F33 /* LNDDebugLevelWorker.swift in Sources */,
 				8C7745B9209D3258004EBA69 /* EventCentral.swift in Sources */,
-				8C7D3101207542CA0068F2BD /* rpc.pb.swift in Sources */,
 				8C8275FC209118250029BE7E /* SLFormLabelView.swift in Sources */,
 				8C0509F420CE09E300F4AC9D /* AutopilotRouter.swift in Sources */,
 				8C7EC53320950449001C8FD6 /* PayMainWorker.swift in Sources */,
@@ -2140,7 +2110,6 @@
 				8C8275E0208FF8770029BE7E /* Currency.swift in Sources */,
 				8C090E372088612B009B8B8D /* MnemonicDisplayInteractor.swift in Sources */,
 				8CD063A9209563BC00D2B66B /* PayConfirmModels.swift in Sources */,
-				8C4710DF2076EA8A005D7ABC /* rpc.grpc.swift in Sources */,
 				8C33E71F20A954C900C31F33 /* NeutrinoPeersWorker.swift in Sources */,
 				8C090E4320894801009B8B8D /* MnemonicConfirmWorker.swift in Sources */,
 				8C090E022087DEAA009B8B8D /* MnemonicExplainInteractor.swift in Sources */,

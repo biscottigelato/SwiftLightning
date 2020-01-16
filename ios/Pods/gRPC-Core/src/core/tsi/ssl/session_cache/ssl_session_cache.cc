@@ -18,27 +18,30 @@
 
 #include <grpc/support/port_platform.h>
 
-#include "src/core/tsi/ssl/session_cache/ssl_session_cache.h"
-
+#include "src/core/lib/gprpp/sync.h"
+#include "src/core/lib/slice/slice_internal.h"
 #include "src/core/tsi/ssl/session_cache/ssl_session.h"
+#include "src/core/tsi/ssl/session_cache/ssl_session_cache.h"
 
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>
 
 namespace tsi {
 
-static void cache_key_avl_destroy(void* key, void* unused) {}
+static void cache_key_avl_destroy(void* /*key*/, void* /*unused*/) {}
 
-static void* cache_key_avl_copy(void* key, void* unused) { return key; }
+static void* cache_key_avl_copy(void* key, void* /*unused*/) { return key; }
 
-static long cache_key_avl_compare(void* key1, void* key2, void* unused) {
+static long cache_key_avl_compare(void* key1, void* key2, void* /*unused*/) {
   return grpc_slice_cmp(*static_cast<grpc_slice*>(key1),
                         *static_cast<grpc_slice*>(key2));
 }
 
-static void cache_value_avl_destroy(void* value, void* unused) {}
+static void cache_value_avl_destroy(void* /*value*/, void* /*unused*/) {}
 
-static void* cache_value_avl_copy(void* value, void* unused) { return value; }
+static void* cache_value_avl_copy(void* value, void* /*unused*/) {
+  return value;
+}
 
 // AVL only stores pointers, ownership belonges to the linked list.
 static const grpc_avl_vtable cache_avl_vtable = {
@@ -53,7 +56,7 @@ class SslSessionLRUCache::Node {
     SetSession(std::move(session));
   }
 
-  ~Node() { grpc_slice_unref(key_); }
+  ~Node() { grpc_slice_unref_internal(key_); }
 
   // Not copyable nor movable.
   Node(const Node&) = delete;
@@ -73,7 +76,7 @@ class SslSessionLRUCache::Node {
   friend class SslSessionLRUCache;
 
   grpc_slice key_;
-  grpc_core::UniquePtr<SslCachedSession> session_;
+  std::unique_ptr<SslCachedSession> session_;
 
   Node* next_ = nullptr;
   Node* prev_ = nullptr;
@@ -89,7 +92,7 @@ SslSessionLRUCache::~SslSessionLRUCache() {
   Node* node = use_order_list_head_;
   while (node) {
     Node* next = node->next_;
-    grpc_core::Delete(node);
+    delete node;
     node = next;
   }
   grpc_avl_unref(entry_by_key_, nullptr);
@@ -97,7 +100,7 @@ SslSessionLRUCache::~SslSessionLRUCache() {
 }
 
 size_t SslSessionLRUCache::Size() {
-  grpc_core::mu_guard guard(&lock_);
+  grpc_core::MutexLock lock(&lock_);
   return use_order_list_size_;
 }
 
@@ -117,14 +120,14 @@ SslSessionLRUCache::Node* SslSessionLRUCache::FindLocked(
 }
 
 void SslSessionLRUCache::Put(const char* key, SslSessionPtr session) {
-  grpc_core::mu_guard guard(&lock_);
+  grpc_core::MutexLock lock(&lock_);
   Node* node = FindLocked(grpc_slice_from_static_string(key));
   if (node != nullptr) {
     node->SetSession(std::move(session));
     return;
   }
   grpc_slice key_slice = grpc_slice_from_copied_string(key);
-  node = grpc_core::New<Node>(key_slice, std::move(session));
+  node = new Node(key_slice, std::move(session));
   PushFront(node);
   entry_by_key_ = grpc_avl_add(entry_by_key_, node->AvlKey(), node, nullptr);
   AssertInvariants();
@@ -134,13 +137,13 @@ void SslSessionLRUCache::Put(const char* key, SslSessionPtr session) {
     Remove(node);
     // Order matters, key is destroyed after deleting node.
     entry_by_key_ = grpc_avl_remove(entry_by_key_, node->AvlKey(), nullptr);
-    grpc_core::Delete(node);
+    delete node;
     AssertInvariants();
   }
 }
 
 SslSessionPtr SslSessionLRUCache::Get(const char* key) {
-  grpc_core::mu_guard guard(&lock_);
+  grpc_core::MutexLock lock(&lock_);
   // Key is only used for lookups.
   grpc_slice key_slice = grpc_slice_from_static_string(key);
   Node* node = FindLocked(key_slice);

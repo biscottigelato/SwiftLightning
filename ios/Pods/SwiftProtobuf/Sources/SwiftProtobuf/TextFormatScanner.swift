@@ -1,6 +1,6 @@
 // Sources/SwiftProtobuf/TextFormatScanner.swift - Text format decoding
 //
-// Copyright (c) 2014 - 2016 Apple Inc. and the project authors
+// Copyright (c) 2014 - 2019 Apple Inc. and the project authors
 // Licensed under Apache License v2.0 with Runtime Library Exception
 //
 // See LICENSE.txt for license information:
@@ -177,7 +177,7 @@ internal struct TextFormatScanner {
     internal var extensions: ExtensionMap?
     private var p: UnsafePointer<UInt8>
     private var end: UnsafePointer<UInt8>
-    private var doubleFormatter = DoubleFormatter()
+    private var doubleParser = DoubleParser()
 
     internal var complete: Bool {
         mutating get {
@@ -356,78 +356,80 @@ internal struct TextFormatScanner {
     /// verified the correctness.  So we get to avoid error checks here.
     private mutating func parseBytesFromString(terminator: UInt8, into data: inout Data) {
       data.withUnsafeMutableBytes {
-        (dataPointer: UnsafeMutablePointer<UInt8>) in
-        var out = dataPointer
-        while p[0] != terminator {
-          let byte = p[0]
-          p += 1
-          switch byte {
-          case asciiBackslash: //  "\\"
-            let escaped = p[0]
+        (body: UnsafeMutableRawBufferPointer) in
+        if let baseAddress = body.baseAddress, body.count > 0 {
+          var out = baseAddress.assumingMemoryBound(to: UInt8.self)
+          while p[0] != terminator {
+            let byte = p[0]
             p += 1
-            switch escaped {
-            case asciiZero...asciiSeven: // '0'...'7'
-              // C standard allows 1, 2, or 3 octal digits.
-              let digit1Value = escaped - asciiZero
-              let digit2 = p[0]
-              if digit2 >= asciiZero, digit2 <= asciiSeven {
-                p += 1
-                let digit2Value = digit2 - asciiZero
-                let digit3 = p[0]
-                if digit3 >= asciiZero, digit3 <= asciiSeven {
+            switch byte {
+            case asciiBackslash: //  "\\"
+              let escaped = p[0]
+              p += 1
+              switch escaped {
+              case asciiZero...asciiSeven: // '0'...'7'
+                // C standard allows 1, 2, or 3 octal digits.
+                let digit1Value = escaped - asciiZero
+                let digit2 = p[0]
+                if digit2 >= asciiZero, digit2 <= asciiSeven {
                   p += 1
-                  let digit3Value = digit3 - asciiZero
-                  out[0] = digit1Value &* 64 + digit2Value * 8 + digit3Value
-                  out += 1
+                  let digit2Value = digit2 - asciiZero
+                  let digit3 = p[0]
+                  if digit3 >= asciiZero, digit3 <= asciiSeven {
+                    p += 1
+                    let digit3Value = digit3 - asciiZero
+                    out[0] = digit1Value &* 64 + digit2Value * 8 + digit3Value
+                    out += 1
+                  } else {
+                    out[0] = digit1Value * 8 + digit2Value
+                    out += 1
+                  }
                 } else {
-                  out[0] = digit1Value * 8 + digit2Value
+                  out[0] = digit1Value
                   out += 1
                 }
-              } else {
-                out[0] = digit1Value
+              case asciiLowerX: // 'x' hexadecimal escape
+                // We already validated, so we know there's at least one digit:
+                var n = fromHexDigit(p[0])!
+                p += 1
+                if let digit = fromHexDigit(p[0]) {
+                  n = n &* 16 &+ digit
+                  p += 1
+                }
+                out[0] = n
+                out += 1
+              case asciiLowerA: // \a ("alert")
+                out[0] = asciiBell
+                out += 1
+              case asciiLowerB: // \b
+                out[0] = asciiBackspace
+                out += 1
+              case asciiLowerF: // \f
+                out[0] = asciiFormFeed
+                out += 1
+              case asciiLowerN: // \n
+                out[0] = asciiNewLine
+                out += 1
+              case asciiLowerR: // \r
+                out[0] = asciiCarriageReturn
+                out += 1
+              case asciiLowerT: // \t
+                out[0] = asciiTab
+                out += 1
+              case asciiLowerV: // \v
+                out[0] = asciiVerticalTab
+                out += 1
+              default:
+                out[0] = escaped
                 out += 1
               }
-            case asciiLowerX: // 'x' hexadecimal escape
-              // We already validated, so we know there's at least one digit:
-              var n = fromHexDigit(p[0])!
-              p += 1
-              if let digit = fromHexDigit(p[0]) {
-                n = n &* 16 &+ digit
-                p += 1
-              }
-              out[0] = n
-              out += 1
-            case asciiLowerA: // \a ("alert")
-              out[0] = asciiBell
-              out += 1
-            case asciiLowerB: // \b
-              out[0] = asciiBackspace
-              out += 1
-            case asciiLowerF: // \f
-              out[0] = asciiFormFeed
-              out += 1
-            case asciiLowerN: // \n
-              out[0] = asciiNewLine
-              out += 1
-            case asciiLowerR: // \r
-              out[0] = asciiCarriageReturn
-              out += 1
-            case asciiLowerT: // \t
-              out[0] = asciiTab
-              out += 1
-            case asciiLowerV: // \v
-              out[0] = asciiVerticalTab
-              out += 1
             default:
-              out[0] = escaped
+              out[0] = byte
               out += 1
             }
-          default:
-            out[0] = byte
-            out += 1
           }
+          p += 1 // Consume terminator
         }
-        p += 1 // Consume terminator
       }
     }
 
@@ -708,7 +710,7 @@ internal struct TextFormatScanner {
                 p += 1
             case asciiLowerF: // f
                 // proto1 allowed floats to be suffixed with 'f'
-                let d = doubleFormatter.utf8ToDouble(bytes: start, count: p - start)
+                let d = doubleParser.utf8ToDouble(bytes: start, count: p - start)
                 // Just skip the 'f'
                 p += 1
                 skipWhitespace()
@@ -717,7 +719,7 @@ internal struct TextFormatScanner {
                 break loop
             }
         }
-        let d = doubleFormatter.utf8ToDouble(bytes: start, count: p - start)
+        let d = doubleParser.utf8ToDouble(bytes: start, count: p - start)
         skipWhitespace()
         return d
     }
@@ -800,10 +802,7 @@ internal struct TextFormatScanner {
 
     internal mutating func nextFloat() throws -> Float {
         if let d = tryParseFloatString() {
-            let n = Float(d)
-            if n.isFinite {
-                return n
-            }
+            return Float(d)
         }
         if skipOptionalNaN() {
             return Float.nan

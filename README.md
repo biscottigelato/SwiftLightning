@@ -22,27 +22,8 @@ Protoc from https://github.com/google/protobuf
 
 ## Building LND with mobile support
 
-A LND branch with support for direct functional bindings is required to build SwiftLighting. An example of that can be found at https://github.com/biscottigelato/lnd/tree/mobile-tip. Assuming that the Go toolchain is properly installed, here is an example of how one can checkout this particular branch.
+https://blog.lightning.engineering/posts/2019/11/21/mobile-lnd.html
 
-First, use 'go get' to retrieve master of LND
-```
-$ go get -d github.com/lightningnetwork/lnd
-```
-Under your $GOPATH where lnd was retrieved, you can change the remote to point to a particular branch by
-```
-$ git remote add biscottigelato https://github.com/biscottigelato/lnd
-```
-Finally, fetch & checkout the mobile support branch
-```
-$ git fetch biscottigelato
-$ git checkout -b mobile-tip biscottigelato/mobile-tip
-```
-You should be able to generate Lndmobile.framework with mobile support branch by just executing
-```
-$ ./lnd/mobile/dep ensure
-$ ./lnd/mobile/build_mobile.sh
-```
-Lndmobile.framework should then be found under /lnd/mobile/build/ios/. Please see the [LND Github page](https://github.com/lightningnetwork/lnd) for other details regarding LND. Once Lndmobile.framework is generated, copy it to /SwiftLightning/ios/Lndmobile.framework.
 
 ## Build & Install
 

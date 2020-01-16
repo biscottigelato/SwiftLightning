@@ -37,7 +37,7 @@
 void grpc_security_pre_init(void) {}
 
 static bool maybe_prepend_client_auth_filter(
-    grpc_channel_stack_builder* builder, void* arg) {
+    grpc_channel_stack_builder* builder, void* /*arg*/) {
   const grpc_channel_args* args =
       grpc_channel_stack_builder_get_channel_arguments(builder);
   if (args) {
@@ -52,7 +52,7 @@ static bool maybe_prepend_client_auth_filter(
 }
 
 static bool maybe_prepend_server_auth_filter(
-    grpc_channel_stack_builder* builder, void* arg) {
+    grpc_channel_stack_builder* builder, void* /*arg*/) {
   const grpc_channel_args* args =
       grpc_channel_stack_builder_get_channel_arguments(builder);
   if (args) {
@@ -74,8 +74,11 @@ void grpc_register_security_filters(void) {
                                    maybe_prepend_client_auth_filter, nullptr);
   grpc_channel_init_register_stage(GRPC_CLIENT_DIRECT_CHANNEL, INT_MAX - 1,
                                    maybe_prepend_client_auth_filter, nullptr);
-  grpc_channel_init_register_stage(GRPC_SERVER_CHANNEL, INT_MAX,
+  grpc_channel_init_register_stage(GRPC_SERVER_CHANNEL, INT_MAX - 1,
                                    maybe_prepend_server_auth_filter, nullptr);
 }
 
-void grpc_security_init() { grpc_security_register_handshaker_factories(); }
+void grpc_security_init() {
+  grpc_core::SecurityRegisterHandshakerFactories();
+  grpc_control_plane_credentials_init();
+}

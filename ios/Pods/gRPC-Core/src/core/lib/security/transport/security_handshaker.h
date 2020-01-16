@@ -24,11 +24,22 @@
 #include "src/core/lib/channel/handshaker.h"
 #include "src/core/lib/security/security_connector/security_connector.h"
 
+namespace grpc_core {
+
 /// Creates a security handshaker using \a handshaker.
-grpc_handshaker* grpc_security_handshaker_create(
-    tsi_handshaker* handshaker, grpc_security_connector* connector);
+RefCountedPtr<Handshaker> SecurityHandshakerCreate(
+    tsi_handshaker* handshaker, grpc_security_connector* connector,
+    const grpc_channel_args* args);
 
 /// Registers security handshaker factories.
-void grpc_security_register_handshaker_factories();
+void SecurityRegisterHandshakerFactories();
+
+}  // namespace grpc_core
+
+// TODO(arjunroy): This is transitional to account for the new handshaker API
+// and will eventually be removed entirely.
+grpc_handshaker* grpc_security_handshaker_create(
+    tsi_handshaker* handshaker, grpc_security_connector* connector,
+    const grpc_channel_args* args);
 
 #endif /* GRPC_CORE_LIB_SECURITY_TRANSPORT_SECURITY_HANDSHAKER_H */

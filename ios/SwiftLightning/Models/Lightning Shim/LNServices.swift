@@ -9,7 +9,6 @@
 import Foundation
 import Lndmobile
 
-
 class LNServices {
   
   // MARK: Initialization
@@ -75,27 +74,27 @@ class LNServices {
     }
     
     // Get handles to source and destination peers.json
-    guard let peersSourceURL = Bundle.main.url(forResource: "peers", withExtension: "json") else {
-      SLLog.fatal("Cannot get peers.json from Bundle")
-    }
-    let peersFolderURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("data/chain/bitcoin/testnet", isDirectory: true)  // TODO: Make configurable between Mainnet & Testnnet
-    let peersDestinationURL = peersFolderURL.appendingPathComponent("peers.json", isDirectory: false)
-
-    // Check if file and directory. Create/copy as necassary
-    if !FileManager.default.fileExists(atPath: peersDestinationURL.path) {
-      do {
-        if !FileManager.default.fileExists(atPath: peersFolderURL.path, isDirectory: nil) {
-          try FileManager.default.createDirectory(atPath: peersFolderURL.path, withIntermediateDirectories: true)
-        }
-        try FileManager.default.copyItem(at: peersSourceURL, to: peersDestinationURL)
-        usleep(100000)  // Sleep for 100ms for file to settle
-      } catch CocoaError.fileWriteFileExists {
-        SLLog.assert("peers.json already exist at \(peersFolderURL.absoluteString)")
-      } catch {
-        let nsError = error as NSError
-        SLLog.fatal("Failed to copy peers.json from bundle to \(peersDestinationURL.absoluteString).\(nsError.domain): \(nsError.code) - \(nsError.localizedDescription)")
-      }
-    }
+//    guard let peersSourceURL = Bundle.main.url(forResource: "peers", withExtension: "json") else {
+//      SLLog.fatal("Cannot get peers.json from Bundle")
+//    }
+//    let peersFolderURL = URL(fileURLWithPath: directoryPath).appendingPathComponent("data/chain/bitcoin/testnet", isDirectory: true)  // TODO: Make configurable between Mainnet & Testnnet
+//    let peersDestinationURL = peersFolderURL.appendingPathComponent("peers.json", isDirectory: false)
+//
+//    // Check if file and directory. Create/copy as necassary
+//    if !FileManager.default.fileExists(atPath: peersDestinationURL.path) {
+//      do {
+//        if !FileManager.default.fileExists(atPath: peersFolderURL.path, isDirectory: nil) {
+//          try FileManager.default.createDirectory(atPath: peersFolderURL.path, withIntermediateDirectories: true)
+//        }
+//        try FileManager.default.copyItem(at: peersSourceURL, to: peersDestinationURL)
+//        usleep(100000)  // Sleep for 100ms for file to settle
+//      } catch CocoaError.fileWriteFileExists {
+//        SLLog.assert("peers.json already exist at \(peersFolderURL.absoluteString)")
+//      } catch {
+//        let nsError = error as NSError
+//        SLLog.fatal("Failed to copy peers.json from bundle to \(peersDestinationURL.absoluteString).\(nsError.domain): \(nsError.code) - \(nsError.localizedDescription)")
+//      }
+//    }
     
     // Prevent the entire lnd directory from being backed-up
     var directoryURL = URL(fileURLWithPath: directoryPath, isDirectory: true)
@@ -107,7 +106,7 @@ class LNServices {
     } catch {
       SLLog.assert("Cannot set Resource Value for LND Directory to exclude from Backup")
     }
-    
+ 
     // BTCD can throw SIGPIPEs. Ignoring according to https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/NetworkingOverview/CommonPitfalls/CommonPitfalls.html for now
     signal(SIGPIPE, SIG_IGN)
     
@@ -147,7 +146,7 @@ class LNServices {
     directoryPath = appSupportPath + "/Lnd"
     
     SLLog.debug("LND Start Request")
-    let extraArgs = "--bitcoin.testnet --lnddir=\"\(directoryPath)\" --profile=5050"
+    let extraArgs = "--bitcoin.active --bitcoin.testnet --bitcoin.node=neutrino --lnddir=\"\(directoryPath)\" --profile=5050 --no-macaroons"
     LndmobileStart(extraArgs, LndStart(completion), nil)
   }
   
@@ -858,6 +857,7 @@ class LNServices {
         let response = try Lnrpc_GetInfoResponse(serializedData: data)
         SLLog.verbose("LN Get Info Success!")  // Changing to verbose because this can get triggered a lot
         
+        let chainStrings = response.chains.map { "Chain: \($0.chain) Network: \($0.network)" }
         let lndInfo = LNDInfo(identityPubkey: response.identityPubkey,
                               alias: response.alias,
                               numPendingChannels: UInt(response.numPendingChannels),
@@ -867,7 +867,7 @@ class LNServices {
                               blockHash: response.blockHash,
                               syncedToChain: response.syncedToChain,
                               testnet: response.testnet,
-                              chains: response.chains,
+                              chains: chainStrings,
                               uris: response.uris,
                               bestHeaderTimestamp: Int(response.bestHeaderTimestamp),
                               version: response.version)
@@ -1209,12 +1209,12 @@ class LNServices {
           SLLog.verbose(" Output Index:  \(pendingUpdate.outputIndex)")
           completion?({ return LNOpenChannelUpdateType.pending })
           
-        case .confirmation(let confirmUpdate):
-          SLLog.verbose("LN Open Channel Confirmation Update:")
-          SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
-          SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
-          SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
-          completion?({ return LNOpenChannelUpdateType.confirmation })
+//        case .confirmation(let confirmUpdate):
+//          SLLog.verbose("LN Open Channel Confirmation Update:")
+//          SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
+//          SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
+//          SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
+//          completion?({ return LNOpenChannelUpdateType.confirmation })
           
         case .chanOpen(let openUpdate):
           SLLog.verbose("LN Open Channel Open Update:")
@@ -1323,12 +1323,12 @@ class LNServices {
           SLLog.verbose(" Output Index:  \(pendingUpdate.outputIndex)")
           completion?({ return LNCloseChannelUpdateType.pending })
           
-        case .confirmation(let confirmUpdate):
-          SLLog.verbose("LN Close Channel Confirmation Update:")
-          SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
-          SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
-          SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
-          completion?({ return LNCloseChannelUpdateType.confirmation })
+//        case .confirmation(let confirmUpdate):
+//          SLLog.verbose("LN Close Channel Confirmation Update:")
+//          SLLog.verbose(" Block SHA:          \(confirmUpdate.blockSha.hexEncodedString(options: .littleEndian))")
+//          SLLog.verbose(" Block Height:       \(confirmUpdate.blockHeight)")
+//          SLLog.verbose(" Num of Confs Left:  \(confirmUpdate.numConfsLeft)")
+//          completion?({ return LNCloseChannelUpdateType.confirmation })
           
         case .chanClose(let closeUpdate):
           SLLog.verbose("LN Close Channel Open Update:")
@@ -1610,7 +1610,7 @@ class LNServices {
         var request = Lnrpc_QueryRoutesRequest()
         request.pubKey = pubKey
         request.amt = Int64(amt)
-        request.numRoutes = Int32(numRoutes)
+//        request.numRoutes = Int32(numRoutes)
         
         SLLog.info("LN Query Routes Request - PubKey: \(pubKey.prefix(10))...")
         let serialReq = try request.serializedData()

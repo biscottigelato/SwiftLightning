@@ -53,6 +53,13 @@ grpc_error* grpc_set_socket_low_latency(int fd, int low_latency);
 /* set SO_REUSEPORT */
 grpc_error* grpc_set_socket_reuse_port(int fd, int reuse);
 
+/* Configure the default values for TCP_USER_TIMEOUT */
+void config_default_tcp_user_timeout(bool enable, int timeout, bool is_client);
+
+/* Set TCP_USER_TIMEOUT */
+grpc_error* grpc_set_socket_tcp_user_timeout(
+    int fd, const grpc_channel_args* channel_args, bool is_client);
+
 /* Returns true if this system can create AF_INET6 sockets bound to ::1.
    The value is probed once, and cached for the life of the process.
 
@@ -83,6 +90,10 @@ grpc_error* grpc_set_socket_rcvbuf(int fd, int buffer_size_bytes);
 
 /* Tries to set the socket using a grpc_socket_mutator */
 grpc_error* grpc_set_socket_with_mutator(int fd, grpc_socket_mutator* mutator);
+
+/* Extracts the first socket mutator from args if any and applies on the fd. */
+grpc_error* grpc_apply_socket_mutator_in_args(int fd,
+                                              const grpc_channel_args* args);
 
 /* An enum to keep track of IPv4/IPv6 socket modes.
 

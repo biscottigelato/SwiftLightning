@@ -21,8 +21,9 @@
 #include <limits.h>
 #include <string.h>
 
-#include <grpc/compression.h>
 #include <grpc/grpc.h>
+#include <grpc/impl/codegen/grpc_types.h>
+#include <grpc/impl/codegen/log.h>
 #include <grpc/support/alloc.h>
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>
@@ -118,6 +119,8 @@ grpc_channel_args* grpc_channel_args_copy(const grpc_channel_args* src) {
 
 grpc_channel_args* grpc_channel_args_union(const grpc_channel_args* a,
                                            const grpc_channel_args* b) {
+  if (a == nullptr) return grpc_channel_args_copy(b);
+  if (b == nullptr) return grpc_channel_args_copy(a);
   const size_t max_out = (a->num_args + b->num_args);
   grpc_arg* uniques =
       static_cast<grpc_arg*>(gpr_malloc(sizeof(*uniques) * max_out));
@@ -211,108 +214,10 @@ void grpc_channel_args_destroy(grpc_channel_args* a) {
   gpr_free(a);
 }
 
-grpc_compression_algorithm grpc_channel_args_get_compression_algorithm(
-    const grpc_channel_args* a) {
-  size_t i;
-  if (a == nullptr) return GRPC_COMPRESS_NONE;
-  for (i = 0; i < a->num_args; ++i) {
-    if (a->args[i].type == GRPC_ARG_INTEGER &&
-        !strcmp(GRPC_COMPRESSION_CHANNEL_DEFAULT_ALGORITHM, a->args[i].key)) {
-      return static_cast<grpc_compression_algorithm>(a->args[i].value.integer);
-      break;
-    }
-  }
-  return GRPC_COMPRESS_NONE;
-}
-
-grpc_channel_args* grpc_channel_args_set_compression_algorithm(
-    grpc_channel_args* a, grpc_compression_algorithm algorithm) {
-  GPR_ASSERT(algorithm < GRPC_COMPRESS_ALGORITHMS_COUNT);
-  grpc_arg tmp;
-  tmp.type = GRPC_ARG_INTEGER;
-  tmp.key = (char*)GRPC_COMPRESSION_CHANNEL_DEFAULT_ALGORITHM;
-  tmp.value.integer = algorithm;
-  return grpc_channel_args_copy_and_add(a, &tmp, 1);
-}
-
-/** Returns 1 if the argument for compression algorithm's enabled states bitset
- * was found in \a a, returning the arg's value in \a states. Otherwise, returns
- * 0. */
-static int find_compression_algorithm_states_bitset(const grpc_channel_args* a,
-                                                    int** states_arg) {
-  if (a != nullptr) {
-    size_t i;
-    for (i = 0; i < a->num_args; ++i) {
-      if (a->args[i].type == GRPC_ARG_INTEGER &&
-          !strcmp(GRPC_COMPRESSION_CHANNEL_ENABLED_ALGORITHMS_BITSET,
-                  a->args[i].key)) {
-        *states_arg = &a->args[i].value.integer;
-        **states_arg |= 0x1; /* forcefully enable support for no compression */
-        return 1;
-      }
-    }
-  }
-  return 0; /* GPR_FALSE */
-}
-
-grpc_channel_args* grpc_channel_args_compression_algorithm_set_state(
-    grpc_channel_args** a, grpc_compression_algorithm algorithm, int state) {
-  int* states_arg = nullptr;
-  grpc_channel_args* result = *a;
-  const int states_arg_found =
-      find_compression_algorithm_states_bitset(*a, &states_arg);
-
-  if (grpc_channel_args_get_compression_algorithm(*a) == algorithm &&
-      state == 0) {
-    const char* algo_name = nullptr;
-    GPR_ASSERT(grpc_compression_algorithm_name(algorithm, &algo_name) != 0);
-    gpr_log(GPR_ERROR,
-            "Tried to disable default compression algorithm '%s'. The "
-            "operation has been ignored.",
-            algo_name);
-  } else if (states_arg_found) {
-    if (state != 0) {
-      GPR_BITSET((unsigned*)states_arg, algorithm);
-    } else if (algorithm != GRPC_COMPRESS_NONE) {
-      GPR_BITCLEAR((unsigned*)states_arg, algorithm);
-    }
-  } else {
-    /* create a new arg */
-    grpc_arg tmp;
-    tmp.type = GRPC_ARG_INTEGER;
-    tmp.key = (char*)GRPC_COMPRESSION_CHANNEL_ENABLED_ALGORITHMS_BITSET;
-    /* all enabled by default */
-    tmp.value.integer = (1u << GRPC_COMPRESS_ALGORITHMS_COUNT) - 1;
-    if (state != 0) {
-      GPR_BITSET((unsigned*)&tmp.value.integer, algorithm);
-    } else if (algorithm != GRPC_COMPRESS_NONE) {
-      GPR_BITCLEAR((unsigned*)&tmp.value.integer, algorithm);
-    }
-    result = grpc_channel_args_copy_and_add(*a, &tmp, 1);
-    grpc_channel_args_destroy(*a);
-    *a = result;
-  }
-  return result;
-}
-
-uint32_t grpc_channel_args_compression_algorithm_get_states(
-    const grpc_channel_args* a) {
-  int* states_arg;
-  if (find_compression_algorithm_states_bitset(a, &states_arg)) {
-    return static_cast<uint32_t>(*states_arg);
-  } else {
-    return (1u << GRPC_COMPRESS_ALGORITHMS_COUNT) - 1; /* All algs. enabled */
-  }
-}
-
-grpc_channel_args* grpc_channel_args_set_socket_mutator(
-    grpc_channel_args* a, grpc_socket_mutator* mutator) {
-  grpc_arg tmp = grpc_socket_mutator_to_arg(mutator);
-  return grpc_channel_args_copy_and_add(a, &tmp, 1);
-}
-
 int grpc_channel_args_compare(const grpc_channel_args* a,
                               const grpc_channel_args* b) {
+  if (a == nullptr && b == nullptr) return 0;
+  if (a == nullptr || b == nullptr) return a == nullptr ? -1 : 1;
   int c = GPR_ICMP(a->num_args, b->num_args);
   if (c != 0) return c;
   for (size_t i = 0; i < a->num_args; i++) {
@@ -354,6 +259,13 @@ int grpc_channel_arg_get_integer(const grpc_arg* arg,
   return arg->value.integer;
 }
 
+int grpc_channel_args_find_integer(const grpc_channel_args* args,
+                                   const char* name,
+                                   const grpc_integer_options options) {
+  const grpc_arg* arg = grpc_channel_args_find(args, name);
+  return grpc_channel_arg_get_integer(arg, options);
+}
+
 char* grpc_channel_arg_get_string(const grpc_arg* arg) {
   if (arg == nullptr) return nullptr;
   if (arg->type != GRPC_ARG_STRING) {
@@ -361,6 +273,12 @@ char* grpc_channel_arg_get_string(const grpc_arg* arg) {
     return nullptr;
   }
   return arg->value.string;
+}
+
+char* grpc_channel_args_find_string(const grpc_channel_args* args,
+                                    const char* name) {
+  const grpc_arg* arg = grpc_channel_args_find(args, name);
+  return grpc_channel_arg_get_string(arg);
 }
 
 bool grpc_channel_arg_get_bool(const grpc_arg* arg, bool default_value) {
@@ -379,6 +297,12 @@ bool grpc_channel_arg_get_bool(const grpc_arg* arg, bool default_value) {
               arg->key, arg->value.integer);
       return true;
   }
+}
+
+bool grpc_channel_args_find_bool(const grpc_channel_args* args,
+                                 const char* name, bool default_value) {
+  const grpc_arg* arg = grpc_channel_args_find(args, name);
+  return grpc_channel_arg_get_bool(arg, default_value);
 }
 
 bool grpc_channel_args_want_minimal_stack(const grpc_channel_args* args) {
@@ -438,4 +362,18 @@ char* grpc_channel_args_string(const grpc_channel_args* args) {
       gpr_strjoin_sep(const_cast<const char**>(v.strs), v.count, ", ", nullptr);
   gpr_strvec_destroy(&v);
   return result;
+}
+
+namespace {
+grpc_channel_args_client_channel_creation_mutator g_mutator = nullptr;
+}  // namespace
+
+void grpc_channel_args_set_client_channel_creation_mutator(
+    grpc_channel_args_client_channel_creation_mutator cb) {
+  GPR_DEBUG_ASSERT(g_mutator == nullptr);
+  g_mutator = cb;
+}
+grpc_channel_args_client_channel_creation_mutator
+grpc_channel_args_get_client_channel_creation_mutator() {
+  return g_mutator;
 }

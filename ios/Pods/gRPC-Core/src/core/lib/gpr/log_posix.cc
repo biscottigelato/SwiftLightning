@@ -24,13 +24,14 @@
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>
 #include <grpc/support/time.h>
+#include <inttypes.h>
 #include <pthread.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
 
-static intptr_t gettid(void) { return (intptr_t)pthread_self(); }
+static intptr_t sys_gettid(void) { return (intptr_t)pthread_self(); }
 
 void gpr_log(const char* file, int line, gpr_log_severity severity,
              const char* format, ...) {
@@ -83,9 +84,9 @@ void gpr_default_log(gpr_log_func_args* args) {
   }
 
   char* prefix;
-  gpr_asprintf(&prefix, "%s%s.%09d %7tu %s:%d]",
+  gpr_asprintf(&prefix, "%s%s.%09d %7" PRIdPTR " %s:%d]",
                gpr_log_severity_string(args->severity), time_buffer,
-               (int)(now.tv_nsec), gettid(), display_file, args->line);
+               (int)(now.tv_nsec), sys_gettid(), display_file, args->line);
 
   fprintf(stderr, "%-70s %s\n", prefix, args->message);
   gpr_free(prefix);

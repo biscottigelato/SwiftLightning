@@ -24,19 +24,21 @@
 #include <grpc/support/port_platform.h>
 
 #include <grpc/grpc.h>
+
 #include "src/core/lib/debug/trace.h"
+#include "src/core/lib/gprpp/manual_constructor.h"
 #include "src/core/lib/iomgr/pollset.h"
 
 /* These trace flags default to 1. The corresponding lines are only traced
    if grpc_api_trace is also truthy */
 extern grpc_core::TraceFlag grpc_cq_pluck_trace;
-extern grpc_core::TraceFlag grpc_cq_event_timeout_trace;
 extern grpc_core::TraceFlag grpc_trace_operation_failures;
 extern grpc_core::DebugOnlyTraceFlag grpc_trace_pending_tags;
 extern grpc_core::DebugOnlyTraceFlag grpc_trace_cq_refcount;
 
 typedef struct grpc_cq_completion {
-  gpr_mpscq_node node;
+  grpc_core::ManualConstructor<grpc_core::MultiProducerSingleConsumerQueue>
+      node;
 
   /** user supplied tag */
   void* tag;
@@ -77,7 +79,8 @@ bool grpc_cq_begin_op(grpc_completion_queue* cc, void* tag);
    grpc_cq_begin_op */
 void grpc_cq_end_op(grpc_completion_queue* cc, void* tag, grpc_error* error,
                     void (*done)(void* done_arg, grpc_cq_completion* storage),
-                    void* done_arg, grpc_cq_completion* storage);
+                    void* done_arg, grpc_cq_completion* storage,
+                    bool internal = false);
 
 grpc_pollset* grpc_cq_pollset(grpc_completion_queue* cc);
 
@@ -88,6 +91,7 @@ grpc_cq_completion_type grpc_get_cq_completion_type(grpc_completion_queue* cc);
 int grpc_get_cq_poll_num(grpc_completion_queue* cc);
 
 grpc_completion_queue* grpc_completion_queue_create_internal(
-    grpc_cq_completion_type completion_type, grpc_cq_polling_type polling_type);
+    grpc_cq_completion_type completion_type, grpc_cq_polling_type polling_type,
+    grpc_experimental_completion_queue_functor* shutdown_callback);
 
 #endif /* GRPC_CORE_LIB_SURFACE_COMPLETION_QUEUE_H */

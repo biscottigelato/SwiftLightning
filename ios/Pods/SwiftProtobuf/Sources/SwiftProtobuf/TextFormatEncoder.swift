@@ -1,6 +1,6 @@
 // Sources/SwiftProtobuf/TextFormatEncoder.swift - Text format encoding support
 //
-// Copyright (c) 2014 - 2016 Apple Inc. and the project authors
+// Copyright (c) 2014 - 2019 Apple Inc. and the project authors
 // Licensed under Apache License v2.0 with Runtime Library Exception
 //
 // See LICENSE.txt for license information:
@@ -136,13 +136,7 @@ internal struct TextFormatEncoder {
                 append(staticText: "inf")
             }
         } else {
-            if let v = Int64(exactly: Double(value)) {
-                appendInt(value: v)
-            } else {
-                let doubleFormatter = DoubleFormatter()
-                let formatted = doubleFormatter.floatToUtf8(value)
-                data.append(contentsOf: formatted)
-            }
+            data.append(contentsOf: value.debugDescription.utf8)
         }
     }
 
@@ -156,13 +150,7 @@ internal struct TextFormatEncoder {
                 append(staticText: "inf")
             }
         } else {
-            if let v = Int64(exactly: value) {
-                appendInt(value: v)
-            } else {
-                let doubleFormatter = DoubleFormatter()
-                let formatted = doubleFormatter.doubleToUtf8(value)
-                data.append(contentsOf: formatted)
-            }
+            data.append(contentsOf: value.debugDescription.utf8)
         }
     }
 
@@ -263,36 +251,40 @@ internal struct TextFormatEncoder {
 
     mutating func putBytesValue(value: Data) {
         data.append(asciiDoubleQuote)
-        value.withUnsafeBytes { (p: UnsafePointer<UInt8>) in
-            for i in 0..<value.count {
-                let c = p[i]
-                switch c {
-                // Special two-byte escapes
-                case 8:
-                    append(staticText: "\\b")
-                case 9:
-                    append(staticText: "\\t")
-                case 10:
-                    append(staticText: "\\n")
-                case 11:
-                    append(staticText: "\\v")
-                case 12:
-                    append(staticText: "\\f")
-                case 13:
-                    append(staticText: "\\r")
-                case 34:
-                    append(staticText: "\\\"")
-                case 92:
-                    append(staticText: "\\\\")
-                case 32...126:  // printable ASCII
-                    data.append(c)
-                default: // Octal form for non-printable chars
-                    data.append(asciiBackslash)
-                    data.append(asciiZero + UInt8(c / 64))
-                    data.append(asciiZero + UInt8(c / 8 % 8))
-                    data.append(asciiZero + UInt8(c % 8))
-                }
+        value.withUnsafeBytes { (body: UnsafeRawBufferPointer) in
+          if let baseAddress = body.baseAddress, body.count > 0 {
+            let p = baseAddress.assumingMemoryBound(to: UInt8.self)
+
+            for i in 0..<body.count {
+              let c = p[i]
+              switch c {
+              // Special two-byte escapes
+              case 8:
+                append(staticText: "\\b")
+              case 9:
+                append(staticText: "\\t")
+              case 10:
+                append(staticText: "\\n")
+              case 11:
+                append(staticText: "\\v")
+              case 12:
+                append(staticText: "\\f")
+              case 13:
+                append(staticText: "\\r")
+              case 34:
+                append(staticText: "\\\"")
+              case 92:
+                append(staticText: "\\\\")
+              case 32...126:  // printable ASCII
+                data.append(c)
+              default: // Octal form for non-printable chars
+                data.append(asciiBackslash)
+                data.append(asciiZero + UInt8(c / 64))
+                data.append(asciiZero + UInt8(c / 8 % 8))
+                data.append(asciiZero + UInt8(c % 8))
+              }
             }
+          }
         }
         data.append(asciiDoubleQuote)
     }

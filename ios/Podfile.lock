@@ -1,92 +1,80 @@
 PODS:
-  - BoringSSL (10.0.6):
-    - BoringSSL/Implementation (= 10.0.6)
-    - BoringSSL/Interface (= 10.0.6)
-  - BoringSSL/Implementation (10.0.6):
-    - BoringSSL/Interface (= 10.0.6)
-  - BoringSSL/Interface (10.0.6)
-  - CocoaLumberjack/Default (3.4.1)
-  - CocoaLumberjack/Swift (3.4.1):
+  - BoringSSL-GRPC (0.0.5):
+    - BoringSSL-GRPC/Implementation (= 0.0.5)
+    - BoringSSL-GRPC/Interface (= 0.0.5)
+  - BoringSSL-GRPC/Implementation (0.0.5):
+    - BoringSSL-GRPC/Interface (= 0.0.5)
+  - BoringSSL-GRPC/Interface (0.0.5)
+  - CocoaLumberjack/Default (3.4.2)
+  - CocoaLumberjack/Swift (3.4.2):
     - CocoaLumberjack/Default
-  - Crashlytics (3.10.1):
-    - Fabric (~> 1.7.5)
-  - Fabric (1.7.6)
-  - gRPC (1.12.0):
-    - gRPC-RxLibrary (= 1.12.0)
-    - gRPC/Main (= 1.12.0)
-  - gRPC-Core (1.12.0):
-    - gRPC-Core/Implementation (= 1.12.0)
-    - gRPC-Core/Interface (= 1.12.0)
-  - gRPC-Core/Implementation (1.12.0):
-    - BoringSSL (~> 10.0)
-    - gRPC-Core/Interface (= 1.12.0)
-    - nanopb (~> 0.3)
-  - gRPC-Core/Interface (1.12.0)
-  - gRPC-ProtoRPC (1.12.0):
-    - gRPC (= 1.12.0)
-    - gRPC-RxLibrary (= 1.12.0)
-    - Protobuf (~> 3.0)
-  - gRPC-RxLibrary (1.12.0)
-  - gRPC/Main (1.12.0):
-    - gRPC-Core (= 1.12.0)
-    - gRPC-RxLibrary (= 1.12.0)
-  - nanopb (0.3.8):
-    - nanopb/decode (= 0.3.8)
-    - nanopb/encode (= 0.3.8)
-  - nanopb/decode (0.3.8)
-  - nanopb/encode (0.3.8)
-  - Protobuf (3.6.1)
-  - SnapKit (4.0.0)
-  - SwiftGRPC (0.6.0):
-    - BoringSSL (~> 10.0)
-    - gRPC-Core (~> 1.12.0)
-    - SwiftProtobuf (~> 1.1.1)
-  - SwiftProtobuf (1.1.2)
+  - Crashlytics (3.10.9):
+    - Fabric (~> 1.7.13)
+  - Fabric (1.7.13)
+  - gRPC (1.26.0):
+    - gRPC/GRPCCore (= 1.26.0)
+    - gRPC/Interface (= 1.26.0)
+    - gRPC/Interface-Legacy (= 1.26.0)
+  - gRPC-Core (1.26.0):
+    - gRPC-Core/Implementation (= 1.26.0)
+    - gRPC-Core/Interface (= 1.26.0)
+  - gRPC-Core/Implementation (1.26.0):
+    - BoringSSL-GRPC (= 0.0.5)
+    - gRPC-Core/Interface (= 1.26.0)
+  - gRPC-Core/Interface (1.26.0)
+  - gRPC-RxLibrary (1.26.0):
+    - gRPC-RxLibrary/Implementation (= 1.26.0)
+    - gRPC-RxLibrary/Interface (= 1.26.0)
+  - gRPC-RxLibrary/Implementation (1.26.0):
+    - gRPC-RxLibrary/Interface
+  - gRPC-RxLibrary/Interface (1.26.0)
+  - gRPC/GRPCCore (1.26.0):
+    - gRPC-Core (= 1.26.0)
+    - gRPC-RxLibrary (= 1.26.0)
+    - gRPC/Interface (= 1.26.0)
+    - gRPC/Interface-Legacy (= 1.26.0)
+  - gRPC/Interface (1.26.0):
+    - gRPC/Interface-Legacy (= 1.26.0)
+  - gRPC/Interface-Legacy (1.26.0):
+    - gRPC-RxLibrary/Interface (= 1.26.0)
+  - SnapKit (4.0.1)
+  - SwiftProtobuf (1.7.0)
   - SwiftRangeSlider (2.0.0)
 
 DEPENDENCIES:
   - CocoaLumberjack/Swift (~> 3.4.1)
   - Crashlytics (~> 3.10)
   - Fabric (~> 1.7.6)
-  - gRPC-ProtoRPC
+  - gRPC (~> 1.26.0)
   - SnapKit (~> 4.0.0)
-  - SwiftGRPC
   - SwiftProtobuf (~> 1.0)
   - SwiftRangeSlider
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - BoringSSL
+  trunk:
+    - BoringSSL-GRPC
     - CocoaLumberjack
     - Crashlytics
     - Fabric
     - gRPC
     - gRPC-Core
-    - gRPC-ProtoRPC
     - gRPC-RxLibrary
-    - nanopb
-    - Protobuf
     - SnapKit
-    - SwiftGRPC
     - SwiftProtobuf
     - SwiftRangeSlider
 
 SPEC CHECKSUMS:
-  BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
-  CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
-  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
-  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
-  gRPC: 9362451032695e2dfb7bafcd3740e3a27939e4ff
-  gRPC-Core: 9696b220565b283e021cf2722d473a4a74b7622a
-  gRPC-ProtoRPC: a1bd56fb1991a8dae4581250d7259eddabb66779
-  gRPC-RxLibrary: 1ed5314e8b38cd6e55c9bfa048387136ae925ce9
-  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
-  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  SwiftGRPC: 465792c0e09dcb083d19d97137cee71b4f4f8b6f
-  SwiftProtobuf: 7147b8ec19c8c0694a45155d989ea9e6dedaf51f
+  BoringSSL-GRPC: 8f2c6b5fbae71d1f3aabb787a52fd4929d1eef33
+  CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
+  Crashlytics: 55e24fc23989680285a21cb1146578d9d18e432c
+  Fabric: 25d0963b691fc97be566392243ff0ecef5a68338
+  gRPC: 01cad0fe812eb92170a8748b7507607752350e2b
+  gRPC-Core: a9f9bd0cc7fe2a2d9930b415a19f29b8062dcb52
+  gRPC-RxLibrary: c1c5cfd22a05064bf05584115aee703298a9f44a
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SwiftProtobuf: 4fd9645e69b72cbae6ec8da5be0cdd20ca6565dd
   SwiftRangeSlider: f86e3b637c961120158fa1a89277c8343845cbe4
 
-PODFILE CHECKSUM: a9fe8e85d0a81367658f137df4948fb96840ba64
+PODFILE CHECKSUM: e83b46c17aa1ea01d36c8a1369ed9771255aca8b
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.8.4

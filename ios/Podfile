@@ -12,8 +12,7 @@ target 'SwiftLightning' do
   pod 'Crashlytics', '~> 3.10'
   pod 'CocoaLumberjack/Swift', '~> 3.4.1', :inhibit_warnings => true
   pod 'SwiftProtobuf', '~> 1.0'
-  pod 'gRPC-ProtoRPC'
-  pod 'SwiftGRPC'
+  pod 'gRPC', '~> 1.26.0'
   pod 'SnapKit', '~> 4.0.0'
   pod 'SwiftRangeSlider'
   

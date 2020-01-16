@@ -32,12 +32,15 @@
 
 #include "src/core/lib/channel/channel_args.h"
 #include "src/core/lib/channel/channel_trace.h"
+#include "src/core/lib/channel/channelz.h"
+#include "src/core/lib/channel/channelz_registry.h"
 #include "src/core/lib/debug/stats.h"
 #include "src/core/lib/gpr/string.h"
 #include "src/core/lib/gprpp/manual_constructor.h"
 #include "src/core/lib/gprpp/memory.h"
 #include "src/core/lib/gprpp/ref_counted_ptr.h"
 #include "src/core/lib/iomgr/iomgr.h"
+#include "src/core/lib/iomgr/resource_quota.h"
 #include "src/core/lib/slice/slice_internal.h"
 #include "src/core/lib/surface/api_trace.h"
 #include "src/core/lib/surface/call.h"
@@ -57,26 +60,6 @@ typedef struct registered_call {
   struct registered_call* next;
 } registered_call;
 
-struct grpc_channel {
-  int is_client;
-  grpc_compression_options compression_options;
-
-  gpr_atm call_size_estimate;
-
-  gpr_mu registered_call_mu;
-  registered_call* registered_calls;
-
-  grpc_core::RefCountedPtr<grpc_core::ChannelTrace> tracer;
-
-  char* target;
-};
-
-#define CHANNEL_STACK_FROM_CHANNEL(c) ((grpc_channel_stack*)((c) + 1))
-#define CHANNEL_FROM_CHANNEL_STACK(channel_stack) \
-  (((grpc_channel*)(channel_stack)) - 1)
-#define CHANNEL_FROM_TOP_ELEM(top_elem) \
-  CHANNEL_FROM_CHANNEL_STACK(grpc_channel_stack_from_top_element(top_elem))
-
 static void destroy_channel(void* arg, grpc_error* error);
 
 grpc_channel* grpc_channel_create_with_builder(
@@ -85,6 +68,8 @@ grpc_channel* grpc_channel_create_with_builder(
   char* target = gpr_strdup(grpc_channel_stack_builder_get_target(builder));
   grpc_channel_args* args = grpc_channel_args_copy(
       grpc_channel_stack_builder_get_channel_arguments(builder));
+  grpc_resource_user* resource_user =
+      grpc_channel_stack_builder_get_resource_user(builder);
   grpc_channel* channel;
   if (channel_stack_type == GRPC_SERVER_CHANNEL) {
     GRPC_STATS_INC_SERVER_CHANNELS_CREATED();
@@ -102,17 +87,16 @@ grpc_channel* grpc_channel_create_with_builder(
     grpc_channel_args_destroy(args);
     return channel;
   }
-
-  memset(channel, 0, sizeof(*channel));
   channel->target = target;
+  channel->resource_user = resource_user;
   channel->is_client = grpc_channel_stack_type_is_client(channel_stack_type);
-  size_t channel_tracer_max_nodes = 0;  // default to off
   gpr_mu_init(&channel->registered_call_mu);
   channel->registered_calls = nullptr;
 
   gpr_atm_no_barrier_store(
       &channel->call_size_estimate,
-      (gpr_atm)CHANNEL_STACK_FROM_CHANNEL(channel)->call_stack_size);
+      (gpr_atm)CHANNEL_STACK_FROM_CHANNEL(channel)->call_stack_size +
+          grpc_call_get_initial_size_estimate());
 
   grpc_compression_options_init(&channel->compression_options);
   for (size_t i = 0; i < args->num_args; i++) {
@@ -137,22 +121,20 @@ grpc_channel* grpc_channel_create_with_builder(
       channel->compression_options.enabled_algorithms_bitset =
           static_cast<uint32_t>(args->args[i].value.integer) |
           0x1; /* always support no compression */
-    } else if (0 == strcmp(args->args[i].key,
-                           GRPC_ARG_MAX_CHANNEL_TRACE_EVENTS_PER_NODE)) {
-      GPR_ASSERT(channel_tracer_max_nodes == 0);
-      // max_nodes defaults to 0 (which is off), clamped between 0 and INT_MAX
-      const grpc_integer_options options = {0, 0, INT_MAX};
-      channel_tracer_max_nodes =
-          (size_t)grpc_channel_arg_get_integer(&args->args[i], options);
+    } else if (0 == strcmp(args->args[i].key, GRPC_ARG_CHANNELZ_CHANNEL_NODE)) {
+      if (args->args[i].type == GRPC_ARG_POINTER) {
+        GPR_ASSERT(args->args[i].value.pointer.p != nullptr);
+        channel->channelz_node = static_cast<grpc_core::channelz::ChannelNode*>(
+                                     args->args[i].value.pointer.p)
+                                     ->Ref();
+      } else {
+        gpr_log(GPR_DEBUG,
+                GRPC_ARG_CHANNELZ_CHANNEL_NODE " should be a pointer");
+      }
     }
   }
 
   grpc_channel_args_destroy(args);
-  channel->tracer = grpc_core::MakeRefCounted<grpc_core::ChannelTrace>(
-      channel_tracer_max_nodes);
-  channel->tracer->AddTraceEvent(
-      grpc_core::ChannelTrace::Severity::Info,
-      grpc_slice_from_static_string("Channel created"));
   return channel;
 }
 
@@ -187,32 +169,129 @@ static grpc_channel_args* build_channel_args(
   return grpc_channel_args_copy_and_add(input_args, new_args, num_new_args);
 }
 
-char* grpc_channel_get_trace(grpc_channel* channel) {
-  return channel->tracer->RenderTrace();
+namespace {
+
+void* channelz_node_copy(void* p) {
+  grpc_core::channelz::ChannelNode* node =
+      static_cast<grpc_core::channelz::ChannelNode*>(p);
+  node->Ref().release();
+  return p;
+}
+void channelz_node_destroy(void* p) {
+  grpc_core::channelz::ChannelNode* node =
+      static_cast<grpc_core::channelz::ChannelNode*>(p);
+  node->Unref();
+}
+int channelz_node_cmp(void* p1, void* p2) { return GPR_ICMP(p1, p2); }
+const grpc_arg_pointer_vtable channelz_node_arg_vtable = {
+    channelz_node_copy, channelz_node_destroy, channelz_node_cmp};
+
+void CreateChannelzNode(grpc_channel_stack_builder* builder) {
+  const grpc_channel_args* args =
+      grpc_channel_stack_builder_get_channel_arguments(builder);
+  // Check whether channelz is enabled.
+  const bool channelz_enabled = grpc_channel_arg_get_bool(
+      grpc_channel_args_find(args, GRPC_ARG_ENABLE_CHANNELZ),
+      GRPC_ENABLE_CHANNELZ_DEFAULT);
+  if (!channelz_enabled) return;
+  // Get parameters needed to create the channelz node.
+  const size_t channel_tracer_max_memory = grpc_channel_arg_get_integer(
+      grpc_channel_args_find(args,
+                             GRPC_ARG_MAX_CHANNEL_TRACE_EVENT_MEMORY_PER_NODE),
+      {GRPC_MAX_CHANNEL_TRACE_EVENT_MEMORY_PER_NODE_DEFAULT, 0, INT_MAX});
+  const intptr_t channelz_parent_uuid =
+      grpc_core::channelz::GetParentUuidFromArgs(*args);
+  // Create the channelz node.
+  const char* target = grpc_channel_stack_builder_get_target(builder);
+  grpc_core::RefCountedPtr<grpc_core::channelz::ChannelNode> channelz_node =
+      grpc_core::MakeRefCounted<grpc_core::channelz::ChannelNode>(
+          target != nullptr ? target : "", channel_tracer_max_memory,
+          channelz_parent_uuid);
+  channelz_node->AddTraceEvent(
+      grpc_core::channelz::ChannelTrace::Severity::Info,
+      grpc_slice_from_static_string("Channel created"));
+  // Update parent channel node, if any.
+  if (channelz_parent_uuid > 0) {
+    grpc_core::RefCountedPtr<grpc_core::channelz::BaseNode> parent_node =
+        grpc_core::channelz::ChannelzRegistry::Get(channelz_parent_uuid);
+    if (parent_node != nullptr) {
+      grpc_core::channelz::ChannelNode* parent =
+          static_cast<grpc_core::channelz::ChannelNode*>(parent_node.get());
+      parent->AddChildChannel(channelz_node->uuid());
+    }
+  }
+  // Add channelz node to channel args.
+  // We remove the arg for the parent uuid, since we no longer need it.
+  grpc_arg new_arg = grpc_channel_arg_pointer_create(
+      const_cast<char*>(GRPC_ARG_CHANNELZ_CHANNEL_NODE), channelz_node.get(),
+      &channelz_node_arg_vtable);
+  const char* args_to_remove[] = {GRPC_ARG_CHANNELZ_PARENT_UUID};
+  grpc_channel_args* new_args = grpc_channel_args_copy_and_add_and_remove(
+      args, args_to_remove, GPR_ARRAY_SIZE(args_to_remove), &new_arg, 1);
+  grpc_channel_stack_builder_set_channel_arguments(builder, new_args);
+  grpc_channel_args_destroy(new_args);
 }
 
-intptr_t grpc_channel_get_uuid(grpc_channel* channel) {
-  return channel->tracer->GetUuid();
-}
+}  // namespace
 
 grpc_channel* grpc_channel_create(const char* target,
                                   const grpc_channel_args* input_args,
                                   grpc_channel_stack_type channel_stack_type,
-                                  grpc_transport* optional_transport) {
+                                  grpc_transport* optional_transport,
+                                  grpc_resource_user* resource_user) {
+  // We need to make sure that grpc_shutdown() does not shut things down
+  // until after the channel is destroyed.  However, the channel may not
+  // actually be destroyed by the time grpc_channel_destroy() returns,
+  // since there may be other existing refs to the channel.  If those
+  // refs are held by things that are visible to the wrapped language
+  // (such as outstanding calls on the channel), then the wrapped
+  // language can be responsible for making sure that grpc_shutdown()
+  // does not run until after those refs are released.  However, the
+  // channel may also have refs to itself held internally for various
+  // things that need to be cleaned up at channel destruction (e.g.,
+  // LB policies, subchannels, etc), and because these refs are not
+  // visible to the wrapped language, it cannot be responsible for
+  // deferring grpc_shutdown() until after they are released.  To
+  // accommodate that, we call grpc_init() here and then call
+  // grpc_shutdown() when the channel is actually destroyed, thus
+  // ensuring that shutdown is deferred until that point.
+  grpc_init();
   grpc_channel_stack_builder* builder = grpc_channel_stack_builder_create();
   const grpc_core::UniquePtr<char> default_authority =
       get_default_authority(input_args);
   grpc_channel_args* args =
       build_channel_args(input_args, default_authority.get());
+  if (grpc_channel_stack_type_is_client(channel_stack_type)) {
+    auto channel_args_mutator =
+        grpc_channel_args_get_client_channel_creation_mutator();
+    if (channel_args_mutator != nullptr) {
+      args = channel_args_mutator(target, args, channel_stack_type);
+    }
+  }
   grpc_channel_stack_builder_set_channel_arguments(builder, args);
   grpc_channel_args_destroy(args);
   grpc_channel_stack_builder_set_target(builder, target);
   grpc_channel_stack_builder_set_transport(builder, optional_transport);
+  grpc_channel_stack_builder_set_resource_user(builder, resource_user);
   if (!grpc_channel_init_create_stack(builder, channel_stack_type)) {
     grpc_channel_stack_builder_destroy(builder);
+    if (resource_user != nullptr) {
+      grpc_resource_user_free(resource_user, GRPC_RESOURCE_QUOTA_CHANNEL_SIZE);
+    }
+    grpc_shutdown();  // Since we won't call destroy_channel().
     return nullptr;
   }
-  return grpc_channel_create_with_builder(builder, channel_stack_type);
+  // We only need to do this for clients here. For servers, this will be
+  // done in src/core/lib/surface/server.cc.
+  if (grpc_channel_stack_type_is_client(channel_stack_type)) {
+    CreateChannelzNode(builder);
+  }
+  grpc_channel* channel =
+      grpc_channel_create_with_builder(builder, channel_stack_type);
+  if (channel == nullptr) {
+    grpc_shutdown();  // Since we won't call destroy_channel().
+  }
+  return channel;
 }
 
 size_t grpc_channel_get_call_size_estimate(grpc_channel* channel) {
@@ -263,6 +342,17 @@ void grpc_channel_get_info(grpc_channel* channel,
   elem->filter->get_channel_info(elem, channel_info);
 }
 
+void grpc_channel_reset_connect_backoff(grpc_channel* channel) {
+  grpc_core::ExecCtx exec_ctx;
+  GRPC_API_TRACE("grpc_channel_reset_connect_backoff(channel=%p)", 1,
+                 (channel));
+  grpc_transport_op* op = grpc_make_transport_op(nullptr);
+  op->reset_connect_backoff = true;
+  grpc_channel_element* elem =
+      grpc_channel_stack_element(CHANNEL_STACK_FROM_CHANNEL(channel), 0);
+  elem->filter->start_transport_op(elem, op);
+}
+
 static grpc_call* grpc_channel_create_call_internal(
     grpc_channel* channel, grpc_call* parent_call, uint32_t propagation_mask,
     grpc_completion_queue* cq, grpc_pollset_set* pollset_set_alternative,
@@ -280,8 +370,8 @@ static grpc_call* grpc_channel_create_call_internal(
   }
 
   grpc_call_create_args args;
-  memset(&args, 0, sizeof(args));
   args.channel = channel;
+  args.server = nullptr;
   args.parent = parent_call;
   args.propagation_mask = propagation_mask;
   args.cq = cq;
@@ -306,9 +396,8 @@ grpc_call* grpc_channel_create_call(grpc_channel* channel,
   grpc_core::ExecCtx exec_ctx;
   grpc_call* call = grpc_channel_create_call_internal(
       channel, parent_call, propagation_mask, cq, nullptr,
-      grpc_mdelem_from_slices(GRPC_MDSTR_PATH, grpc_slice_ref_internal(method)),
-      host != nullptr ? grpc_mdelem_from_slices(GRPC_MDSTR_AUTHORITY,
-                                                grpc_slice_ref_internal(*host))
+      grpc_mdelem_create(GRPC_MDSTR_PATH, method, nullptr),
+      host != nullptr ? grpc_mdelem_create(GRPC_MDSTR_AUTHORITY, *host, nullptr)
                       : GRPC_MDNULL,
       grpc_timespec_to_millis_round_up(deadline));
 
@@ -317,14 +406,13 @@ grpc_call* grpc_channel_create_call(grpc_channel* channel,
 
 grpc_call* grpc_channel_create_pollset_set_call(
     grpc_channel* channel, grpc_call* parent_call, uint32_t propagation_mask,
-    grpc_pollset_set* pollset_set, grpc_slice method, const grpc_slice* host,
-    grpc_millis deadline, void* reserved) {
+    grpc_pollset_set* pollset_set, const grpc_slice& method,
+    const grpc_slice* host, grpc_millis deadline, void* reserved) {
   GPR_ASSERT(!reserved);
   return grpc_channel_create_call_internal(
       channel, parent_call, propagation_mask, nullptr, pollset_set,
-      grpc_mdelem_from_slices(GRPC_MDSTR_PATH, grpc_slice_ref_internal(method)),
-      host != nullptr ? grpc_mdelem_from_slices(GRPC_MDSTR_AUTHORITY,
-                                                grpc_slice_ref_internal(*host))
+      grpc_mdelem_create(GRPC_MDSTR_PATH, method, nullptr),
+      host != nullptr ? grpc_mdelem_create(GRPC_MDSTR_AUTHORITY, *host, nullptr)
                       : GRPC_MDNULL,
       deadline);
 }
@@ -339,13 +427,11 @@ void* grpc_channel_register_call(grpc_channel* channel, const char* method,
   GPR_ASSERT(!reserved);
   grpc_core::ExecCtx exec_ctx;
 
-  rc->path = grpc_mdelem_from_slices(
-      GRPC_MDSTR_PATH,
-      grpc_slice_intern(grpc_slice_from_static_string(method)));
+  rc->path = grpc_mdelem_from_slices(GRPC_MDSTR_PATH,
+                                     grpc_core::ExternallyManagedSlice(method));
   rc->authority =
-      host ? grpc_mdelem_from_slices(
-                 GRPC_MDSTR_AUTHORITY,
-                 grpc_slice_intern(grpc_slice_from_static_string(host)))
+      host ? grpc_mdelem_from_slices(GRPC_MDSTR_AUTHORITY,
+                                     grpc_core::ExternallyManagedSlice(host))
            : GRPC_MDNULL;
   gpr_mu_lock(&channel->registered_call_mu);
   rc->next = channel->registered_calls;
@@ -381,23 +467,24 @@ grpc_call* grpc_channel_create_registered_call(
   return call;
 }
 
-#ifndef NDEBUG
-#define REF_REASON reason
-#define REF_ARG , const char* reason
-#else
-#define REF_REASON ""
-#define REF_ARG
-#endif
-void grpc_channel_internal_ref(grpc_channel* c REF_ARG) {
-  GRPC_CHANNEL_STACK_REF(CHANNEL_STACK_FROM_CHANNEL(c), REF_REASON);
-}
-
-void grpc_channel_internal_unref(grpc_channel* c REF_ARG) {
-  GRPC_CHANNEL_STACK_UNREF(CHANNEL_STACK_FROM_CHANNEL(c), REF_REASON);
-}
-
-static void destroy_channel(void* arg, grpc_error* error) {
+static void destroy_channel(void* arg, grpc_error* /*error*/) {
   grpc_channel* channel = static_cast<grpc_channel*>(arg);
+  if (channel->channelz_node != nullptr) {
+    if (channel->channelz_node->parent_uuid() > 0) {
+      grpc_core::RefCountedPtr<grpc_core::channelz::BaseNode> parent_node =
+          grpc_core::channelz::ChannelzRegistry::Get(
+              channel->channelz_node->parent_uuid());
+      if (parent_node != nullptr) {
+        grpc_core::channelz::ChannelNode* parent =
+            static_cast<grpc_core::channelz::ChannelNode*>(parent_node.get());
+        parent->RemoveChildChannel(channel->channelz_node->uuid());
+      }
+    }
+    channel->channelz_node->AddTraceEvent(
+        grpc_core::channelz::ChannelTrace::Severity::Info,
+        grpc_slice_from_static_string("Channel destroyed"));
+    channel->channelz_node.reset();
+  }
   grpc_channel_stack_destroy(CHANNEL_STACK_FROM_CHANNEL(channel));
   while (channel->registered_calls) {
     registered_call* rc = channel->registered_calls;
@@ -406,45 +493,29 @@ static void destroy_channel(void* arg, grpc_error* error) {
     GRPC_MDELEM_UNREF(rc->authority);
     gpr_free(rc);
   }
-  channel->tracer.reset();
+  if (channel->resource_user != nullptr) {
+    grpc_resource_user_free(channel->resource_user,
+                            GRPC_RESOURCE_QUOTA_CHANNEL_SIZE);
+  }
   gpr_mu_destroy(&channel->registered_call_mu);
   gpr_free(channel->target);
   gpr_free(channel);
+  // See comment in grpc_channel_create() for why we do this.
+  grpc_shutdown();
 }
 
-void grpc_channel_destroy(grpc_channel* channel) {
+void grpc_channel_destroy_internal(grpc_channel* channel) {
   grpc_transport_op* op = grpc_make_transport_op(nullptr);
   grpc_channel_element* elem;
-  grpc_core::ExecCtx exec_ctx;
   GRPC_API_TRACE("grpc_channel_destroy(channel=%p)", 1, (channel));
   op->disconnect_with_error =
       GRPC_ERROR_CREATE_FROM_STATIC_STRING("Channel Destroyed");
   elem = grpc_channel_stack_element(CHANNEL_STACK_FROM_CHANNEL(channel), 0);
   elem->filter->start_transport_op(elem, op);
-
   GRPC_CHANNEL_INTERNAL_UNREF(channel, "channel");
 }
 
-grpc_channel_stack* grpc_channel_get_channel_stack(grpc_channel* channel) {
-  return CHANNEL_STACK_FROM_CHANNEL(channel);
-}
-
-grpc_compression_options grpc_channel_compression_options(
-    const grpc_channel* channel) {
-  return channel->compression_options;
-}
-
-grpc_mdelem grpc_channel_get_reffed_status_elem(grpc_channel* channel, int i) {
-  char tmp[GPR_LTOA_MIN_BUFSIZE];
-  switch (i) {
-    case 0:
-      return GRPC_MDELEM_GRPC_STATUS_0;
-    case 1:
-      return GRPC_MDELEM_GRPC_STATUS_1;
-    case 2:
-      return GRPC_MDELEM_GRPC_STATUS_2;
-  }
-  gpr_ltoa(i, tmp);
-  return grpc_mdelem_from_slices(GRPC_MDSTR_GRPC_STATUS,
-                                 grpc_slice_from_copied_string(tmp));
+void grpc_channel_destroy(grpc_channel* channel) {
+  grpc_core::ExecCtx exec_ctx;
+  grpc_channel_destroy_internal(channel);
 }

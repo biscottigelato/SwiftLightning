@@ -29,7 +29,7 @@
 
 #include "src/core/lib/iomgr/port.h"
 
-#ifdef GRPC_POSIX_SOCKET
+#ifdef GRPC_POSIX_SOCKET_UDP_SERVER
 
 #include "src/core/lib/iomgr/udp_server.h"
 
@@ -152,7 +152,7 @@ GrpcUdpListener::GrpcUdpListener(grpc_udp_server* server, int fd,
   grpc_sockaddr_to_string(&addr_str, addr, 1);
   gpr_asprintf(&name, "udp-server-listener:%s", addr_str);
   gpr_free(addr_str);
-  emfd_ = grpc_fd_create(fd, name);
+  emfd_ = grpc_fd_create(fd, name, true);
   memcpy(&addr_, addr, sizeof(grpc_resolved_address));
   GPR_ASSERT(emfd_);
   gpr_free(name);
@@ -208,7 +208,7 @@ static grpc_socket_factory* get_socket_factory(const grpc_channel_args* args) {
 }
 
 grpc_udp_server* grpc_udp_server_create(const grpc_channel_args* args) {
-  grpc_udp_server* s = grpc_core::New<grpc_udp_server>();
+  grpc_udp_server* s = new grpc_udp_server();
   gpr_mu_init(&s->mu);
   s->socket_factory = get_socket_factory(args);
   if (s->socket_factory) {
@@ -243,7 +243,8 @@ void GrpcUdpListener::shutdown_fd(void* args, grpc_error* error) {
 
 static void finish_shutdown(grpc_udp_server* s) {
   if (s->shutdown_complete != nullptr) {
-    GRPC_CLOSURE_SCHED(s->shutdown_complete, GRPC_ERROR_NONE);
+    grpc_core::ExecCtx::Run(DEBUG_LOCATION, s->shutdown_complete,
+                            GRPC_ERROR_NONE);
   }
 
   gpr_mu_destroy(&s->mu);
@@ -257,10 +258,10 @@ static void finish_shutdown(grpc_udp_server* s) {
     grpc_socket_factory_unref(s->socket_factory);
   }
 
-  grpc_core::Delete(s);
+  delete s;
 }
 
-static void destroyed_port(void* server, grpc_error* error) {
+static void destroyed_port(void* server, grpc_error* /*error*/) {
   grpc_udp_server* s = static_cast<grpc_udp_server*>(server);
   gpr_mu_lock(&s->mu);
   s->destroyed_ports++;
@@ -300,8 +301,7 @@ void GrpcUdpListener::OrphanFd() {
                     grpc_schedule_on_exec_ctx);
   /* Because at this point, all listening sockets have been shutdown already, no
    * need to call OnFdAboutToOrphan() to notify the handler again. */
-  grpc_fd_orphan(emfd_, &destroyed_closure_, nullptr,
-                 false /* already_closed */, "udp_listener_shutdown");
+  grpc_fd_orphan(emfd_, &destroyed_closure_, nullptr, "udp_listener_shutdown");
 }
 
 void grpc_udp_server_destroy(grpc_udp_server* s, grpc_closure* on_done) {
@@ -333,7 +333,7 @@ void GrpcUdpListener::OnFdAboutToOrphan() {
   GRPC_CLOSURE_INIT(&destroyed_closure_, destroyed_port, server_,
                     grpc_schedule_on_exec_ctx);
   if (!orphan_notified_ && udp_handler_ != nullptr) {
-    /* Singals udp_handler that the FD is about to be closed and
+    /* Signals udp_handler that the FD is about to be closed and
      * should no longer be used. */
     GRPC_CLOSURE_INIT(&orphan_fd_closure_, shutdown_fd, this,
                       grpc_schedule_on_exec_ctx);
@@ -449,7 +449,9 @@ void GrpcUdpListener::do_read(void* arg, grpc_error* error) {
   if (!sp->already_shutdown_ && sp->udp_handler_->Read()) {
     /* There maybe more packets to read. Schedule read_more_cb_ closure to run
      * after finishing this event loop. */
-    GRPC_CLOSURE_SCHED(&sp->do_read_closure_, GRPC_ERROR_NONE);
+    grpc_core::Executor::Run(&sp->do_read_closure_, GRPC_ERROR_NONE,
+                             grpc_core::ExecutorType::DEFAULT,
+                             grpc_core::ExecutorJobType::LONG);
   } else {
     /* Finish reading all the packets, re-arm the notification event so we can
      * get another chance to read. Or fd already shutdown, re-arm to get a
@@ -482,9 +484,10 @@ void GrpcUdpListener::OnRead(grpc_error* error, void* do_read_arg) {
   if (udp_handler_->Read()) {
     /* There maybe more packets to read. Schedule read_more_cb_ closure to run
      * after finishing this event loop. */
-    GRPC_CLOSURE_INIT(&do_read_closure_, do_read, do_read_arg,
-                      grpc_executor_scheduler(GRPC_EXECUTOR_LONG));
-    GRPC_CLOSURE_SCHED(&do_read_closure_, GRPC_ERROR_NONE);
+    GRPC_CLOSURE_INIT(&do_read_closure_, do_read, do_read_arg, nullptr);
+    grpc_core::Executor::Run(&do_read_closure_, GRPC_ERROR_NONE,
+                             grpc_core::ExecutorType::DEFAULT,
+                             grpc_core::ExecutorJobType::LONG);
   } else {
     /* Finish reading all the packets, re-arm the notification event so we can
      * get another chance to read. Or fd already shutdown, re-arm to get a
@@ -495,7 +498,8 @@ void GrpcUdpListener::OnRead(grpc_error* error, void* do_read_arg) {
 
 // static
 // Wrapper of grpc_fd_notify_on_write() with a grpc_closure callback interface.
-void GrpcUdpListener::fd_notify_on_write_wrapper(void* arg, grpc_error* error) {
+void GrpcUdpListener::fd_notify_on_write_wrapper(void* arg,
+                                                 grpc_error* /*error*/) {
   GrpcUdpListener* sp = static_cast<GrpcUdpListener*>(arg);
   gpr_mu_lock(sp->mutex());
   if (!sp->notify_on_write_armed_) {
@@ -543,10 +547,11 @@ void GrpcUdpListener::OnCanWrite(grpc_error* error, void* do_write_arg) {
   }
 
   /* Schedule actual write in another thread. */
-  GRPC_CLOSURE_INIT(&do_write_closure_, do_write, do_write_arg,
-                    grpc_executor_scheduler(GRPC_EXECUTOR_LONG));
+  GRPC_CLOSURE_INIT(&do_write_closure_, do_write, do_write_arg, nullptr);
 
-  GRPC_CLOSURE_SCHED(&do_write_closure_, GRPC_ERROR_NONE);
+  grpc_core::Executor::Run(&do_write_closure_, GRPC_ERROR_NONE,
+                           grpc_core::ExecutorType::DEFAULT,
+                           grpc_core::ExecutorJobType::LONG);
 }
 
 static int add_socket_to_server(grpc_udp_server* s, int fd,
@@ -644,7 +649,7 @@ int grpc_udp_server_add_port(grpc_udp_server* s,
           grpc_sockaddr_set_port(addr, allocated_port1);
           port = allocated_port1;
         } else if (allocated_port1 >= 0) {
-          /* The following sucessfully created socket should have same port as
+          /* The following successfully created socket should have same port as
            * the first one. */
           GPR_ASSERT(port == allocated_port1);
         }

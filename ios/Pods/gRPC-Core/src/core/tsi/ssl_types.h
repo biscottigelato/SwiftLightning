@@ -29,7 +29,13 @@
 
 #include <grpc/support/port_platform.h>
 
-#include <openssl/ssl.h>
+#include "src/core/tsi/grpc_shadow_boringssl.h"
+
+#if COCOAPODS==1
+  #include <openssl_grpc/ssl.h>
+#else
+  #include <openssl/ssl.h>
+#endif
 
 #ifdef OPENSSL_IS_BORINGSSL
 #define TSI_INT_AS_SIZE(x) ((size_t)(x))

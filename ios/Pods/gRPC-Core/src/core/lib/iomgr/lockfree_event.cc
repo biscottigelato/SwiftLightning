@@ -23,8 +23,9 @@
 #include <grpc/support/log.h>
 
 #include "src/core/lib/debug/trace.h"
+#include "src/core/lib/iomgr/exec_ctx.h"
 
-extern grpc_core::TraceFlag grpc_polling_trace;
+extern grpc_core::DebugOnlyTraceFlag grpc_polling_trace;
 
 /* 'state' holds the to call when the fd is readable or writable respectively.
    It can contain one of the following values:
@@ -89,9 +90,13 @@ void LockfreeEvent::DestroyEvent() {
 
 void LockfreeEvent::NotifyOn(grpc_closure* closure) {
   while (true) {
-    gpr_atm curr = gpr_atm_no_barrier_load(&state_);
-    if (grpc_polling_trace.enabled()) {
-      gpr_log(GPR_ERROR, "LockfreeEvent::NotifyOn: %p curr=%p closure=%p", this,
+    /* This load needs to be an acquire load because this can be a shutdown
+     * error that we might need to reference. Adding acquire semantics makes
+     * sure that the shutdown error has been initialized properly before us
+     * referencing it. */
+    gpr_atm curr = gpr_atm_acq_load(&state_);
+    if (GRPC_TRACE_FLAG_ENABLED(grpc_polling_trace)) {
+      gpr_log(GPR_DEBUG, "LockfreeEvent::NotifyOn: %p curr=%p closure=%p", this,
               (void*)curr, closure);
     }
     switch (curr) {
@@ -120,7 +125,7 @@ void LockfreeEvent::NotifyOn(grpc_closure* closure) {
            closure when transitioning out of CLOSURE_NO_READY state (i.e there
            is no other code that needs to 'happen-after' this) */
         if (gpr_atm_no_barrier_cas(&state_, kClosureReady, kClosureNotReady)) {
-          GRPC_CLOSURE_SCHED(closure, GRPC_ERROR_NONE);
+          ExecCtx::Run(DEBUG_LOCATION, closure, GRPC_ERROR_NONE);
           return; /* Successful. Return */
         }
 
@@ -133,9 +138,9 @@ void LockfreeEvent::NotifyOn(grpc_closure* closure) {
            schedule the closure with the shutdown error */
         if ((curr & kShutdownBit) > 0) {
           grpc_error* shutdown_err = (grpc_error*)(curr & ~kShutdownBit);
-          GRPC_CLOSURE_SCHED(closure,
-                             GRPC_ERROR_CREATE_REFERENCING_FROM_STATIC_STRING(
-                                 "FD Shutdown", &shutdown_err, 1));
+          ExecCtx::Run(DEBUG_LOCATION, closure,
+                       GRPC_ERROR_CREATE_REFERENCING_FROM_STATIC_STRING(
+                           "FD Shutdown", &shutdown_err, 1));
           return;
         }
 
@@ -156,8 +161,8 @@ bool LockfreeEvent::SetShutdown(grpc_error* shutdown_err) {
 
   while (true) {
     gpr_atm curr = gpr_atm_no_barrier_load(&state_);
-    if (grpc_polling_trace.enabled()) {
-      gpr_log(GPR_ERROR, "LockfreeEvent::SetShutdown: %p curr=%p err=%s",
+    if (GRPC_TRACE_FLAG_ENABLED(grpc_polling_trace)) {
+      gpr_log(GPR_DEBUG, "LockfreeEvent::SetShutdown: %p curr=%p err=%s",
               &state_, (void*)curr, grpc_error_string(shutdown_err));
     }
     switch (curr) {
@@ -185,9 +190,9 @@ bool LockfreeEvent::SetShutdown(grpc_error* shutdown_err) {
            happens-after on that edge), and a release to pair with anything
            loading the shutdown state. */
         if (gpr_atm_full_cas(&state_, curr, new_state)) {
-          GRPC_CLOSURE_SCHED((grpc_closure*)curr,
-                             GRPC_ERROR_CREATE_REFERENCING_FROM_STATIC_STRING(
-                                 "FD Shutdown", &shutdown_err, 1));
+          ExecCtx::Run(DEBUG_LOCATION, (grpc_closure*)curr,
+                       GRPC_ERROR_CREATE_REFERENCING_FROM_STATIC_STRING(
+                           "FD Shutdown", &shutdown_err, 1));
           return true;
         }
 
@@ -205,8 +210,8 @@ void LockfreeEvent::SetReady() {
   while (true) {
     gpr_atm curr = gpr_atm_no_barrier_load(&state_);
 
-    if (grpc_polling_trace.enabled()) {
-      gpr_log(GPR_ERROR, "LockfreeEvent::SetReady: %p curr=%p", &state_,
+    if (GRPC_TRACE_FLAG_ENABLED(grpc_polling_trace)) {
+      gpr_log(GPR_DEBUG, "LockfreeEvent::SetReady: %p curr=%p", &state_,
               (void*)curr);
     }
 
@@ -235,7 +240,7 @@ void LockfreeEvent::SetReady() {
            spurious set_ready; release pairs with this or the acquire in
            notify_on (or set_shutdown) */
         else if (gpr_atm_full_cas(&state_, curr, kClosureNotReady)) {
-          GRPC_CLOSURE_SCHED((grpc_closure*)curr, GRPC_ERROR_NONE);
+          ExecCtx::Run(DEBUG_LOCATION, (grpc_closure*)curr, GRPC_ERROR_NONE);
           return;
         }
         /* else the state changed again (only possible by either a racing

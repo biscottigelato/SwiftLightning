@@ -28,6 +28,7 @@
 
 #include "src/core/lib/channel/channel_args.h"
 #include "src/core/lib/gpr/string.h"
+#include "src/core/lib/gprpp/memory.h"
 #include "src/core/lib/http/format_request.h"
 #include "src/core/lib/http/parser.h"
 #include "src/core/lib/iomgr/endpoint.h"
@@ -65,7 +66,7 @@ static grpc_httpcli_get_override g_get_override = nullptr;
 static grpc_httpcli_post_override g_post_override = nullptr;
 
 static void plaintext_handshake(void* arg, grpc_endpoint* endpoint,
-                                const char* host, grpc_millis deadline,
+                                const char* /*host*/, grpc_millis /*deadline*/,
                                 void (*on_done)(void* arg,
                                                 grpc_endpoint* endpoint)) {
   on_done(arg, endpoint);
@@ -87,7 +88,7 @@ static void next_address(internal_request* req, grpc_error* due_to_error);
 static void finish(internal_request* req, grpc_error* error) {
   grpc_polling_entity_del_from_pollset_set(req->pollent,
                                            req->context->pollset_set);
-  GRPC_CLOSURE_SCHED(req->on_done, error);
+  grpc_core::ExecCtx::Run(DEBUG_LOCATION, req->on_done, error);
   grpc_http_parser_destroy(&req->parser);
   if (req->addresses != nullptr) {
     grpc_resolved_addresses_destroy(req->addresses);
@@ -112,16 +113,15 @@ static void append_error(internal_request* req, grpc_error* error) {
         GRPC_ERROR_CREATE_FROM_STATIC_STRING("Failed HTTP/1 client request");
   }
   grpc_resolved_address* addr = &req->addresses->addrs[req->next_address - 1];
-  char* addr_text = grpc_sockaddr_to_uri(addr);
+  grpc_core::UniquePtr<char> addr_text(grpc_sockaddr_to_uri(addr));
   req->overall_error = grpc_error_add_child(
       req->overall_error,
       grpc_error_set_str(error, GRPC_ERROR_STR_TARGET_ADDRESS,
-                         grpc_slice_from_copied_string(addr_text)));
-  gpr_free(addr_text);
+                         grpc_slice_from_moved_string(std::move(addr_text))));
 }
 
 static void do_read(internal_request* req) {
-  grpc_endpoint_read(req->ep, &req->incoming, &req->on_read);
+  grpc_endpoint_read(req->ep, &req->incoming, &req->on_read, /*urgent=*/true);
 }
 
 static void on_read(void* user_data, grpc_error* error) {
@@ -163,7 +163,7 @@ static void done_write(void* arg, grpc_error* error) {
 static void start_write(internal_request* req) {
   grpc_slice_ref_internal(req->request_text);
   grpc_slice_buffer_add(&req->outgoing, req->request_text);
-  grpc_endpoint_write(req->ep, &req->outgoing, &req->done_write);
+  grpc_endpoint_write(req->ep, &req->outgoing, &req->done_write, nullptr);
 }
 
 static void on_handshake_done(void* arg, grpc_endpoint* ep) {
@@ -229,7 +229,8 @@ static void internal_request_begin(grpc_httpcli_context* context,
                                    const grpc_httpcli_request* request,
                                    grpc_millis deadline, grpc_closure* on_done,
                                    grpc_httpcli_response* response,
-                                   const char* name, grpc_slice request_text) {
+                                   const char* name,
+                                   const grpc_slice& request_text) {
   internal_request* req =
       static_cast<internal_request*>(gpr_malloc(sizeof(internal_request)));
   memset(req, 0, sizeof(*req));

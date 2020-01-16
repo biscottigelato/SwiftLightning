@@ -52,7 +52,7 @@ static void put_metadata_list(gpr_strvec* b, grpc_metadata_batch md) {
   }
   if (md.deadline != GRPC_MILLIS_INF_FUTURE) {
     char* tmp;
-    gpr_asprintf(&tmp, " deadline=%" PRIdPTR, md.deadline);
+    gpr_asprintf(&tmp, " deadline=%" PRId64, md.deadline);
     gpr_strvec_add(b, tmp);
   }
 }
@@ -120,13 +120,6 @@ char* grpc_transport_stream_op_batch_string(
     gpr_strvec_add(&b, tmp);
   }
 
-  if (op->collect_stats) {
-    gpr_strvec_add(&b, gpr_strdup(" "));
-    gpr_asprintf(&tmp, "COLLECT_STATS:%p",
-                 op->payload->collect_stats.collect_stats);
-    gpr_strvec_add(&b, tmp);
-  }
-
   out = gpr_strvec_flatten(&b, nullptr);
   gpr_strvec_destroy(&b);
 
@@ -141,19 +134,22 @@ char* grpc_transport_op_string(grpc_transport_op* op) {
   gpr_strvec b;
   gpr_strvec_init(&b);
 
-  if (op->on_connectivity_state_change != nullptr) {
+  if (op->start_connectivity_watch != nullptr) {
     if (!first) gpr_strvec_add(&b, gpr_strdup(" "));
     first = false;
-    if (op->connectivity_state != nullptr) {
-      gpr_asprintf(&tmp, "ON_CONNECTIVITY_STATE_CHANGE:p=%p:from=%s",
-                   op->on_connectivity_state_change,
-                   grpc_connectivity_state_name(*op->connectivity_state));
-      gpr_strvec_add(&b, tmp);
-    } else {
-      gpr_asprintf(&tmp, "ON_CONNECTIVITY_STATE_CHANGE:p=%p:unsubscribe",
-                   op->on_connectivity_state_change);
-      gpr_strvec_add(&b, tmp);
-    }
+    gpr_asprintf(
+        &tmp, "START_CONNECTIVITY_WATCH:watcher=%p:from=%s",
+        op->start_connectivity_watch.get(),
+        grpc_core::ConnectivityStateName(op->start_connectivity_watch_state));
+    gpr_strvec_add(&b, tmp);
+  }
+
+  if (op->stop_connectivity_watch != nullptr) {
+    if (!first) gpr_strvec_add(&b, gpr_strdup(" "));
+    first = false;
+    gpr_asprintf(&tmp, "STOP_CONNECTIVITY_WATCH:watcher=%p",
+                 op->stop_connectivity_watch);
+    gpr_strvec_add(&b, tmp);
   }
 
   if (op->disconnect_with_error != GRPC_ERROR_NONE) {

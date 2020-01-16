@@ -483,6 +483,7 @@ static const tsi_zero_copy_grpc_protector_vtable
         fake_zero_copy_grpc_protector_protect,
         fake_zero_copy_grpc_protector_unprotect,
         fake_zero_copy_grpc_protector_destroy,
+        nullptr /* fake_zero_copy_grpc_protector_max_frame_size */
 };
 
 /* --- tsi_handshaker_result methods implementation. ---*/
@@ -494,7 +495,7 @@ typedef struct {
 } fake_handshaker_result;
 
 static tsi_result fake_handshaker_result_extract_peer(
-    const tsi_handshaker_result* self, tsi_peer* peer) {
+    const tsi_handshaker_result* /*self*/, tsi_peer* peer) {
   /* Construct a tsi_peer with 1 property: certificate type. */
   tsi_result result = tsi_construct_peer(1, peer);
   if (result != TSI_OK) return result;
@@ -506,7 +507,8 @@ static tsi_result fake_handshaker_result_extract_peer(
 }
 
 static tsi_result fake_handshaker_result_create_zero_copy_grpc_protector(
-    const tsi_handshaker_result* self, size_t* max_output_protected_frame_size,
+    const tsi_handshaker_result* /*self*/,
+    size_t* max_output_protected_frame_size,
     tsi_zero_copy_grpc_protector** protector) {
   *protector =
       tsi_create_fake_zero_copy_grpc_protector(max_output_protected_frame_size);
@@ -514,8 +516,8 @@ static tsi_result fake_handshaker_result_create_zero_copy_grpc_protector(
 }
 
 static tsi_result fake_handshaker_result_create_frame_protector(
-    const tsi_handshaker_result* self, size_t* max_output_protected_frame_size,
-    tsi_frame_protector** protector) {
+    const tsi_handshaker_result* /*self*/,
+    size_t* max_output_protected_frame_size, tsi_frame_protector** protector) {
   *protector = tsi_create_fake_frame_protector(max_output_protected_frame_size);
   return TSI_OK;
 }
@@ -585,7 +587,7 @@ static tsi_result fake_handshaker_get_bytes_to_send_to_peer(
     if (next_message_to_send > TSI_FAKE_HANDSHAKE_MESSAGE_MAX) {
       next_message_to_send = TSI_FAKE_HANDSHAKE_MESSAGE_MAX;
     }
-    if (tsi_tracing_enabled.enabled()) {
+    if (GRPC_TRACE_FLAG_ENABLED(tsi_tracing_enabled)) {
       gpr_log(GPR_INFO, "%s prepared %s.",
               impl->is_client ? "Client" : "Server",
               tsi_fake_handshake_message_to_string(impl->next_message_to_send));
@@ -597,7 +599,7 @@ static tsi_result fake_handshaker_get_bytes_to_send_to_peer(
   if (!impl->is_client &&
       impl->next_message_to_send == TSI_FAKE_HANDSHAKE_MESSAGE_MAX) {
     /* We're done. */
-    if (tsi_tracing_enabled.enabled()) {
+    if (GRPC_TRACE_FLAG_ENABLED(tsi_tracing_enabled)) {
       gpr_log(GPR_INFO, "Server is done.");
     }
     impl->result = TSI_OK;
@@ -636,7 +638,7 @@ static tsi_result fake_handshaker_process_bytes_from_peer(
             tsi_fake_handshake_message_to_string(received_msg),
             tsi_fake_handshake_message_to_string(expected_msg));
   }
-  if (tsi_tracing_enabled.enabled()) {
+  if (GRPC_TRACE_FLAG_ENABLED(tsi_tracing_enabled)) {
     gpr_log(GPR_INFO, "%s received %s.", impl->is_client ? "Client" : "Server",
             tsi_fake_handshake_message_to_string(received_msg));
   }
@@ -644,7 +646,7 @@ static tsi_result fake_handshaker_process_bytes_from_peer(
   impl->needs_incoming_message = 0;
   if (impl->next_message_to_send == TSI_FAKE_HANDSHAKE_MESSAGE_MAX) {
     /* We're done. */
-    if (tsi_tracing_enabled.enabled()) {
+    if (GRPC_TRACE_FLAG_ENABLED(tsi_tracing_enabled)) {
       gpr_log(GPR_INFO, "%s is done.", impl->is_client ? "Client" : "Server");
     }
     impl->result = TSI_OK;
@@ -669,7 +671,7 @@ static tsi_result fake_handshaker_next(
     tsi_handshaker* self, const unsigned char* received_bytes,
     size_t received_bytes_size, const unsigned char** bytes_to_send,
     size_t* bytes_to_send_size, tsi_handshaker_result** handshaker_result,
-    tsi_handshaker_on_next_done_cb cb, void* user_data) {
+    tsi_handshaker_on_next_done_cb /*cb*/, void* /*user_data*/) {
   /* Sanity check the arguments. */
   if ((received_bytes_size > 0 && received_bytes == nullptr) ||
       bytes_to_send == nullptr || bytes_to_send_size == nullptr ||
@@ -738,6 +740,7 @@ static const tsi_handshaker_vtable handshaker_vtable = {
     nullptr, /* create_frame_protector    -- deprecated */
     fake_handshaker_destroy,
     fake_handshaker_next,
+    nullptr, /* shutdown */
 };
 
 tsi_handshaker* tsi_create_fake_handshaker(int is_client) {
